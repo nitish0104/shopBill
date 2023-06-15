@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 // import Home from './pages/Home';
-import InitialPage from './pages/InitialPage';
+// import InitialPage from './pages/InitialPage';
 import Login from './pages/Login';
 import MobileNumberForm from './components/VerifyOTP/MobileNumber';
 import VerifyOtpPage from './components/VerifyOTP/VerifyOtpPage';
@@ -12,8 +12,8 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<InitialPage />} />
-          <Route path="/login" element={<Login />} />
+          {/* <Route path="/" element={<InitialPage />} /> */}
+          <Route path="/" element={<Login />} />
           <Route path="/mobileVerify" element={<MobileNumberForm />} />
           <Route path="/verify/mobileVerify" element={<MobileNumberForm />} />
           <Route path="/verify" element={<VerifyOtpPage />} />
