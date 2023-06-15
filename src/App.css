@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito:200,300,regular,500,600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic');
+@import url("https://fonts.googleapis.com/css?family=Nunito:200,300,regular,500,600,700,800,900,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic");
 
 .Nunito {
-  font-family: 'Nunito';
+  font-family: "Nunito";
 }
 
 .bg::before {
@@ -11,7 +11,18 @@
   left: 0;
   height: 100vh;
   width: 100vw;
-  background: linear-gradient(45deg, #111828 10%, #143D4F 18%, #143D4F 26%, #111828 36%, #111828 46%, #1E214A 56%, #1E214A 66%, #111828 76%, #111828);
+  background: linear-gradient(
+    45deg,
+    #111828 10%,
+    #143d4f 18%,
+    #143d4f 26%,
+    #111828 36%,
+    #111828 46%,
+    #1e214a 56%,
+    #1e214a 66%,
+    #111828 76%,
+    #111828
+  );
   z-index: 0;
 }
 
@@ -24,4 +35,9 @@
   width: 100vw;
   z-index: 5;
   backdrop-filter: blur(100px);
+}
+
+::-webkit-scrollbar {
+  width: 0%;
+  height: 0%;
 }
