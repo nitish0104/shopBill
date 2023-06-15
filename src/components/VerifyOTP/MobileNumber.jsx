@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import temp_mobil from "../../images/temp_mobil.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ContextAuth } from "../../context/Context";
 
 const MobileNumberForm = () => {
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [otp, setOTP] = useState(["", "", "", ""]);
+  const [timer, setTimer] = useState(60);
+  const navigate = useNavigate()
+  const [isTimerActive, setTimerActive] = useState(false);
+const {setNumber} = ContextAuth();
+setNumber(mobileNumber)
+const handleSubmit = () =>{
+if(mobileNumber.length >= 10) {
+  navigate('/verify')
+}
+
+}
   return (
     <div className=" relative flex flex-col items-center justify-start h-screen bg-gray-800">
       <img
@@ -35,18 +49,27 @@ const MobileNumberForm = () => {
             <input
               type="text"
               id="mobileNumber"
+              maxLength="10"
+              value={mobileNumber}
+              onChange={(e) => {
+                setMobileNumber(e.target.value);
+              }}
+              required
               className="w-full px-4 py-2 border border-gray-300 rounded-md"
               placeholder="Enter your mobile number"
             />
           </div>
-          <Link to="/verify">
+          {/* <Link to="/verify"> */}
             <button
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-md w-full"
+            
+            onClick={handleSubmit}
+            
             >
               Send OTP
             </button>
-          </Link>
+          {/* </Link> */}
         </form>
       </div>
     </div>

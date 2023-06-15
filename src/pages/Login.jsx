@@ -23,7 +23,7 @@ const Login = () => {
 
           <div>
             <span className="text-blue-500 text-sm md:text-base underline">
-              Welcom
+              Welcome
             </span>
           </div>
           <div className="pb-12">
