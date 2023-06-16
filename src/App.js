@@ -7,7 +7,7 @@ import MobileNumberForm from './components/VerifyOTP/MobileNumber';
 import VerifyOtpPage from './components/VerifyOTP/VerifyOtpPage';
 import OTPVerification from './components/VerifyOTP/VerifyOtp';
 import { Context } from './context/Context';
-import ProfilePage from './pages/ProfilePage';
+import ProfilePage1 from './pages/ProfilePage/ProfilePage1';
 
 function App() {
   return (
@@ -15,15 +15,15 @@ function App() {
       <Router>
         <Context>
 
-        <Routes>
-          {/* <Route path="/" element={<InitialPage />} /> */}
-          <Route path="/" element={<Login />} />
-          <Route path="/mobileVerify" element={<MobileNumberForm />} />
-          <Route path="/verify/mobileVerify" element={<MobileNumberForm />} />
-          <Route path="/verify" element={<VerifyOtpPage />} />
-          <Route path="/demoVerify" element={<OTPVerification />} />
-          <Route path="/profile" element={<ProfilePage />} />
-        </Routes>
+          <Routes>
+            {/* <Route path="/" element={<InitialPage />} /> */}
+            <Route path="/" element={<Login />} />
+            <Route path="/mobileVerify" element={<MobileNumberForm />} />
+            <Route path="/verify/mobileVerify" element={<MobileNumberForm />} />
+            <Route path="/verify" element={<VerifyOtpPage />} />
+            <Route path="/demoVerify" element={<OTPVerification />} />
+            <Route path="/profile" element={<ProfilePage1 />} />
+          </Routes>
         </Context>
       </Router>
     </>

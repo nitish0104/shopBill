@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import temp_verify from "../../images/temp_verify.svg";
 import LayoutManin from "../layout/LayoutManin";
 import { ContextAuth } from "../../context/Context";
@@ -35,20 +35,12 @@ const VerifyOtpPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(otp);
-    if (otp.length>=4) {
-      return navigate('/profile')
+    if (otp.length >= 4) {
+      return navigate("/profile");
     }
-
-    // Perform mobile number verification here
-
-    // Start the timer
-    // startTimer();
   };
 
-
   useEffect(() => {
-    startTimer();
-
     if (timer > 0) {
       const countdown = setInterval(() => {
         setTimer((prevTimer) => prevTimer - 1);
@@ -58,6 +50,7 @@ const VerifyOtpPage = () => {
         clearInterval(countdown);
       };
     }
+    startTimer();
   }, [timer]);
 
   return (
@@ -75,8 +68,11 @@ const VerifyOtpPage = () => {
           </p>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="text-center">
-              <div className="flex items-center">
-                <label htmlFor="otp" className="text-lg font-semibold">
+              <div className="flex items-center justify-center">
+                <label
+                  htmlFor="otp"
+                  className="text-lg font-semibold text-center"
+                >
                   {/* {localStorage.getItem('number')} */}
                   {number}
                 </label>
@@ -114,19 +110,7 @@ const VerifyOtpPage = () => {
                 Verify Otp
               </button>
             </div>
-            {/* <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-md w-full"
-            >
-              Verify
-            </button> */}
           </form>
-          {/* <div className="flex mt-4 justify-between">
-            <p className=" ">Don't have an OTP?</p>
-            <Link to="mobileVerify" className="text-blue-500  ">
-              Resend OTP
-            </Link>
-          </div> */}
 
           {isTimerActive ? (
             <p className="mt-4 text-lg">
