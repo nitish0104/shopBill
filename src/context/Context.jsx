@@ -5,6 +5,7 @@ const Datacontext = createContext(null);
 
 const Context = ({ children }) => {
   const [number, setNumber] = useState("");
+  const [profile, setProfile] = useState('')
   // const [isTimerActive, setTimerActive] = useState(false);
   // const [timer, setTimer] = useState(60);
   // const startTimer = () => {
@@ -14,7 +15,7 @@ const Context = ({ children }) => {
 
 
   return (
-    <Datacontext.Provider value={{ number, setNumber }}>
+    <Datacontext.Provider value={{ number, setNumber,profile, setProfile }}>
       {children}
     </Datacontext.Provider>
   );

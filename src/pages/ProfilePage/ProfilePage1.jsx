@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import LayoutManin from "../../components/layout/LayoutManin";
 import Input from "../../components/Input/Input";
 import ImageUploadComponent from "../../components/Input/ImageInput";
+import { ContextAuth } from "../../context/Context";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage1 = () => {
+  const { setProfile } = ContextAuth();
+  const navigate = useNavigate();
   const [formState, setformState] = useState({
     logo: "",
     BusinessName: "",
@@ -18,14 +23,27 @@ const ProfilePage1 = () => {
     }));
   };
 
+  setProfile(formState);
+
   const handleSubmit = (e) => {
     // e.preventDefault();
     console.log(formState);
-    alert("next"); // You can perform further actions with the form data here
+    
+    navigate('/main')
+    // toast.success("Profile Created", {
+    //   position: "top-center",
+    //   autoClose: 3000,
+    //   hideProgressBar: false,
+    //   closeOnClick: false,
+    //   pauseOnHover: false,
+    //   draggable: false,
+    //   progress: false,
+    //   theme: "light",
+    // });
   };
 
   return (
-    <div>
+    <div className={"min-h-screen h-fit"}>
       <LayoutManin>
         <div className="container mx-auto h-screen py-8 mt-6  flex-col justify-center items-center">
           <div className="text-center text-3xl font-bold text-white ">
@@ -60,6 +78,9 @@ const ProfilePage1 = () => {
               value={formState.gstNo}
               onChange={handleChange}
             ></Input>
+
+            <div>
+
             <button
               type="button"
               onClick={() => {
@@ -69,6 +90,19 @@ const ProfilePage1 = () => {
             >
               Complete Profile
             </button>
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+              />
+              </div>
           </form>
         </div>
       </LayoutManin>

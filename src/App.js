@@ -8,6 +8,8 @@ import VerifyOtpPage from './components/VerifyOTP/VerifyOtpPage';
 import OTPVerification from './components/VerifyOTP/VerifyOtp';
 import { Context } from './context/Context';
 import ProfilePage1 from './pages/ProfilePage/ProfilePage1';
+import Main from './pages/AdminPages/Main';
+
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
             <Route path="/verify" element={<VerifyOtpPage />} />
             <Route path="/demoVerify" element={<OTPVerification />} />
             <Route path="/profile" element={<ProfilePage1 />} />
+            <Route path="/main" element={<Main />} />
           </Routes>
         </Context>
       </Router>
