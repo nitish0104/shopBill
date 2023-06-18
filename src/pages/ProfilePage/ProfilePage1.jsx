@@ -27,9 +27,9 @@ const ProfilePage1 = () => {
 
   const handleSubmit = (e) => {
     // e.preventDefault();
-    console.log(formState);
+
     
-    navigate('/main')
+    navigate('/dashboard')
     // toast.success("Profile Created", {
     //   position: "top-center",
     //   autoClose: 3000,

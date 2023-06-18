@@ -11,10 +11,11 @@ const Input = ({
   className,
   type,
   accept,
+
 }) => {
   return (
     <div>
-      <div className="form__group field">
+      <div className={`form__group field ${className}`}>
         <input
           id={id}
           onChange={onChange}
