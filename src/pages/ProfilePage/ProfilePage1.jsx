@@ -3,7 +3,7 @@ import LayoutManin from "../../components/layout/LayoutManin";
 import Input from "../../components/Input/Input";
 import ImageUploadComponent from "../../components/Input/ImageInput";
 import { ContextAuth } from "../../context/Context";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const ProfilePage1 = () => {
@@ -28,8 +28,7 @@ const ProfilePage1 = () => {
   const handleSubmit = (e) => {
     // e.preventDefault();
 
-    
-    navigate('/dashboard')
+    navigate("/dashboard");
     // toast.success("Profile Created", {
     //   position: "top-center",
     //   autoClose: 3000,
@@ -80,29 +79,28 @@ const ProfilePage1 = () => {
             ></Input>
 
             <div>
-
-            <button
-              type="button"
-              onClick={() => {
-                handleSubmit(formState);
-              }}
-              className="w-full p-2 mt-4 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-              Complete Profile
-            </button>
-            <ToastContainer
-              position="top-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
+              <button
+                type="button"
+                onClick={() => {
+                  handleSubmit(formState);
+                }}
+                className="w-full p-2 mt-4 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                Complete Profile
+              </button>
+              <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
               />
-              </div>
+            </div>
           </form>
         </div>
       </LayoutManin>
