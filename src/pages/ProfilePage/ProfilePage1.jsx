@@ -42,15 +42,15 @@ const ProfilePage1 = () => {
   };
 
   return (
-    <div className={"min-h-screen h-fit"}>
+    <div className="h-screen overflow-hidden ">
       <LayoutManin>
-        <div className="container mx-auto h-screen py-8 mt-6  flex-col justify-center items-center">
+        <div className="md:mx-auto  h-screen mt-6 flex  flex-col justify-center items-center transition-opacity duration-500 ease-in delay-500">
           <div className="text-center text-3xl font-bold text-white ">
             Business Profile
           </div>
           <form
             onSubmit={handleSubmit}
-            className="max-w-md py-8 bg-blue-100 shadow-lg rounded-lg  px-4 mx-8 mt-8 m-auto"
+            className="max-w-sm w-[85%] md:w-[40%] py-8 bg-blue-100 shadow-lg rounded-lg  px-4  mt-8 mx-auto  "
           >
             <ImageUploadComponent></ImageUploadComponent>
             <Input

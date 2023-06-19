@@ -3,7 +3,6 @@ import LayoutManin from "../components/layout/LayoutManin";
 import temp_logo from "../images/temp_logo.svg";
 import LoginWithOTP from "../components/Button/LoginWithOTP";
 import { Link } from "react-router-dom";
-import "../pages/Pages.css";
 
 const Login = () => {
   return (

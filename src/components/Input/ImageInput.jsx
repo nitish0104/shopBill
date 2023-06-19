@@ -16,9 +16,9 @@ const ImageUploadComponent = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6">
-      <h1 className="text-lg font-bold mb-4 text-black">
-        Upload Your Business Logo
+    <div className="max-w-md mx-auto p-4">
+      <h1 className="text-lg font-bold mb-4 text-black text-center">
+        Business Logo
       </h1>
       {isImageSelected ? (
         <div className="flex items-center justify-center mb-4">

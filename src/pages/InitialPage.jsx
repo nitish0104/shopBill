@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import LayoutManin from "../components/layout/LayoutManin";
 import temp_img from "../images/temp_img.svg";
 import { useNavigate } from "react-router";
-import "../pages/Pages.css";
 
 const InitialPage = () => {
   const navigate = useNavigate();
@@ -19,7 +18,7 @@ const InitialPage = () => {
   return (
     <div>
       <LayoutManin>
-        <div className="relative flex items-center justify-center h-screen transition-opacity duration-1000 ">
+        <div className="relative flex items-center justify-center h-screen transition duration-500 ease-in delay-500 ">
           <img
             src={temp_img}
             alt="logo"
