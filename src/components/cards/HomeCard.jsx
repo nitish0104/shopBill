@@ -19,7 +19,7 @@ const CustomerCard = ({ name, date, amount, items }) => {
 
   return (
     <>
-      <div className="rounded-lg shadow-xl transform  perspective-100  max-w-sm  overflow-hidden  bg-blue-200 mx-4 my-3 ">
+      <div className="rounded-lg shadow-md transform  perspective-100  max-w-sm  overflow-hidden  bg-white border mx-4 my-3 ">
         <div className="px-6 py-4 flex justify-around items-center">
           <div>
             <button onClick={handleCardClick}>
@@ -32,7 +32,7 @@ const CustomerCard = ({ name, date, amount, items }) => {
           <div>
             <p
               className={`text-3xl text-center mb-2 font-bold  ${
-                isChecked ? "text-red-500" : "text-green-600"
+                isChecked ? "text-red-500" : "text-accent"
               }`}
             >
               &#8377;{amount}

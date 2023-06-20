@@ -35,16 +35,16 @@ const Sidebar = () => {
   console.log(profile.BusinessName);
   return (
     <>
-      <div className="relative z-50 backdrop-blur-sm transition duration-300 ease-in-out">
+      <div className="relative z-50 backdrop-blur-sm transition duration-300 ease-in-out ">
         <button
           className="fixed top-0 left-0 z-50 m-4  text-2xl text-white rounded-md"
           onClick={toggleSidebar}
         >
-          {isOpen ? <HiX size={30} color="black" /> : <HiMenu size={30} />}
+          {isOpen ? <HiX size={30} color="#0e9f6e" /> : <HiMenu size={30} color="#0e9f6e"/>}
         </button>
-        <div className="relative text-center text-white pt-4  text-2xl">
+        {/* <div className="relative text-center text-white pt-4  text-2xl">
           {profile.BusinessName ? profile.BusinessName : "Business Name"}
-        </div>
+        </div> */}
 
         <Transition
           show={isOpen}
@@ -56,13 +56,13 @@ const Sidebar = () => {
           leaveTo="-translate-x-full"
         >
           <div
-            className="relative  top-0 left-0 h-screen w-[70vw] bg-white rounded-r-2xl  "
+            className="fixed top-0 left-0  w-screen h-screen bg-white"
             ref={sidebarRef}
           >
             <div className="pt-10">
               <FaUserCircle size={100} className="mx-auto" />
               <div className="flex items-center p-4">
-                <AiOutlineShop className="text-2xl text-blue-700" />
+                <AiOutlineShop className="text-2xl text-accent" />
                 <p className="block text-gray-600   px-3 py-2 rounded-md text-xl font-medium transition duration-300 ease-in-out">
                   {profile.BusinessName
                     ? profile.BusinessName
@@ -71,7 +71,7 @@ const Sidebar = () => {
               </div>
 
               <div className="flex items-center p-4">
-                <IoBusinessOutline className="text-2xl text-blue-700" />
+                <IoBusinessOutline className="text-2xl text-accent" />
                 <p className="block text-gray-600  px-3 py-2 rounded-md text-xl font-medium transition duration-300 ease-in-out">
                   {profile.BusinessType
                     ? profile.BusinessType
@@ -79,12 +79,12 @@ const Sidebar = () => {
                 </p>
               </div>
               <div className="flex items-center p-4">
-                <HiOutlineReceiptTax className="text-2xl text-blue-700" />
+                <HiOutlineReceiptTax className="text-2xl text-accent" />
                 <p className="block text-gray-600  px-3 py-2 rounded-md text-xl font-medium transition duration-300 ease-in-out">
                   {profile.gstNo ? profile.gstNo : "Gst Number"}
                 </p>
               </div>
-              <div className="fixed bottom-12 w-[70vw]">
+              <div className="absolute bottom-12 w-[70vw]">
                 <div className="flex gap-x-10 justify-center  items-center ">
                   <Link
                     to={"/profile"}

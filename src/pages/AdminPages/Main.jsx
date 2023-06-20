@@ -76,9 +76,9 @@ const Main = () => {
     <>
       <LayoutManin>
         <Sidebar />
-        <div className="container mx-auto mt-8">
+        <div className=" mx-auto mt-8">
           <div className="flex justify-around items-center mb-4">
-            <div className="text-blue-400 text-xl font-medium">Select Date</div>
+            {/* <div className="text-blue-400 text-xl font-medium">Select Date</div> */}
             <select
               className="px-2 py-2 rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               value={filter}

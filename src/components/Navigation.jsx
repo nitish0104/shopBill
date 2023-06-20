@@ -24,12 +24,12 @@ const Navigation = () => {
   ];
   return (
     <>
-      <footer className="fixed bottom-0 z-30 w-full bg-slate-50 h-[8vh] flex justify-center rounded-t-xl">
+      <footer className="fixed bottom-0 z-30 w-full bg-white h-[8vh] flex justify-center rounded-t-xl">
         <div className="flex items-center justify-between w-full   px-10 text-black ">
           {routes.map((obj) => {
        
               return (
-                <Link to={obj.route} className={obj.route===loaction.pathname?"flex flex-col items-center pt-1 text-blue-700 text-sm font-semibold rounded-lg" : ("flex flex-col items-center pt-1 text-sm ")}>
+                <Link to={obj.route} className={obj.route===loaction.pathname?"flex flex-col items-center pt-1 text-accent text-sm font-semibold rounded-lg" : ("flex flex-col items-center pt-1 text-sm ")}>
                   {obj.icon}
                   <p>{obj.lable}</p>
                 </Link>
