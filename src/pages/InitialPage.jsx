@@ -18,7 +18,7 @@ const InitialPage = () => {
   return (
     <div>
       <LayoutManin>
-        <div className="relative flex items-center justify-center h-screen transition duration-500 ease-in delay-500 ">
+        <div className="relative flex items-center justify-center h-screen transition duration-500 ease-in delay-500 bg-gray-800 ">
           <img
             src={temp_img}
             alt="logo"

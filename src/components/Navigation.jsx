@@ -2,8 +2,10 @@ import React from "react";
 import { AiOutlineHome, AiOutlineUserAdd } from "react-icons/ai";
 import { LuIndianRupee } from "react-icons/lu";
 import { Link, useLocation } from "react-router-dom";
+import { ThemeContextAuth } from "../context/ThemeContext";
 
 const Navigation = () => {
+  const { isDarkMode } = ThemeContextAuth();
   const loaction = useLocation();
   const routes = [
     {
@@ -24,7 +26,12 @@ const Navigation = () => {
   ];
   return (
     <>
-      <footer className="fixed bottom-0 z-30 w-full bg-white h-[8vh] flex justify-center rounded-t-xl">
+      {/* <nav className="fixed bottom-0 z-30 w-full bg-black h-[8vh] flex justify-center rounded-t-xl"> */}
+      <nav
+        className={`fixed bottom-0 z-30 w-full  h-[8vh] flex justify-center rounded-t-xl ${
+          isDarkMode ? "bg-blue-300 text-white" : "bg-white text-gray-800"
+        } `}
+      >
         <div className="flex items-center justify-between w-full   px-10 text-black ">
           {routes.map((obj) => {
             return (
@@ -58,7 +65,7 @@ const Navigation = () => {
             <p>Get Bill</p>
           </Link> */}
         </div>
-      </footer>
+      </nav>
     </>
   );
 };

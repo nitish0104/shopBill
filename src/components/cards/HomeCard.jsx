@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Modal from "../Modal/CustomerModal";
+import { ThemeContextAuth } from "../../context/ThemeContext";
 
 const CustomerCard = ({ name, date, amount, items }) => {
+  const { isDarkMode } = ThemeContextAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
@@ -19,12 +21,18 @@ const CustomerCard = ({ name, date, amount, items }) => {
 
   return (
     <>
-      <div className="rounded-lg  shadow-md shadow-blue-500/50 transform  perspective-100  max-w-sm  overflow-hidden  bg-blue-200 border mx-4 my-3 ">
-        <div className="px-6 py-4 flex justify-around items-center">
+      {/* <div className=" shadow-blue-500/50   bg-blue-200  "> */}
+      <div
+        className={`bg-${isDarkMode ? "blue-200" : "cyan-50"} text-${
+          isDarkMode ? "black" : "gray-800"
+        } p-4 rounded-lg  shadow-md transform  perspective-100  max-w-sm  overflow-hidden border mx-4 my-3`}
+      >
+        <div className="px-8 py-4 flex justify-between items-center">
           <div>
             <button onClick={handleCardClick}>
-              <div className="font-bold text-2xl mb-2">{name}</div>
-              <p className="text-gray-800 font-semiboldmb-2 text-center">
+              <div className="font-bold text-xl mb-2">{name}</div>
+
+              <p className="text-gray-800 font-semibold mb-2 text-center">
                 {date}
               </p>
             </button>

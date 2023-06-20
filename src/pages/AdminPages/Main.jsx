@@ -83,7 +83,7 @@ const Main = () => {
           <div className="flex justify-around items-center mb-4">
             {/* <div className="text-blue-400 text-xl font-medium">Select Date</div> */}
             <select
-              className="px-2 py-2 rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-2 py-2 rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black shadow-lg"
               value={filter}
               onChange={handleFilterChange}
             >

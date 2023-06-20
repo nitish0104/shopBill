@@ -6,35 +6,33 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
-    <div>
-      <LayoutManin>
-        <div className=" relative flex flex-col justify-evenly items-center  h-screen text-center transition-opacity duration-1000">
-          <div className="text-center pt-10 h-[25%] md:h-[30%]">
-            <img
-              src={temp_logo}
-              alt="logo"
-              className=" px-4 h-[90%] md:h-[100%]"
-            />
-          </div>
-          <div className="relative text-3xl md:text-5xl flex-col justify-center items-center font-extrabold text-white ">
-            <div className="text-center text-white ">My Digital </div>
-            <div className="text-center text-white md:mt-4">Kirana</div>
-          </div>
-
-          <div>
-            <span className="text-blue-500 text-sm md:text-base underline">
-              Welcome
-            </span>
-          </div>
-          <div className="pb-12">
-            <Link to="/mobileVerify">
-              <LoginWithOTP></LoginWithOTP>
-            </Link>
-          </div>
-          <div></div>
+    <LayoutManin>
+      <div className=" relative flex flex-col justify-evenly items-center  h-screen  bg-gray-800 text-center transition-opacity duration-1000">
+        <div className="text-center pt-10 h-[25%] md:h-[30%]">
+          <img
+            src={temp_logo}
+            alt="logo"
+            className=" px-4 h-[90%] md:h-[100%]"
+          />
         </div>
-      </LayoutManin>
-    </div>
+        <div className="relative text-3xl md:text-5xl flex-col justify-center items-center font-extrabold text-white ">
+          <div className="text-center text-white ">My Digital </div>
+          <div className="text-center text-white md:mt-4">Kirana</div>
+        </div>
+
+        <div>
+          <span className="text-blue-500 text-sm md:text-base underline">
+            Welcome
+          </span>
+        </div>
+        <div className="pb-12">
+          <Link to="/mobileVerify">
+            <LoginWithOTP></LoginWithOTP>
+          </Link>
+        </div>
+        <div></div>
+      </div>
+    </LayoutManin>
   );
 };
 

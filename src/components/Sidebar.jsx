@@ -7,9 +7,14 @@ import { FaUserCircle } from "react-icons/fa";
 import { IoBusinessOutline } from "react-icons/io5";
 import { AiOutlineShop } from "react-icons/ai";
 import { HiOutlineReceiptTax } from "react-icons/hi";
+import { MdDarkMode } from "react-icons/md";
+import { MdOutlineDarkMode } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { ThemeContextAuth } from "../context/ThemeContext";
 
 const Sidebar = () => {
+  const { isDarkMode, toggleMode } = ThemeContextAuth();
+
   const [isOpen, setIsOpen] = useState(false);
   const sidebarRef = useRef(null);
   const { profile } = ContextAuth();
@@ -36,18 +41,50 @@ const Sidebar = () => {
   return (
     <>
       <div className="relative z-50 backdrop-blur-sm transition duration-300 ease-in-out ">
-        <button
-          className="fixed top-0 left-0 z-50 m-4  text-2xl text-white rounded-md"
-          onClick={toggleSidebar}
-        >
-          {isOpen ? (
-            <HiX size={30} color="white" />
-          ) : (
-            <HiMenu size={30} color="white" />
-          )}
-        </button>
-        <div className="relative text-center text-white pt-4  text-2xl">
-          {profile.BusinessName ? profile.BusinessName : "Business Name"}
+        <div className="flex justify-center items-center shadow-md h-14 bg-blue-300  rounded-b-xl">
+          <div>
+            <button
+              className="fixed top-0 left-0 z-50 m-4  text-2xl text-white rounded-md"
+              onClick={toggleSidebar}
+            >
+              {isOpen ? (
+                <HiX
+                  className={`rounded-full p-2 font-bold text-4xl ${
+                    isDarkMode
+                      ? "bg-white text-gray-800"
+                      : "bg-gray-800 text-white"
+                  } `}
+                />
+              ) : (
+                <HiMenu
+                  className={`rounded-full p-2 font-bold text-4xl ${
+                    isDarkMode
+                      ? "bg-gray-800 text-white"
+                      : "bg-white text-gray-800"
+                  } `}
+                />
+              )}
+            </button>
+          </div>
+
+          {/* <div className=" "> */}
+          <div
+            className={`relative text-center pt-4 font-bold text-2xl p-2${
+              isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+            } `}
+          >
+            {profile.BusinessName ? profile.BusinessName : "Business Name"}
+          </div>
+          <div className="">
+            <button
+              className={`rounded-full p-2 m-2  fixed top-2 right-2 ${
+                isDarkMode ? "bg-white text-gray-800" : "bg-gray-800 text-white"
+              } `}
+              onClick={toggleMode}
+            >
+              {isDarkMode ? <MdDarkMode /> : <MdOutlineDarkMode />}
+            </button>
+          </div>
         </div>
 
         <Transition
