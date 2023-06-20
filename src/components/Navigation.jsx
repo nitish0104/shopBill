@@ -28,8 +28,8 @@ const Navigation = () => {
     <>
       {/* <nav className="fixed bottom-0 z-30 w-full bg-black h-[8vh] flex justify-center rounded-t-xl"> */}
       <nav
-        className={`fixed bottom-0 z-30 w-full  h-[8vh] flex justify-center rounded-t-xl ${
-          isDarkMode ? "bg-blue-300 text-white" : "bg-white text-gray-800"
+        className={`fixed bottom-0 z-30 w-full  h-[8vh] flex justify-center rounded-t-xl  drop-shadow-2xl  ${
+          isDarkMode ? "bg-blue-300 text-white" : "bg-slate-100 text-gray-800"
         } `}
       >
         <div className="flex items-center justify-between w-full   px-10 text-black ">

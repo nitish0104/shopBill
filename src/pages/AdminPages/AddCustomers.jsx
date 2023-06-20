@@ -5,11 +5,13 @@ import Navigation from "../../components/Navigation";
 import { ContextAuth } from "../../context/Context";
 import { AiOutlinePlus } from "react-icons/ai";
 import AddCustomerModal from "../../Modal/AddCustomerModal";
+import { ThemeContextAuth } from "../../context/ThemeContext";
 
 const AddCustomers = () => {
   const [modal, setModal] = useState({ show: false, data: {} });
 
   const { profile } = ContextAuth();
+  const { isDarkMode } = ThemeContextAuth();
 
   const [formState, setformState] = useState({
     searchName: "",
@@ -34,18 +36,16 @@ const AddCustomers = () => {
         <Sidebar />
         <Navigation />
 
-        <h1 className="text-white  text-center pt-2 font-semibold">
-          {profile.BusinessName ? profile.BusinessName : "Business Name"}
-        </h1>
+
 
         <div className="flex justify-center pt-6">
           <input
             type="text"
-			id="searchBar"
+            id="searchBar"
             placeholder="Search"
-            className="h-12 w-[90vw] rounded-lg"
+            className="h-12 w-[90vw] rounded-lg border-2 border-black pl-2 focus:border-blue-700"
             value={formState?.searchName}
-			onChange={handleChange}
+            onChange={handleChange}
           />
         </div>
 
@@ -54,7 +54,9 @@ const AddCustomers = () => {
             onClick={() => {
               setModal({ show: true });
             }}
-            className="absolute right-4 text-5xl p-2 bottom-14 text-white  rounded-full"
+            className={`absolute right-4 text-5xl p-2 bottom-14   rounded-full ${
+              isDarkMode? 'text-white' : 'text-black'
+            }`}
           >
             <AiOutlinePlus />
           </button>

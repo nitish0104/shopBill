@@ -44,23 +44,19 @@ const Sidebar = () => {
         <div className="flex justify-center items-center shadow-md h-14 bg-blue-300  rounded-b-xl">
           <div>
             <button
-              className="fixed top-0 left-0 z-50 m-4  text-2xl text-white rounded-md"
+              className="fixed top-0 left-0 z-50 pt-1 text-2xl text-white rounded-md"
               onClick={toggleSidebar}
             >
               {isOpen ? (
                 <HiX
-                  className={`rounded-full p-2 font-bold text-4xl ${
-                    isDarkMode
-                      ? "bg-white text-gray-800"
-                      : "bg-gray-800 text-white"
+                  className={`rounded-full p-2 font-bold text-5xl ${
+                    isDarkMode ? " text-white" : "text-black "
                   } `}
                 />
               ) : (
                 <HiMenu
-                  className={`rounded-full p-2 font-bold text-4xl ${
-                    isDarkMode
-                      ? "bg-gray-800 text-white"
-                      : "bg-white text-gray-800"
+                  className={`rounded-full p-2 font-bold text-5xl ${
+                    isDarkMode ? " text-white" : "text-black"
                   } `}
                 />
               )}
@@ -69,7 +65,7 @@ const Sidebar = () => {
 
           {/* <div className=" "> */}
           <div
-            className={`relative text-center pt-4 font-bold text-2xl p-2${
+            className={`relative text-center pt-1 font-bold text-2xl p-2${
               isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
             } `}
           >
@@ -97,14 +93,23 @@ const Sidebar = () => {
           leaveTo="-translate-x-full"
         >
           <div
-            className="fixed top-0 left-0  w-screen h-screen bg-white"
+            className={`fixed top-0 left-0  w-screen h-screen  rounded-t-lg ${
+              isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'
+            } `}
             ref={sidebarRef}
           >
             <div className="pt-10">
-              <FaUserCircle size={100} className="mx-auto" />
+              <FaUserCircle
+                size={100}
+                className={`mx-auto ${
+                  isDarkMode
+                    ? "bg-gray-800 text-white"
+                    : "bg-white text-gray-800"
+                } `}
+              />
               <div className="flex items-center p-4">
                 <AiOutlineShop className="text-2xl text-accent" />
-                <p className="block text-gray-600   px-3 py-2 rounded-md text-xl font-medium transition duration-300 ease-in-out">
+                <p className="block    px-3 py-2 rounded-md text-xl font-medium transition duration-300 ease-in-out">
                   {profile.BusinessName
                     ? profile.BusinessName
                     : "Business Name"}
@@ -113,7 +118,7 @@ const Sidebar = () => {
 
               <div className="flex items-center p-4">
                 <IoBusinessOutline className="text-2xl text-accent" />
-                <p className="block text-gray-600  px-3 py-2 rounded-md text-xl font-medium transition duration-300 ease-in-out">
+                <p className="block   px-3 py-2 rounded-md text-xl font-medium transition duration-300 ease-in-out">
                   {profile.BusinessType
                     ? profile.BusinessType
                     : "Business Type"}
@@ -121,7 +126,7 @@ const Sidebar = () => {
               </div>
               <div className="flex items-center p-4">
                 <HiOutlineReceiptTax className="text-2xl text-accent" />
-                <p className="block text-gray-600  px-3 py-2 rounded-md text-xl font-medium transition duration-300 ease-in-out">
+                <p className="block   px-3 py-2 rounded-md text-xl font-medium transition duration-300 ease-in-out">
                   {profile.gstNo ? profile.gstNo : "Gst Number"}
                 </p>
               </div>
@@ -129,11 +134,11 @@ const Sidebar = () => {
                 <div className="flex gap-x-10 justify-center  items-center ">
                   <Link
                     to={"/profile"}
-                    className="block text-gray-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-base font-medium transition duration-300 ease-in-out"
+                    className="block  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-base font-medium transition duration-300 ease-in-out"
                   >
                     Edit Proile
                   </Link>
-                  <button className="block text-red-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-base font-medium transition duration-300 ease-in-out">
+                  <button className="block text-white bg-red-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-base font-medium transition duration-300 ease-in-out">
                     Logout
                   </button>
                 </div>
