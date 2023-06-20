@@ -95,10 +95,11 @@ const Main = () => {
             </select>
             {filter === "selectDate" && (
               <DatePicker
-                className="ml-4 px-4 py-2 rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="ml-4 px-4 py-2 rounded-md border-2 border-black focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 selected={selectedDate}
                 onChange={handleDateChange}
                 dateFormat="yyyy-MM-dd"
+                placeholderText="Select Date"
               />
             )}
           </div>

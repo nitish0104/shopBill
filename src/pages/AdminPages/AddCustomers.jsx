@@ -43,7 +43,7 @@ const AddCustomers = () => {
             type="text"
             id="searchBar"
             placeholder="Search"
-            className="h-12 w-[90vw] rounded-lg border-2 border-black pl-2 focus:border-blue-700"
+            className="h-12 w-[90vw] rounded-lg border-2 border-black pl-2 focus:border-blue-500"
             value={formState?.searchName}
             onChange={handleChange}
           />
