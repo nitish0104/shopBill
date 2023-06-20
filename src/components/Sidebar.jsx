@@ -40,11 +40,15 @@ const Sidebar = () => {
           className="fixed top-0 left-0 z-50 m-4  text-2xl text-white rounded-md"
           onClick={toggleSidebar}
         >
-          {isOpen ? <HiX size={30} color="#0e9f6e" /> : <HiMenu size={30} color="#0e9f6e"/>}
+          {isOpen ? (
+            <HiX size={30} color="white" />
+          ) : (
+            <HiMenu size={30} color="white" />
+          )}
         </button>
-        {/* <div className="relative text-center text-white pt-4  text-2xl">
+        <div className="relative text-center text-white pt-4  text-2xl">
           {profile.BusinessName ? profile.BusinessName : "Business Name"}
-        </div> */}
+        </div>
 
         <Transition
           show={isOpen}

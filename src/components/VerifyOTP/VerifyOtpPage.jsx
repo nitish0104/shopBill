@@ -61,26 +61,22 @@ const VerifyOtpPage = () => {
           alt="Verify OTP"
           className="my-12 w-64 h-48 object-contain"
         />
-        <div className="max-w-md px-4 py-8 bg-blue-100 shadow-lg rounded-lg">
+        <div className="max-w-md px-4 py-6 bg-blue-100 shadow-lg rounded-lg mx-7">
           <h2 className="text-2xl font-bold mb-4 text-center">Verify OTP</h2>
-          <p className="mb-4">
-            Please enter the OTP sent to your mobile number.
+          <p className=" text-center">
+            Please enter the OTP sent to your
+            <span className="font-semibold"> {number}</span> mobile number.
           </p>
+          <div className="text-center flex justify-center items-center]">
+            <Link
+              to={"/mobileVerify"}
+              className="text-center w-[100%] text-blue-700"
+            >
+              Edit Number
+            </Link>
+          </div>
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="text-center">
-              <div className="flex items-center justify-center">
-                <label
-                  htmlFor="otp"
-                  className="text-lg font-semibold text-center"
-                >
-                  {/* {localStorage.getItem('number')} */}
-                  {number}
-                </label>
-                <Link to={"/mobileVerify"} className="ml-5 text-blue-700">
-                  Edit Number
-                </Link>
-              </div>
-
               {/* <input
                 type="text"
                 id="otp"

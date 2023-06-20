@@ -5,8 +5,11 @@ import Navigation from "../../components/Navigation";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CustomerCard from "../../components/cards/HomeCard";
+import { ContextAuth } from "../../context/Context";
 
 const Main = () => {
+  const { profile } = ContextAuth();
+
   const customers = [
     {
       id: 1,

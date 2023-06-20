@@ -7,18 +7,18 @@ const Navigation = () => {
   const loaction = useLocation();
   const routes = [
     {
-      lable: 'Home',
-      icon:<AiOutlineHome size={25} />,
+      lable: "Home",
+      icon: <AiOutlineHome size={25} />,
       route: "/dashboard",
     },
     {
-      lable: 'Add Customer',
-      icon:<AiOutlineUserAdd  size={25} />,
+      lable: "Add Customer",
+      icon: <AiOutlineUserAdd size={25} />,
       route: "/add-customer",
     },
     {
-      lable: 'Get Bill',
-      icon:<LuIndianRupee  size={25} />,
+      lable: "Get Bill",
+      icon: <LuIndianRupee size={25} />,
       route: "/get-bill",
     },
   ];
@@ -27,14 +27,19 @@ const Navigation = () => {
       <footer className="fixed bottom-0 z-30 w-full bg-white h-[8vh] flex justify-center rounded-t-xl">
         <div className="flex items-center justify-between w-full   px-10 text-black ">
           {routes.map((obj) => {
-       
-              return (
-                <Link to={obj.route} className={obj.route===loaction.pathname?"flex flex-col items-center pt-1 text-accent text-sm font-semibold rounded-lg" : ("flex flex-col items-center pt-1 text-sm ")}>
-                  {obj.icon}
-                  <p>{obj.lable}</p>
-                </Link>
-              )
-            
+            return (
+              <Link
+                to={obj.route}
+                className={
+                  obj.route === loaction.pathname
+                    ? "flex flex-col items-center pt-1 text-blue-600 text-sm font-semibold rounded-lg"
+                    : "flex flex-col items-center pt-1 text-sm "
+                }
+              >
+                {obj.icon}
+                <p>{obj.lable}</p>
+              </Link>
+            );
           })}
 
           {/* <Link to={"/main"} className="flex flex-col items-center pt-1 ">

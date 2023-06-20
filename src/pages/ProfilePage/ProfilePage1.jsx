@@ -44,7 +44,7 @@ const ProfilePage1 = () => {
   return (
     <div className="h-screen overflow-hidden ">
       <LayoutManin>
-        <div className="md:mx-auto  h-screen mt-6 flex  flex-col justify-center items-center transition-opacity duration-500 ease-in delay-500">
+        <div className="md:mx-auto  h-screen  flex  flex-col justify-center items-center transition-opacity duration-500 ease-in delay-500">
           <div className="text-center text-3xl font-bold text-white ">
             Business Profile
           </div>
