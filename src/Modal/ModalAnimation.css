@@ -1,0 +1,27 @@
+.modal {
+	
+	transform: translate(-50%, -50%);
+
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+	transition: transform 0.3s ease;
+  }
+  
+  .slide-from-left {
+	transform: translate(-150%, -50%);
+  }
+  
+  .slide-from-right {
+	transform: translate(50%, -50%);
+  }
+  
+  
+  .modal-page h1 {
+	margin-bottom: 16px;
+  }
+  
+  .modal-page button {
+	padding: 8px 16px;
+  }
+  
