@@ -11,6 +11,8 @@ import { MdDarkMode } from "react-icons/md";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { ThemeContextAuth } from "../context/ThemeContext";
+import {BsSun} from 'react-icons/bs'
+
 
 const Sidebar = () => {
   const { isDarkMode, toggleMode } = ThemeContextAuth();
@@ -18,6 +20,12 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const sidebarRef = useRef(null);
   const { profile } = ContextAuth();
+
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpenMenu(!isOpenMenu);
+  };
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -42,7 +50,46 @@ const Sidebar = () => {
     <>
       <div className="relative z-50 backdrop-blur-sm transition duration-300 ease-in-out ">
         <div className="flex justify-center items-center shadow-md h-14 bg-blue-300  rounded-b-xl">
-          <div>
+          <div className="">
+            <button
+              className=" w-10 h-10 rounded-full fixed top-2 left-0  focus:outline-none"
+              onClick={toggleMenu}
+            >
+              <svg
+                className={`text-cyan-300    ${
+                  isOpenMenu ? "animate-spin" : ""
+                }     ${
+                  isDarkMode ? " text-white" : "text-black "
+                } `}
+                viewBox="0 0 24 24"
+                style={{color:'red'}}
+              >
+                <circle cx="12" cy="6.5" r="1.5" color="blue" />
+
+                <circle cx="12" cy="12" r="1.5" />
+                <circle cx="12" cy="17.5" r="1.5" />
+              </svg>
+            </button>
+
+            <div
+              className={`absolute z-10 ${
+                isOpenMenu ? "block" : "hidden"
+              } mt-2 left-2 top-14 w-fit rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 transition ease-out duration-200 transform`}
+            >
+              <div
+                className=" "
+                role="menu"
+                aria-orientation="vertical"
+                aria-labelledby="options-menu"
+              >
+                <button className="block text-red-600 hover:bg-red-600 hover:text-white px-3 py-2 rounded-md text-base font-medium transition duration-300 ease-in-out w-fit">
+                  Logout
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* <div>
             <button
               className="fixed top-0 left-0 z-50 pt-1 text-2xl text-white rounded-md"
               onClick={toggleSidebar}
@@ -61,7 +108,7 @@ const Sidebar = () => {
                 />
               )}
             </button>
-          </div>
+          </div> */}
 
           {/* <div className=" "> */}
           <div
@@ -78,12 +125,12 @@ const Sidebar = () => {
               } `}
               onClick={toggleMode}
             >
-              {isDarkMode ? <MdDarkMode /> : <MdOutlineDarkMode />}
+              {isDarkMode ? <BsSun className="" /> : <MdOutlineDarkMode />}
             </button>
           </div>
         </div>
 
-        <Transition
+        {/* <Transition
           show={isOpen}
           enter="transition-all duration-300 transform"
           enterFrom="-translate-x-full"
@@ -145,7 +192,7 @@ const Sidebar = () => {
               </div>
             </div>
           </div>
-        </Transition>
+        </Transition> */}
       </div>
     </>
   );

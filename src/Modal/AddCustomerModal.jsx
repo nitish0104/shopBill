@@ -34,7 +34,7 @@ const AddCustomerModal = ({ data, setModal }) => {
 
           <form
             action=""
-            className="p-5 flex flex-col gap-y-6 justify-center h-full "
+            className=" pt-8 px-5 flex flex-col gap-y-6 justify-center h-full "
 			>
             <Input
               type={"input"}

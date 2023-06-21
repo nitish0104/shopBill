@@ -49,12 +49,12 @@ const AddCustomers = () => {
           />
         </div>
 
-        <div>
+        <div className="flex justify-center"> 
           <button
             onClick={() => {
               setModal({ show: true });
             }}
-            className={`absolute right-4 text-5xl p-2 bottom-14   rounded-full ${
+            className={`absolute   text-5xl p-2 bottom-14   rounded-full ${
               isDarkMode? 'text-white' : 'text-black'
             }`}
           >

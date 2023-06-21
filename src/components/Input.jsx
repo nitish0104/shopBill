@@ -13,7 +13,10 @@ const Input = ({
 }) => {
   return (
     <div className="flex flex-col">
-      <label htmlFor="" className="pb-[4px] font-semibold text-white text-center">
+      <label
+        htmlFor=""
+        className="pb-[4px] font-semibold text-white text-center"
+      >
         {label}
       </label>
       <input
@@ -22,12 +25,12 @@ const Input = ({
         placeholder={placeholder}
         id={id}
         onChange={onChange}
+        
         value={value}
-        className={`px-3 py-2 rounded-lg border-2 shadow-md outline-none text-white border-gray-300 duration-300  focus:border-gray-400 focus:text-black  ${className} `}
+        className={`px-3 py-2 rounded-lg border-2 shadow-md outline-none  bg-transparent duration-200     ${className} `}
         autoComplete="on"
-		required
-		accept={accept}
-		
+        required
+        accept={accept}
       />
     </div>
   );

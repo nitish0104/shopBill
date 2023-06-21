@@ -5,9 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-      // colors: {
-      //   "accent": "blue"
-      // }
+      colors: {
+        "accent": "#0e9f6e"
+      }
     },
   },
   plugins: [],
