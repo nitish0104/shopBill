@@ -4,8 +4,14 @@ import { createContext } from "react";
 const Datacontext = createContext(null);
 
 const Context = ({ children }) => {
+  const [userDetails, setUserDetails] = useState(null);
+
+  const updateUserDetails = (data) => {
+    setUserDetails(data);
+  };
+
   const [number, setNumber] = useState("");
-  const [profile, setProfile] = useState('')
+
   // const [isTimerActive, setTimerActive] = useState(false);
   // const [timer, setTimer] = useState(60);
   // const startTimer = () => {
@@ -13,9 +19,10 @@ const Context = ({ children }) => {
   //   setTimer(60);
   // };
 
-
   return (
-    <Datacontext.Provider value={{ number, setNumber,profile, setProfile }}>
+    <Datacontext.Provider
+      value={{ number, setNumber, userDetails, updateUserDetails }}
+    >
       {children}
     </Datacontext.Provider>
   );

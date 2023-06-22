@@ -7,9 +7,9 @@ import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const ProfilePage1 = () => {
-  const { setProfile } = ContextAuth();
+  const { updateUserDetails } = ContextAuth();
   const navigate = useNavigate();
-  const [formState, setformState] = useState({
+  const [formData, setFormData] = useState({
     logo: "",
     BusinessName: "",
     BusinessType: "",
@@ -17,28 +17,18 @@ const ProfilePage1 = () => {
   });
 
   const handleChange = (e) => {
-    setformState((prevData) => ({
-      ...prevData,
+    setFormData({
+      ...formData,
       [e.target.id]: e.target.value,
-    }));
+    });
   };
 
-  setProfile(formState);
-
   const handleSubmit = (e) => {
-    // e.preventDefault();
-
+    e.preventDefault();
+    updateUserDetails(formData);
     navigate("/dashboard");
-    // toast.success("Profile Created", {
-    //   position: "top-center",
-    //   autoClose: 3000,
-    //   hideProgressBar: false,
-    //   closeOnClick: false,
-    //   pauseOnHover: false,
-    //   draggable: false,
-    //   progress: false,
-    //   theme: "light",
-    // });
+    // Navigate to the next page
+    // You can handle navigation logic here using the navigate function
   };
 
   return (
@@ -55,35 +45,38 @@ const ProfilePage1 = () => {
             <ImageUploadComponent></ImageUploadComponent>
             <Input
               type={"input"}
+              name={"BusinessName"}
               id={"BusinessName"}
               Label={"Business Name"}
               placeholder={"Enter your Business Type"}
-              value={formState.BusinessName}
+              value={formData.BusinessName}
               onChange={handleChange}
             ></Input>
             <Input
               type={"input"}
+              name={"BusinessType"}
               id={"BusinessType"}
               Label={"Business Type"}
               placeholder={"Enter your Business Name"}
-              value={formState.BusinessType}
+              value={formData.BusinessType}
               onChange={handleChange}
             ></Input>
             <Input
               type={"input"}
+              name={"gstNo"}
               id={"gstNo"}
               Label={"GST No"}
               placeholder={"Enter your GST  Number"}
-              value={formState.gstNo}
+              value={formData.gstNo}
               onChange={handleChange}
             ></Input>
 
             <div>
               <button
-                type="button"
-                onClick={() => {
-                  handleSubmit(formState);
-                }}
+                type="submit"
+                // onClick={() => {
+                //   handleSubmit(formData);
+                // }}
                 className="w-full p-2 mt-4 bg-blue-500 text-white rounded hover:bg-blue-600"
               >
                 Complete Profile

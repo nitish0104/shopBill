@@ -7,6 +7,7 @@ const Input = ({
   id,
   onChange,
   value,
+  name,
   className,
   readOnly = false,
   accept,
@@ -25,7 +26,7 @@ const Input = ({
         placeholder={placeholder}
         id={id}
         onChange={onChange}
-        
+        name={name}
         value={value}
         className={`px-3 py-2 rounded-lg border-2 shadow-md outline-none  bg-transparent duration-200     ${className} `}
         autoComplete="on"
