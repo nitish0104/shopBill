@@ -5,7 +5,33 @@ import { ContextAuth } from "../../context/Context";
 import Input from "../Input/Input";
 
 const MobileNumberForm = () => {
+  // const [mobileNumber, setMobileNumber] = useState([
+  //   "",
+  //   "",
+  //   "",
+  //   "",
+  //   "",
+  //   "",
+  //   "",
+  //   "",
+  //   "",
+  //   "",
+  // ]);
   const [mobileNumber, setMobileNumber] = useState("");
+  // const handleChange = (e, index) => {
+  //   const { value } = e.target;
+
+  //   if (value.length <= 1 && /^\d*$/.test(value)) {
+  //     const newOtp = [...mobileNumber];
+  //     newOtp[index] = value;
+  //     setMobileNumber(newOtp);
+
+  //     if (index < 10 && value !== "") {
+  //       const nextInput = document.getElementById(`otp-input-${index + 1}`);
+  //       nextInput.focus();
+  //     }
+  //   }
+  // };
 
   const navigate = useNavigate();
   const { setNumber } = ContextAuth();
@@ -15,24 +41,19 @@ const MobileNumberForm = () => {
     navigate("/verify");
   };
   return (
-    <div className=" relative flex flex-col items-center justify-start h-screen bg-gray-800">
+    <div className=" relative flex flex-col items-center justify-start h-screen w-screen bg-gray-800">
       <img
         src={temp_mobil}
         alt="Mobile Number"
         className="my-16  w-64 h-48 object-contain"
       />
-      <div className="max-w-md px-4 py-8 bg-blue-100 shadow-lg rounded-lg ">
+      <div className="max-w-md  md:w-[30%] px-4 py-8 bg-blue-100 shadow-lg rounded-lg ">
         <h2 className="text-2xl font-bold mb-4 text-center">
           OTP Verification
         </h2>
         <div className="mb-6">
           <div className="text-center">
-            <span>We will send you an </span>
-
-            <span className="font-semibold">One Time Password</span>
-          </div>
-          <div className="text-center">
-            <span className="">on this mobile number</span>
+            <span>OTP will send to this Mobile</span>
           </div>
         </div>
         <form className="space-y-4">
@@ -48,6 +69,17 @@ const MobileNumberForm = () => {
                 setMobileNumber(e.target.value);
               }}
             ></Input>
+            {/* {mobileNumber.map((digit, index) => (
+              <input
+                key={index}
+                id={`otp-input-${index}`}
+                type="text"
+                maxLength="1"
+                value={digit}
+                onChange={(e) => handleChange(e, index)}
+                className="w-8 h-8  text-3xl text-center border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+              />
+            ))} */}
           </div>
           {/* <Link to="/verify"> */}
           <button

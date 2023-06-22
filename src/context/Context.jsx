@@ -5,12 +5,12 @@ const Datacontext = createContext(null);
 
 const Context = ({ children }) => {
   const [userDetails, setUserDetails] = useState(null);
+  const [number, setNumber] = useState("");
+  const [items, setitems] = useState(null);
 
   const updateUserDetails = (data) => {
     setUserDetails(data);
   };
-
-  const [number, setNumber] = useState("");
 
   // const [isTimerActive, setTimerActive] = useState(false);
   // const [timer, setTimer] = useState(60);

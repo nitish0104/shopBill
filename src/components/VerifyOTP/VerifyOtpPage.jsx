@@ -55,18 +55,15 @@ const VerifyOtpPage = () => {
 
   return (
     <LayoutManin>
-      <div className=" relative flex flex-col items-center justify-start h-screen bg-gray-800">
+      <div className=" relative flex flex-col items-center justify-start h-screen w-screen bg-gray-800">
         <img
           src={temp_verify}
           alt="Verify OTP"
           className="my-12 w-64 h-48 object-contain"
         />
-        <div className="max-w-md px-4 py-6 bg-blue-100 shadow-lg rounded-lg mx-7">
+        <div className="max-w-md  md:w-[30%] px-4 py-6 bg-blue-100 shadow-lg rounded-lg mx-7">
           <h2 className="text-2xl font-bold mb-4 text-center">Verify OTP</h2>
-          <p className=" text-center">
-            Please enter the OTP sent to your
-            <span className="font-semibold"> {number}</span> mobile number.
-          </p>
+          <p className=" text-center">OTP send...</p>
           <div className="text-center flex justify-center items-center]">
             <Link
               to={"/mobileVerify"}

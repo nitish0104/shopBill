@@ -36,7 +36,6 @@ const Main = () => {
   const handleSave = () => {
     updateUserDetails(editedDetails);
     setEditMode(false);
-    // Save the updated changes
   };
 
   return (
