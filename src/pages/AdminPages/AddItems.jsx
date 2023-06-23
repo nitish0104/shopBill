@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import LayoutMain from "../../components/layout/LayoutManin";
 import Sidebar from "../../components/Sidebar";
 import html2canvas from "html2canvas";
-
+import noItems from "../../images/noItems.svg";
 import { BiArrowBack } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeContextAuth } from "../../context/ThemeContext";
@@ -72,11 +72,17 @@ const AddItems = () => {
       <LayoutMain className={"overflow-auto"}>
         <Sidebar />
 
-        <div className="md:w-[80vw] w-screen m-auto md:px-12  overflow-y-scroll flex-col  justify-center items-center">
-          <div className="flex items-center justify-between pt-4 px-6 text-2xl">
-            <Link to={"/add-customer"}>
+        <div className="md:w-[80vw] w-screen m-auto md:px-12 md:pb-28  overflow-y-scroll flex-col  justify-center items-center">
+          <div className="flex items-center justify-between pt-4 w-[90%]">
+            <Link className=" px-6 text-2xl" to={"/add-customer"}>
               <BiArrowBack />
             </Link>
+            <button
+              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4 flex justify-center items-center gap-2 md:w-[15%]"
+              onClick={cancel}
+            >
+              <ImCancelCircle></ImCancelCircle> Cancel
+            </button>
           </div>
           <div className="flex justify-center items-center gap-x-5">
             <div className="px-2 pt-4 md:w-[100%] flex justify-center items-center gap-x-4 ">
@@ -132,7 +138,7 @@ const AddItems = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-end items-center pt-6 pb-6">
+          <div className="flex justify-end items-center mt-6 pb-6">
             <button
               onClick={addItem}
               className="bg-blue-500 px-1 py-3  w-40 mx-auto text-white font-semibold rounded-md   text-xl"
@@ -142,69 +148,89 @@ const AddItems = () => {
           </div>
           <div className="flex justify-center" ref={contentRef}>
             <div className="w-full lg:w-2/3">
-              <table
-                className={`border-2 border-black p-2 border-collapse w-full rounded-lg ${
-                  isDarkMode ? "border-white" : "border-black"
-                }`}
-              >
-                <thead>
-                  <tr className=" border-b-2 py-2  text-center">
-                    <th className="py-2 px-4">Item</th>
-                    <th className="py-2 px-4">Quantity</th>
-                    <th className="py-2 px-4">Total</th>
-                    <th className="py-2 px-4">Delete</th>
-                  </tr>
-                </thead>
-
-                <tbody className="">
-                  {items?.map((value, index) => {
-                    return (
-                      <tr
-                        key={index}
-                        className=" border-b-2 py-2 text-x text-center"
-                      >
-                        <td className="py-2 px-4 border">{value?.item}</td>
-                        <td className="py-2 px-4 border">{value?.qty}</td>
-                        <td className="py-2 px-4 border">{value?.cost}</td>
-                        <td className="py-2 px-4 border text-center flex justify-center ">
-                          <AiFillDelete></AiFillDelete>
-                        </td>
+              {items.length > 0 ? (
+                <div>
+                  <table
+                    className={`border-2 border-b-black p-2 border-collapse w-full rounded-lg ${
+                      isDarkMode
+                        ? "border-white"
+                        : "border-black border-b-black"
+                    }`}
+                  >
+                    <thead>
+                      <tr className=" border-b-2 py-2  text-center">
+                        <th className="py-2 px-4">Item</th>
+                        <th className="py-2 px-4">Quantity</th>
+                        <th className="py-2 px-4">Total</th>
+                        <th className="py-2 px-4">Delete</th>
                       </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              <div className="border-t-2 w-full flex justify-end  pr-2 py-2">
-                <p
-                  className={`border-2 py-1 px-3 text-base ${
-                    isDarkMode ? "border-white" : "border-black"
-                  }`}
-                >
-                  GrandTotal: &#8377;{grandtotal} /-
-                </p>
-              </div>
+                    </thead>
+                    <tbody className="">
+                      {items?.map((value, index) => {
+                        return (
+                          <tr
+                            key={index}
+                            className=" border-b-2 py-2 text-x text-center"
+                          >
+                            <td className="py-2 px-4 border">{value?.item}</td>
+                            <td className="py-2 px-4 border">{value?.qty}</td>
+                            <td className="py-2 px-4 border">{value?.cost}</td>
+                            <td className="py-2 px-4 border text-center flex justify-center hover:bg-red-500 rounded-lg ">
+                              <AiFillDelete></AiFillDelete>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                  <div className="border-t-2 w-full flex justify-end  pr-2 py-2">
+                    <p
+                      className={`border-2 py-1 px-3 text-base ${
+                        isDarkMode ? "border-white" : "border-black"
+                      }`}
+                    >
+                      GrandTotal: &#8377;{grandtotal} /-
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className=" mt-12  bg-gray-100 px-8  ">
+                  <div className="flex justify-around items-center">
+                    <div className="w-[40%]">
+                      <img src={noItems} alt="" />
+                    </div>
+                    {/* <div className=""> */}
+                    <div
+                      className={`flex flex-col justify-center items-center  gap-y-10 text-${
+                        isDarkMode ? "black" : "gray-800"
+                      } p-4`}
+                    >
+                      <span className="font-mono   text-5xl">Oop's Data</span>
+                      <span className="font-mono   text-5xl">Not Found </span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
-          <div className="w-full  flex justify-around items-center gap-6 pt-6 pb-6 relative ">
-            <button
-              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4 flex justify-center items-center gap-2"
-              onClick={cancel}
+            <div
+              className={`w-full  flex justify-around items-center gap-6 py-6  fixed bottom-2  bg-${
+                isDarkMode ? "gray-800" : "white"
+              } text-${isDarkMode ? "white" : "gray-800"} p-4`}
             >
-              <ImCancelCircle></ImCancelCircle> Cancel
-            </button>
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4 flex justify-center items-center gap-2"
-              onClick={getBill}
-            >
-              <FaRegMoneyBillAlt></FaRegMoneyBillAlt> Generate Bill
-            </button>
+              <button
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4 flex justify-center items-center gap-2 md:w-[15%] w-[50%] "
+                onClick={getBill}
+              >
+                <FaRegMoneyBillAlt></FaRegMoneyBillAlt> Generate Bill
+              </button>
 
-            <button
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 flex gap-2 justify-center items-center"
-              onClick={handleDownload}
-            >
-              <BsWhatsapp></BsWhatsapp> Send Bill
-            </button>
+              <button
+                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 flex gap-2 justify-center items-center md:w-[15%] w-[50%]"
+                onClick={handleDownload}
+              >
+                <BsWhatsapp></BsWhatsapp> Send Bill
+              </button>
+            </div>
           </div>
         </div>
       </LayoutMain>
