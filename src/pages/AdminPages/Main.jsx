@@ -136,7 +136,7 @@ const Main = () => {
                       <button
                         type="button"
                         onClick={handleEdit}
-                        className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 w-[100%]"
+                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 w-[100%]"
                       >
                         Edit
                       </button>

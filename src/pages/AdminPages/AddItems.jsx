@@ -4,8 +4,12 @@ import Sidebar from "../../components/Sidebar";
 import html2canvas from "html2canvas";
 
 import { BiArrowBack } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ThemeContextAuth } from "../../context/ThemeContext";
+import { AiFillDelete } from "react-icons/ai";
+import { BsWhatsapp } from "react-icons/bs";
+import { FaRegMoneyBillAlt } from "react-icons/fa";
+import { ImCancelCircle } from "react-icons/im";
 const AddItems = () => {
   const [item, setItem] = useState("");
   const [qty, setQty] = useState(0);
@@ -38,6 +42,14 @@ const AddItems = () => {
   };
   const contentRef = useRef(null);
 
+  const navigate = useNavigate();
+
+  const getBill = () => {
+    navigate("/get-bill");
+  };
+  const cancel = () => {
+    navigate("/add-customer");
+  };
   const addItem = () => {
     let obj = {
       item: item,
@@ -140,6 +152,7 @@ const AddItems = () => {
                     <th className="py-2 px-4">Item</th>
                     <th className="py-2 px-4">Quantity</th>
                     <th className="py-2 px-4">Total</th>
+                    <th className="py-2 px-4">Delete</th>
                   </tr>
                 </thead>
 
@@ -153,6 +166,9 @@ const AddItems = () => {
                         <td className="py-2 px-4 border">{value?.item}</td>
                         <td className="py-2 px-4 border">{value?.qty}</td>
                         <td className="py-2 px-4 border">{value?.cost}</td>
+                        <td className="py-2 px-4 border text-center flex justify-center ">
+                          <AiFillDelete></AiFillDelete>
+                        </td>
                       </tr>
                     );
                   })}
@@ -169,12 +185,25 @@ const AddItems = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-center items-center pt-6 pb-6 relative ">
+          <div className="w-full  flex justify-around items-center gap-6 pt-6 pb-6 relative ">
             <button
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4"
+              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4 flex justify-center items-center gap-2"
+              onClick={cancel}
+            >
+              <ImCancelCircle></ImCancelCircle> Cancel
+            </button>
+            <button
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4 flex justify-center items-center gap-2"
+              onClick={getBill}
+            >
+              <FaRegMoneyBillAlt></FaRegMoneyBillAlt> Generate Bill
+            </button>
+
+            <button
+              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 flex gap-2 justify-center items-center"
               onClick={handleDownload}
             >
-              Download
+              <BsWhatsapp></BsWhatsapp> Send Bill
             </button>
           </div>
         </div>

@@ -100,7 +100,7 @@ const GetBills = () => {
               />
             )}
           </div>
-          <div className="  flex-col  justify-center items-center ">
+          <div className="  w-full md:grid md:grid-cols-2 md:gap-2 ">
             {filteredData().map((customer, index) => (
               <CustomerCard
                 key={customer.id + index}
