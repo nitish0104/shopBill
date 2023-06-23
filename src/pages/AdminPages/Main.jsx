@@ -120,7 +120,7 @@ const Main = () => {
                 )}
               </div>
               <div className=" mt-14  flex items-center pt-4 gap-x-16 justify-center ">
-                <div className="flex gap-x-10 w-[40%]">
+                <div className="flex gap-x-10 w-[40%] md:w-[20%]">
                   {editMode ? (
                     <div className=" w-[100%]">
                       <button
