@@ -3,6 +3,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import Input from "../components/Input/Input";
 import { GrAdd, GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 import ModalAnimation from "../Modal/ModalAnimation.css";
+import { Link } from "react-router-dom";
 
 const AddCustomerModal = ({ data, setModal }) => {
   const [showModal, setShowModal] = useState(false);
@@ -68,12 +69,12 @@ const AddCustomerModal = ({ data, setModal }) => {
                   className={"w-[95%]"}
                 />
                 <div className="pt-5 flex justify-center items-center">
-                  <button
-                    onClick={handleNextPage}
+                  <Link to={'/add-items'}
+                    
                     className="px-3 py-1 bg-blue-500 w-fit rounded-lg text-xl  mx-auto flex items-center gap-x-2"
                   >
                     Next <GrLinkNext />
-                  </button>
+                  </Link>
                 </div>
               </form>
             </div>

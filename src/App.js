@@ -13,6 +13,8 @@ import AddCustomers from './pages/AdminPages/AddCustomers';
 import GetBills from './pages/AdminPages/GetBills';
 import Card from '../src/theme/DarkMode';
 import { ThemeProvider } from './context/ThemeContext';
+import AddItems from './pages/AdminPages/AddItems';
+
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
               <Route path="/add-customer" element={<AddCustomers />} />
               <Route path="/get-bill" element={<GetBills />} />
               <Route path="/darkmode" element={<Card />} />
+              <Route path="/add-items" element={<AddItems/>} />
             </Routes>
           </ThemeProvider>
         </Context>
