@@ -205,8 +205,12 @@ const AddItems = () => {
                         isDarkMode ? "black" : "gray-800"
                       } p-4`}
                     >
-                      <span className="font-mono   text-5xl">Oop's Data</span>
-                      <span className="font-mono   text-5xl">Not Found </span>
+                      <span className="font-mono   md:text-5xl text-2xl">
+                        Oop's Data
+                      </span>
+                      <span className="font-mono   md:text-5xl text-2xl">
+                        Not Found{" "}
+                      </span>
                     </div>
                   </div>
                 </div>
