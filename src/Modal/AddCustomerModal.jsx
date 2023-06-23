@@ -31,7 +31,11 @@ const AddCustomerModal = ({ data, setModal }) => {
   return (
     <>
       <div className="h-screen w-screen bg-black bg-opacity-70 flex items-center justify-center fixed top-0 left-0 shadow-lg z-[100] ">
-        <div className={"relative h-[50vh] w-[90vw] bg-white rounded-lg "}>
+        <div
+          className={
+            "relative h-[50vh] w-[90vw] md:w-[50vw]  bg-white rounded-lg "
+          }
+        >
           {currentPage === 1 && (
             <div>
               <form
@@ -69,8 +73,8 @@ const AddCustomerModal = ({ data, setModal }) => {
                   className={"w-[95%]"}
                 />
                 <div className="pt-5 flex justify-center items-center">
-                  <Link to={'/add-items'}
-                    
+                  <Link
+                    to={"/add-items"}
                     className="px-3 py-1 bg-blue-500 w-fit rounded-lg text-xl  mx-auto flex items-center gap-x-2"
                   >
                     Next <GrLinkNext />
@@ -80,7 +84,7 @@ const AddCustomerModal = ({ data, setModal }) => {
             </div>
           )}
 
-          {currentPage === 2 && (
+          {/* {currentPage === 2 && (
             <div className="modal-page flex flex-col justify-center -[90vw] ">
               <button
                 className=" py-1 relative top-1 right-36 w-fit rounded-lg text-xl  mx-auto flex items-center "
@@ -99,14 +103,15 @@ const AddCustomerModal = ({ data, setModal }) => {
                   onChange={(e) => {
                     setItems(e.target.value);
                   }}
-
                 />
-                <GrAdd className="text-3xl "/>
+                <GrAdd className="text-3xl " />
               </div>
 
-              <button className="font-semibold mx-auto bg-accent px-2 py-1 text-white rounded-md relative top-36">Generate Bill</button>
+              <button className="font-semibold mx-auto bg-accent px-2 py-1 text-white rounded-md relative top-36">
+                Generate Bill
+              </button>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </>

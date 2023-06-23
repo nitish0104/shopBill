@@ -1,24 +1,19 @@
 import React from "react";
 import html2canvas from "html2canvas";
-import { jsPDF } from "jspdf";
-
-const GenerateBiil = ({ rootElementId, downloadFileName }) => {
-  const downloadPdfDocument = () => {
-    const input = document.getElementById(rootElementId);
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF();
-      pdf.addImage(imgData, "JPEG", 0, 0);
-      pdf.save(`${downloadFileName}.pdf`);
+const GenerateBiil = ({ contentRef }) => {
+  const handleDownload = () => {
+    html2canvas(contentRef.current).then((canvas) => {
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL();
+      link.download = "download.png";
+      link.click();
     });
   };
   return (
     <>
       <button
-        className={
-          "text-white border-yellow-300 self-center bg-accent rounded-md text-xl px-1 py-3  w-40   "
-        }
-        onClick={downloadPdfDocument}
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+        onClick={handleDownload}
       >
         Generate Bill
       </button>

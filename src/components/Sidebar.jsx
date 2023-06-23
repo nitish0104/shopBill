@@ -1,15 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { Transition } from "@headlessui/react";
-import { HiMenu, HiX } from "react-icons/hi";
 import { ContextAuth } from "../context/Context";
-import { FaUserCircle } from "react-icons/fa";
-import { IoBusinessOutline } from "react-icons/io5";
-import { AiOutlineShop } from "react-icons/ai";
-import { HiOutlineReceiptTax } from "react-icons/hi";
-import { MdDarkMode } from "react-icons/md";
-import { MdOutlineDarkMode } from "react-icons/md";
+
 import { Link } from "react-router-dom";
+import { MdOutlineDarkMode } from "react-icons/md";
 import { ThemeContextAuth } from "../context/ThemeContext";
 import { BsSun } from "react-icons/bs";
 
@@ -86,8 +80,8 @@ const Sidebar = () => {
           </div>
 
           <div
-            className={`relative text-center pt-1 font-bold text-2xl p-2${
-              isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+            className={`relative text-center pt-1 font-bold text-2xl p-2 ${
+              isDarkMode ? " text-black" : " text-gray-800"
             } `}
           >
             Shop Connect
