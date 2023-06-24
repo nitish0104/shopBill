@@ -16,12 +16,10 @@ const ImageUploadComponent = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4">
-      <h1 className="text-lg font-bold mb-4 text-black text-center">
-        Business Logo
-      </h1>
+    <div className="max-w-md mx-auto ">
+      <h1 className="text-lg font-bold mb-2 text-center">Business Logo</h1>
       {isImageSelected ? (
-        <div className="flex items-center justify-center mb-4">
+        <div className="flex items-center justify-center mb-2">
           <div className="w-32 h-32 rounded-full overflow-hidden">
             <img
               src={selectedImage}
@@ -31,7 +29,7 @@ const ImageUploadComponent = () => {
           </div>
         </div>
       ) : (
-        <div className="flex items-center justify-center mb-4">
+        <div className="flex items-center justify-center mb-2">
           <label
             htmlFor="uploadImage"
             className="w-32 h-32 rounded-full border-2 border-dashed border-gray-400 flex items-center justify-center cursor-pointer"

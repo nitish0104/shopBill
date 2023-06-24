@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ContextAuth } from "../context/Context";
 import Input from "../components/Input/Input";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [mobileNumber, setMobileNumber] = useState("");
@@ -15,9 +16,18 @@ const Login = () => {
   setNumber(mobileNumber);
   const handleSubmitnumber = (e) => {
     e.preventDefault();
+    startTimer();
+    toast.success("OTP send !", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: false,
+      progress: false,
+      theme: "light",
+    });
     console.log(mobileNumber);
-  
-
   };
 
   const [otp, setOTP] = useState(["", "", "", ""]);
@@ -52,7 +62,7 @@ const Login = () => {
   const handleSubmitotp = (e) => {
     e.preventDefault();
     console.log(otp);
-    navigate('/dashboard')
+    navigate("/dashboard");
     // Perform mobile number verification here
 
     // Start the timer
@@ -73,28 +83,24 @@ const Login = () => {
 
   return (
     <LayoutManin>
-      <div className=" relative flex flex-col  items-center  min-h-screen h-auto  bg-gray-800 text-center transition-opacity duration-1000 pt-10">
-        <div className="text-center h-[30vh] ">
+      <div className="w-screen h-screen   md:flex md:items-center md:justify-center ">
+        <div className="flex justify-center items-center bg-[#F1F1F1]  w-[100%] h-[35%] md:gap-6 md:w-[50%] md:h-screen ">
           <img
             src={temp_logo}
             alt="logo"
-            className=" px-4 h-[100%] md:h-[20%]"
+            className=" px-4 h-[60%] md:h-[40%]"
           />
         </div>
-        {/* <div className=" text-3xl md:text-5xl flex-col justify-center items-center font-extrabold text-white pt-3">
-          <p className="font-thin"> Welcome to ! </p>
-          <div className="text-center text-white "> My Digital </div>
-          <div className="text-center text-white md:mt-4">Kirana</div>
-        </div> */}
-
-        <div className="pt-5">
-          <div className="max-w-md  w-[80vw]  px-4 py-4 bg-blue-100 shadow-lg rounded-lg ">
-            <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
-
-            <form className="space-y-4">
+        <div className="flex  flex-col  justify-center items-center md:w-[50%] md:h-screen  w-[100%] h-[50%] mt-2 md:mt-0">
+          <div className="flex flex-col items-center justify-center">
+            <h1 className="text-5xl font-bold text-center">Welcome,</h1>
+            <h1 className="font-semibold">Please login to your Shop</h1>
+          </div>
+          <div className="flex flex-col items-center justify-center md:w-full">
+            <div className="flex flex-col md:gap-3  gap-1 mt-4 md:w-[50%]">
               <div className="text-center mb-4">
                 <Input
-                  type={"number"}
+                  type={"text"}
                   className={"text-center"}
                   Label={"Mobile Number"}
                   id={"mobileNumber"}
@@ -105,7 +111,6 @@ const Login = () => {
                   }}
                 ></Input>
               </div>
-              {/* <Link to="/verify"> */}
               <button
                 onClick={handleSubmitnumber}
                 type="submit"
@@ -114,10 +119,18 @@ const Login = () => {
               >
                 Send OTP
               </button>
-              {/* </Link> */}
-            </form>
-
-            <form onSubmit={handleSubmitotp} className="space-y-4">
+              {isTimerActive ? (
+                <p className="md:mt-4 mty-2 text-lg">
+                  Resend OTP in {timer} {timer === 1 ? "second" : "seconds"}
+                </p>
+              ) : (
+                <button
+                  onClick={startTimer}
+                  className="text-blue-500 hover:underline mt-4"
+                >
+                  Resend OTP
+                </button>
+              )}
               <div className="flex justify-center space-x-2">
                 <div className="mt-4">
                   {otp.map((digit, index) => (
@@ -136,26 +149,15 @@ const Login = () => {
               <button
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md mt-4"
+                onClick={handleSubmitotp}
               >
                 Verify Otp
               </button>
-            </form>
-
-            {isTimerActive ? (
-              <p className="mt-4 text-lg">
-                Resend OTP in {timer} {timer === 1 ? "second" : "seconds"}
-              </p>
-            ) : (
-              <button
-                onClick={startTimer}
-                className="text-blue-500 hover:underline mt-4"
-              >
-                Resend OTP
-              </button>
-            )}
+            </div>
           </div>
         </div>
       </div>
+      <ToastContainer />
     </LayoutManin>
   );
 };

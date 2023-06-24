@@ -11,7 +11,7 @@ const Input = ({
   className,
   type,
   accept,
-
+  disabled,
 }) => {
   return (
     <div>
@@ -26,6 +26,7 @@ const Input = ({
           className={`form__field ${className}`}
           placeholder={placeholder}
           required={true}
+          disabled={disabled}
         />
         <label htmlFor="name" className="form__label">
           {Label}

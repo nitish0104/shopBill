@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import LayoutManin from "../../components/layout/LayoutManin";
 import Sidebar from "../../components/Sidebar";
 import Navigation from "../../components/Navigation";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineUserAdd } from "react-icons/ai";
 import AddCustomerModal from "../../Modal/AddCustomerModal";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 import CustomerCard from "../../components/cards/HomeCard";
@@ -140,7 +140,7 @@ const AddCustomers = () => {
           </div>
         </div>
         <div className="text-center flex justify-center items-center">
-          <div className=" fixed bottom-14 w-screen">
+          <div className=" fixed bottom-16 w-screen">
             <button
               onClick={() => {
                 setModal({ show: true });
@@ -149,7 +149,7 @@ const AddCustomers = () => {
                 isDarkMode ? "text-white" : "text-black"
               }`}
             >
-              <AiOutlinePlus />
+              <AiOutlineUserAdd />
             </button>
           </div>
         </div>
