@@ -13,6 +13,7 @@ import { HiOutlineReceiptTax } from "react-icons/hi";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 import { Link } from "react-router-dom";
 import Input from "../../components/Input";
+import ImageUploadComponent from "../../components/Input/ImageInput";
 
 const Main = () => {
   const { userDetails, updateUserDetails } = ContextAuth();
@@ -42,39 +43,48 @@ const Main = () => {
     <>
       <LayoutManin>
         <div
-          className={` overflow-hidden w-screen h-screen  rounded-t-lg ${
-            isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+          className={` overflow-auto w-screen min-h-screen h-auto  rounded-t-lg ${
+            isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800" 
           } `}
         >
           <Sidebar />
-          {userDetails && (
-            <div className="pt-10 h-[80%] flex-col justify-center items-center">
-              <FaUserCircle
+          {userDetails || (
+            <div className="overflow-y-auto  flex-col justify-center items-center">
+              {/* <FaUserCircle
                 size={100}
                 className={`mx-auto ${
                   isDarkMode
                     ? "bg-gray-800 text-white"
                     : "bg-white text-gray-800"
                 } `}
-              />
+            
+              /> */}
+
+              <ImageUploadComponent></ImageUploadComponent>
               <div className="flex items-center pt-4 gap-x-2 justify-center">
                 <AiOutlineShop className="text-2xl" />
                 {editMode ? (
                   <Input
                     name={"BusinessName"}
+                    label={'Business Name'}
                     id={"BusinessName"}
+                    placeholder={'Enter Your Business Name'}
                     className={"font-medium text-xl"}
                     required
                     onChange={handleChange}
-                    value={editedDetails.BusinessName}
+                    value={editedDetails?.BusinessName}
                   />
                 ) : (
                   <Input
+                  label={'Business Name'}
                     name={"BusinessName"}
+                    placeholder={'Enter Your Business Name'}
                     id={"BusinessName"}
                     className={"font-medium text-xl"}
                     onChange={handleChange}
-                    value={userDetails.BusinessName}
+                    value={
+                      userDetails?.BusinessName ? userDetails?.BusinessName : ""
+                    }
                   />
                 )}
               </div>
@@ -84,18 +94,24 @@ const Main = () => {
                 {editMode ? (
                   <Input
                     name={"BusinessType"}
+                    label={'Business Type'}
                     id={"BusinessType"}
+                    placeholder={'Enter Your Business Type'}
                     onChange={handleChange}
                     className={"font-medium text-xl"}
-                    value={editedDetails.BusinessType}
+                    value={editedDetails?.BusinessType}
                   />
                 ) : (
                   <Input
                     name={"BusinessType"}
+                    label={'Business Type'}
                     id={"BusinessType"}
+                    placeholder={'Enter Your Business Type'}
                     onChange={handleChange}
                     className={"font-medium text-xl"}
-                    value={userDetails.BusinessType}
+                    value={
+                      userDetails?.BusinessType ? userDetails?.BusinessType : ""
+                    }
                   />
                 )}
               </div>
@@ -104,23 +120,27 @@ const Main = () => {
                 {editMode ? (
                   <Input
                     name={"gstNo"}
+                    label={'Gst No'}
                     id={"gstNo"}
                     onChange={handleChange}
                     className={"font-medium text-xl"}
-                    value={editedDetails.gstNo}
+                    value={editedDetails?.gstNo}
+                    placeholder={'Enter Your Gst Number'}
                   />
                 ) : (
                   <Input
                     name={"gstNo"}
+                    label={"Gst No"}
                     id={"gstNo"}
+                    placeholder={'Enter Your Gst Number'}
                     onChange={handleChange}
                     className={"font-medium text-xl"}
-                    value={userDetails.gstNo}
+                    value={userDetails?.gstNo ? userDetails?.gstNo : ''}
                   />
                 )}
               </div>
-              <div className=" mt-14  flex items-center pt-4 gap-x-16 justify-center ">
-                <div className="flex gap-x-10 w-[40%] md:w-[20%]">
+              <div className=" flex items-center pt-4 gap-x-16 justify-center ">
+                <div className="flex gap-x-10 w-[40%]">
                   {editMode ? (
                     <div className=" w-[100%]">
                       <button
@@ -136,7 +156,7 @@ const Main = () => {
                       <button
                         type="button"
                         onClick={handleEdit}
-                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 w-[100%]"
+                        className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 w-[100%]"
                       >
                         Edit
                       </button>

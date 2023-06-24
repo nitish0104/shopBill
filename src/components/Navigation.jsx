@@ -4,7 +4,7 @@ import { LuIndianRupee } from "react-icons/lu";
 import { Link, useLocation } from "react-router-dom";
 import { ThemeContextAuth } from "../context/ThemeContext";
 
-const Navigation = ({ className, classNameLOGO }) => {
+const Navigation = ({className}) => {
   const { isDarkMode } = ThemeContextAuth();
   const loaction = useLocation();
   const routes = [
@@ -19,30 +19,29 @@ const Navigation = ({ className, classNameLOGO }) => {
       route: "/add-customer",
     },
     {
-      lable: "Bill's",
+      lable: "Get Bill",
       icon: <LuIndianRupee size={25} />,
       route: "/get-bill",
     },
   ];
   return (
     <>
-      <footer
+      {/* <nav className="fixed bottom-0 z-30 w-full bg-black h-[8vh] flex justify-center rounded-t-xl"> */}
+      <nav
         className={`fixed bottom-0 z-30 w-full  h-[8vh] flex justify-center rounded-t-xl  drop-shadow-2xl 
-        ${className}
-          ${
-            isDarkMode ? "bg-blue-300 text-white" : "bg-slate-200 text-gray-800"
-          } `}
+        
+        ${
+          isDarkMode ? "bg-blue-300 text-white" : "bg-slate-100 text-gray-800"
+        } `}
       >
-        <div
-          className={`flex items-center justify-between w-full   px-10 text-black `}
-        >
+        <div className={`flex items-center justify-between w-full   px-10 text-black `}>
           {routes.map((obj) => {
             return (
               <Link
                 to={obj.route}
                 className={
                   obj.route === loaction.pathname
-                    ? `{flex flex-col items-center pt-1 text-blue-600 text-sm font-semibold rounded-lg ${classNameLOGO}}`
+                    ? "flex flex-col items-center pt-1 text-blue-600 text-sm font-semibold rounded-lg ${className}"
                     : "flex flex-col items-center pt-1 text-sm "
                 }
               >
@@ -51,8 +50,24 @@ const Navigation = ({ className, classNameLOGO }) => {
               </Link>
             );
           })}
+
+          {/* <Link to={"/main"} className="flex flex-col items-center pt-1 ">
+            <AiOutlineHome size={25} />
+            <p>Home</p>
+          </Link>
+          <Link
+            to={"/add-customer"}
+            className="flex flex-col items-center pt-1 "
+          >
+            <AiOutlineUserAdd size={25} />
+            <p>Add Customer</p>
+          </Link>
+          <Link to={"/get-bill"} className="flex flex-col items-center pt-1 ">
+            <LuIndianRupee size={25} />
+            <p>Get Bill</p>
+          </Link> */}
         </div>
-      </footer>
+      </nav>
     </>
   );
 };
