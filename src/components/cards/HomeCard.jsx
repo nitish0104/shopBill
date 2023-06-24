@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import Modal from "../Modal/CustomerModal";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 
-const CustomerCard = ({ name, date, mobileNumber, amount, items }) => {
+const CustomerCard = ({
+  name,
+  date,
+  mobileNumber,
+  amount,
+  items,
+  div,
+  ref,
+}) => {
   const { isDarkMode } = ThemeContextAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
 
   const handleCardClick = () => {
     setIsModalOpen(true);
@@ -26,7 +29,10 @@ const CustomerCard = ({ name, date, mobileNumber, amount, items }) => {
           isDarkMode ? "white" : "gray-800"
         } p-4 rounded-lg  shadow-md shadow-blue-300 transform  perspective-100  w-[100%]  overflow-hidden border mx-2 my-2`}
       >
-        <div className=" py-4 flex justify-between items-center gap-x-4">
+        <div
+          className=" py-4 flex justify-between items-center gap-x-4 "
+          ref={ref}
+        >
           <div className="text-start">
             <button onClick={handleCardClick}>
               <div className="font-bold text-xl mb-2">{name}</div>
@@ -34,26 +40,11 @@ const CustomerCard = ({ name, date, mobileNumber, amount, items }) => {
               <p className=" font-semibold mb-2 text-start">{mobileNumber}</p>
             </button>
           </div>
+          <div>{div}</div>
           <div className="flex-col">
-            <p
-              className={`text-3xl text-center mb-2 font-bold  ${
-                isChecked ? "text-red-500" : "text-green-600"
-              }`}
-            >
+            <p className="text-3xl text-center mb-2 font-bold text-green-500">
               &#8377;{amount}
-              <input
-                type="checkbox"
-                checked={isChecked}
-                onChange={handleCheckboxChange}
-                className="ml-2"
-              />
             </p>
-            <div className="flex-col items-center">
-              {/* <input type="checkbox" className="form-checkbox" /> */}
-              {/* <div>
-                <span>Pending</span>
-              </div> */}
-            </div>
             <div>
               <div>{date}</div>
             </div>

@@ -47,7 +47,7 @@ const AddCustomers = () => {
             />
           </div>
           <div className="flex flex-col items-center justify-center w-[100%] mt-3">
-            <div className="mb-4 w-[100%]">
+            {/* <div className="mb-4 w-[100%]">
               <button
                 className="  bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-1/2 "
                 onClick={handleRecentCustomerClick}
@@ -60,7 +60,7 @@ const AddCustomers = () => {
               >
                 History
               </button>
-            </div>
+            </div> */}
 
             {recentCustomer && (
               <div className="w-full md:grid md:grid-cols-2 md:gap-2	">

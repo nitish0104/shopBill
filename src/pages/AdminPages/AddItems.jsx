@@ -85,67 +85,71 @@ const AddItems = () => {
             </button>
           </div>
           <div className="flex justify-center items-center gap-x-5">
-            <div className="px-2 pt-4 md:w-[100%] flex justify-center items-center gap-x-4 ">
-              <div className="flex-col w-[50%] ">
-                <div>
-                  <label className="font-semibold">Items</label>
+            <div className="px-2 pt-4 md:w-[100%] flex-col justify-center items-center md:flex md:justify-center md:items-center gap-x-4 ">
+              <div className="flex gap-2">
+                <div className="flex-col w-[50%] ">
+                  <div>
+                    <label className="font-semibold">Items</label>
+                  </div>
+                  <input
+                    type="text"
+                    value={item}
+                    onChange={(e) => {
+                      setItem(e.target.value);
+                    }}
+                    placeholder={"Enter Items"}
+                    className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
+                      isDarkMode ? "border-white" : "border-black"
+                    }`}
+                    required="true"
+                  />
                 </div>
-                <input
-                  type="text"
-                  value={item}
-                  onChange={(e) => {
-                    setItem(e.target.value);
-                  }}
-                  placeholder={"Enter Items"}
-                  className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
-                    isDarkMode ? "border-white" : "border-black"
-                  }`}
-                  required="true"
-                />
+                <div className="flex-col w-[20%] ">
+                  <div>
+                    <label className="font-semibold"> Qty</label>
+                  </div>
+                  <input
+                    type="number"
+                    value={qty}
+                    onChange={(e) => {
+                      setQty(e.target.value);
+                    }}
+                    placeholder={"Quantity"}
+                    className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
+                      isDarkMode ? "border-white" : "border-black"
+                    }`}
+                    required="true"
+                  />
+                </div>
+                <div className="flex-col w-[20%]">
+                  <div>
+                    <label className="font-semibold"> Amount</label>
+                  </div>
+                  <input
+                    type="number"
+                    value={price}
+                    onChange={(e) => {
+                      setPrice(e.target.value);
+                    }}
+                    placeholder={"Price"}
+                    className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
+                      isDarkMode ? "border-white" : "border-black"
+                    }`}
+                  />
+                </div>
               </div>
-              <div className="flex-col w-[20%] ">
-                <div>
-                  <label className="font-semibold"> Qty</label>
-                </div>
-                <input
-                  type="number"
-                  value={qty}
-                  onChange={(e) => {
-                    setQty(e.target.value);
-                  }}
-                  placeholder={"Quantity"}
-                  className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
-                    isDarkMode ? "border-white" : "border-black"
-                  }`}
-                  required="true"
-                />
-              </div>
-              <div className="flex-col w-[20%]">
-                <div>
-                  <label className="font-semibold"> Amount</label>
-                </div>
-                <input
-                  type="number"
-                  value={price}
-                  onChange={(e) => {
-                    setPrice(e.target.value);
-                  }}
-                  placeholder={"Price"}
-                  className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
-                    isDarkMode ? "border-white" : "border-black"
-                  }`}
-                />
+
+              <div className="flex justify-end items-center mt-5">
+                <button
+                  onClick={addItem}
+                  className="bg-blue-500 px-1 py-2  w-40 mx-auto text-white font-semibold rounded-md   text-xl"
+                >
+                  Add
+                </button>
               </div>
             </div>
           </div>
-          <div className="flex justify-end items-center mt-6 pb-6">
-            <button
-              onClick={addItem}
-              className="bg-blue-500 px-1 py-3  w-40 mx-auto text-white font-semibold rounded-md   text-xl"
-            >
-              Add
-            </button>
-          </div>
+
           <div className="flex justify-center" ref={contentRef}>
             <div className="w-full lg:w-2/3">
               {items.length > 0 ? (
@@ -228,12 +232,12 @@ const AddItems = () => {
                 <FaRegMoneyBillAlt></FaRegMoneyBillAlt> Generate Bill
               </button>
 
-              <button
+              {/* <button
                 className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 flex gap-2 justify-center items-center md:w-[15%] w-[50%]"
                 onClick={handleDownload}
               >
                 <BsWhatsapp></BsWhatsapp> Send Bill
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
