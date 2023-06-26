@@ -8,60 +8,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import html2canvas from "html2canvas";
 import { BsWhatsapp } from "react-icons/bs";
 import Modal from "react-modal";
-import { AiFillFilter } from "react-icons/ai";
+import { AiFillCloseCircle, AiFillFilter } from "react-icons/ai";
 
-const dataArray = [
-  {
-    id: 1,
-    name: "Nitish  Dalvi",
-    mobileNumber: "356428927",
-    date: "2023-06-19",
-    amount: 100,
-    items: ["maggi", "oats", "Buscuit"],
-  },
-  {
-    id: 1,
-    name: "Prakash Jha",
-    mobileNumber: "356428927",
-    date: "2023-05-19",
-    amount: 456,
-    items: ["kitkat", "milk", "Rice"],
-  },
-  {
-    id: 1,
-    name: "XYZ ABC",
-    mobileNumber: "356428927",
-    date: "2020-06-19",
-    amount: 869,
-    items: ["Item 1", "milk", "Item 3"],
-  },
-  // Add more customer objects
-];
-
-// Helper function to filter data based on selected option
-const filterData = (selectedOption) => {
-  const currentDate = new Date();
-  switch (selectedOption) {
-    case "all":
-      return dataArray;
-    case "yesterday":
-      currentDate.setDate(currentDate.getDate() - 1);
-      return dataArray.filter(
-        (data) => data.date === currentDate.toISOString().slice(0, 10)
-      );
-    case "lastWeek":
-      currentDate.setDate(currentDate.getDate() - 7);
-      return dataArray.filter((data) => new Date(data.date) >= currentDate);
-    case "lastMonth":
-      currentDate.setMonth(currentDate.getMonth() - 1);
-      return dataArray.filter((data) => new Date(data.date) >= currentDate);
-    case "lastYear":
-      currentDate.setFullYear(currentDate.getFullYear() - 1);
-      return dataArray.filter((data) => new Date(data.date) >= currentDate);
-    default:
-      return [];
-  }
-};
 const GetBills = () => {
   const phoneNumber = "9987274285"; // Replace with your phone number
   const message = "Maggie(8) -40Rs  "; // Replace with your desired message
@@ -81,73 +29,111 @@ const GetBills = () => {
   };
 
   const contentRef = useRef(null);
+  const data = [
+    {
+      id: 1,
+      name: "Nitish  Dalvi",
+      mobileNumber: "356428927",
+      date: "2023-06-19",
+      amount: 100,
+      items: ["maggi", "oats", "Buscuit"],
+    },
+    {
+      id: 2,
+      name: "Prakash Jha",
+      mobileNumber: "356428927",
+      date: "2023-05-19",
+      amount: 456,
+      items: ["kitkat", "milk", "Rice"],
+    },
+    {
+      id: 3,
+      name: "XYZ ABC",
+      mobileNumber: "356428927",
+      date: "2020-02-19",
+      amount: 869,
+      items: ["Item 1", "milk", "Item 3"],
+    },
+    {
+      id: 4,
+      name: "XYZ ABC",
+      mobileNumber: "356428927",
+      date: "2020-06-26",
+      amount: 869,
+      items: ["Item 1", "milk", "Item 3"],
+    },
+    {
+      id: 5,
+      name: "XYZ ABC",
+      mobileNumber: "356428927",
+      date: "2020-06-27",
+      amount: 869,
+      items: ["Item 1", "milk", "Item 3"],
+    },
+    // Add more customer objects
+  ];
 
-  const [selectedOption, setSelectedOption] = useState("all");
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState("all");
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const filteredData = filterData(selectedOption);
-
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
+  const handleFilterChange = (event) => {
+    setSelectedFilter(event.target.value);
   };
-  // const handleDateSelect = (date) => {
-  //   setSelectedDate(date);
-  // };
 
-  // const handleModalClose = () => {
-  //   setModalIsOpen(false);
-  // };
-
-  // const handleSelectDate = () => {
-  //   setModalIsOpen(true);
-  // };
-
-  // const handleDateSubmit = () => {
-  //   console.log(selectedDate);
-  //   setModalIsOpen(false);
-  // };
-
-  const handleOpenModal = () => {
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-
-  const handleDateSelect = (date) => {
+  const handleDateChange = (date) => {
     setSelectedDate(date);
-    console.log(date);
-    setModalOpen(false);
+    setIsModalOpen(false);
   };
-
-  // const [filter, setFilter] = useState("all");
-  // const [selectedDate, setSelectedDate] = useState(null);
-
-  // const handleFilterChange = (event) => {
-  //   setFilter(event.target.value);
-  // };
-
-  // const handleDateChange = (date) => {
-  //   setSelectedDate(date);
-  // };
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+  const filteredData = data.filter((item) => {
+    if (selectedFilter === "all") {
+      return true;
+    } else if (selectedFilter === "yesterday") {
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      return item.date === formatDate(yesterday);
+    } else if (selectedFilter === "lastWeek") {
+      const lastWeek = new Date();
+      lastWeek.setDate(lastWeek.getDate() - 7);
+      return new Date(item.date) >= lastWeek;
+    } else if (selectedFilter === "lastMonth") {
+      const lastMonth = new Date();
+      lastMonth.setMonth(lastMonth.getMonth() - 1);
+      return new Date(item.date) >= lastMonth;
+    } else if (selectedFilter === "lastYear") {
+      const lastYear = new Date();
+      lastYear.setFullYear(lastYear.getFullYear() - 1);
+      return new Date(item.date) >= lastYear;
+    }
+    if (selectedDate) {
+      filteredData = filteredData.filter(
+        (item) => item.date === formatDate(selectedDate)
+      );
+    }
+    return filteredData;
+  });
 
   return (
     <>
       <LayoutManin>
         <Sidebar />
-        <div className="md:w-[70vw] w-[100vw]  flex justify-center items-center  mt-8 mx-auto">
+        <div className=" md:w-[70vw] w-[100vw]  flex justify-center items-center  mt-8 mx-auto">
           <div>
             <div className="flex justify-center items-center mb-4">
               <div className=" text-3xl font-extrabold">
                 <AiFillFilter></AiFillFilter>
               </div>
               <select
-                id="filterOption"
-                className="border border-gray-300 px-2 py-1 rounded"
-                value={selectedOption}
-                onChange={handleOptionChange}
+                id="filter"
+                value={selectedFilter}
+                onChange={handleFilterChange}
+                className="px-2 py-1 border border-gray-300 rounded-md"
               >
                 <option value="all">All</option>
                 <option value="yesterday">Yesterday</option>
@@ -156,8 +142,8 @@ const GetBills = () => {
                 <option value="lastYear">Last Year</option>
               </select>
               <button
+                onClick={() => setIsModalOpen(true)}
                 className="ml-2 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
-                onClick={handleOpenModal}
               >
                 Select Date
               </button>
@@ -186,6 +172,25 @@ const GetBills = () => {
                   }
                 />
               ))}
+              {isModalOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 gap-4">
+                  <div className="bg-white rounded-lg p-4">
+                    <DatePicker
+                      selected={selectedDate}
+                      onChange={handleDateChange}
+                      dateFormat="yyyy-MM-dd"
+                      className="px-2 py-1 border border-gray-900 rounded-md"
+                    />
+
+                    <button
+                      onClick={() => setIsModalOpen(false)}
+                      className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mt-4 ml-3"
+                    >
+                      <AiFillCloseCircle></AiFillCloseCircle>
+                    </button>
+                  </div>
+                </div>
+              )}
               {/* <div className="w-[50%] h-[60%] ">
                 <Modal isOpen={modalIsOpen} onRequestClose={handleModalClose}>  
                   <DatePicker
@@ -202,23 +207,6 @@ const GetBills = () => {
                   </button>
                 </Modal>
               </div> */}
-              {modalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
-                  <div className="bg-white rounded-lg p-4">
-                    <DatePicker
-                      className="border-2 border-black"
-                      selected={selectedDate}
-                      onChange={handleDateSelect}
-                    />
-                    <button
-                      className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mt-4"
-                      onClick={handleCloseModal}
-                    >
-                      Close
-                    </button>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>
