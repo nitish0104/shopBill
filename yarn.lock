@@ -7800,6 +7800,11 @@ react-transition-group@^4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
+react-whatsapp-button@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-whatsapp-button/-/react-whatsapp-button-2.0.0.tgz#5a19ddb477b8207c7796ccf5c0d1738f39d78df6"
+  integrity sha512-n8TafYH5J2fThZlNUxrDVBgOO0aFLS/QcWrbo437qYqyCmbFQiT++cbXAx4iGrMtI05rvHSamqOM1mYSsCH8VQ==
+
 react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"

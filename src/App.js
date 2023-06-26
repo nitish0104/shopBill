@@ -16,6 +16,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import AddItems from './pages/AdminPages/AddItems';
 import GeneratedBill from './pages/AdminPages/GeneratedBill';
 import SendMessage from './pages/AdminPages/SendMessage';
+import WhatsAppMessageButton from './raw/WhatsappTest';
 
 function App() {
   return (
@@ -37,9 +38,10 @@ function App() {
               <Route path="/add-customer" element={<AddCustomers />} />
               <Route path="/get-bill" element={<GetBills />} />
               <Route path="/darkmode" element={<Card />} />
-              <Route path="/add-items" element={<AddItems/>} />
-              <Route path="/generated-bill" element={<GeneratedBill/>}/>
-              <Route path="/send-message" element={<SendMessage/>}/>
+              <Route path="/add-items" element={<AddItems />} />
+              <Route path="/generated-bill" element={<GeneratedBill />} />
+              <Route path="/send-message" element={<SendMessage />} />
+              <Route path="/sendWhatsAppmessage" element={<WhatsAppMessageButton />} />
             </Routes>
           </ThemeProvider>
         </Context>

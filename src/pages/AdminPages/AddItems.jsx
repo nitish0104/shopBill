@@ -10,6 +10,8 @@ import { AiFillDelete } from "react-icons/ai";
 import { BsWhatsapp } from "react-icons/bs";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import { ImCancelCircle } from "react-icons/im";
+import WhatsAppButton from "react-whatsapp-button";
+
 const AddItems = () => {
   const [item, setItem] = useState("");
   const [qty, setQty] = useState(0);
@@ -21,6 +23,14 @@ const AddItems = () => {
   const { isDarkMode } = ThemeContextAuth();
   const [coupon, setCoupon] = useState();
 
+  const phoneNumber = "9819094281"; // Replace with your phone number
+  const message = "Hello, how can I help you?"; // Replace with your desired message
+
+  const handleButtonClick = () => {
+    const encodedMessage = encodeURIComponent(message);
+    const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    window.open(url, "_blank");
+  };
   useEffect(() => {
     if (items) {
       let total = 0;
@@ -197,13 +207,14 @@ const AddItems = () => {
                           >
                             <td className="py-2 px-4 border">{value?.item}</td>
                             <td className="py-2 px-4 border">{value?.qty}</td>
-                            <td className="py-2 px-4 border">{value?.cost}</td>
+                            <td className="py-2 px-4 border">
+                              &#8377;{value?.cost}
+                            </td>
                             <td className="py-2 px-4  text-center flex justify-center hover:bg-red-500 rounded-lg ">
                               <button
                                 onClick={() => {
                                   handleSplice(index);
                                 }}
-                                
                               >
                                 <AiFillDelete></AiFillDelete>
                               </button>
@@ -213,7 +224,7 @@ const AddItems = () => {
                       })}
                     </tbody>
                   </table>
-                  <div className=" w-full flex justify-between  pr-2 pt-4 gap-x-3">
+                  <div className=" w-full flex justify-center  pr-2 pt-4 gap-x-3">
                     <div
                       className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
                         isDarkMode ? "border-white" : "border-black"
@@ -313,13 +324,23 @@ const AddItems = () => {
             >
               <FaRegMoneyBillAlt></FaRegMoneyBillAlt> Generate Bill
             </button>
-
-            {/* <button
-                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 flex gap-2 justify-center items-center md:w-[15%] w-[50%]"
-                onClick={handleDownload}
-              >
+            <button
+              phoneNumber={phoneNumber}
+              message={message}
+              onClick={handleButtonClick}
+              className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md"
+            >
+              Send Message on WhatsApp
+            </button>
+            {/* <a
+              href="whatsapp://send?phone=9819094281&text=This is WhatsApp sharing example using link"
+              data-action="share/whatsapp/share"
+              target="_blank"
+            >
+              <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 flex gap-2 justify-center items-center md:w-[15%] w-[50%]">
                 <BsWhatsapp></BsWhatsapp> Send Bill
-              </button> */}
+              </button>
+            </a> */}
           </div>
         </div>
       </LayoutMain>
