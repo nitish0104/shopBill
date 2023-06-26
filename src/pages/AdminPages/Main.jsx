@@ -38,93 +38,103 @@ const Main = () => {
   return (
     <>
       <LayoutManin>
+        <Sidebar />
         <div
-          className={` overflow-auto w-screen min-h-screen h-auto  rounded-t-lg ${
+          className={` overflow-auto md:overflow-y-hidden w-screen min-h-screen h-auto  rounded-t-lg ${
             isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
           } `}
         >
-          <Sidebar />
-
-          <div className="overflow-y-auto  flex-col justify-center items-center">
+          <div className="overflow-y-auto  md:overflow-hidden flex-col justify-center items-center pt-2">
             <ImageUploadComponent></ImageUploadComponent>
-            <div className="flex items-center gap-x-2 justify-center">
-              <AiOutlineShop className="text-2xl" />
-              <div className="md:w-[30vw]">
-                <label className="block  text-sm font-bold mb-2" htmlFor="name">
-                  Business Name
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-                  id="BusinessName"
-                  type="text"
-                  name="name"
-                  value={formState.BusinessName}
-                  onChange={handleChange}
-                  placeholder="Enter Business Name"
-                  disabled={!isEditable}
-                />
+            <div className="md:grid md:grid-cols-2 md:px-36">
+              <div className="flex items-center gap-x-2 justify-center">
+                <AiOutlineShop className="text-2xl" />
+                <div className="md:w-[30vw]">
+                  <label
+                    className="block  text-sm font-bold mb-2"
+                    htmlFor="name"
+                  >
+                    Business Name
+                  </label>
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+                    id="BusinessName"
+                    type="text"
+                    name="name"
+                    value={formState.BusinessName}
+                    onChange={handleChange}
+                    placeholder="Enter Business Name"
+                    disabled={!isEditable}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className="flex items-center pt-4 justify-center gap-x-2">
-              <IoBusinessOutline className="text-2xl " />
+              <div className="flex items-center pt-4 justify-center gap-x-2">
+                <IoBusinessOutline className="text-2xl " />
 
-              <div className="md:w-[30vw]">
-                <label className="block  text-sm font-bold mb-2" htmlFor="name">
-                  Business Type
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-                  id="BusinessType"
-                  type="text"
-                  name="name"
-                  value={formState.BusinessType}
-                  onChange={handleChange}
-                  placeholder="Enter Business Type"
-                  disabled={!isEditable}
-                />
+                <div className="md:w-[30vw]">
+                  <label
+                    className="block  text-sm font-bold mb-2"
+                    htmlFor="name"
+                  >
+                    Business Type
+                  </label>
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+                    id="BusinessType"
+                    type="text"
+                    name="name"
+                    value={formState.BusinessType}
+                    onChange={handleChange}
+                    placeholder="Enter Business Type"
+                    disabled={!isEditable}
+                  />
+                </div>
+              </div>
+              <div className="flex items-center pt-4 gap-x-2 justify-center">
+                <HiOutlineReceiptTax className="text-2xl " />
+                <div className="md:w-[30vw]">
+                  <label
+                    className="block  text-sm font-bold mb-2"
+                    htmlFor="gstNo"
+                  >
+                    GST Number
+                  </label>
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+                    id="gstNo"
+                    type="text"
+                    name="name"
+                    value={formState.gstNo}
+                    onChange={handleChange}
+                    placeholder="Enter GST Number"
+                    disabled={!isEditable}
+                  />
+                </div>
+              </div>
+              <div className="flex items-center pt-4 gap-x-2 justify-center">
+                <IoLocation className="text-2xl " />
+                <div className="md:w-[30vw]">
+                  <label
+                    className="block  text-sm font-bold mb-2"
+                    htmlFor="name"
+                  >
+                    Location
+                  </label>
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+                    id="location"
+                    type="text"
+                    name="name"
+                    value={formState.location}
+                    onChange={handleChange}
+                    placeholder="Enter Location"
+                    disabled={!isEditable}
+                  />
+                </div>
               </div>
             </div>
-            <div className="flex items-center pt-4 gap-x-2 justify-center">
-              <HiOutlineReceiptTax className="text-2xl " />
-              <div className="md:w-[30vw]">
-                <label
-                  className="block  text-sm font-bold mb-2"
-                  htmlFor="gstNo"
-                >
-                  GST Number
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-                  id="gstNo"
-                  type="text"
-                  name="name"
-                  value={formState.gstNo}
-                  onChange={handleChange}
-                  placeholder="Enter GST Number"
-                  disabled={!isEditable}
-                />
-              </div>
-            </div>
-            <div className="flex items-center pt-4 gap-x-2 justify-center">
-              <IoLocation className="text-2xl " />
-              <div className="md:w-[30vw]">
-                <label className="block  text-sm font-bold mb-2" htmlFor="name">
-                  Location
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-                  id="location"
-                  type="text"
-                  name="name"
-                  value={formState.location}
-                  onChange={handleChange}
-                  placeholder="Enter Location"
-                  disabled={!isEditable}
-                />
-              </div>
-            </div>
-            <div className=" flex items-center pt-4 gap-x-16 justify-center mt-2 ">
+            <div className=" flex items-center pt-4 md:pt-16 gap-x-16 justify-center mt-2 ">
               <div className="flex gap-x-10 md:w-[30%] w-[70vw]">
                 {isEditable ? (
                   <div className=" w-[100%]">
@@ -137,7 +147,7 @@ const Main = () => {
                     </button>
                   </div>
                 ) : (
-                  <div className="w-[100%] ">
+                  <div className="w-[100%]">
                     <button
                       type="button"
                       onClick={handleEditClick}

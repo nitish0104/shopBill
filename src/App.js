@@ -14,7 +14,8 @@ import GetBills from './pages/AdminPages/GetBills';
 import Card from '../src/theme/DarkMode';
 import { ThemeProvider } from './context/ThemeContext';
 import AddItems from './pages/AdminPages/AddItems';
-
+import GeneratedBill from './pages/AdminPages/GeneratedBill';
+import SendMessage from './pages/AdminPages/SendMessage';
 
 function App() {
   return (
@@ -37,6 +38,8 @@ function App() {
               <Route path="/get-bill" element={<GetBills />} />
               <Route path="/darkmode" element={<Card />} />
               <Route path="/add-items" element={<AddItems/>} />
+              <Route path="/generated-bill" element={<GeneratedBill/>}/>
+              <Route path="/send-message" element={<SendMessage/>}/>
             </Routes>
           </ThemeProvider>
         </Context>

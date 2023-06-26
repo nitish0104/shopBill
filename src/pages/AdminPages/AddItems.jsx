@@ -15,8 +15,11 @@ const AddItems = () => {
   const [qty, setQty] = useState(0);
   const [price, setPrice] = useState(0);
   const [items, setItems] = useState([]);
+  const [pending, setPending] = useState(0);
+  const [paid, setPaid] = useState(0);
   const [grandtotal, setGrandtotal] = useState(0);
   const { isDarkMode } = ThemeContextAuth();
+  const [coupon, setCoupon] = useState();
 
   useEffect(() => {
     if (items) {
@@ -45,7 +48,7 @@ const AddItems = () => {
   const navigate = useNavigate();
 
   const getBill = () => {
-    navigate("/get-bill");
+    navigate("/generated-bill");
   };
   const cancel = () => {
     navigate("/add-customer");
@@ -67,9 +70,25 @@ const AddItems = () => {
     console.log(finalItems);
   };
 
+  const handleSplice = (index) => {
+    const newItems = [...items];
+    newItems.splice(index, 1);
+    setItems(newItems);
+  };
+
+  // if(pending) {
+  //   paid = grandtotal -pending
+  // }
+
+  // if(paid) {
+  //   pending = grandtotal- paid
+  // }
+
+  console.log(grandtotal - paid);
+
   return (
     <>
-      <LayoutMain className={"overflow-auto"}>
+      <LayoutMain className={""}>
         <Sidebar />
 
         <div className="md:w-[80vw] w-screen m-auto md:px-12 md:pb-28  overflow-y-scroll flex-col  justify-center items-center">
@@ -150,12 +169,12 @@ const AddItems = () => {
             </div>
           </div>
 
-          <div className="flex justify-center" ref={contentRef}>
+          <div className="flex justify-center pt-5" ref={contentRef}>
             <div className="w-full lg:w-2/3">
               {items.length > 0 ? (
-                <div>
+                <div className="px-2">
                   <table
-                    className={`border-2 border-b-black p-2 border-collapse w-full rounded-lg ${
+                    className={`border-2 border-b-black p-2  border-collapse w-full rounded-lg ${
                       isDarkMode
                         ? "border-white"
                         : "border-black border-b-black"
@@ -174,71 +193,133 @@ const AddItems = () => {
                         return (
                           <tr
                             key={index}
-                            className=" border-b-2 py-2 text-x text-center"
+                            className=" border-b-2 py-2 border-black text-x text-center "
                           >
                             <td className="py-2 px-4 border">{value?.item}</td>
                             <td className="py-2 px-4 border">{value?.qty}</td>
                             <td className="py-2 px-4 border">{value?.cost}</td>
-                            <td className="py-2 px-4 border text-center flex justify-center hover:bg-red-500 rounded-lg ">
-                              <AiFillDelete></AiFillDelete>
+                            <td className="py-2 px-4  text-center flex justify-center hover:bg-red-500 rounded-lg ">
+                              <button
+                                onClick={() => {
+                                  handleSplice(index);
+                                }}
+                                
+                              >
+                                <AiFillDelete></AiFillDelete>
+                              </button>
                             </td>
                           </tr>
                         );
                       })}
                     </tbody>
                   </table>
-                  <div className="border-t-2 w-full flex justify-end  pr-2 py-2">
-                    <p
-                      className={`border-2 py-1 px-3 text-base ${
+                  <div className=" w-full flex justify-between  pr-2 pt-4 gap-x-3">
+                    <div
+                      className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
                         isDarkMode ? "border-white" : "border-black"
                       }`}
                     >
-                      GrandTotal: &#8377;{grandtotal} /-
+                      <p className="flex items-center  text-base">
+                        Coupon: &#8377;{" "}
+                      </p>
+                      <input
+                        value={coupon}
+                        onChange={(e) => {
+                          setCoupon(e.target.value);
+                        }}
+                        className={`  w-[30%]   flex items-center text-black border-none outline-none`}
+                        required="true"
+                      />
+                    </div>
+                    <p
+                      className={`border-2 py-1 px-3 text-base flex items-center w-[80%] ${
+                        isDarkMode ? "border-white" : "border-black"
+                      }`}
+                    >
+                      GrandTotal: &#8377;
+                      {coupon ? grandtotal - coupon : grandtotal} /-
                     </p>
                   </div>
+
+                  {/* Paid and Pending Section Delete Mat Kar */}
+                  {/* <div className="flex gap-x-2">
+                    <div className="">
+                      <div>
+                        <label className="font-semibold"> Paid</label>
+                      </div>
+
+                      <input
+                        type="number"
+                        value={paid}
+                        onChange={(e) => {
+                          setPaid(e.target.value);
+                        }}
+                        placeholder={"Paid"}
+                        className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
+                          isDarkMode ? "border-white" : "border-black"
+                        }`}
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <div>
+                        <label className="font-semibold"> Pending</label>
+                      </div>
+                      <input
+                        type="number"
+                        value={grandtotal ? grandtotal - paid : "0"}
+                        onChange={(e) => {
+                          setPending(e.target.value);
+                        }}
+                        placeholder={"Pending"}
+                        className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
+                          isDarkMode ? "border-white" : "border-black"
+                        }`}
+                        required
+                      />
+                    </div>
+                  </div> */}
                 </div>
               ) : (
-                <div className=" mt-12  bg-gray-100 px-8  ">
-                  <div className="flex justify-around items-center">
+                <div className=" mt-12   px-8  ">
+                  <div className="flex justify-around flex-col items-center">
                     <div className="w-[40%]">
                       <img src={noItems} alt="" />
                     </div>
                     {/* <div className=""> */}
                     <div
-                      className={`flex flex-col justify-center items-center  gap-y-10 text-${
+                      className={`flex flex-col justify-center items-center   text-${
                         isDarkMode ? "black" : "gray-800"
                       } p-4`}
                     >
-                      <span className="font-mono   md:text-5xl text-2xl">
-                        Oop's Data
-                      </span>
-                      <span className="font-mono   md:text-5xl text-2xl">
-                        Not Found{" "}
+                      <span className="font-mono   md:text-5xl text-xl">
+                        Oop's! Data Not Found
                       </span>
                     </div>
                   </div>
                 </div>
               )}
             </div>
-            <div
-              className={`w-full  flex justify-around items-center gap-6 py-6  fixed bottom-2  bg-${
-                isDarkMode ? "gray-800" : "white"
-              } text-${isDarkMode ? "white" : "gray-800"} p-4`}
+          </div>
+          <div
+            className={`w-full  flex justify-around items-center gap-6 py-6     bg-${
+              isDarkMode ? "gray-800" : "white"
+            } text-${isDarkMode ? "white" : "gray-800"} p-4`}
+          >
+            <button
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-1 py-2  md:w-40 rounded mt-4 flex justify-center items-center gap-2  w-[50%] "
+              onClick={getBill}
             >
-              <button
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4 flex justify-center items-center gap-2 md:w-[15%] w-[50%] "
-                onClick={getBill}
-              >
-                <FaRegMoneyBillAlt></FaRegMoneyBillAlt> Generate Bill
-              </button>
+              <FaRegMoneyBillAlt></FaRegMoneyBillAlt> Generate Bill
+            </button>
 
-              {/* <button
+            {/* <button
                 className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 flex gap-2 justify-center items-center md:w-[15%] w-[50%]"
                 onClick={handleDownload}
               >
                 <BsWhatsapp></BsWhatsapp> Send Bill
               </button> */}
-            </div>
           </div>
         </div>
       </LayoutMain>
