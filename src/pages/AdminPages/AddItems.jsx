@@ -26,11 +26,11 @@ const AddItems = () => {
   const phoneNumber = "9819094281"; // Replace with your phone number
   const message = "Hello, how can I help you?"; // Replace with your desired message
 
-  const handleButtonClick = () => {
-    const encodedMessage = encodeURIComponent(message);
-    const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    window.open(url, "_blank");
-  };
+  // const handleButtonClick = () => {
+  //   const encodedMessage = encodeURIComponent(message);
+  //   const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+  //   window.open(url, "_blank");
+  // };
   useEffect(() => {
     if (items) {
       let total = 0;
@@ -58,7 +58,7 @@ const AddItems = () => {
   const navigate = useNavigate();
 
   const getBill = () => {
-    navigate("/generated-bill");
+    navigate("/get-bill");
   };
   const cancel = () => {
     navigate("/add-customer");
@@ -101,13 +101,13 @@ const AddItems = () => {
       <LayoutMain className={""}>
         <Sidebar />
 
-        <div className="md:w-[80vw] w-screen m-auto md:px-12 md:pb-28  overflow-y-scroll flex-col  justify-center items-center">
-          <div className="flex items-center justify-between pt-4 w-[90%]">
+        <div className="md:w-[80vw] w-screen m-auto md:px-12   overflow-y-hidden flex-col  justify-center items-center">
+          <div className="flex items-center justify-between mb-2  w-[90%]">
             <Link className=" px-6 text-2xl" to={"/add-customer"}>
               <BiArrowBack />
             </Link>
             <button
-              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4 flex justify-center items-center gap-2 md:w-[15%]"
+              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-3 flex justify-center items-center gap-2 md:w-[15%]"
               onClick={cancel}
             >
               <ImCancelCircle></ImCancelCircle> Cancel
@@ -168,7 +168,7 @@ const AddItems = () => {
                 </div>
               </div>
 
-              <div className="flex justify-end items-center mt-5">
+              <div className="flex justify-end items-center my-5">
                 <button
                   onClick={addItem}
                   className="bg-blue-500 px-1 py-2  w-40 mx-auto text-white font-semibold rounded-md   text-xl"
@@ -179,7 +179,7 @@ const AddItems = () => {
             </div>
           </div>
 
-          <div className="flex justify-center pt-5" ref={contentRef}>
+          <div className="flex justify-center " ref={contentRef}>
             <div className="w-full lg:w-2/3">
               {items.length > 0 ? (
                 <div className="px-2">
@@ -293,7 +293,7 @@ const AddItems = () => {
                   </div> */}
                 </div>
               ) : (
-                <div className=" mt-12   px-8  ">
+                <div className=" mt-4   px-8  ">
                   <div className="flex justify-around flex-col items-center">
                     <div className="w-[40%]">
                       <img src={noItems} alt="" />
@@ -324,14 +324,7 @@ const AddItems = () => {
             >
               <FaRegMoneyBillAlt></FaRegMoneyBillAlt> Generate Bill
             </button>
-            <button
-              phoneNumber={phoneNumber}
-              message={message}
-              onClick={handleButtonClick}
-              className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-md"
-            >
-              Send Message on WhatsApp
-            </button>
+
             {/* <a
               href="whatsapp://send?phone=9819094281&text=This is WhatsApp sharing example using link"
               data-action="share/whatsapp/share"

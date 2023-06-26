@@ -57,6 +57,15 @@ const GetBills = () => {
     setSelectedDate(date);
   };
 
+  const phoneNumber = "9987274285"; // Replace with your phone number
+  const message = "Maggie 8 40Rs  "; // Replace with your desired message
+
+  const handleButtonClick = () => {
+    const encodedMessage = encodeURIComponent(message);
+    const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    window.open(url, "_blank");
+  };
+
   const filteredData = () => {
     if (filter === "all") {
       return customers;
@@ -131,7 +140,9 @@ const GetBills = () => {
                   div={
                     <button
                       className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 flex gap-2 justify-center items-center "
-                      onClick={handleDownload}
+                      phoneNumber={phoneNumber}
+                      message={message}
+                      onClick={handleButtonClick}
                     >
                       <BsWhatsapp className="text-2xl"></BsWhatsapp>
                     </button>
