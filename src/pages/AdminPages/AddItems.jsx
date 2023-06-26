@@ -251,46 +251,6 @@ const AddItems = () => {
                       {coupon ? grandtotal - coupon : grandtotal} /-
                     </p>
                   </div>
-
-                  {/* Paid and Pending Section Delete Mat Kar */}
-                  {/* <div className="flex gap-x-2">
-                    <div className="">
-                      <div>
-                        <label className="font-semibold"> Paid</label>
-                      </div>
-
-                      <input
-                        type="number"
-                        value={paid}
-                        onChange={(e) => {
-                          setPaid(e.target.value);
-                        }}
-                        placeholder={"Paid"}
-                        className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
-                          isDarkMode ? "border-white" : "border-black"
-                        }`}
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <div>
-                        <label className="font-semibold"> Pending</label>
-                      </div>
-                      <input
-                        type="number"
-                        value={grandtotal ? grandtotal - paid : "0"}
-                        onChange={(e) => {
-                          setPending(e.target.value);
-                        }}
-                        placeholder={"Pending"}
-                        className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
-                          isDarkMode ? "border-white" : "border-black"
-                        }`}
-                        required
-                      />
-                    </div>
-                  </div> */}
                 </div>
               ) : (
                 <div className=" mt-4   px-8  ">
@@ -324,16 +284,6 @@ const AddItems = () => {
             >
               <FaRegMoneyBillAlt></FaRegMoneyBillAlt> Generate Bill
             </button>
-
-            {/* <a
-              href="whatsapp://send?phone=9819094281&text=This is WhatsApp sharing example using link"
-              data-action="share/whatsapp/share"
-              target="_blank"
-            >
-              <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 flex gap-2 justify-center items-center md:w-[15%] w-[50%]">
-                <BsWhatsapp></BsWhatsapp> Send Bill
-              </button>
-            </a> */}
           </div>
         </div>
       </LayoutMain>

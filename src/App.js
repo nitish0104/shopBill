@@ -17,6 +17,7 @@ import AddItems from './pages/AdminPages/AddItems';
 import GeneratedBill from './pages/AdminPages/GeneratedBill';
 import SendMessage from './pages/AdminPages/SendMessage';
 import WhatsAppMessageButton from './raw/WhatsappTest';
+import Date from './raw/DateTest';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
               <Route path="/generated-bill" element={<GeneratedBill />} />
               <Route path="/send-message" element={<SendMessage />} />
               <Route path="/sendWhatsAppmessage" element={<WhatsAppMessageButton />} />
+              <Route path="/datetest" element={<Date />} />
             </Routes>
           </ThemeProvider>
         </Context>
