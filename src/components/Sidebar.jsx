@@ -41,34 +41,34 @@ const Sidebar = () => {
   return (
     <>
       <div className="relative z-50 backdrop-blur-sm transition duration-300 ease-in-out ">
-        <div className="flex justify-center items-center shadow-md h-14 bg-blue-400  rounded-b-xl">
-          <div className="flex justify-center items-center">
+        <div className="flex justify-between items-center shadow-lg h-16 bg-blue-400  px-4">
+          
             <button
-              className={`flex justify-center items-center rounded-lg p-2 m-2  fixed top-0 left-2 hover:bg-red-500 ${
+              className={`flex justify-center items-center rounded-lg px-2 py-2   hover:bg-red-500 text-sm ${
                 isDarkMode ? "bg-white text-gray-800" : "bg-gray-800 text-white"
               } `}
             >
               Shutdown
             </button>
-          </div>
+          
 
           <div
-            className={`relative text-center pt-1 font-bold text-2xl p-2 ${
+            className={`   font-semibold pr-10 text-xl ${
               isDarkMode ? " text-black" : " text-gray-800"
             } `}
           >
             Shop Connect
           </div>
-          <div className="">
+          
             <button
-              className={`rounded-full p-2 m-2  fixed top-2 right-2 ${
+              className={`rounded-full p-2   ${
                 isDarkMode ? "bg-white text-gray-800" : "bg-gray-800 text-white"
               } `}
               onClick={toggleMode}
             >
               {isDarkMode ? <BsSun className="" /> : <MdOutlineDarkMode />}
             </button>
-          </div>
+          
         </div>
       </div>
     </>

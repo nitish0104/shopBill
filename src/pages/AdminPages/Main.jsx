@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { AiOutlineShop } from "react-icons/ai";
 import { IoBusinessOutline } from "react-icons/io5";
 import { HiOutlineReceiptTax } from "react-icons/hi";
-import { IoLocation } from "react-icons/io5";
+import { GoLocation } from "react-icons/go";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 
 import ImageUploadComponent from "../../components/Input/ImageInput";
@@ -40,7 +40,7 @@ const Main = () => {
       <LayoutManin>
         <Sidebar />
         <div
-          className={` overflow-auto md:overflow-y-hidden w-screen min-h-screen h-auto  rounded-t-lg ${
+          className={` overflow-auto md:overflow-y-hidden w-screen min-h-screen h-auto  rounded-t-lg pt-4 ${
             isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
           } `}
         >
@@ -50,15 +50,15 @@ const Main = () => {
               <div className="flex items-center gap-x-2 justify-center">
                 <div className="md:w-[30vw]">
                   <label
-                    className="block  text-sm font-bold mb-2"
+                    className="block  text-sm font-bold mb-1"
                     htmlFor="name"
                   >
                     Business Name
                   </label>
-                  <div className="pl-1 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
-                    <AiOutlineShop className="text-2xl bg-transparent " />
+                  <div className="pl-2 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
+                    <AiOutlineShop className="text-xl bg-transparent text-gray-400" />
                     <input
-                      className=" py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline"
+                      className=" py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-400"
                       id="BusinessName"
                       type="text"
                       name="name"
@@ -74,16 +74,16 @@ const Main = () => {
               <div className="flex items-center pt-4 justify-center gap-x-2">
                 <div className="md:w-[30vw]">
                   <label
-                    className="block  text-sm font-bold mb-2"
+                    className="block  text-sm font-bold mb-1"
                     htmlFor="name"
                   >
                     Business Type
                   </label>
 
                   <div className=" pl-1 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
-                    <IoBusinessOutline className="text-2xl bg-transparent " />
+                    <IoBusinessOutline className="text-xl bg-transparent text-gray-400" />
                     <input
-                      className=" py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline"
+                      className=" py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-400"
                       id="BusinessType"
                       type="text"
                       name="name"
@@ -98,15 +98,15 @@ const Main = () => {
               <div className="flex items-center pt-4 gap-x-2 justify-center">
                 <div className="md:w-[30vw]">
                   <label
-                    className="block  text-sm font-bold mb-2"
+                    className="block  text-sm font-bold mb-1"
                     htmlFor="gstNo"
                   >
                     GST Number
                   </label>
-                  <div className=" pl-1 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
-                    <HiOutlineReceiptTax className="text-2xl bg-transparent " />
+                  <div className=" pl-2 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
+                    <HiOutlineReceiptTax className="text-xl bg-transparent text-gray-400" />
                     <input
-                      className=" py-2 px-1 text-black leading-tight focus:outline-none focus:shadow-outline"
+                      className=" py-2 px-1 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-400"
                       id="gstNo"
                       type="text"
                       name="name"
@@ -121,15 +121,15 @@ const Main = () => {
               <div className="flex items-center pt-4 gap-x-2 justify-center">
                 <div className="md:w-[30vw]">
                   <label
-                    className="block  text-sm font-bold mb-2"
+                    className="block  text-sm font-bold mb-1"
                     htmlFor="name"
                   >
                     Location
                   </label>
-                  <div className=" pl-1 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
-                    <IoLocation className="text-2xl bg-transparent " />
+                  <div className=" pl-2 flex items-center shadow appearance-none border rounded w-full  leading-tight focus:outline-none focus:shadow-outline">
+                    <GoLocation className="text-xl bg-transparent text-gray-400 " />
                     <input
-                      className=" py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline"
+                      className=" py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-400"
                       id="location"
                       type="text"
                       name="name"

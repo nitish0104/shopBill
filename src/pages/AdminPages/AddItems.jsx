@@ -14,8 +14,9 @@ import WhatsAppButton from "react-whatsapp-button";
 
 const AddItems = () => {
   const [item, setItem] = useState("");
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState("");
   const [price, setPrice] = useState(0);
+  const [individualPrice, setIndividualPrice] = useState(0);
   const [items, setItems] = useState([]);
   const [pending, setPending] = useState(0);
   const [paid, setPaid] = useState(0);
@@ -66,16 +67,20 @@ const AddItems = () => {
   const addItem = () => {
     let obj = {
       item: item,
-      qty: Number(qty),
+      // qty: Number(qty),
+      qty: qty,
+      individualPrice: individualPrice,
       price: Number(price),
-      cost: Number(qty * price),
+      // cost: Number(qty * price),
+      cost: Number(price),
     };
     let finalItems = [...items];
     finalItems.push(obj);
     setItems(finalItems);
     setItem("");
     setPrice(0);
-    setQty(0);
+    setIndividualPrice(0);
+    setQty("");
 
     console.log(finalItems);
   };
@@ -115,8 +120,8 @@ const AddItems = () => {
           </div>
           <div className="flex justify-center items-center gap-x-5">
             <div className="px-2 pt-4 md:w-[100%] flex-col justify-center items-center md:flex md:justify-center md:items-center gap-x-4 ">
-              <div className="flex gap-2">
-                <div className="flex-col w-[50%] ">
+              <div className="grid grid-cols-2 gap-x-2 gap-y-2">
+                <div className="flex-col  ">
                   <div>
                     <label className="font-semibold">Items</label>
                   </div>
@@ -133,26 +138,42 @@ const AddItems = () => {
                     required="true"
                   />
                 </div>
-                <div className="flex-col w-[20%] ">
+                <div className="flex-col ">
                   <div>
-                    <label className="font-semibold"> Qty</label>
+                    <label className="font-semibold">Quantity</label>
                   </div>
                   <input
-                    type="number"
+                    type="text"
                     value={qty}
                     onChange={(e) => {
                       setQty(e.target.value);
                     }}
-                    placeholder={"Quantity"}
+                    placeholder={"Enter Quantity"}
                     className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
                       isDarkMode ? "border-white" : "border-black"
                     }`}
                     required="true"
                   />
                 </div>
-                <div className="flex-col w-[20%]">
+                <div className="flex-col ">
                   <div>
                     <label className="font-semibold"> Amount</label>
+                  </div>
+                  <input
+                    type="number"
+                    value={individualPrice}
+                    onChange={(e) => {
+                      setIndividualPrice(e.target.value);
+                    }}
+                    placeholder={"Enter Amount"}
+                    className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
+                      isDarkMode ? "border-white" : "border-black"
+                    }`}
+                  />
+                </div>
+                <div className="flex-col ">
+                  <div>
+                    <label className="font-semibold"> Total</label>
                   </div>
                   <input
                     type="number"
@@ -160,7 +181,7 @@ const AddItems = () => {
                     onChange={(e) => {
                       setPrice(e.target.value);
                     }}
-                    placeholder={"Price"}
+                    placeholder={"Enter Total Price"}
                     className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
                       isDarkMode ? "border-white" : "border-black"
                     }`}
@@ -180,11 +201,11 @@ const AddItems = () => {
           </div>
 
           <div className="flex justify-center " ref={contentRef}>
-            <div className="w-full lg:w-2/3">
+            <div className="w-[100vw] lg:w-2/3">
               {items.length > 0 ? (
-                <div className="px-2">
+                <div className="px-2 w-[100vw]">
                   <table
-                    className={`border-2 border-b-black p-2  border-collapse w-full rounded-lg ${
+                    className={`border-2 border-b-black p-2  border-collapse w-fit rounded-lg ${
                       isDarkMode
                         ? "border-white"
                         : "border-black border-b-black"
@@ -192,8 +213,9 @@ const AddItems = () => {
                   >
                     <thead>
                       <tr className=" border-b-2 py-2  text-center">
-                        <th className="py-2 px-4">Item</th>
-                        <th className="py-2 px-4">Quantity</th>
+                        <th className="py-2 px-6">Item</th>
+                        <th className="py-2 px-4">Qty</th>
+                        <th className="py-2 px-4">Amt</th>
                         <th className="py-2 px-4">Total</th>
                         <th className="py-2 px-4">Delete</th>
                       </tr>
@@ -208,14 +230,19 @@ const AddItems = () => {
                             <td className="py-2 px-4 border">{value?.item}</td>
                             <td className="py-2 px-4 border">{value?.qty}</td>
                             <td className="py-2 px-4 border">
+                              &#8377; {value?.individualPrice}
+                            </td>
+
+                            <td className="py-2 px-4 border">
                               &#8377;{value?.cost}
                             </td>
-                            <td className="py-2 px-4  text-center flex justify-center hover:bg-red-500 rounded-lg ">
-                              <button
-                                onClick={() => {
-                                  handleSplice(index);
-                                }}
-                              >
+                            <td
+                              onClick={() => {
+                                handleSplice(index);
+                              }}
+                              className="  w-full  flex justify-center items-center pt-1.5 "
+                            >
+                              <button className=" hover:bg-red-500 rounded-lg py-1.5 px-5">
                                 <AiFillDelete></AiFillDelete>
                               </button>
                             </td>
@@ -231,7 +258,7 @@ const AddItems = () => {
                       }`}
                     >
                       <p className="flex items-center  text-base">
-                        Coupon: &#8377;{" "}
+                        Discount: &#8377;{" "}
                       </p>
                       <input
                         value={coupon}

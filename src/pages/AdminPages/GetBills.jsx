@@ -171,6 +171,7 @@ const GetBills = () => {
                 onChange={(date) => setDate(date)}
                 isClearable
                 placeholderText="dd/mm/yyyy"
+                dateFormat={'dd/MM/yyyy'}
                 className="px-2 outline-none border bg-transparent  py-1.5 md:w-40 shadow-sm shadow-blue-200  border-gray-300 rounded-md w-[40vw]"
               />
             </div>

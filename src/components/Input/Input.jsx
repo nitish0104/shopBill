@@ -28,7 +28,7 @@ const Input = ({
           required={true}
           disabled={disabled}
         />
-        <label htmlFor="name" className="form__label">
+        <label htmlFor="name" className="form__label font-semibold text-sm">
           {Label}
         </label>
       </div>

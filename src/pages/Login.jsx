@@ -93,7 +93,7 @@ const Login = () => {
         </div>
         <div className="flex  flex-col  justify-center items-center md:w-[50%] md:h-screen  w-[100%] h-[50%] mt-2 md:mt-0">
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-5xl font-bold text-center">Welcome,</h1>
+            <h1 className="text-5xl font-bold text-center">Welcome</h1>
             <h1 className="font-semibold">Please login to your Shop</h1>
           </div>
           <div className="flex flex-col items-center justify-center md:w-full">
@@ -101,7 +101,7 @@ const Login = () => {
               <div className="text-center mb-4">
                 <Input
                   type={"text"}
-                  className={"text-center"}
+                  className={"pl-2"}
                   Label={"Mobile Number"}
                   id={"mobileNumber"}
                   maxLength={"10"}
