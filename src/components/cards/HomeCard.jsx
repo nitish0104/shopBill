@@ -31,7 +31,7 @@ const CustomerCard = ({
       <div
         className={`bg-${isDarkMode ? "blue-200" : "cyan-50"} text-${
           isDarkMode ? "white" : "gray-800"
-        } p-4 rounded-lg  shadow-md shadow-blue-300 transform  perspective-100  w-full  overflow-hidden border mx-2 my-2`}
+        } p-4 rounded-lg  shadow-md shadow-blue-300 transform  perspective-100    overflow-hidden border m-2`}
       >
         <div
           className=" py-4 flex justify-between items-center gap-x-4 "

@@ -112,6 +112,10 @@ const GetBills = () => {
   const filteredData = data.filter((item) => {
     if (selectedFilter === "all") {
       return true;
+    } else if (selectedFilter === "today") {
+      const today = new Date();
+      today.setDate(today.getDate());
+      return item.date === formatDate(today);
     } else if (selectedFilter === "yesterday") {
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
@@ -154,6 +158,7 @@ const GetBills = () => {
                 className="px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[35vw]"
               >
                 <option value="all">All</option>
+                <option value="today">Today</option>
                 <option value="yesterday">Yesterday</option>
                 <option value="lastWeek">Last Week</option>
                 <option value="lastMonth">Last Month</option>
@@ -175,7 +180,7 @@ const GetBills = () => {
               />
             </div>
             <div
-              className="  w-full md:grid md:grid-cols-2 md:gap-2 "
+              className="  md:grid md:grid-cols-2 md:gap-2 "
               ref={contentRef}
             >
               {filteredData.map((customer, index) => (
