@@ -61,7 +61,7 @@ const Main = () => {
               <div className="flex items-center gap-x-2 justify-center">
                 <div className="md:w-[30vw]">
                   <label
-                    className="block  text-sm font-bold mb-1"
+                    className="  text-sm flex justify-center items-center font-bold mb-1"
                     htmlFor="name"
                   >
                     Business Name
@@ -90,7 +90,7 @@ const Main = () => {
               <div className="flex items-center pt-4 justify-center gap-x-2">
                 <div className="md:w-[30vw]">
                   <label
-                    className="block  text-sm font-bold mb-1"
+                    className="  text-sm flex justify-center items-center font-bold mb-1"
                     htmlFor="name"
                   >
                     Business Type
@@ -119,7 +119,7 @@ const Main = () => {
               <div className="flex items-center pt-4 gap-x-2 justify-center">
                 <div className="md:w-[30vw]">
                   <label
-                    className="block  text-sm font-bold mb-1"
+                    className="  text-sm flex justify-center items-center font-bold mb-1"
                     htmlFor="gstNo"
                   >
                     GST Number
@@ -147,7 +147,7 @@ const Main = () => {
               <div className="flex items-center pt-4 gap-x-2 justify-center">
                 <div className="md:w-[30vw]">
                   <label
-                    className="block  text-sm font-bold mb-1"
+                    className="  text-sm flex justify-center items-center font-bold mb-1"
                     htmlFor="name"
                   >
                     Location

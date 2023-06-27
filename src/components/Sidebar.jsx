@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { ThemeContextAuth } from "../context/ThemeContext";
 import { BsSun } from "react-icons/bs";
+import { GrPowerShutdown } from "react-icons/gr";
 
 const Sidebar = () => {
   const { isDarkMode, toggleMode } = ThemeContextAuth();
@@ -43,11 +44,9 @@ const Sidebar = () => {
       <div className="relative z-50 backdrop-blur-sm transition duration-300 ease-in-out ">
         <div className="flex justify-between items-center shadow-lg h-16 bg-blue-400  px-4">
           <button
-            className={`flex justify-center items-center rounded-lg px-2 py-2   hover:bg-red-500 text-sm ${
-              isDarkMode ? "bg-white text-gray-800" : "bg-gray-800 text-white"
-            } `}
+            className={`flex justify-center items-center rounded-full p-2  bg-red-500 text-sm hover:bg-red-600`}
           >
-            Shutdown
+            <GrPowerShutdown></GrPowerShutdown>
           </button>
 
           <div

@@ -46,7 +46,7 @@ const Login = () => {
             <h1 className="font-semibold">Please login to your Shop</h1>
           </div>
           <div className="flex flex-col items-center justify-center md:w-full">
-            <div className="flex flex-col md:gap-3  gap-1 mt-4 md:w-[50%]">
+            <div className="flex flex-col justify-center items-center md:gap-3  gap-1 mt-4 md:w-[50%]">
               <div className="text-center mb-4">
                 <Input
                   type={"text"}
@@ -63,7 +63,7 @@ const Login = () => {
               <button
                 onClick={handleSubmitnumber}
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded-md w-full"
+                className="bg-blue-500 text-white px-4 py-2 rounded-full w-40 flex justify-center items-center"
                 // onClick={handleSubmit}
               >
                 Send OTP

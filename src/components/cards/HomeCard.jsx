@@ -37,15 +37,15 @@ const CustomerCard = ({
           className=" py-4 flex justify-between items-center gap-x-4 "
           ref={ref}
         >
-          <div className="text-start">
+          <div className="text-start w-6/12">
             <button onClick={handleCardClick}>
               <div className="font-bold text-xl mb-2">{name}</div>
 
               <p className=" font-semibold mb-2 text-start">{mobileNumber}</p>
             </button>
           </div>
-          <div>{div}</div>
-          <div className="flex-col">
+          <div className="w-1/12">{div}</div>
+          <div className="flex flex-col justify-center items-center w-5/12">
             <button
               // className="text-3xl text-center mb-2 font-bold text-green-500"
               className={

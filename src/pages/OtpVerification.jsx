@@ -107,14 +107,14 @@ const VerifyOTP = () => {
                       maxLength="1"
                       value={digit}
                       onChange={(e) => handleChange(e, index)}
-                      className="w-12 h-12 mx-1 text-3xl text-center border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                      className="w-12 h-12 mx-1 text-3xl text-center border border-gray-300 rounded-full focus:outline-none focus:ring focus:ring-blue-300"
                     />
                   ))}
                 </div>
               </div>
               <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md mt-4"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full  mt-4"
                 onClick={handleSubmitotp}
               >
                 Verify Otp

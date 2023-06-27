@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 import { AiFillDelete } from "react-icons/ai";
 import { BsWhatsapp } from "react-icons/bs";
-import { FaRegMoneyBillAlt } from "react-icons/fa";
+import { FaRegMoneyBillAlt, FaRupeeSign } from "react-icons/fa";
 import { ImCancelCircle } from "react-icons/im";
 import WhatsAppButton from "react-whatsapp-button";
 
@@ -205,7 +205,7 @@ const AddItems = () => {
               {items.length > 0 ? (
                 <div className="px-2">
                   <table
-                    className={`border-2 border-b-black p-2  border-collapse w-full rounded-lg ${
+                    className={`min-w-full overflow-x-hidden divide-y  border-2 border-b-black p-2  border-collapse md:w-full rounded-lg ${
                       isDarkMode
                         ? "border-white"
                         : "border-black border-b-black"
@@ -213,11 +213,11 @@ const AddItems = () => {
                   >
                     <thead>
                       <tr className=" border-b-2 py-2  text-center">
-                        <th className="py-2 px-4">Item</th>
-                        <th className="py-2 px-4">Quantity</th>
-                        <th className="py-2 px-4">Individual</th>
-                        <th className="py-2 px-4">Total</th>
-                        <th className="py-2 px-4">Delete</th>
+                        <th className="py-2 px-4 w-4/12 ">Item</th>
+                        <th className="py-2 px-4 w-2/12">Quantity</th>
+                        <th className="py-2 px-4 w-2/12">Individual</th>
+                        <th className="py-2 px-4 w-2/12">Total</th>
+                        <th className="py-2 px-4 w-2/12">Delete</th>
                       </tr>
                     </thead>
                     <tbody className="">
@@ -299,15 +299,15 @@ const AddItems = () => {
             </div>
           </div>
           <div
-            className={`w-full  flex justify-around items-center gap-6 py-6     bg-${
+            className={`w-full  flex justify-around items-center  bg-${
               isDarkMode ? "gray-800" : "white"
             } text-${isDarkMode ? "white" : "gray-800"} p-4`}
           >
             <button
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-1 py-2  md:w-40 rounded mt-4 flex justify-center items-center gap-2  w-[50%] "
+              className="bg-blue-600 hover:bg-blue-700 text-white font-bold p-4 rounded-full  flex justify-center items-center gap-2   "
               onClick={getBill}
             >
-              <FaRegMoneyBillAlt></FaRegMoneyBillAlt> Generate Bill
+              <FaRupeeSign className="text-2xl font-bold"></FaRupeeSign>
             </button>
           </div>
         </div>
