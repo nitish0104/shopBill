@@ -3,16 +3,34 @@ import LayoutManin from "../../components/layout/LayoutManin";
 import Sidebar from "../../components/Sidebar";
 import Navigation from "../../components/Navigation";
 import CustomerCard from "../../components/cards/HomeCard";
-import DatePicker from "react-datepicker";
+import DatePicker, { ReactDatePicker } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import html2canvas from "html2canvas";
 import { BsWhatsapp } from "react-icons/bs";
 import Modal from "react-modal";
 import { AiFillCloseCircle, AiFillFilter } from "react-icons/ai";
+import { getYear } from "date-fns";
 
 const GetBills = () => {
   const phoneNumber = "9987274285"; // Replace with your phone number
   const message = "Maggie(8) -40Rs  "; // Replace with your desired message
+
+  const [date, setDate] = useState(new Date());
+  // const years = range(1990, getYear(new Date()) + 1, 1);
+  // const months = [
+  //   "January",
+  //   "February",
+  //   "March",
+  //   "April",
+  //   "May",
+  //   "June",
+  //   "July",
+  //   "August",
+  //   "September",
+  //   "October",
+  //   "November",
+  //   "December",
+  // ];
 
   const handleButtonClick = () => {
     const encodedMessage = encodeURIComponent(message);
@@ -125,7 +143,7 @@ const GetBills = () => {
         <Sidebar />
         <div className=" md:w-[70vw] w-[100vw]  flex justify-center items-center  mt-8 mx-auto">
           <div>
-            <div className="flex justify-center items-center mb-4">
+            <div className="flex justify-center items-center gap-x-4 mb-4">
               <div className=" text-3xl font-extrabold">
                 <AiFillFilter></AiFillFilter>
               </div>
@@ -133,7 +151,7 @@ const GetBills = () => {
                 id="filter"
                 value={selectedFilter}
                 onChange={handleFilterChange}
-                className="px-2 py-1 border border-gray-300 rounded-md"
+                className="px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[35vw]"
               >
                 <option value="all">All</option>
                 <option value="yesterday">Yesterday</option>
@@ -141,12 +159,20 @@ const GetBills = () => {
                 <option value="lastMonth">Last Month</option>
                 <option value="lastYear">Last Year</option>
               </select>
-              <button
+              {/* <button
                 onClick={() => setIsModalOpen(true)}
                 className="ml-2 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
               >
                 Select Date
-              </button>
+              </button> */}
+              <DatePicker
+                selected={date}
+                
+                onChange={(date) => setDate(date)}
+                isClearable
+                placeholderText="dd/mm/yyyy"
+                className="px-2 outline-none border bg-transparent  py-1.5 md:w-40 shadow-sm shadow-blue-200  border-gray-300 rounded-md w-[40vw]"
+              />
             </div>
             <div
               className="  w-full md:grid md:grid-cols-2 md:gap-2 "
