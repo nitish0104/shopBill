@@ -9,7 +9,7 @@ const InitialPage = () => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       navigate("/login");
-    }, 2000);
+    }, 1300);
 
     return () => {
       clearTimeout(timeout);
