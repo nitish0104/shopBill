@@ -48,7 +48,7 @@ const Sidebar = () => {
                 isDarkMode ? "bg-white text-gray-800" : "bg-gray-800 text-white"
               } `}
             >
-              Logout
+              Shutdown
             </button>
           </div>
 

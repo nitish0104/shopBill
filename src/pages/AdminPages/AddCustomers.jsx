@@ -46,7 +46,7 @@ const AddCustomers = () => {
               className="h-12 w-[90vw] flex justify-center items-center  rounded-lg border-2 border-black pl-2 focus:border-blue-500"
             />
           </div>
-          <div className="flex flex-col items-center justify-center w-[100%] mt-3">
+          {/* <div className="flex flex-col items-center justify-center w-[100%] mt-3"> */}
             {/* <div className="mb-4 w-[100%]">
               <button
                 className="  bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-1/2 "
@@ -62,6 +62,9 @@ const AddCustomers = () => {
               </button>
             </div> */}
 
+
+
+{/* 
             {recentCustomer && (
               <div className="w-full md:grid md:grid-cols-2 md:gap-2	">
                 <CustomerCard
@@ -137,7 +140,7 @@ const AddCustomers = () => {
                 ></CustomerCard>
               </div>
             )}
-          </div>
+          </div> */}
         </div>
         <div className="text-center flex justify-center items-center">
           <div className=" fixed bottom-16 w-screen">

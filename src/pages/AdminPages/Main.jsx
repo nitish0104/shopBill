@@ -48,7 +48,6 @@ const Main = () => {
             <ImageUploadComponent></ImageUploadComponent>
             <div className="md:grid md:grid-cols-2 md:px-36">
               <div className="flex items-center gap-x-2 justify-center">
-                <AiOutlineShop className="text-2xl" />
                 <div className="md:w-[30vw]">
                   <label
                     className="block  text-sm font-bold mb-2"
@@ -56,22 +55,23 @@ const Main = () => {
                   >
                     Business Name
                   </label>
-                  <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-                    id="BusinessName"
-                    type="text"
-                    name="name"
-                    value={formState.BusinessName}
-                    onChange={handleChange}
-                    placeholder="Enter Business Name"
-                    disabled={!isEditable}
-                  />
+                  <div className="pl-1 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
+                    <AiOutlineShop className="text-2xl bg-transparent " />
+                    <input
+                      className=" py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline"
+                      id="BusinessName"
+                      type="text"
+                      name="name"
+                      value={formState.BusinessName}
+                      onChange={handleChange}
+                      placeholder="Enter Business Name"
+                      disabled={!isEditable}
+                    />
+                  </div>
                 </div>
               </div>
 
               <div className="flex items-center pt-4 justify-center gap-x-2">
-                <IoBusinessOutline className="text-2xl " />
-
                 <div className="md:w-[30vw]">
                   <label
                     className="block  text-sm font-bold mb-2"
@@ -79,20 +79,23 @@ const Main = () => {
                   >
                     Business Type
                   </label>
-                  <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-                    id="BusinessType"
-                    type="text"
-                    name="name"
-                    value={formState.BusinessType}
-                    onChange={handleChange}
-                    placeholder="Enter Business Type"
-                    disabled={!isEditable}
-                  />
+
+                  <div className=" pl-1 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
+                    <IoBusinessOutline className="text-2xl bg-transparent " />
+                    <input
+                      className=" py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline"
+                      id="BusinessType"
+                      type="text"
+                      name="name"
+                      value={formState.BusinessType}
+                      onChange={handleChange}
+                      placeholder="Enter Business Type"
+                      disabled={!isEditable}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="flex items-center pt-4 gap-x-2 justify-center">
-                <HiOutlineReceiptTax className="text-2xl " />
                 <div className="md:w-[30vw]">
                   <label
                     className="block  text-sm font-bold mb-2"
@@ -100,20 +103,22 @@ const Main = () => {
                   >
                     GST Number
                   </label>
-                  <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-                    id="gstNo"
-                    type="text"
-                    name="name"
-                    value={formState.gstNo}
-                    onChange={handleChange}
-                    placeholder="Enter GST Number"
-                    disabled={!isEditable}
-                  />
+                  <div className=" pl-1 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
+                    <HiOutlineReceiptTax className="text-2xl bg-transparent " />
+                    <input
+                      className=" py-2 px-1 text-black leading-tight focus:outline-none focus:shadow-outline"
+                      id="gstNo"
+                      type="text"
+                      name="name"
+                      value={formState.gstNo}
+                      onChange={handleChange}
+                      placeholder="Enter GST Number"
+                      disabled={!isEditable}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="flex items-center pt-4 gap-x-2 justify-center">
-                <IoLocation className="text-2xl " />
                 <div className="md:w-[30vw]">
                   <label
                     className="block  text-sm font-bold mb-2"
@@ -121,37 +126,40 @@ const Main = () => {
                   >
                     Location
                   </label>
-                  <input
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-                    id="location"
-                    type="text"
-                    name="name"
-                    value={formState.location}
-                    onChange={handleChange}
-                    placeholder="Enter Location"
-                    disabled={!isEditable}
-                  />
+                  <div className=" pl-1 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
+                    <IoLocation className="text-2xl bg-transparent " />
+                    <input
+                      className=" py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline"
+                      id="location"
+                      type="text"
+                      name="name"
+                      value={formState.location}
+                      onChange={handleChange}
+                      placeholder="Enter Location"
+                      disabled={!isEditable}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-            <div className=" flex items-center pt-4 md:pt-16 gap-x-16 justify-center mt-2 ">
+            <div className=" flex items-center pt-4 md:pt-16 gap-x-16 justify-center ">
               <div className="flex gap-x-10 md:w-[30%] w-[70vw]">
                 {isEditable ? (
-                  <div className=" w-[100%]">
+                  <div className=" w-[100%] flex justify-center">
                     <button
                       type="button"
                       onClick={handleSaveChangesClick}
-                      className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 w-[100%]"
+                      className="px-4 py-1.5 text-xl bg-green-500 text-white rounded-md hover:bg-green-600 w-[40%]"
                     >
                       Save
                     </button>
                   </div>
                 ) : (
-                  <div className="w-[100%]">
+                  <div className="w-[100%] flex justify-center">
                     <button
                       type="button"
                       onClick={handleEditClick}
-                      className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-indigo-600 w-[100%]"
+                      className="px-4 py-1.5 text-xl bg-blue-500 text-white rounded-md hover:bg-indigo-600 w-[40%]"
                     >
                       Edit
                     </button>
