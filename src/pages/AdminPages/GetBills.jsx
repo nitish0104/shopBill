@@ -52,7 +52,7 @@ const GetBills = () => {
       id: 1,
       name: "Nitish  Dalvi",
       mobileNumber: "356428927",
-      date: "2023-06-19",
+      date: "26/06/2023",
       amount: 100,
       items: ["maggi", "oats", "Buscuit"],
     },
@@ -60,7 +60,7 @@ const GetBills = () => {
       id: 2,
       name: "Prakash Jha",
       mobileNumber: "356428927",
-      date: "2023-05-19",
+      date: "19/05/2023",
       amount: 456,
       items: ["kitkat", "milk", "Rice"],
     },
@@ -68,7 +68,7 @@ const GetBills = () => {
       id: 3,
       name: "XYZ ABC",
       mobileNumber: "356428927",
-      date: "2020-02-19",
+      date: "10/02/2023",
       amount: 869,
       items: ["Item 1", "milk", "Item 3"],
     },
@@ -76,7 +76,7 @@ const GetBills = () => {
       id: 4,
       name: "XYZ ABC",
       mobileNumber: "356428927",
-      date: "2020-06-26",
+      date: "23/11/2022",
       amount: 869,
       items: ["Item 1", "milk", "Item 3"],
     },
@@ -84,7 +84,7 @@ const GetBills = () => {
       id: 5,
       name: "XYZ ABC",
       mobileNumber: "356428927",
-      date: "2020-06-27",
+      date: "20/03/2023",
       amount: 869,
       items: ["Item 1", "milk", "Item 3"],
     },
@@ -107,7 +107,7 @@ const GetBills = () => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
+    return `${day}-${month}-${year}`;
   };
   const filteredData = data.filter((item) => {
     if (selectedFilter === "all") {
@@ -167,11 +167,10 @@ const GetBills = () => {
               </button> */}
               <DatePicker
                 selected={date}
-                
                 onChange={(date) => setDate(date)}
                 isClearable
                 placeholderText="dd/mm/yyyy"
-                dateFormat={'dd/MM/yyyy'}
+                dateFormat={"dd/MM/yyyy"}
                 className="px-2 outline-none border bg-transparent  py-1.5 md:w-40 shadow-sm shadow-blue-200  border-gray-300 rounded-md w-[40vw]"
               />
             </div>
@@ -189,7 +188,7 @@ const GetBills = () => {
                   mobileNumber={customer.mobileNumber}
                   div={
                     <button
-                      className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 flex gap-2 justify-center items-center "
+                      className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-center "
                       phoneNumber={phoneNumber}
                       message={message}
                       onClick={handleButtonClick}

@@ -203,9 +203,9 @@ const AddItems = () => {
           <div className="flex justify-center " ref={contentRef}>
             <div className="w-[100vw] lg:w-2/3">
               {items.length > 0 ? (
-                <div className="px-2 w-[100vw]">
+                <div className="px-2">
                   <table
-                    className={`border-2 border-b-black p-2  border-collapse w-fit rounded-lg ${
+                    className={`border-2 border-b-black p-2  border-collapse w-full rounded-lg ${
                       isDarkMode
                         ? "border-white"
                         : "border-black border-b-black"
@@ -213,9 +213,9 @@ const AddItems = () => {
                   >
                     <thead>
                       <tr className=" border-b-2 py-2  text-center">
-                        <th className="py-2 px-6">Item</th>
-                        <th className="py-2 px-4">Qty</th>
-                        <th className="py-2 px-4">Amt</th>
+                        <th className="py-2 px-4">Item</th>
+                        <th className="py-2 px-4">Quantity</th>
+                        <th className="py-2 px-4">Individual</th>
                         <th className="py-2 px-4">Total</th>
                         <th className="py-2 px-4">Delete</th>
                       </tr>
@@ -230,19 +230,17 @@ const AddItems = () => {
                             <td className="py-2 px-4 border">{value?.item}</td>
                             <td className="py-2 px-4 border">{value?.qty}</td>
                             <td className="py-2 px-4 border">
-                              &#8377; {value?.individualPrice}
+                              &#8377;{value?.individualPrice}
                             </td>
-
                             <td className="py-2 px-4 border">
                               &#8377;{value?.cost}
                             </td>
-                            <td
-                              onClick={() => {
-                                handleSplice(index);
-                              }}
-                              className="  w-full  flex justify-center items-center pt-1.5 "
-                            >
-                              <button className=" hover:bg-red-500 rounded-lg py-1.5 px-5">
+                            <td className="py-2 px-4  text-center flex justify-center hover:bg-red-500 rounded-lg ">
+                              <button
+                                onClick={() => {
+                                  handleSplice(index);
+                                }}
+                              >
                                 <AiFillDelete></AiFillDelete>
                               </button>
                             </td>
@@ -258,7 +256,7 @@ const AddItems = () => {
                       }`}
                     >
                       <p className="flex items-center  text-base">
-                        Discount: &#8377;{" "}
+                        Coupon: &#8377;{" "}
                       </p>
                       <input
                         value={coupon}
@@ -282,7 +280,7 @@ const AddItems = () => {
               ) : (
                 <div className=" mt-4   px-8  ">
                   <div className="flex justify-around flex-col items-center">
-                    <div className="w-[40%]">
+                    <div className="w-[40%] md:w-[27%]">
                       <img src={noItems} alt="" />
                     </div>
                     {/* <div className=""> */}

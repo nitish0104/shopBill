@@ -18,6 +18,7 @@ import GeneratedBill from './pages/AdminPages/GeneratedBill';
 import SendMessage from './pages/AdminPages/SendMessage';
 import WhatsAppMessageButton from './raw/WhatsappTest';
 import Date from './raw/DateTest';
+import VerifyOTP from './pages/OtpVerification';
 
 function App() {
   return (
@@ -31,8 +32,7 @@ function App() {
               <Route path="/" element={<InitialPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/mobileVerify" element={<MobileNumberForm />} />
-              <Route path="/verify/mobileVerify" element={<MobileNumberForm />} />
-              <Route path="/verify" element={<VerifyOtpPage />} />
+              <Route path="/verify" element={<VerifyOTP />} />
               <Route path="/demoVerify" element={<OTPVerification />} />
               <Route path="/profile" element={<ProfilePage1 />} />
               <Route path="/dashboard" element={<Main />} />

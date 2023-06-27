@@ -9,7 +9,8 @@ import { IoBusinessOutline } from "react-icons/io5";
 import { HiOutlineReceiptTax } from "react-icons/hi";
 import { GoLocation } from "react-icons/go";
 import { ThemeContextAuth } from "../../context/ThemeContext";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ImageUploadComponent from "../../components/Input/ImageInput";
 
 const Main = () => {
@@ -28,6 +29,16 @@ const Main = () => {
   };
   const handleSaveChangesClick = () => {
     setisEditable(false);
+    toast.success("Profile updated !", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: false,
+      progress: false,
+      theme: "light",
+    });
   };
   const handleChange = (e) => {
     setformState((prevdata) => ({
@@ -56,15 +67,20 @@ const Main = () => {
                     Business Name
                   </label>
                   <div className="pl-2 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
-                    <AiOutlineShop className="text-xl bg-transparent text-gray-400" />
+                    <AiOutlineShop
+                      className={`text-3xl text-transperent ${
+                        isDarkMode
+                          ? "bg-gray-800 text-white"
+                          : "bg-white text-gray-800"
+                      }`}
+                    />
                     <input
-                      className=" py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-400"
+                      className="w-full py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
                       id="BusinessName"
                       type="text"
                       name="name"
                       value={formState.BusinessName}
                       onChange={handleChange}
-                      placeholder="Enter Business Name"
                       disabled={!isEditable}
                     />
                   </div>
@@ -81,15 +97,20 @@ const Main = () => {
                   </label>
 
                   <div className=" pl-1 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
-                    <IoBusinessOutline className="text-xl bg-transparent text-gray-400" />
+                    <IoBusinessOutline
+                      className={`text-3xl text-transperent ${
+                        isDarkMode
+                          ? "bg-gray-800 text-white"
+                          : "bg-white text-gray-800"
+                      }`}
+                    />
                     <input
-                      className=" py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-400"
+                      className="w-full py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
                       id="BusinessType"
                       type="text"
                       name="name"
                       value={formState.BusinessType}
                       onChange={handleChange}
-                      placeholder="Enter Business Type"
                       disabled={!isEditable}
                     />
                   </div>
@@ -104,15 +125,20 @@ const Main = () => {
                     GST Number
                   </label>
                   <div className=" pl-2 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
-                    <HiOutlineReceiptTax className="text-xl bg-transparent text-gray-400" />
+                    <HiOutlineReceiptTax
+                      className={`text-3xl text-transperent ${
+                        isDarkMode
+                          ? "bg-gray-800 text-white"
+                          : "bg-white text-gray-800"
+                      }`}
+                    />
                     <input
-                      className=" py-2 px-1 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-400"
+                      className="w-full py-2 px-1 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
                       id="gstNo"
                       type="text"
                       name="name"
                       value={formState.gstNo}
                       onChange={handleChange}
-                      placeholder="Enter GST Number"
                       disabled={!isEditable}
                     />
                   </div>
@@ -127,15 +153,20 @@ const Main = () => {
                     Location
                   </label>
                   <div className=" pl-2 flex items-center shadow appearance-none border rounded w-full  leading-tight focus:outline-none focus:shadow-outline">
-                    <GoLocation className="text-xl bg-transparent text-gray-400 " />
+                    <GoLocation
+                      className={`text-3xl text-transperent ${
+                        isDarkMode
+                          ? "bg-gray-800 text-white"
+                          : "bg-white text-gray-800"
+                      }`}
+                    />
                     <input
-                      className=" py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-400"
+                      className="w-full py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
                       id="location"
                       type="text"
                       name="name"
                       value={formState.location}
                       onChange={handleChange}
-                      placeholder="Enter Location"
                       disabled={!isEditable}
                     />
                   </div>
@@ -159,7 +190,7 @@ const Main = () => {
                     <button
                       type="button"
                       onClick={handleEditClick}
-                      className="px-4 py-1.5 text-xl bg-blue-500 text-white rounded-md hover:bg-indigo-600 w-[40%]"
+                      className="px-4 py-1.5 text-xl bg-blue-500 text-white rounded-md hover:bg-blue-600 w-[40%]"
                     >
                       Edit
                     </button>
@@ -169,6 +200,7 @@ const Main = () => {
             </div>
           </div>
         </div>
+        <ToastContainer />
 
         <Navigation />
       </LayoutManin>

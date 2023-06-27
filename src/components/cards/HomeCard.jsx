@@ -13,7 +13,11 @@ const CustomerCard = ({
 }) => {
   const { isDarkMode } = ThemeContextAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [colorChange, setcolorChange] = useState(false);
 
+  const handleColorChange = () => {
+    setcolorChange(!colorChange);
+  };
   const handleCardClick = () => {
     setIsModalOpen(true);
   };
@@ -42,9 +46,18 @@ const CustomerCard = ({
           </div>
           <div>{div}</div>
           <div className="flex-col">
-            <p className="text-3xl text-center mb-2 font-bold text-green-500">
+            <button
+              // className="text-3xl text-center mb-2 font-bold text-green-500"
+              className={
+                colorChange
+                  ? "text-3xl text-center mb-2 font-bold text-red-500"
+                  : "text-3xl text-center mb-2 font-bold text-green-500"
+              }
+              onClick={handleColorChange}
+            >
               &#8377;{amount}
-            </p>
+            </button>
+
             <div>
               <div>{date}</div>
             </div>
