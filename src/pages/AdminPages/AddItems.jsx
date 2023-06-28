@@ -200,104 +200,108 @@ const AddItems = () => {
             </div>
           </div>
 
-          <div className="flex justify-center " ref={contentRef}>
-            <div className="w-[100vw] lg:w-2/3">
-              {items.length > 0 ? (
-                <div className="px-2">
-                  <table
-                    className={`min-w-full overflow-x-hidden divide-y  border-2 border-b-black p-2  border-collapse md:w-full rounded-lg ${
-                      isDarkMode
-                        ? "border-white"
-                        : "border-black border-b-black"
+          <div className="overflow-x-auto">
+            {items.length > 0 ? (
+              <>
+                <table
+                  className={`min-w-full divide-y divide-gray-200" border-2 border-b-black p-2  border-collapse rounded-lg ${
+                    isDarkMode ? "border-white" : "border-black border-b-black"
+                  }`}
+                >
+                  <thead>
+                    <tr className="  border-b-2 py-2  text-center">
+                      <th className="sticky left-0  bg-white py-2 px-4  ">
+                        Item
+                      </th>
+                      <th className=" bg-white py-2 px-4 ">Quantity</th>
+                      <th className=" bg-white py-2 px-4 ">Individual</th>
+                      <th className=" bg-white py-2 px-4 ">Total</th>
+                      <th className=" bg-white py-2 px-4 ">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {items?.map((value, index) => {
+                      return (
+                        <tr
+                          key={index}
+                          className=" border-b-2 py-2 border-black text-x text-center "
+                        >
+                          <td className="sticky left-0 bg-white py-2 px-4 border whitespace-nowrap">
+                            {value?.item}
+                          </td>
+                          <td className="py-2 px-4 border whitespace-nowrap">
+                            {value?.qty}
+                          </td>
+                          <td className="py-2 px-4 border whitespace-nowrap">
+                            &#8377;{value?.individualPrice}
+                          </td>
+                          <td className="py-2 px-4 border whitespace-nowrap">
+                            &#8377;{value?.cost}
+                          </td>
+                          <button
+                            className="w-full"
+                            onClick={() => {
+                              handleSplice(index);
+                            }}
+                          >
+                            <td className="py-2 px-4  text-center flex justify-center hover:bg-red-500 rounded-lg  whitespace-nowrap ">
+                              <AiFillDelete></AiFillDelete>
+                            </td>
+                          </button>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+                <div className=" w-full flex justify-center  pr-2 pt-4 gap-x-3">
+                  <div
+                    className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
+                      isDarkMode ? "border-white" : "border-black"
                     }`}
                   >
-                    <thead>
-                      <tr className=" border-b-2 py-2  text-center">
-                        <th className="py-2 px-4 w-4/12 ">Item</th>
-                        <th className="py-2 px-4 w-2/12">Quantity</th>
-                        <th className="py-2 px-4 w-2/12">Individual</th>
-                        <th className="py-2 px-4 w-2/12">Total</th>
-                        <th className="py-2 px-4 w-2/12">Delete</th>
-                      </tr>
-                    </thead>
-                    <tbody className="">
-                      {items?.map((value, index) => {
-                        return (
-                          <tr
-                            key={index}
-                            className=" border-b-2 py-2 border-black text-x text-center "
-                          >
-                            <td className="py-2 px-4 border">{value?.item}</td>
-                            <td className="py-2 px-4 border">{value?.qty}</td>
-                            <td className="py-2 px-4 border">
-                              &#8377;{value?.individualPrice}
-                            </td>
-                            <td className="py-2 px-4 border">
-                              &#8377;{value?.cost}
-                            </td>
-                            <td className="py-2 px-4  text-center flex justify-center hover:bg-red-500 rounded-lg ">
-                              <button
-                                onClick={() => {
-                                  handleSplice(index);
-                                }}
-                              >
-                                <AiFillDelete></AiFillDelete>
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                  <div className=" w-full flex justify-center  pr-2 pt-4 gap-x-3">
-                    <div
-                      className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
-                        isDarkMode ? "border-white" : "border-black"
-                      }`}
-                    >
-                      <p className="flex items-center  text-base">
-                        Coupon: &#8377;{" "}
-                      </p>
-                      <input
-                        value={coupon}
-                        onChange={(e) => {
-                          setCoupon(e.target.value);
-                        }}
-                        className={`  w-[30%]   flex items-center text-black border-none outline-none`}
-                        required="true"
-                      />
-                    </div>
-                    <p
-                      className={`border-2 py-1 px-3 text-base flex items-center w-[80%] ${
-                        isDarkMode ? "border-white" : "border-black"
-                      }`}
-                    >
-                      GrandTotal: &#8377;
-                      {coupon ? grandtotal - coupon : grandtotal} /-
+                    <p className="flex items-center  text-base">
+                      Coupon: &#8377;{" "}
                     </p>
+                    <input
+                      value={coupon}
+                      onChange={(e) => {
+                        setCoupon(e.target.value);
+                      }}
+                      className={`  w-[30%]   flex items-center text-black border-none outline-none`}
+                      required="true"
+                    />
+                  </div>
+                  <p
+                    className={`border-2 py-1 px-3 text-base flex items-center w-[80%] ${
+                      isDarkMode ? "border-white" : "border-black"
+                    }`}
+                  >
+                    GrandTotal: &#8377;
+                    {coupon ? grandtotal - coupon : grandtotal} /-
+                  </p>
+                </div>
+              </>
+            ) : (
+              <div className=" mt-4   px-8  ">
+                <div className="flex justify-around flex-col items-center">
+                  <div className="w-[40%] md:w-[27%]">
+                    <img src={noItems} alt="" />
+                  </div>
+
+                  <div
+                    className={`flex flex-col justify-center items-center   text-${
+                      isDarkMode ? "black" : "gray-800"
+                    } p-4`}
+                  >
+                    <span className="font-mono   md:text-5xl text-xl">
+                      Oop's! Data Not Found
+                    </span>
                   </div>
                 </div>
-              ) : (
-                <div className=" mt-4   px-8  ">
-                  <div className="flex justify-around flex-col items-center">
-                    <div className="w-[40%] md:w-[27%]">
-                      <img src={noItems} alt="" />
-                    </div>
-                    {/* <div className=""> */}
-                    <div
-                      className={`flex flex-col justify-center items-center   text-${
-                        isDarkMode ? "black" : "gray-800"
-                      } p-4`}
-                    >
-                      <span className="font-mono   md:text-5xl text-xl">
-                        Oop's! Data Not Found
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
+
           <div
             className={`w-full  flex justify-around items-center  bg-${
               isDarkMode ? "gray-800" : "white"
