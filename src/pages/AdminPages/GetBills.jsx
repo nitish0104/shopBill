@@ -47,7 +47,7 @@ const GetBills = () => {
   };
 
   const contentRef = useRef(null);
-  const data = [
+   const data = [
     {
       id: 1,
       name: "Nitish  Dalvi",

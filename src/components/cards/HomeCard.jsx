@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from "../Modal/CustomerModal";
 import { ThemeContextAuth } from "../../context/ThemeContext";
+import { useNavigate } from "react-router-dom";
 
 const CustomerCard = ({
   name,
@@ -11,6 +12,7 @@ const CustomerCard = ({
   div,
   ref,
 }) => {
+  const navigate = useNavigate()
   const { isDarkMode } = ThemeContextAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [colorChange, setcolorChange] = useState(false);
@@ -19,7 +21,8 @@ const CustomerCard = ({
     setcolorChange(!colorChange);
   };
   const handleCardClick = () => {
-    setIsModalOpen(true);
+    // setIsModalOpen(true);
+navigate('/customer-details')
   };
 
   const closeModal = () => {

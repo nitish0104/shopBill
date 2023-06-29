@@ -19,6 +19,8 @@ import SendMessage from './pages/AdminPages/SendMessage';
 import WhatsAppMessageButton from './raw/WhatsappTest';
 import Date from './raw/DateTest';
 import VerifyOTP from './pages/OtpVerification';
+import ShowCustomerDetails from './pages/AdminPages/ShowCustomerDetails';
+
 
 function App() {
   return (
@@ -44,6 +46,7 @@ function App() {
               <Route path="/send-message" element={<SendMessage />} />
               <Route path="/sendWhatsAppmessage" element={<WhatsAppMessageButton />} />
               <Route path="/datetest" element={<Date />} />
+              <Route path="/customer-details" element={<ShowCustomerDetails />} />
             </Routes>
           </ThemeProvider>
         </Context>
