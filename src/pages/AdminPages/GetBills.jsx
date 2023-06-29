@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import LayoutManin from "../../components/layout/LayoutManin";
 import Sidebar from "../../components/Sidebar";
 import Navigation from "../../components/Navigation";
@@ -44,7 +44,7 @@ const GetBills = () => {
       id: 1,
       name: "Nitish  Dalvi",
       mobileNumber: "356428927",
-      date: "29/jun/2023",
+      date: "29/Jun/2023",
       amount: 100,
       items: ["maggi", "oats", "Buscuit"],
     },
@@ -89,9 +89,33 @@ const GetBills = () => {
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
   };
-
+  useEffect(() => {
+    setSelectedDate("");
+  }, [filter]);
+  const getMonthAbbreviation = (monthIndex) => {
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    return months[monthIndex];
+  };
   const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
+    const date = new Date(event.target.value);
+    const formattedDate = `${date.getDate()}/${getMonthAbbreviation(
+      date.getMonth()
+    )}/${date.getFullYear()}`;
+
+    setSelectedDate(formattedDate);
   };
 
   const filteredCards = cardData.filter((card) => {

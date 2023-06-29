@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LayoutManin from "../../components/layout/LayoutManin";
 import Sidebar from "../../components/Sidebar";
 import DatePicker, { ReactDatePicker } from "react-datepicker";
@@ -28,7 +28,7 @@ const ShowCustomerDetails = () => {
 
   const cardData = [
     {
-      date: "29/jun/2023",
+      date: "29/Jun/2023",
       items: ["maggi", "oats", "Buscuit"],
       individualPrice: [10, 10, 10],
       quantity: [2, 3, 4],
@@ -37,7 +37,7 @@ const ShowCustomerDetails = () => {
     },
 
     {
-      date: "28/jun/2023",
+      date: "28/Jun/2023",
       items: ["egg", "dall", "Biscuit"],
       individualPrice: [5, 10, 10],
       quantity: [1, 1, 2],
@@ -45,7 +45,7 @@ const ShowCustomerDetails = () => {
       grandTotal: 35,
     },
     {
-      date: "20/jun/2023",
+      date: "20/Jun/2023",
       items: ["egg", "dall", "Biscuit"],
       individualPrice: [5, 10, 10],
       quantity: [1, 1, 2],
@@ -53,7 +53,7 @@ const ShowCustomerDetails = () => {
       grandTotal: 35,
     },
     {
-      date: "28/may/2023",
+      date: "28/May/2023",
       items: ["egg", "dall", "Biscuit"],
       individualPrice: [5, 10, 10],
       quantity: [1, 1, 2],
@@ -66,16 +66,45 @@ const ShowCustomerDetails = () => {
   const [selectedDate, setSelectedDate] = useState("");
 
   const handleFilterChange = (event) => {
+    setSelectedDate("");
     setFilter(event.target.value);
   };
+  useEffect(() => {
+    setSelectedDate("");
+  }, [filter]);
 
+  // const handleDateChange = (event) => {
+  //   setSelectedDate(event.target.value);
+  // };
+  const getMonthAbbreviation = (monthIndex) => {
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    return months[monthIndex];
+  };
   const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
+    const date = new Date(event.target.value);
+    const formattedDate = `${date.getDate()}/${getMonthAbbreviation(
+      date.getMonth()
+    )}/${date.getFullYear()}`;
+
+    setSelectedDate(formattedDate);
+    // setSelectedDate(event.target.value);
   };
 
   const filteredCards = cardData.filter((card) => {
     const cardDate = new Date(card.date);
-    // const selected = new Date(selectedDate);
 
     if (filter === "today") {
       const today = new Date();
