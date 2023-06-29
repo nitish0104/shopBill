@@ -37,22 +37,14 @@ const GetBills = () => {
     const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     window.open(url, "_blank");
   };
-  const handleDownload = () => {
-    html2canvas(contentRef.current).then((canvas) => {
-      const link = document.createElement("a");
-      link.href = canvas.toDataURL();
-      link.download = "download.png";
-      link.click();
-    });
-  };
 
   const contentRef = useRef(null);
-   const data = [
+  const cardData = [
     {
       id: 1,
       name: "Nitish  Dalvi",
       mobileNumber: "356428927",
-      date: "26/06/2023",
+      date: "29/jun/2023",
       amount: 100,
       items: ["maggi", "oats", "Buscuit"],
     },
@@ -60,7 +52,7 @@ const GetBills = () => {
       id: 2,
       name: "Prakash Jha",
       mobileNumber: "356428927",
-      date: "19/05/2023",
+      date: "28/jun/2023",
       amount: 456,
       items: ["kitkat", "milk", "Rice"],
     },
@@ -68,7 +60,7 @@ const GetBills = () => {
       id: 3,
       name: "XYZ ABC",
       mobileNumber: "356428927",
-      date: "10/02/2023",
+      date: "10/May/2023",
       amount: 869,
       items: ["Item 1", "milk", "Item 3"],
     },
@@ -76,7 +68,7 @@ const GetBills = () => {
       id: 4,
       name: "XYZ ABC",
       mobileNumber: "356428927",
-      date: "23/11/2022",
+      date: "23/may/2022",
       amount: 869,
       items: ["Item 1", "milk", "Item 3"],
     },
@@ -84,62 +76,57 @@ const GetBills = () => {
       id: 5,
       name: "XYZ ABC",
       mobileNumber: "356428927",
-      date: "20/03/2023",
+      date: "20/jun/2023",
       amount: 869,
       items: ["Item 1", "milk", "Item 3"],
     },
     // Add more customer objects
   ];
 
-  const [selectedFilter, setSelectedFilter] = useState("all");
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [filter, setFilter] = useState("all");
+  const [selectedDate, setSelectedDate] = useState("");
 
   const handleFilterChange = (event) => {
-    setSelectedFilter(event.target.value);
+    setFilter(event.target.value);
   };
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    setIsModalOpen(false);
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
   };
-  const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${day}-${month}-${year}`;
-  };
-  const filteredData = data.filter((item) => {
-    if (selectedFilter === "all") {
-      return true;
-    } else if (selectedFilter === "today") {
+
+  const filteredCards = cardData.filter((card) => {
+    const cardDate = new Date(card.date);
+    // const selected = new Date(selectedDate);
+
+    if (filter === "today") {
       const today = new Date();
-      today.setDate(today.getDate());
-      return item.date === formatDate(today);
-    } else if (selectedFilter === "yesterday") {
+      return cardDate.toDateString() === today.toDateString();
+    } else if (filter === "yesterday") {
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
-      return item.date === formatDate(yesterday);
-    } else if (selectedFilter === "lastWeek") {
+      return cardDate.toDateString() === yesterday.toDateString();
+    } else if (filter === "lastweek") {
       const lastWeek = new Date();
       lastWeek.setDate(lastWeek.getDate() - 7);
-      return new Date(item.date) >= lastWeek;
-    } else if (selectedFilter === "lastMonth") {
+      return cardDate >= lastWeek && cardDate <= new Date();
+    } else if (filter === "lastmonth") {
       const lastMonth = new Date();
       lastMonth.setMonth(lastMonth.getMonth() - 1);
-      return new Date(item.date) >= lastMonth;
-    } else if (selectedFilter === "lastYear") {
+      return cardDate >= lastMonth && cardDate <= new Date();
+    } else if (filter === "lastyear") {
       const lastYear = new Date();
       lastYear.setFullYear(lastYear.getFullYear() - 1);
-      return new Date(item.date) >= lastYear;
+      return cardDate >= lastYear && cardDate <= new Date();
+    } else {
+      return true;
     }
-    if (selectedDate) {
-      filteredData = filteredData.filter(
-        (item) => item.date === formatDate(selectedDate)
-      );
-    }
-    return filteredData;
   });
+
+  const filteredCardsByDate = selectedDate
+    ? filteredCards.filter(
+        (card) => card.date === selectedDate.toString().split("T")[0]
+      )
+    : filteredCards;
 
   return (
     <>
@@ -153,7 +140,7 @@ const GetBills = () => {
               </div>
               <select
                 id="filter"
-                value={selectedFilter}
+                value={filter}
                 onChange={handleFilterChange}
                 className="px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[35vw]"
               >
@@ -164,26 +151,18 @@ const GetBills = () => {
                 <option value="lastMonth">Last Month</option>
                 <option value="lastYear">Last Year</option>
               </select>
-              {/* <button
-                onClick={() => setIsModalOpen(true)}
-                className="ml-2 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
-              >
-                Select Date
-              </button> */}
-              <DatePicker
-                selected={date}
-                onChange={(date) => setDate(date)}
-                isClearable
-                placeholderText="dd/mm/yyyy"
-                dateFormat={"dd/MM/yyyy"}
-                className="px-2 outline-none border bg-transparent  py-1.5 md:w-40 shadow-sm shadow-blue-200  border-gray-300 rounded-md w-[40vw]"
+              <input
+                type="date"
+                value={selectedDate}
+                onChange={handleDateChange}
+                className="p-2 ml-2 rounded-lg"
               />
             </div>
             <div
               className="  md:grid md:grid-cols-2 md:gap-2 "
               ref={contentRef}
             >
-              {filteredData.map((customer, index) => (
+              {filteredCardsByDate.map((customer, index) => (
                 <CustomerCard
                   key={customer.id + index}
                   name={customer.name}
@@ -203,41 +182,6 @@ const GetBills = () => {
                   }
                 />
               ))}
-              {isModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 gap-4">
-                  <div className="bg-white rounded-lg p-4">
-                    <DatePicker
-                      selected={selectedDate}
-                      onChange={handleDateChange}
-                      dateFormat="yyyy-MM-dd"
-                      className="px-2 py-1 border border-gray-900 rounded-md"
-                    />
-
-                    <button
-                      onClick={() => setIsModalOpen(false)}
-                      className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mt-4 ml-3"
-                    >
-                      <AiFillCloseCircle></AiFillCloseCircle>
-                    </button>
-                  </div>
-                </div>
-              )}
-              {/* <div className="w-[50%] h-[60%] ">
-                <Modal isOpen={modalIsOpen} onRequestClose={handleModalClose}>  
-                  <DatePicker
-                    className="border-2 border-black"
-                    selected={selectedDate}
-                    onChange={handleDateSelect}
-                    dateFormat="yyyy-MM-dd"
-                  />
-                  <button
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mt-4"
-                    onClick={handleDateSubmit}
-                  >
-                    Submit
-                  </button>
-                </Modal>
-              </div> */}
             </div>
           </div>
         </div>

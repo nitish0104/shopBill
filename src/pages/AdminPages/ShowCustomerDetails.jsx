@@ -15,12 +15,7 @@ import { BsShare, BsWhatsapp } from "react-icons/bs";
 import "./ShowCustomerDetail.css";
 
 const ShowCustomerDetails = () => {
-  const [customerName, setCustomername] = useState("");
   const { isDarkMode } = ThemeContextAuth();
-  const [date, setDate] = useState(new Date());
-  const [selectedFilter, setSelectedFilter] = useState("all");
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [selected, setSelected] = useState(null);
   const toggle = (e) => {
@@ -31,18 +26,9 @@ const ShowCustomerDetails = () => {
     setSelected(e);
   };
 
-  const phoneNumber = "9987274285"; // Replace with your phone number
-  const message = "Maggie(8) -40Rs  "; // Replace with your desired message
-
-  const handleButtonClick = () => {
-    const encodedMessage = encodeURIComponent(message);
-    const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    window.open(url, "_blank");
-  };
-
-  const data = [
+  const cardData = [
     {
-      date: "26/06/2023",
+      date: "29/jun/2023",
       items: ["maggi", "oats", "Buscuit"],
       individualPrice: [10, 10, 10],
       quantity: [2, 3, 4],
@@ -51,7 +37,23 @@ const ShowCustomerDetails = () => {
     },
 
     {
-      date: "27/06/2023",
+      date: "28/jun/2023",
+      items: ["egg", "dall", "Biscuit"],
+      individualPrice: [5, 10, 10],
+      quantity: [1, 1, 2],
+      total: [5, 10, 20],
+      grandTotal: 35,
+    },
+    {
+      date: "20/jun/2023",
+      items: ["egg", "dall", "Biscuit"],
+      individualPrice: [5, 10, 10],
+      quantity: [1, 1, 2],
+      total: [5, 10, 20],
+      grandTotal: 35,
+    },
+    {
+      date: "28/may/2023",
       items: ["egg", "dall", "Biscuit"],
       individualPrice: [5, 10, 10],
       quantity: [1, 1, 2],
@@ -60,51 +62,50 @@ const ShowCustomerDetails = () => {
     },
   ];
 
+  const [filter, setFilter] = useState("all");
+  const [selectedDate, setSelectedDate] = useState("");
+
   const handleFilterChange = (event) => {
-    setSelectedFilter(event.target.value);
+    setFilter(event.target.value);
   };
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    setIsModalOpen(false);
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
   };
-  const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${day}-${month}-${year}`;
-  };
-  const filteredData = data.filter((item) => {
-    if (selectedFilter === "all") {
-      return true;
-    } else if (selectedFilter === "today") {
+
+  const filteredCards = cardData.filter((card) => {
+    const cardDate = new Date(card.date);
+    // const selected = new Date(selectedDate);
+
+    if (filter === "today") {
       const today = new Date();
-      today.setDate(today.getDate());
-      return item.date === formatDate(today);
-    } else if (selectedFilter === "yesterday") {
+      return cardDate.toDateString() === today.toDateString();
+    } else if (filter === "yesterday") {
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
-      return item.date === formatDate(yesterday);
-    } else if (selectedFilter === "lastWeek") {
+      return cardDate.toDateString() === yesterday.toDateString();
+    } else if (filter === "lastweek") {
       const lastWeek = new Date();
       lastWeek.setDate(lastWeek.getDate() - 7);
-      return new Date(item.date) >= lastWeek;
-    } else if (selectedFilter === "lastMonth") {
+      return cardDate >= lastWeek && cardDate <= new Date();
+    } else if (filter === "lastmonth") {
       const lastMonth = new Date();
       lastMonth.setMonth(lastMonth.getMonth() - 1);
-      return new Date(item.date) >= lastMonth;
-    } else if (selectedFilter === "lastYear") {
+      return cardDate >= lastMonth && cardDate <= new Date();
+    } else if (filter === "lastyear") {
       const lastYear = new Date();
       lastYear.setFullYear(lastYear.getFullYear() - 1);
-      return new Date(item.date) >= lastYear;
+      return cardDate >= lastYear && cardDate <= new Date();
+    } else {
+      return true;
     }
-    if (selectedDate) {
-      filteredData = filteredData.filter(
-        (item) => item.date === formatDate(selectedDate)
-      );
-    }
-    return filteredData;
   });
+
+  const filteredCardsByDate = selectedDate
+    ? filteredCards.filter(
+        (card) => card.date === selectedDate.toString().split("T")[0]
+      )
+    : filteredCards;
 
   return (
     <>
@@ -121,7 +122,7 @@ const ShowCustomerDetails = () => {
               </label>
 
               <input
-                className="pl-2 flex items-center shadow appearance-none border rounded  focus:shadow-outline w-full py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
+                className="pl-2  flex items-center shadow appearance-none border rounded  focus:shadow-outline w-full py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
                 id="name"
                 type="text"
                 name="name"
@@ -137,7 +138,7 @@ const ShowCustomerDetails = () => {
               </label>
 
               <input
-                className="pl-2 flex items-center shadow appearance-none border rounded  focus:shadow-outline w-full py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
+                className="pl-2  flex items-center shadow appearance-none border rounded  focus:shadow-outline w-full py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
                 id="number"
                 type="text"
                 name="name"
@@ -155,7 +156,7 @@ const ShowCustomerDetails = () => {
           <div className="flex justify-center items-center gap-x-4  pt-4">
             <select
               id="filter"
-              value={selectedFilter}
+              value={filter}
               onChange={handleFilterChange}
               className="outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[45vw]"
             >
@@ -167,23 +168,16 @@ const ShowCustomerDetails = () => {
               <option value="lastYear">Last Year</option>
             </select>
 
-            {/* <ReactDatePicker
-              selected={date}
-              onChange={(date) => setDate(date)}
-              isClearable
-              placeholderText="dd/mm/yyyy"
-              dateFormat={"dd/MM/yyyy"}
-              className="px-2 outline-none border bg-transparent  py-1.5 md:w-40 shadow-sm shadow-blue-200  border-gray-300 rounded-md w-[40vw]"
-            /> */}
-
             <input
               type="date"
+              value={selectedDate}
+              onChange={handleDateChange}
               className="outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[45vw]"
             />
           </div>
 
           <div className="overflow-x-scroll px-4 pt-4 flex flex-col gap-y-6 items-center">
-            {data?.map((value, index) => {
+            {filteredCardsByDate?.map((value, index) => {
               return (
                 <div key={index}>
                   <div
@@ -201,17 +195,8 @@ const ShowCustomerDetails = () => {
                     >
                       <p>Date: {value?.date}</p>
                       <p>Grand Total: {value?.grandTotal}</p>
-                      {/* <button
-                      className="  font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-center "
-                      phoneNumber={phoneNumber}
-                      message={message}
-                      onClick={handleButtonClick}
-					  >
-                      <BsShare className="text-xl"></BsShare>
-                    </button> */}
-                      <button className="  font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-center ">
-                        {/* <AiOutlinePlus className="text-xl"></AiOutlinePlus> */}
 
+                      <button className="  font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-center ">
                         {selected === index ? (
                           <AiOutlineMinus className="text-xl"></AiOutlineMinus>
                         ) : (

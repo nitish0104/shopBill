@@ -253,7 +253,7 @@ const AddItems = () => {
                     })}
                   </tbody>
                 </table>
-                <div className=" w-full flex justify-center  pr-2 pt-4 gap-x-3">
+                <div className=" w-full flex justify-center sticky left-0  pr-2 pt-4 gap-x-3">
                   <div
                     className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
                       isDarkMode ? "border-white" : "border-black"

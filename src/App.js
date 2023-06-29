@@ -20,6 +20,9 @@ import WhatsAppMessageButton from './raw/WhatsappTest';
 import Date from './raw/DateTest';
 import VerifyOTP from './pages/OtpVerification';
 import ShowCustomerDetails from './pages/AdminPages/ShowCustomerDetails';
+import ShareToWhatsApp from './raw/WhatsappPdf';
+import ShareContent from './raw/WhatsappPdf';
+import FilterTest from './raw/FilterTest';
 
 
 function App() {
@@ -45,6 +48,8 @@ function App() {
               <Route path="/generated-bill" element={<GeneratedBill />} />
               <Route path="/send-message" element={<SendMessage />} />
               <Route path="/sendWhatsAppmessage" element={<WhatsAppMessageButton />} />
+              <Route path="/sendWhatsAppmessagePdf" element={<ShareToWhatsApp />} />
+              <Route path="/filtertest" element={<FilterTest />} />
               <Route path="/datetest" element={<Date />} />
               <Route path="/customer-details" element={<ShowCustomerDetails />} />
             </Routes>
