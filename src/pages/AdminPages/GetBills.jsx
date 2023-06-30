@@ -182,7 +182,7 @@ const GetBills = () => {
                 className="p-2 ml-2 rounded-lg"
               />
             </div>
-            <div className="flex justify-center items-center">
+            {/* <div className="flex justify-center items-center">
               <DatePicker
                 selectsRange={true}
                 startDate={startDate}
@@ -191,7 +191,7 @@ const GetBills = () => {
                 placeholderText="Select date range"
                 className="p-2 rounded border-gray-300 border focus:outline-none flex justify-center items-center"
               />
-            </div>
+            </div> */}
             <div
               className="  md:grid md:grid-cols-2 md:gap-2 "
               ref={contentRef}
