@@ -23,6 +23,9 @@ import ShowCustomerDetails from './pages/AdminPages/ShowCustomerDetails';
 import ShareToWhatsApp from './raw/WhatsappPdf';
 import ShareContent from './raw/WhatsappPdf';
 import FilterTest from './raw/FilterTest';
+import DateTest from './raw/DateTest';
+import CardList from './raw/DateTest';
+import CardComponent from './raw/DateTest';
 
 
 function App() {
@@ -50,7 +53,7 @@ function App() {
               <Route path="/sendWhatsAppmessage" element={<WhatsAppMessageButton />} />
               <Route path="/sendWhatsAppmessagePdf" element={<ShareToWhatsApp />} />
               <Route path="/filtertest" element={<FilterTest />} />
-              <Route path="/datetest" element={<Date />} />
+              <Route path="/datetest" element={<CardComponent />} />
               <Route path="/customer-details" element={<ShowCustomerDetails />} />
             </Routes>
           </ThemeProvider>

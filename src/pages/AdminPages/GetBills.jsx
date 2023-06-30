@@ -15,23 +15,6 @@ const GetBills = () => {
   const phoneNumber = "9987274285"; // Replace with your phone number
   const message = "Maggie(8) -40Rs  "; // Replace with your desired message
 
-  const [date, setDate] = useState(new Date());
-  // const years = range(1990, getYear(new Date()) + 1, 1);
-  // const months = [
-  //   "January",
-  //   "February",
-  //   "March",
-  //   "April",
-  //   "May",
-  //   "June",
-  //   "July",
-  //   "August",
-  //   "September",
-  //   "October",
-  //   "November",
-  //   "December",
-  // ];
-
   const handleButtonClick = () => {
     const encodedMessage = encodeURIComponent(message);
     const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
@@ -82,6 +65,23 @@ const GetBills = () => {
     },
     // Add more customer objects
   ];
+
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const handleDateRangeChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
+
+  const filteredRangeCards = cardData.filter((card) => {
+    if (startDate && endDate) {
+      const cardDate = card.date;
+      return cardDate >= startDate && cardDate <= endDate;
+    }
+    return true;
+  });
 
   const [filter, setFilter] = useState("all");
   const [selectedDate, setSelectedDate] = useState("");
@@ -180,6 +180,16 @@ const GetBills = () => {
                 value={selectedDate}
                 onChange={handleDateChange}
                 className="p-2 ml-2 rounded-lg"
+              />
+            </div>
+            <div className="flex justify-center items-center">
+              <DatePicker
+                selectsRange={true}
+                startDate={startDate}
+                endDate={endDate}
+                onChange={handleDateRangeChange}
+                placeholderText="Select date range"
+                className="p-2 rounded border-gray-300 border focus:outline-none flex justify-center items-center"
               />
             </div>
             <div
