@@ -8,12 +8,12 @@ import { ContextAuth } from "../context/Context";
 import Input from "../components/Input/Input";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const VerifyOTP = () => {
-  const [mobileNumber, setMobileNumber] = useState("");
+  const { mobileNo, setmobileNo } = ContextAuth();
+
   const navigate = useNavigate();
-  const { setNumber } = ContextAuth();
-  setNumber(mobileNumber);
 
   const [otp, setOTP] = useState(["", "", "", ""]);
   const [timer, setTimer] = useState(60);
@@ -52,14 +52,29 @@ const VerifyOTP = () => {
   const startTimer = () => {
     setTimerActive(true);
     setTimer(60);
-    console.log(mobileNumber);
   };
 
   // Function to handle form submission
-  const handleSubmitotp = (e) => {
+  const handleSubmitotp = async (e) => {
     e.preventDefault();
+    try {
+      await axios("https://khatabook-one.vercel.app/verifyotp", {
+        method: "POST",
+        data: {
+          otp: otp,
+          mobileNo: mobileNo,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          navigate("/dashboard");
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+
     console.log(otp);
-    navigate("/dashboard");
     // Perform mobile number verification here
 
     // Start the timer

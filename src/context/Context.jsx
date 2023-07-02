@@ -7,6 +7,7 @@ const Context = ({ children }) => {
   const [userDetails, setUserDetails] = useState(null);
   const [number, setNumber] = useState("");
   const [items, setitems] = useState(null);
+  const [mobileNo, setmobileNo] = useState("");
 
   const updateUserDetails = (data) => {
     setUserDetails(data);
@@ -21,7 +22,14 @@ const Context = ({ children }) => {
 
   return (
     <Datacontext.Provider
-      value={{ number, setNumber, userDetails, updateUserDetails }}
+      value={{
+        number,
+        setNumber,
+        userDetails,
+        updateUserDetails,
+        mobileNo,
+        setmobileNo,
+      }}
     >
       {children}
     </Datacontext.Provider>

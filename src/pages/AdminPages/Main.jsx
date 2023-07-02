@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LayoutManin from "../../components/layout/LayoutManin";
 import Sidebar from "../../components/Sidebar";
 import Navigation from "../../components/Navigation";
@@ -12,11 +12,13 @@ import { ThemeContextAuth } from "../../context/ThemeContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ImageUploadComponent from "../../components/Input/ImageInput";
+import axios from "axios";
 
 const Main = () => {
   const initialstate = {
-    BusinessName: "",
-    BusinessType: "",
+    businessLogo: "",
+    businessName: "",
+    businessType: "",
     gstNo: "",
     location: "",
   };
@@ -26,6 +28,22 @@ const Main = () => {
 
   const handleEditClick = () => {
     setisEditable(true);
+    try {
+      axios("https://khatabook-one.vercel.app/updatebusiness", {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((res) => {
+          setisEditable(true);
+          setformState(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleSaveChangesClick = () => {
     setisEditable(false);
@@ -46,6 +64,25 @@ const Main = () => {
       [e.target.id]: e.target.value,
     }));
   };
+
+  // useEffect(() => {
+  //   try {
+  //     axios("https://khatabook-one.vercel.app/getregisterbusiness", {
+  //       method: "GET",
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     })
+  //       .then((res) => {
+  //         setformState(res.data);
+  //         console.log(res.data);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
+
   return (
     <>
       <LayoutManin>
@@ -76,10 +113,10 @@ const Main = () => {
                     />
                     <input
                       className="w-full py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
-                      id="BusinessName"
+                      id="businessName"
                       type="text"
                       name="name"
-                      value={formState.BusinessName}
+                      value={formState.businessName}
                       onChange={handleChange}
                       disabled={!isEditable}
                     />
@@ -106,10 +143,10 @@ const Main = () => {
                     />
                     <input
                       className="w-full py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
-                      id="BusinessType"
+                      id="businessType"
                       type="text"
                       name="name"
-                      value={formState.BusinessType}
+                      value={formState.businessType}
                       onChange={handleChange}
                       disabled={!isEditable}
                     />

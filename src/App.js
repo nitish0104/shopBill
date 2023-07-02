@@ -7,7 +7,6 @@ import MobileNumberForm from './components/VerifyOTP/MobileNumber';
 import VerifyOtpPage from './components/VerifyOTP/VerifyOtpPage';
 import OTPVerification from './components/VerifyOTP/VerifyOtp';
 import { Context } from './context/Context';
-import ProfilePage1 from './pages/ProfilePage/ProfilePage1';
 import Main from './pages/AdminPages/Main';
 import AddCustomers from './pages/AdminPages/AddCustomers';
 import GetBills from './pages/AdminPages/GetBills';
@@ -39,9 +38,7 @@ function App() {
             <Routes>
               <Route path="/" element={<InitialPage />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/mobileVerify" element={<MobileNumberForm />} />
               <Route path="/verify" element={<VerifyOTP />} />
-              <Route path="/profile" element={<ProfilePage1 />} />
               <Route path="/dashboard" element={<Main />} />
               <Route path="/add-customer" element={<AddCustomers />} />
               <Route path="/get-bill" element={<GetBills />} />

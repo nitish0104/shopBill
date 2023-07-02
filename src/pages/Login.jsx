@@ -9,22 +9,28 @@ import Input from "../components/Input/Input";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useContext } from "react";
 
 const Login = () => {
-  const [mobileNo, setmobileNo] = useState("");
+  const { mobileNo, setmobileNo } = ContextAuth();
   const navigate = useNavigate();
 
   const handleSubmitnumber = async (e) => {
     e.preventDefault();
-    await axios
-      .post("https://khatabook-one.vercel.app/sendotp", { mobileNo })
-      .then((response) => {
-        console.log(response.data);
-        navigate("/verify");
+    try {
+      await axios("https://khatabook-one.vercel.app/sendotp", {
+        method: "POST",
+        data: { mobileNo: mobileNo },
       })
-      .catch((error) => {
-        console.error(error);
-      });
+        .then((res) => {
+          console.log(res);
+          navigate("/verify");
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+
     console.log(mobileNo);
   };
 

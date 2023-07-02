@@ -180,7 +180,6 @@ const ProfilePage = () => {
                 name ? "" : "opacity-50 cursor-not-allowed"
               }`}
               disabled={!name}
-              
             >
               <Save className="inline-block mr-1" />
               Save

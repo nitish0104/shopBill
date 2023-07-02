@@ -36,7 +36,7 @@ const VerifyOtpPage = () => {
     e.preventDefault();
     console.log(otp);
     if (otp.length >= 4) {
-      return navigate("/profile");
+      return navigate("/main");
     }
   };
 
