@@ -8,26 +8,24 @@ import { ContextAuth } from "../context/Context";
 import Input from "../components/Input/Input";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const Login = () => {
-  const [mobileNumber, setMobileNumber] = useState("");
+  const [mobileNo, setmobileNo] = useState("");
   const navigate = useNavigate();
-  const { setNumber } = ContextAuth();
-  setNumber(mobileNumber);
-  const handleSubmitnumber = (e) => {
+
+  const handleSubmitnumber = async (e) => {
     e.preventDefault();
-    toast.success("OTP send !", {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: false,
-      pauseOnHover: false,
-      draggable: false,
-      progress: false,
-      theme: "light",
-    });
-    navigate("/verify");
-    console.log(mobileNumber);
+    await axios
+      .post("https://khatabook-one.vercel.app/sendotp", { mobileNo })
+      .then((response) => {
+        console.log(response.data);
+        navigate("/verify");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    console.log(mobileNo);
   };
 
   return (
@@ -52,11 +50,11 @@ const Login = () => {
                   type={"text"}
                   className={"pl-2"}
                   Label={"Mobile Number"}
-                  id={"mobileNumber"}
+                  id={"mobileNo"}
                   maxLength={"10"}
-                  value={mobileNumber}
+                  value={mobileNo}
                   onChange={(e) => {
-                    setMobileNumber(e.target.value);
+                    setmobileNo(e.target.value);
                   }}
                 ></Input>
               </div>

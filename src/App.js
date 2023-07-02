@@ -41,7 +41,6 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/mobileVerify" element={<MobileNumberForm />} />
               <Route path="/verify" element={<VerifyOTP />} />
-              <Route path="/demoVerify" element={<OTPVerification />} />
               <Route path="/profile" element={<ProfilePage1 />} />
               <Route path="/dashboard" element={<Main />} />
               <Route path="/add-customer" element={<AddCustomers />} />
