@@ -79,10 +79,10 @@ const Login = () => {
           </div>
           <div className="flex flex-col items-center justify-center md:w-full">
             <div className="flex flex-col justify-center items-center md:gap-3  gap-1 mt-4 md:w-[50%]">
-              <div className="text-center mb-4">
+              <div className="text-center mb-4 w-[100%]">
                 <Input
                   type={"text"}
-                  className={"pl-2"}
+                  className={"pl-2 text-center"}
                   Label={"Mobile Number"}
                   id={"mobileNo"}
                   maxLength={"10"}
@@ -95,7 +95,9 @@ const Login = () => {
               <button
                 onClick={handleSubmitnumber}
                 type="submit"
-                className={`bg-blue-500 text-white px-4 py-2 rounded-full w-40 flex justify-center items-center ${!loading? 'cursor-pointer' : 'cursor-not-allowed' }`}
+                className={`bg-blue-500 hover:bg-blue-600 text-white font-semibold flex items-center justify-center  w-[100%] py-2 px-4 rounded-full  mt-4 ${
+                  !loading ? "cursor-pointer" : "cursor-not-allowed"
+                }`}
                 // onClick={handleSubmit}
               >
                 {!loading ? "Send Otp" : <Spinner />}
