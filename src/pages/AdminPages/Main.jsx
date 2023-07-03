@@ -28,17 +28,24 @@ const Main = () => {
 
   const handleEditClick = () => {
     setisEditable(true);
+  };
+
+  const handleSubmit = () => {
     try {
       axios("https://khatabook-one.vercel.app/updatebusiness", {
         method: "PATCH",
+        data: {
+          formState: formState,
+        },
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
         .then((res) => {
-          setisEditable(true);
           setformState(res.data);
           console.log(res.data);
+          
+          setisEditable(false);
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -65,23 +72,23 @@ const Main = () => {
     }));
   };
 
-  // useEffect(() => {
-  //   try {
-  //     axios("https://khatabook-one.vercel.app/getregisterbusiness", {
-  //       method: "GET",
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       },
-  //     })
-  //       .then((res) => {
-  //         setformState(res.data);
-  //         console.log(res.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
+  useEffect(() => {
+    try {
+      axios("https://khatabook-one.vercel.app/getregisterbusiness", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((res) => {
+          setformState(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   return (
     <>
@@ -116,6 +123,7 @@ const Main = () => {
                       id="businessName"
                       type="text"
                       name="name"
+                      required
                       value={formState.businessName}
                       onChange={handleChange}
                       disabled={!isEditable}
@@ -146,6 +154,7 @@ const Main = () => {
                       id="businessType"
                       type="text"
                       name="name"
+                      required
                       value={formState.businessType}
                       onChange={handleChange}
                       disabled={!isEditable}
@@ -172,6 +181,7 @@ const Main = () => {
                     <input
                       className="w-full py-2 px-1 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
                       id="gstNo"
+                      required
                       type="text"
                       name="name"
                       value={formState.gstNo}
@@ -201,6 +211,7 @@ const Main = () => {
                       className="w-full py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
                       id="location"
                       type="text"
+                      required
                       name="name"
                       value={formState.location}
                       onChange={handleChange}
@@ -216,7 +227,7 @@ const Main = () => {
                   <div className=" w-[100%] flex justify-center">
                     <button
                       type="button"
-                      onClick={handleSaveChangesClick}
+                      onClick={handleSubmit}
                       className="px-4 py-1.5 text-xl bg-green-500 text-white rounded-md hover:bg-green-600 w-[40%]"
                     >
                       Save

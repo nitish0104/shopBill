@@ -9,16 +9,18 @@ import Input from "../components/Input/Input";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import Spinner from "../components/Spinner";
 
 const VerifyOTP = () => {
   const { mobileNo, setmobileNo } = ContextAuth();
 
   const navigate = useNavigate();
 
-  const [otp, setOTP] = useState(["", "", "", "","",""]);
+  const [otp, setOTP] = useState(["", "", "", "", "", ""]);
   const [timer, setTimer] = useState(60);
   const [isTimerActive, setTimerActive] = useState(true);
-  const stringOTP= otp.join("");
+  const [loading, setLoading] = useState(false);
+  const stringOTP = otp.join("");
   // Function to handle input change for mobile number
   useEffect(() => {
     toast.success("OTP send !", {
@@ -57,6 +59,8 @@ const VerifyOTP = () => {
   // Function to handle form submission
   const handleSubmitotp = async (e) => {
     console.log(stringOTP);
+    setLoading(true);
+
     e.preventDefault();
     try {
       await axios("https://khatabook-one.vercel.app/verifyotp", {
@@ -68,6 +72,9 @@ const VerifyOTP = () => {
       })
         .then((res) => {
           console.log(res);
+          console.log(res.data);
+          localStorage.setItem("token", `${res?.data}`);
+          setLoading(false);
           navigate("/dashboard");
         })
         .catch((err) => console.log(err));
@@ -119,8 +126,9 @@ const VerifyOTP = () => {
                   >
                     Resend
                   </button>
-                  <p>OTP in {timer} {timer === 1 ? "Second" : "Seconds"}</p>
-                   
+                  <p>
+                    OTP in {timer} {timer === 1 ? "Second" : "Seconds"}
+                  </p>
                 </div>
               ) : (
                 <p>otp sent</p>
@@ -142,10 +150,10 @@ const VerifyOTP = () => {
               </div>
               <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full  mt-4"
+                className={`bg-blue-500 hover:bg-blue-600 text-white font-semibold flex items-center justify-center py-2 px-4 rounded-full  mt-4 ${!loading ? 'cursor-pointer' : 'cursor-not-allowed'}`}
                 onClick={handleSubmitotp}
               >
-                Verify Otp
+                {!loading ? "Verify Otp" : <Spinner />}
               </button>
             </div>
           </div>

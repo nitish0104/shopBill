@@ -10,37 +10,56 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useContext } from "react";
+import Spinner from "../components/Spinner";
 
 const Login = () => {
   const { mobileNo, setmobileNo } = ContextAuth();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  
 
   const handleSubmitnumber = async (e) => {
-    console.log(mobileNo);
-    e.preventDefault();
-    try {
-      await axios("https://khatabook-one.vercel.app/sendotp",
-      
-      {
-        method: "POST",
-        data: { mobileNo: mobileNo },
-      },
-  {    headers: {
-        "Content-Type": "application/json",
-      }},
-      )
-        .then((res) => {
-          console.log(res);
-          localStorage.setItem('token', `Bearer ${res?.data}` )
-          navigate("/verify");
-        })
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.log(error);
-    }
+    if (mobileNo.length >= 10) {
+      setLoading(true);
 
-    console.log(mobileNo);
+      e.preventDefault();
+      try {
+        await axios(
+          "https://khatabook-one.vercel.app/sendotp",
+
+          {
+            method: "POST",
+            data: { mobileNo: mobileNo },
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+          .then((res) => {
+            console.log(res.data);
+            localStorage.setItem("token", `${res?.data}`);
+            setLoading(false);
+            navigate("/verify");
+          })
+          .catch((err) => console.log(err));
+      } catch (error) {
+        console.log(error);
+      }
+
+      console.log(mobileNo);
+    } else {
+      toast.error("Enter The Correct Number", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: false,
+        theme: "light",
+      });
+    }
   };
 
   return (
@@ -76,10 +95,10 @@ const Login = () => {
               <button
                 onClick={handleSubmitnumber}
                 type="submit"
-                className="bg-blue-500 text-white px-4 py-2 rounded-full w-40 flex justify-center items-center"
+                className={`bg-blue-500 text-white px-4 py-2 rounded-full w-40 flex justify-center items-center ${!loading? 'cursor-pointer' : 'cursor-not-allowed' }`}
                 // onClick={handleSubmit}
               >
-                Send OTP
+                {!loading ? "Send Otp" : <Spinner />}
               </button>
             </div>
           </div>
