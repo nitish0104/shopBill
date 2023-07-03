@@ -26,6 +26,8 @@ const AddCustomerModal = ({ data, setModal }) => {
   const navigate = useNavigate();
 
   const createCustomer = async () => {
+    navigate("/add-items");
+
     try {
       await axios("https://khatabook-one.vercel.app/addcustomer", {
         method: "POST",
@@ -93,9 +95,9 @@ const AddCustomerModal = ({ data, setModal }) => {
                   }}
                   className={"w-[95%]"}
                 />
-                <div className="pt-5 flex justify-center items-center">
-                  <button onClick={createCustomer}>
-                    Next <GrLinkNext />
+                <div className="pt-5  flex justify-center items-center">
+                  <button onClick={createCustomer} className="flex justify-center items-center gap-x-2 bg-blue-600 px-3 py-1.5 rounded-md font-semibold hover:bg-blue-700 shadow hover:shadow-lg duration-150" >
+                    <p>Next</p> <GrLinkNext />
                   </button>
                 </div>
               </form>

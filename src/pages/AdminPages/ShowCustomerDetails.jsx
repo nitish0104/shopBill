@@ -13,11 +13,36 @@ import {
 } from "react-icons/ai";
 import { BsShare, BsWhatsapp } from "react-icons/bs";
 import "./ShowCustomerDetail.css";
+import axios from "axios";
 
 const ShowCustomerDetails = () => {
   const { isDarkMode } = ThemeContextAuth();
 
   const [selected, setSelected] = useState(null);
+  const [viewCustomerDetails, setViewCustomerDetails] = useState('');
+
+
+
+
+  useEffect(() => {
+    try {
+      axios("https://khatabook-one.vercel.app/getcustomerbill", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((res) => {
+          setViewCustomerDetails(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+
   const toggle = (e) => {
     if (selected === e) {
       return setSelected(null);

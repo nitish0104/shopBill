@@ -15,10 +15,10 @@ const VerifyOTP = () => {
 
   const navigate = useNavigate();
 
-  const [otp, setOTP] = useState(["", "", "", ""]);
+  const [otp, setOTP] = useState(["", "", "", "","",""]);
   const [timer, setTimer] = useState(60);
   const [isTimerActive, setTimerActive] = useState(true);
-
+  const stringOTP= otp.join("");
   // Function to handle input change for mobile number
   useEffect(() => {
     toast.success("OTP send !", {
@@ -41,7 +41,7 @@ const VerifyOTP = () => {
       newOtp[index] = value;
       setOTP(newOtp);
 
-      if (index < 3 && value !== "") {
+      if (index < 5 && value !== "") {
         const nextInput = document.getElementById(`otp-input-${index + 1}`);
         nextInput.focus();
       }
@@ -56,12 +56,13 @@ const VerifyOTP = () => {
 
   // Function to handle form submission
   const handleSubmitotp = async (e) => {
+    console.log(stringOTP);
     e.preventDefault();
     try {
       await axios("https://khatabook-one.vercel.app/verifyotp", {
         method: "POST",
         data: {
-          otp: otp,
+          otp: stringOTP,
           mobileNo: mobileNo,
         },
       })
@@ -111,16 +112,16 @@ const VerifyOTP = () => {
           <div className="flex flex-col items-center justify-center md:w-full">
             <div className="flex flex-col md:gap-3  gap-1 mt-4 md:w-[50%]">
               {isTimerActive ? (
-                <p className="md:mt-4 mt-2 text-lg text-center mr-2 ">
+                <div className="md:mt-4 mt-2 text-lg text-center mr-2 ">
                   <button
                     onClick={startTimer}
                     className="text-blue-500 hover:underline mt-4 mr-4"
                   >
                     Resend
                   </button>
-                  OTP in
-                  {timer} {timer === 1 ? "second" : "seconds"}
-                </p>
+                  <p>OTP in {timer} {timer === 1 ? "Second" : "Seconds"}</p>
+                   
+                </div>
               ) : (
                 <p>otp sent</p>
               )}

@@ -77,7 +77,7 @@ const ImageUploadComponent = () => {
                   stdDeviation="0"
                   dx="0"
                   dy="0"
-                  flood-color="black"
+                  floodColor="black"
                 ></feDropShadow>
               </filter>
               <filter id="shadow">
@@ -86,7 +86,7 @@ const ImageUploadComponent = () => {
                   stdDeviation=".5"
                   dx="0"
                   dy="0"
-                  flood-color="black"
+                  floodColor="black"
                 ></feDropShadow>
               </filter>
               <filter id="shadow">
@@ -95,7 +95,7 @@ const ImageUploadComponent = () => {
                   stdDeviation=".5"
                   dx="0"
                   dy="0"
-                  flood-color="black"
+                  floodColor="black"
                 ></feDropShadow>
               </filter>
             </svg>

@@ -10,10 +10,30 @@ import { BsWhatsapp } from "react-icons/bs";
 import Modal from "react-modal";
 import { AiFillCloseCircle, AiFillFilter } from "react-icons/ai";
 import { getYear } from "date-fns";
+import axios from "axios";
 
 const GetBills = () => {
   const phoneNumber = "9987274285"; // Replace with your phone number
   const message = "Maggie(8) -40Rs  "; // Replace with your desired message
+  const [businessBills, setBusinessBills] = useState('');
+
+  useEffect(() => {
+    try {
+      axios("https://khatabook-one.vercel.app/getbusinessbill", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((res) => {
+          setBusinessBills(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   const handleButtonClick = () => {
     const encodedMessage = encodeURIComponent(message);
@@ -151,6 +171,8 @@ const GetBills = () => {
         (card) => card.date === selectedDate.toString().split("T")[0]
       )
     : filteredCards;
+
+
 
   return (
     <>

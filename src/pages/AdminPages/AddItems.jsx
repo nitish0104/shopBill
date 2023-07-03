@@ -11,6 +11,7 @@ import { BsWhatsapp } from "react-icons/bs";
 import { FaRegMoneyBillAlt, FaRupeeSign } from "react-icons/fa";
 import { ImCancelCircle } from "react-icons/im";
 import WhatsAppButton from "react-whatsapp-button";
+import axios from "axios";
 
 const AddItems = () => {
   const [item, setItem] = useState("");
@@ -58,9 +59,7 @@ const AddItems = () => {
 
   const navigate = useNavigate();
 
-  const getBill = () => {
-    navigate("/get-bill");
-  };
+
   const cancel = () => {
     navigate("/add-customer");
   };
@@ -100,6 +99,28 @@ const AddItems = () => {
   // }
 
   console.log(grandtotal - paid);
+
+  const getBill = async () => {
+    navigate("/get-bill");
+
+    try {
+      await axios("https://khatabook-one.vercel.app/generatebill", {
+        method: "POST",
+        data: {
+          items:items,
+          customerId:"enterCustomerId",
+           businessId:"enter businessId",
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          navigate("/get-bill");
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>

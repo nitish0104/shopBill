@@ -14,16 +14,25 @@ import { useContext } from "react";
 const Login = () => {
   const { mobileNo, setmobileNo } = ContextAuth();
   const navigate = useNavigate();
+  
 
   const handleSubmitnumber = async (e) => {
+    console.log(mobileNo);
     e.preventDefault();
     try {
-      await axios("https://khatabook-one.vercel.app/sendotp", {
+      await axios("https://khatabook-one.vercel.app/sendotp",
+      
+      {
         method: "POST",
         data: { mobileNo: mobileNo },
-      })
+      },
+  {    headers: {
+        "Content-Type": "application/json",
+      }},
+      )
         .then((res) => {
           console.log(res);
+          localStorage.setItem('token', `Bearer ${res?.data}` )
           navigate("/verify");
         })
         .catch((err) => console.log(err));

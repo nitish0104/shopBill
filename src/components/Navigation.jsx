@@ -36,10 +36,11 @@ const Navigation = ({ className }) => {
         <div
           className={`flex items-center justify-between w-full   px-10 text-black `}
         >
-          {routes.map((obj) => {
+          {routes.map((obj, index) => {
             return (
               <Link
                 to={obj.route}
+                key={index}
                 className={
                   obj.route === loaction.pathname
                     ? "flex flex-col items-center pt-1 text-blue-600 text-sm font-semibold rounded-lg ${className}"
