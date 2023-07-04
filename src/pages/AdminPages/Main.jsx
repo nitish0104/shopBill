@@ -25,6 +25,7 @@ const Main = () => {
   const { isDarkMode } = ThemeContextAuth();
   const [formState, setformState] = useState(initialstate);
   const [isEditable, setisEditable] = useState(false);
+  const [ data, setData ] = useState([]);   
 
   const handleEditClick = () => {
     setisEditable(true);
@@ -79,9 +80,10 @@ const Main = () => {
         },
       })
         .then((res) => {
-          setformState(res.data.response);
-          console.log(res.data.response);
-          console.log(formState);
+          // setformState(res.data.response);
+          const response = res.data.response;
+          setData(...response);
+          
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -123,7 +125,8 @@ const Main = () => {
                       type="text"
                       name="name"
                       required
-                      value={formState.businessName}
+                      // value={formState.businessName}
+                      value={ data.businessName }
                       onChange={handleChange}
                       disabled={!isEditable}
                     />
@@ -154,7 +157,7 @@ const Main = () => {
                       type="text"
                       name="name"
                       required
-                      value={formState.businessType}
+                      value={data.businessType}
                       onChange={handleChange}
                       disabled={!isEditable}
                     />
@@ -183,7 +186,7 @@ const Main = () => {
                       required
                       type="text"
                       name="name"
-                      value={formState.gstNo}
+                      value={data.gstNo}
                       onChange={handleChange}
                       disabled={!isEditable}
                     />
@@ -212,7 +215,7 @@ const Main = () => {
                       type="text"
                       required
                       name="name"
-                      value={formState.location}
+                      value={data.location}
                       onChange={handleChange}
                       disabled={!isEditable}
                     />
