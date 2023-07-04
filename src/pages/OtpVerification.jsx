@@ -63,17 +63,27 @@ const VerifyOTP = () => {
 
     e.preventDefault();
     try {
-      await axios("https://khatabook-one.vercel.app/verifyotp", {
-        method: "POST",
-        data: {
-          otp: stringOTP,
-          mobileNo: mobileNo,
+      await axios(
+        "https://khatabook-one.vercel.app/verifyotp",
+        {
+          method: "POST",
+          data: {
+            otp: stringOTP,
+            mobileNo: mobileNo,
+          },
         },
-      })
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      )
         .then((res) => {
           console.log(res);
           console.log(res.data);
-          localStorage.setItem("token", `${res?.data}`);
+          console.log(res.data.response);
+          localStorage.setItem("token", res.data.response);
           setLoading(false);
           navigate("/dashboard");
         })

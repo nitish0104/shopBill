@@ -38,33 +38,31 @@ const Main = () => {
           formState: formState,
         },
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
         .then((res) => {
-          setformState(res.data);
-          console.log(res.data);
-          
           setisEditable(false);
+          setformState(res.data);
+          toast.success("Profile updated !", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false,
+            progress: false,
+            theme: "light",
+          });
+          console.log(res.data);
         })
         .catch((err) => console.log(err));
     } catch (error) {
       console.log(error);
     }
   };
-  const handleSaveChangesClick = () => {
-    setisEditable(false);
-    toast.success("Profile updated !", {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: false,
-      pauseOnHover: false,
-      draggable: false,
-      progress: false,
-      theme: "light",
-    });
-  };
+
   const handleChange = (e) => {
     setformState((prevdata) => ({
       ...prevdata,
@@ -81,8 +79,9 @@ const Main = () => {
         },
       })
         .then((res) => {
-          setformState(res.data);
-          console.log(res.data);
+          setformState(res.data.response);
+          console.log(res.data.response);
+          console.log(formState);
         })
         .catch((err) => console.log(err));
     } catch (error) {
