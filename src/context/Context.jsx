@@ -8,6 +8,8 @@ const Context = ({ children }) => {
   const [number, setNumber] = useState("");
   const [items, setitems] = useState(null);
   const [mobileNo, setmobileNo] = useState("");
+const[business, setBusiness] = useState("")
+const[customerData,setCustomerdata] = useState("")
 
   const updateUserDetails = (data) => {
     setUserDetails(data);
@@ -29,6 +31,10 @@ const Context = ({ children }) => {
         updateUserDetails,
         mobileNo,
         setmobileNo,
+        business, 
+        setBusiness,
+        customerData,
+        setCustomerdata,
       }}
     >
       {children}

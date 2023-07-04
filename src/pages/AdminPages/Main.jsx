@@ -13,6 +13,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ImageUploadComponent from "../../components/Input/ImageInput";
 import axios from "axios";
+import { Context, ContextAuth } from "../../context/Context";
+import jwtDecode from "jwt-decode";
 
 const Main = () => {
   const initialstate = {
@@ -26,7 +28,7 @@ const Main = () => {
   const [formState, setformState] = useState(initialstate);
   const [isEditable, setisEditable] = useState(false);
   const [data, setData] = useState([]);
-
+  const { setBusiness } = ContextAuth();
   const handleEditClick = () => {
     setisEditable(true);
   };
@@ -42,10 +44,9 @@ const Main = () => {
         },
       })
         .then((res) => {
-          setisEditable(false);
           console.log(formState);
           // setformState(res.data);
-          setData(res.data)
+          setData(res.data);
           toast.success("Profile updated !", {
             position: "top-center",
             autoClose: 3000,
@@ -84,7 +85,9 @@ const Main = () => {
           const response = res.data.response;
           // console.log(response);
           setData(...response);
-          console.log();
+          console.log(response);
+          
+          setBusiness(...response)
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -92,6 +95,11 @@ const Main = () => {
     }
   }, []);
 
+
+
+const businessId=  jwtDecode(localStorage.getItem("token"));
+
+console.log(businessId._id);
   return (
     <>
       <LayoutManin>

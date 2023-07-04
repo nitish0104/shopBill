@@ -7,9 +7,20 @@ import { Link } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ContextAuth } from "../context/Context";
+import jwtDecode from "jwt-decode";
+import Spinner from "../components/Spinner";
+
 
 const AddCustomerModal = ({ data, setModal }) => {
   const [showModal, setShowModal] = useState(false);
+  const { setCustomerdata } = ContextAuth();
+
+  // const { business } = ContextAuth();
+  const [loading, setLoading] = useState(false);
+
+  const business = jwtDecode(`${localStorage.getItem("token")}`);
+  const businessId = business._id;
 
   const closeModal = () => {
     setShowModal(false);
@@ -25,22 +36,33 @@ const AddCustomerModal = ({ data, setModal }) => {
   const [customerName, setcustomerName] = useState("");
   const navigate = useNavigate();
 
-  const createCustomer = async () => {
-    navigate("/add-items");
-
+  const createCustomer = async (e) => {
+    e.preventDefault();
     try {
-      await axios("https://khatabook-one.vercel.app/addcustomer", {
-        method: "POST",
-        data: {
-          customerNumber: customerNumber,
-          customerName: customerName,
-        },
-      })
-        .then((res) => {
-          console.log(res);
-          navigate("/add-items");
+      if (customerName.length > 1 && customerNumber.length == 10) {
+        setLoading(true);
+
+        await axios("https://khatabook-one.vercel.app/addcustomer", {
+          method: "POST",
+          data: {
+            customerNumber: customerNumber,
+            customerName: customerName,
+            businessId: businessId,
+          },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         })
-        .catch((err) => console.log(err));
+          .then((res) => {
+            console.log(res);
+            navigate("/add-items");
+            setCustomerdata(res.data.token);
+            console.log(res.data.token);
+            setLoading(false)
+          })
+          .catch((err) => console.log(err));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -94,10 +116,14 @@ const AddCustomerModal = ({ data, setModal }) => {
                     setcustomerNumber(e.target.value);
                   }}
                   className={"w-[95%]"}
+                  maxLength={10}
                 />
                 <div className="pt-5  flex justify-center items-center">
-                  <button onClick={createCustomer} className="flex justify-center items-center gap-x-2 bg-blue-600 px-3 py-1.5 rounded-md font-semibold hover:bg-blue-700 shadow hover:shadow-lg duration-150" >
-                    <p>Next</p> <GrLinkNext />
+                  <button
+                    onClick={createCustomer}
+                    className="flex justify-center items-center gap-x-2 bg-blue-600 px-3 py-1.5 rounded-md font-semibold hover:bg-blue-700 shadow hover:shadow-lg duration-150"
+                  >
+                    {!loading ? <p className="flex items-center gap-x-1"> Next <GrLinkNext /></p> : <Spinner/> }
                   </button>
                 </div>
               </form>

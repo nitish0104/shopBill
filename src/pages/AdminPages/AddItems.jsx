@@ -12,6 +12,9 @@ import { FaRegMoneyBillAlt, FaRupeeSign } from "react-icons/fa";
 import { ImCancelCircle } from "react-icons/im";
 import WhatsAppButton from "react-whatsapp-button";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
+import { ContextAuth } from "../../context/Context";
+import Spinner from "../../components/Spinner";
 
 const AddItems = () => {
   const [item, setItem] = useState("");
@@ -24,6 +27,11 @@ const AddItems = () => {
   const [grandtotal, setGrandtotal] = useState(0);
   const { isDarkMode } = ThemeContextAuth();
   const [coupon, setCoupon] = useState();
+  const [loading, setLoading] = useState(false);
+  const { Customerdata } = ContextAuth();
+  const business = jwtDecode(`${localStorage.getItem("token")}`);
+  const businessId = business._id;
+  
 
   const phoneNumber = "9819094281"; // Replace with your phone number
   const message = "Hello, how can I help you?"; // Replace with your desired message
@@ -44,7 +52,7 @@ const AddItems = () => {
       });
 
       setGrandtotal(total);
-      console.log(total);
+      
     }
   }, [items]);
   const handleDownload = () => {
@@ -64,8 +72,10 @@ const AddItems = () => {
     navigate("/add-customer");
   };
   const addItem = () => {
-    let obj = {
-      item: item,
+    if(item.length >=1){
+
+      let obj = {
+        item: item,
       // qty: Number(qty),
       qty: qty,
       individualPrice: individualPrice,
@@ -81,7 +91,9 @@ const AddItems = () => {
     setIndividualPrice(0);
     setQty("");
 
-    console.log(finalItems);
+    }
+
+
   };
 
   const handleSplice = (index) => {
@@ -101,20 +113,21 @@ const AddItems = () => {
   console.log(grandtotal - paid);
 
   const getBill = async () => {
-    navigate("/get-bill");
+setLoading(true)
 
     try {
       await axios("https://khatabook-one.vercel.app/generatebill", {
         method: "POST",
         data: {
+          customerId:Customerdata,
+          businessId:businessId,
           items:items,
-          customerId:"enterCustomerId",
-           businessId:"enter businessId",
         },
       })
         .then((res) => {
           console.log(res);
           navigate("/get-bill");
+          setLoading(false)
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -156,7 +169,7 @@ const AddItems = () => {
                     className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
                       isDarkMode ? "border-white" : "border-black"
                     }`}
-                    required="true"
+                    required
                   />
                 </div>
                 <div className="flex-col ">
@@ -173,7 +186,7 @@ const AddItems = () => {
                     className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
                       isDarkMode ? "border-white" : "border-black"
                     }`}
-                    required="true"
+                    required
                   />
                 </div>
                 <div className="flex-col ">
@@ -332,7 +345,7 @@ const AddItems = () => {
               className="bg-blue-600 hover:bg-blue-700 text-white font-bold p-4 rounded-full  flex justify-center items-center gap-2   "
               onClick={getBill}
             >
-              <FaRupeeSign className="text-2xl font-bold"></FaRupeeSign>
+              {!loading? <FaRupeeSign className="text-2xl font-bold"></FaRupeeSign> : <Spinner/>}
             </button>
           </div>
         </div>
