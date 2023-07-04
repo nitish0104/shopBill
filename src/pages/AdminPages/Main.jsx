@@ -25,7 +25,7 @@ const Main = () => {
   const { isDarkMode } = ThemeContextAuth();
   const [formState, setformState] = useState(initialstate);
   const [isEditable, setisEditable] = useState(false);
-  const [ data, setData ] = useState([]);   
+  const [data, setData] = useState([]);
 
   const handleEditClick = () => {
     setisEditable(true);
@@ -35,9 +35,7 @@ const Main = () => {
     try {
       axios("https://khatabook-one.vercel.app/updatebusiness", {
         method: "PATCH",
-        data: {
-          formState: formState,
-        },
+        data: formState,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -45,7 +43,9 @@ const Main = () => {
       })
         .then((res) => {
           setisEditable(false);
-          setformState(res.data);
+          console.log(formState);
+          // setformState(res.data);
+          setData(res.data)
           toast.success("Profile updated !", {
             position: "top-center",
             autoClose: 3000,
@@ -82,8 +82,9 @@ const Main = () => {
         .then((res) => {
           // setformState(res.data.response);
           const response = res.data.response;
+          // console.log(response);
           setData(...response);
-          
+          console.log();
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -126,7 +127,7 @@ const Main = () => {
                       name="name"
                       required
                       // value={formState.businessName}
-                      value={ data.businessName }
+                      value={data.businessName}
                       onChange={handleChange}
                       disabled={!isEditable}
                     />
