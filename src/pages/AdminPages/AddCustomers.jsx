@@ -14,6 +14,7 @@ const AddCustomers = () => {
   const [recentCustomer, setrecentCustomer] = useState(false);
   const [historyCustomer, sethistoryCustomer] = useState(false);
   const { allCustomer, setAllCustomer } = ContextAuth();
+  const [searchedCustomer, setSearchedCustomer] = useState([]);
 
   const handleRecentCustomerClick = () => {
     setrecentCustomer(!recentCustomer);
@@ -47,6 +48,8 @@ const AddCustomers = () => {
     }
   }, []);
 
+  console.log(searchedCustomer);
+
   return (
     <>
       <LayoutManin>
@@ -63,17 +66,20 @@ const AddCustomers = () => {
             <input
               type="text"
               id="searchBar"
+              onChange={(e) => {
+                setSearchedCustomer(e.target.value);
+              }}
               placeholder="Search"
               className="h-12 w-[90vw] flex justify-center items-center  rounded-lg border-2 border-black pl-2 focus:border-blue-500"
             />
           </div>
         </div>
 
-        <div>
+        {/* <div>
           {allCustomer.map((value, index) => {
             return <div key={index}>{value?.customerName}</div>;
           })}
-        </div>
+        </div> */}
         <div className="text-center flex justify-center items-center h-[60vh]">
           <div className=" fixed  w-screen ">
             <button

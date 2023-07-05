@@ -11,6 +11,8 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useContext } from "react";
 import Spinner from "../components/Spinner";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Login = () => {
   const { mobileNo, setmobileNo } = ContextAuth();
@@ -61,12 +63,19 @@ const Login = () => {
       });
     }
   };
-
+  useEffect(() => {
+    AOS.init();
+  }, []);
   return (
     <LayoutManin>
       <div className="w-screen h-screen   md:flex md:items-center md:justify-center ">
-        <div className="flex justify-center items-center bg-[#F1F1F1]  w-[100%] h-[35%] md:gap-6 md:w-[50%] md:h-screen ">
+        <div
+          data-aos="fade-right"
+          className="flex justify-center items-center bg-[#F1F1F1]  w-[100%] h-[35%] md:gap-6 md:w-[50%] md:h-screen "
+        >
           <img
+            data-aos="zoom-in"
+            data-aos-duration="1000"
             src={temp_logo}
             alt="logo"
             className=" px-4 h-[60%] md:h-[40%]"

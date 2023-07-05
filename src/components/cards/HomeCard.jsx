@@ -11,6 +11,7 @@ const CustomerCard = ({
   items,
   div,
   ref,
+  id
 }) => {
   const navigate = useNavigate()
   const { isDarkMode } = ThemeContextAuth();
@@ -22,7 +23,7 @@ const CustomerCard = ({
   };
   const handleCardClick = () => {
     // setIsModalOpen(true);
-navigate('/customer-details')
+navigate(`/customer-details/${id}`)
   };
 
   const closeModal = () => {

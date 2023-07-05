@@ -14,26 +14,47 @@ import {
 import { BsShare, BsWhatsapp } from "react-icons/bs";
 import "./ShowCustomerDetail.css";
 import axios from "axios";
+import { ContextAuth } from "../../context/Context";
+import { useParams } from "react-router-dom";
 
 const ShowCustomerDetails = () => {
   const { isDarkMode } = ThemeContextAuth();
-
+  const { id } = useParams();
   const [selected, setSelected] = useState(null);
   const [viewCustomerDetails, setViewCustomerDetails] = useState('');
 
+  const { allCustomer } = ContextAuth();
 
+
+  // useEffect(() => {
+  //   try {
+  //     axios("https://khatabook-one.vercel.app/getcustomerbill", {
+  //       method: "GET",
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       },
+  //     })
+  //       .then((res) => {
+  //         setViewCustomerDetails(res.data);
+  //         console.log(res.data);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
 
 
   useEffect(() => {
     try {
-      axios("https://khatabook-one.vercel.app/getcustomerbill", {
+      axios(`https://khatabook-one.vercel.app/getcustomer/${id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
         .then((res) => {
-          setViewCustomerDetails(res.data);
+          setViewCustomerDetails(res.data.response);
           console.log(res.data);
         })
         .catch((err) => console.log(err));
@@ -41,6 +62,11 @@ const ShowCustomerDetails = () => {
       console.log(error);
     }
   }, []);
+
+
+
+
+
 
 
   const toggle = (e) => {
@@ -180,7 +206,7 @@ const ShowCustomerDetails = () => {
                 id="name"
                 type="text"
                 name="name"
-                value={"Nitish Dalvi"}
+                value={viewCustomerDetails.customerName}
               />
             </div>
             <div className="md:w-[30vw] w-full px-2">
@@ -196,7 +222,7 @@ const ShowCustomerDetails = () => {
                 id="number"
                 type="text"
                 name="name"
-                value={"8888888888"}
+                value={viewCustomerDetails.customerNumber}
               />
             </div>
           </div>

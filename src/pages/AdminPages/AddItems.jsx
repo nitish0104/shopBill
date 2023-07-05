@@ -29,12 +29,19 @@ const AddItems = () => {
   const [coupon, setCoupon] = useState();
   const [loading, setLoading] = useState(false);
   const { customerData } = ContextAuth();
+  const [editBill, setEditBill] = useState(-1);
   const business = jwtDecode(`${localStorage.getItem("token")}`);
   const businessId = business._id;
-
+  const [data, setData] = useState([]);
   const phoneNumber = "9819094281"; // Replace with your phone number
   const message = "Hello, how can I help you?"; // Replace with your desired message
 
+  const editBillfunction = (index) => {
+    setEditBill(index);
+  };
+const saveBillfunction = () =>{
+  setEditBill(false)
+}
   useEffect(() => {
     console.log(customerData);
     if (items) {
@@ -90,6 +97,20 @@ const AddItems = () => {
     newItems.splice(index, 1);
     setItems(newItems);
   };
+
+
+
+  // const handleInputChange = (e, index) => {
+  //   const newValue = e.target.value;
+
+  //   setData((items) => {
+  //     const newData = [...items];
+  //     newData[index] = { ...newData[index], value: newValue };
+  //     return newData;
+  //   });
+  // };
+
+
 
   const getBill = async () => {
     setLoading(true);
@@ -204,13 +225,27 @@ const AddItems = () => {
                 </div>
               </div>
 
-              <div className="flex justify-end items-center my-5">
+              <div className="flex justify-end items-center my-5 gap-x-3 w-full">
                 <button
                   onClick={addItem}
                   className="bg-blue-500 px-1 py-2  w-40 mx-auto text-white font-semibold rounded-md   text-xl"
                 >
                   Add
                 </button>
+                {editBill ? (
+                  <button 
+                  onClick={saveBillfunction}
+                  className="bg-blue-500 px-1 py-2  w-40 mx-auto text-white font-semibold rounded-md   text-xl">
+                    Save
+                  </button>
+                ) : (
+                  <button
+                    onClick={editBillfunction}
+                    className="bg-blue-500 px-1 py-2  w-40 mx-auto text-white font-semibold rounded-md   text-xl"
+                  >
+                    Edit
+                  </button>
+                )}
               </div>
             </div>
           </div>

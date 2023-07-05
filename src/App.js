@@ -50,7 +50,7 @@ function App() {
               <Route path="/sendWhatsAppmessagePdf" element={<ShareToWhatsApp />} />
               <Route path="/filtertest" element={<FilterTest />} />
               <Route path="/datetest" element={<CardComponent />} />
-              <Route path="/customer-details" element={<ShowCustomerDetails />} />
+              <Route path="/customer-details/:id" element={<ShowCustomerDetails />} />
             </Routes>
           </ThemeProvider>
         </Context>
