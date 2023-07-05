@@ -21,7 +21,6 @@ const AddCustomerModal = ({ data, setModal }) => {
   const business = jwtDecode(`${localStorage.getItem("token")}`);
   const businessId = business._id;
 
-
   const closeModal = () => {
     setShowModal(false);
     setTimeout(() => {
@@ -55,8 +54,10 @@ const AddCustomerModal = ({ data, setModal }) => {
         })
           .then((res) => {
             console.log(res);
+            const customerId = res.data.customer._id;
+            setCustomerdata(customerId);
+            console.log(customerId);
             navigate("/add-items");
-            setCustomerdata(res.data.customer._id);
             // console.log(res.data.token);
             setLoading(false);
           })

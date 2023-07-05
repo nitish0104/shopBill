@@ -11,11 +11,14 @@ import Modal from "react-modal";
 import { AiFillCloseCircle, AiFillFilter } from "react-icons/ai";
 import { getYear } from "date-fns";
 import axios from "axios";
+import { format, formatISO9075 } from "date-fns";
+import { ContextAuth } from "../../context/Context";
 
 const GetBills = () => {
-  const phoneNumber = "9987274285"; // Replace with your phone number
+  const { allCustomer } = ContextAuth();
+  const phoneNumber = "9819094281"; // Replace with your phone number
   const message = "Maggie(8) -40Rs  "; // Replace with your desired message
-  const [businessBills, setBusinessBills] = useState('');
+  const [businessBills, setBusinessBills] = useState("");
 
   useEffect(() => {
     try {
@@ -27,7 +30,7 @@ const GetBills = () => {
       })
         .then((res) => {
           setBusinessBills(res.data);
-          console.log("Generate bill ",res.data);
+          console.log("Generate bill ", res.data);
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -35,56 +38,56 @@ const GetBills = () => {
     }
   }, []);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = (phoneNumber) => {
     const encodedMessage = encodeURIComponent(message);
     const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     window.open(url, "_blank");
   };
 
   const contentRef = useRef(null);
-  const cardData = [
-    {
-      id: 1,
-      name: "Nitish  Dalvi",
-      mobileNumber: "356428927",
-      date: "29/Jun/2023",
-      amount: 100,
-      items: ["maggi", "oats", "Buscuit"],
-    },
-    {
-      id: 2,
-      name: "Prakash Jha",
-      mobileNumber: "356428927",
-      date: "28/jun/2023",
-      amount: 456,
-      items: ["kitkat", "milk", "Rice"],
-    },
-    {
-      id: 3,
-      name: "XYZ ABC",
-      mobileNumber: "356428927",
-      date: "10/May/2023",
-      amount: 869,
-      items: ["Item 1", "milk", "Item 3"],
-    },
-    {
-      id: 4,
-      name: "XYZ ABC",
-      mobileNumber: "356428927",
-      date: "23/may/2022",
-      amount: 869,
-      items: ["Item 1", "milk", "Item 3"],
-    },
-    {
-      id: 5,
-      name: "XYZ ABC",
-      mobileNumber: "356428927",
-      date: "20/jun/2023",
-      amount: 869,
-      items: ["Item 1", "milk", "Item 3"],
-    },
-    // Add more customer objects
-  ];
+  // const cardData = [
+  //   {
+  //     id: 1,
+  //     name: "Nitish  Dalvi",
+  //     mobileNumber: "356428927",
+  //     date: "29/Jun/2023",
+  //     amount: 100,
+  //     items: ["maggi", "oats", "Buscuit"],
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Prakash Jha",
+  //     mobileNumber: "356428927",
+  //     date: "28/jun/2023",
+  //     amount: 456,
+  //     items: ["kitkat", "milk", "Rice"],
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "XYZ ABC",
+  //     mobileNumber: "356428927",
+  //     date: "10/May/2023",
+  //     amount: 869,
+  //     items: ["Item 1", "milk", "Item 3"],
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "XYZ ABC",
+  //     mobileNumber: "356428927",
+  //     date: "23/may/2022",
+  //     amount: 869,
+  //     items: ["Item 1", "milk", "Item 3"],
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "XYZ ABC",
+  //     mobileNumber: "356428927",
+  //     date: "20/jun/2023",
+  //     amount: 869,
+  //     items: ["Item 1", "milk", "Item 3"],
+  //   },
+  //   // Add more customer objects
+  // ];
 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -95,13 +98,13 @@ const GetBills = () => {
     setEndDate(end);
   };
 
-  const filteredRangeCards = cardData.filter((card) => {
-    if (startDate && endDate) {
-      const cardDate = card.date;
-      return cardDate >= startDate && cardDate <= endDate;
-    }
-    return true;
-  });
+  // const filteredRangeCards = cardData.filter((card) => {
+  //   if (startDate && endDate) {
+  //     const cardDate = card.date;
+  //     return cardDate >= startDate && cardDate <= endDate;
+  //   }
+  //   return true;
+  // });
 
   const [filter, setFilter] = useState("all");
   const [selectedDate, setSelectedDate] = useState("");
@@ -138,41 +141,39 @@ const GetBills = () => {
     setSelectedDate(formattedDate);
   };
 
-  const filteredCards = cardData.filter((card) => {
-    const cardDate = new Date(card.date);
-    // const selected = new Date(selectedDate);
+  // const filteredCards = cardData.filter((card) => {
+  //   const cardDate = new Date(card.date);
+  //   // const selected = new Date(selectedDate);
 
-    if (filter === "today") {
-      const today = new Date();
-      return cardDate.toDateString() === today.toDateString();
-    } else if (filter === "yesterday") {
-      const yesterday = new Date();
-      yesterday.setDate(yesterday.getDate() - 1);
-      return cardDate.toDateString() === yesterday.toDateString();
-    } else if (filter === "lastweek") {
-      const lastWeek = new Date();
-      lastWeek.setDate(lastWeek.getDate() - 7);
-      return cardDate >= lastWeek && cardDate <= new Date();
-    } else if (filter === "lastmonth") {
-      const lastMonth = new Date();
-      lastMonth.setMonth(lastMonth.getMonth() - 1);
-      return cardDate >= lastMonth && cardDate <= new Date();
-    } else if (filter === "lastyear") {
-      const lastYear = new Date();
-      lastYear.setFullYear(lastYear.getFullYear() - 1);
-      return cardDate >= lastYear && cardDate <= new Date();
-    } else {
-      return true;
-    }
-  });
+  //   if (filter === "today") {
+  //     const today = new Date();
+  //     return cardDate.toDateString() === today.toDateString();
+  //   } else if (filter === "yesterday") {
+  //     const yesterday = new Date();
+  //     yesterday.setDate(yesterday.getDate() - 1);
+  //     return cardDate.toDateString() === yesterday.toDateString();
+  //   } else if (filter === "lastweek") {
+  //     const lastWeek = new Date();
+  //     lastWeek.setDate(lastWeek.getDate() - 7);
+  //     return cardDate >= lastWeek && cardDate <= new Date();
+  //   } else if (filter === "lastmonth") {
+  //     const lastMonth = new Date();
+  //     lastMonth.setMonth(lastMonth.getMonth() - 1);
+  //     return cardDate >= lastMonth && cardDate <= new Date();
+  //   } else if (filter === "lastyear") {
+  //     const lastYear = new Date();
+  //     lastYear.setFullYear(lastYear.getFullYear() - 1);
+  //     return cardDate >= lastYear && cardDate <= new Date();
+  //   } else {
+  //     return true;
+  //   }
+  // });
 
-  const filteredCardsByDate = selectedDate
-    ? filteredCards.filter(
-        (card) => card.date === selectedDate.toString().split("T")[0]
-      )
-    : filteredCards;
-
-
+  // const filteredCardsByDate = selectedDate
+  //   ? filteredCards.filter(
+  //       (card) => card.date === selectedDate.toString().split("T")[0]
+  //     )
+  //   : filteredCards;
 
   return (
     <>
@@ -218,20 +219,30 @@ const GetBills = () => {
               className="  md:grid md:grid-cols-2 md:gap-2 "
               ref={contentRef}
             >
-              {filteredCardsByDate.map((customer, index) => (
+              {/* {allCustomer.map((value, index) => {
+                return (
+                  <div key={index}>
+                    {value?.customerName}
+                    <div>{value?.customerNumber}</div>
+                  </div>
+                );
+              })} */}
+              {allCustomer.map((customer, index) => (
                 <CustomerCard
                   key={customer.id + index}
-                  name={customer.name}
+                  name={customer.customerName}
                   date={customer.date}
                   amount={customer.amount}
-                  items={customer.items}
-                  mobileNumber={customer.mobileNumber}
+                  // items={customer.items}
+                  mobileNumber={customer.customerNumber}
                   div={
                     <button
                       className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-center "
-                      phoneNumber={phoneNumber}
+                      phoneNumber={customer.customerNumber}
                       message={message}
-                      onClick={handleButtonClick}
+                      onClick={() => {
+                        handleButtonClick(customer.customerNumbe);
+                      }}
                     >
                       <BsWhatsapp className="text-2xl"></BsWhatsapp>
                     </button>

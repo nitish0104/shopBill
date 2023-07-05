@@ -8,19 +8,14 @@ const Context = ({ children }) => {
   const [number, setNumber] = useState("");
   const [items, setitems] = useState(null);
   const [mobileNo, setmobileNo] = useState("");
-const[business, setBusiness] = useState("")
-const[customerData,setCustomerdata] = useState("")
+  const [business, setBusiness] = useState("");
+  const [customerData, setCustomerdata] = useState("");
+  const [allCustomer, setAllCustomer] = useState([]);
+  const [amount, setamount] = useState();
 
   const updateUserDetails = (data) => {
     setUserDetails(data);
   };
-
-  // const [isTimerActive, setTimerActive] = useState(false);
-  // const [timer, setTimer] = useState(60);
-  // const startTimer = () => {
-  //   setTimerActive(true);
-  //   setTimer(60);
-  // };
 
   return (
     <Datacontext.Provider
@@ -31,10 +26,14 @@ const[customerData,setCustomerdata] = useState("")
         updateUserDetails,
         mobileNo,
         setmobileNo,
-        business, 
+        business,
         setBusiness,
         customerData,
         setCustomerdata,
+        allCustomer,
+        setAllCustomer,
+        amount,
+        setamount,
       }}
     >
       {children}

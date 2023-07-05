@@ -10,6 +10,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Spinner from "../components/Spinner";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const VerifyOTP = () => {
   const { mobileNo, setmobileNo } = ContextAuth();
@@ -98,6 +100,9 @@ const VerifyOTP = () => {
     // Start the timer
     // startTimer();
   };
+  useEffect(() => {
+    AOS.init();
+  }, []);
 
   useEffect(() => {
     if (timer > 0) {
@@ -113,7 +118,10 @@ const VerifyOTP = () => {
 
   return (
     <LayoutManin>
-      <div className="w-screen h-screen   md:flex md:items-center md:justify-center ">
+      <div
+        className="w-screen h-screen   md:flex md:items-center md:justify-center "
+        data-aos="zoom-in"
+      >
         <div className="flex justify-center items-center bg-[#F1F1F1]  w-[100%] h-[35%] md:gap-6 md:w-[50%] md:h-screen ">
           <img
             src={temp_logo}

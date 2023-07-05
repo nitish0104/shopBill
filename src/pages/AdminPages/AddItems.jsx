@@ -28,7 +28,7 @@ const AddItems = () => {
   const { isDarkMode } = ThemeContextAuth();
   const [coupon, setCoupon] = useState();
   const [loading, setLoading] = useState(false);
-  const { Customerdata } = ContextAuth();
+  const { customerData } = ContextAuth();
   const business = jwtDecode(`${localStorage.getItem("token")}`);
   const businessId = business._id;
 
@@ -36,6 +36,7 @@ const AddItems = () => {
   const message = "Hello, how can I help you?"; // Replace with your desired message
 
   useEffect(() => {
+    console.log(customerData);
     if (items) {
       let total = 0;
 
@@ -90,12 +91,14 @@ const AddItems = () => {
 
   const getBill = async () => {
     setLoading(true);
-    // console.log(Customerdata, businessId, items);
+    console.log(customerData);
+    console.log(businessId);
+    console.log(items);
     try {
       await axios("https://khatabook-one.vercel.app/generatebill", {
         method: "POST",
         data: {
-          customerId: Customerdata,
+          customerId: customerData,
           businessId: businessId,
           items: items,
         },
