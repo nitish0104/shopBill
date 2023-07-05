@@ -72,6 +72,7 @@ const AddItems = () => {
         price: Number(price),
 
         cost: Number(price),
+        grandTotal: Number(grandtotal),
       };
       let finalItems = [...items];
       finalItems.push(obj);
@@ -80,6 +81,7 @@ const AddItems = () => {
       setPrice(0);
       setIndividualPrice(0);
       setQty("");
+      setGrandtotal(0);
     }
   };
 
