@@ -83,7 +83,7 @@ const Main = () => {
         .then((res) => {
           // setformState(res.data.response);
           const response = res.data.response;
-          // console.log(response);
+          
           setData(...response);
           console.log(response);
           
@@ -97,9 +97,6 @@ const Main = () => {
 
 
 
-const businessId=  jwtDecode(localStorage.getItem("token"));
-
-console.log(businessId._id);
   return (
     <>
       <LayoutManin>

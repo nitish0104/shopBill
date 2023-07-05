@@ -6,12 +6,14 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import AddCustomerModal from "../../Modal/AddCustomerModal";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 import CustomerCard from "../../components/cards/HomeCard";
+import axios from "axios";
 
 const AddCustomers = () => {
   const [modal, setModal] = useState({ show: false, data: {} });
   const { isDarkMode } = ThemeContextAuth();
   const [recentCustomer, setrecentCustomer] = useState(false);
   const [historyCustomer, sethistoryCustomer] = useState(false);
+const [allCustomer, setAllCustomer] = useState([])
 
   const handleRecentCustomerClick = () => {
     setrecentCustomer(!recentCustomer);
@@ -26,6 +28,30 @@ const AddCustomers = () => {
     handleRecentCustomerClick();
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    try {
+      axios("https://khatabook-one.vercel.app/getcustomer", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((res) => {
+          setAllCustomer(res.data.response);
+          console.log("All Customer ",res.data.response);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  
+
+
+
+
   return (
     <>
       <LayoutManin>
@@ -47,6 +73,21 @@ const AddCustomers = () => {
             />
           </div>
         </div>
+
+        <div>
+{
+  allCustomer.map((value, index)=>{
+return (
+<div key={index}>
+  
+  {value?.customerName}
+   </div>
+
+)
+  })
+}
+
+</div>
         <div className="text-center flex justify-center items-center h-[60vh]">
           <div className=" fixed  w-screen ">
             <button
@@ -61,6 +102,10 @@ const AddCustomers = () => {
             </button>
           </div>
         </div>
+
+
+
+
       </LayoutManin>
     </>
   );

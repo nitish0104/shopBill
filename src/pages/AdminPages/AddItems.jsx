@@ -31,28 +31,19 @@ const AddItems = () => {
   const { Customerdata } = ContextAuth();
   const business = jwtDecode(`${localStorage.getItem("token")}`);
   const businessId = business._id;
-  
 
   const phoneNumber = "9819094281"; // Replace with your phone number
   const message = "Hello, how can I help you?"; // Replace with your desired message
 
-  // const handleButtonClick = () => {
-  //   const encodedMessage = encodeURIComponent(message);
-  //   const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-  //   window.open(url, "_blank");
-  // };
   useEffect(() => {
     if (items) {
       let total = 0;
-      // eslint-disable-next-line
+
       items.map((obj) => {
         total += obj.cost;
-        // let itemCost = obj.price * obj.qty;
-        // total += itemCost
       });
 
       setGrandtotal(total);
-      
     }
   }, [items]);
   const handleDownload = () => {
@@ -67,33 +58,28 @@ const AddItems = () => {
 
   const navigate = useNavigate();
 
-
   const cancel = () => {
     navigate("/add-customer");
   };
   const addItem = () => {
-    if(item.length >=1){
-
+    if (item.length >= 1) {
       let obj = {
         item: item,
-      // qty: Number(qty),
-      qty: qty,
-      individualPrice: individualPrice,
-      price: Number(price),
-      // cost: Number(qty * price),
-      cost: Number(price),
-    };
-    let finalItems = [...items];
-    finalItems.push(obj);
-    setItems(finalItems);
-    setItem("");
-    setPrice(0);
-    setIndividualPrice(0);
-    setQty("");
 
+        qty: qty,
+        individualPrice: individualPrice,
+        price: Number(price),
+
+        cost: Number(price),
+      };
+      let finalItems = [...items];
+      finalItems.push(obj);
+      setItems(finalItems);
+      setItem("");
+      setPrice(0);
+      setIndividualPrice(0);
+      setQty("");
     }
-
-
   };
 
   const handleSplice = (index) => {
@@ -102,32 +88,22 @@ const AddItems = () => {
     setItems(newItems);
   };
 
-  // if(pending) {
-  //   paid = grandtotal -pending
-  // }
-
-  // if(paid) {
-  //   pending = grandtotal- paid
-  // }
-
-  console.log(grandtotal - paid);
-
   const getBill = async () => {
-setLoading(true)
-
+    setLoading(true);
+    // console.log(Customerdata, businessId, items);
     try {
       await axios("https://khatabook-one.vercel.app/generatebill", {
         method: "POST",
         data: {
-          customerId:Customerdata,
-          businessId:businessId,
-          items:items,
+          customerId: Customerdata,
+          businessId: businessId,
+          items: items,
         },
       })
         .then((res) => {
           console.log(res);
           navigate("/get-bill");
-          setLoading(false)
+          setLoading(false);
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -345,7 +321,11 @@ setLoading(true)
               className="bg-blue-600 hover:bg-blue-700 text-white font-bold p-4 rounded-full  flex justify-center items-center gap-2   "
               onClick={getBill}
             >
-              {!loading? <FaRupeeSign className="text-2xl font-bold"></FaRupeeSign> : <Spinner/>}
+              {!loading ? (
+                <FaRupeeSign className="text-2xl font-bold"></FaRupeeSign>
+              ) : (
+                <Spinner />
+              )}
             </button>
           </div>
         </div>

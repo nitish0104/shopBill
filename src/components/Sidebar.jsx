@@ -36,7 +36,7 @@ const Sidebar = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-      console.log(userDetails);
+      
     };
   }, []);
 

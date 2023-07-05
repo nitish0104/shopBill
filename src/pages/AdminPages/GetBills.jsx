@@ -27,7 +27,7 @@ const GetBills = () => {
       })
         .then((res) => {
           setBusinessBills(res.data);
-          console.log(res.data);
+          console.log("Generate bill ",res.data);
         })
         .catch((err) => console.log(err));
     } catch (error) {

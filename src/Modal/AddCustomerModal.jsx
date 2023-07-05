@@ -11,7 +11,6 @@ import { ContextAuth } from "../context/Context";
 import jwtDecode from "jwt-decode";
 import Spinner from "../components/Spinner";
 
-
 const AddCustomerModal = ({ data, setModal }) => {
   const [showModal, setShowModal] = useState(false);
   const { setCustomerdata } = ContextAuth();
@@ -21,6 +20,7 @@ const AddCustomerModal = ({ data, setModal }) => {
 
   const business = jwtDecode(`${localStorage.getItem("token")}`);
   const businessId = business._id;
+
 
   const closeModal = () => {
     setShowModal(false);
@@ -41,7 +41,6 @@ const AddCustomerModal = ({ data, setModal }) => {
     try {
       if (customerName.length > 1 && customerNumber.length == 10) {
         setLoading(true);
-
         await axios("https://khatabook-one.vercel.app/addcustomer", {
           method: "POST",
           data: {
@@ -57,9 +56,9 @@ const AddCustomerModal = ({ data, setModal }) => {
           .then((res) => {
             console.log(res);
             navigate("/add-items");
-            setCustomerdata(res.data.token);
-            console.log(res.data.token);
-            setLoading(false)
+            setCustomerdata(res.data.customer._id);
+            // console.log(res.data.token);
+            setLoading(false);
           })
           .catch((err) => console.log(err));
       }
@@ -123,7 +122,14 @@ const AddCustomerModal = ({ data, setModal }) => {
                     onClick={createCustomer}
                     className="flex justify-center items-center gap-x-2 bg-blue-600 px-3 py-1.5 rounded-md font-semibold hover:bg-blue-700 shadow hover:shadow-lg duration-150"
                   >
-                    {!loading ? <p className="flex items-center gap-x-1"> Next <GrLinkNext /></p> : <Spinner/> }
+                    {!loading ? (
+                      <p className="flex items-center gap-x-1">
+                        {" "}
+                        Next <GrLinkNext />
+                      </p>
+                    ) : (
+                      <Spinner />
+                    )}
                   </button>
                 </div>
               </form>
