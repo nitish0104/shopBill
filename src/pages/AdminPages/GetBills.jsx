@@ -51,49 +51,6 @@ const GetBills = () => {
   };
 
   const contentRef = useRef(null);
-  // const cardData = [
-  //   {
-  //     id: 1,
-  //     name: "Nitish  Dalvi",
-  //     mobileNumber: "356428927",
-  //     date: "29/Jun/2023",
-  //     amount: 100,
-  //     items: ["maggi", "oats", "Buscuit"],
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Prakash Jha",
-  //     mobileNumber: "356428927",
-  //     date: "28/jun/2023",
-  //     amount: 456,
-  //     items: ["kitkat", "milk", "Rice"],
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "XYZ ABC",
-  //     mobileNumber: "356428927",
-  //     date: "10/May/2023",
-  //     amount: 869,
-  //     items: ["Item 1", "milk", "Item 3"],
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "XYZ ABC",
-  //     mobileNumber: "356428927",
-  //     date: "23/may/2022",
-  //     amount: 869,
-  //     items: ["Item 1", "milk", "Item 3"],
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "XYZ ABC",
-  //     mobileNumber: "356428927",
-  //     date: "20/jun/2023",
-  //     amount: 869,
-  //     items: ["Item 1", "milk", "Item 3"],
-  //   },
-  //   // Add more customer objects
-  // ];
 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
