@@ -27,6 +27,9 @@ import CardList from './raw/DateTest';
 import CardComponent from './raw/DateTest';
 import TestForm from './raw/FormTest';
 import DateFormat from './raw/DateFormat';
+import TableEdit from './raw/TableEdit';
+import Table from './raw/TableEdit';
+import Invoice from './raw/Invoice';
 
 
 function App() {
@@ -52,7 +55,9 @@ function App() {
               <Route path="/sendWhatsAppmessagePdf" element={<ShareToWhatsApp />} />
               <Route path="/filtertest" element={<FilterTest />} />
               <Route path="/dateformat" element={<DateFormat />} />
+              <Route path="/tabletest" element={<Table />} />
               <Route path="/formtest" element={<TestForm />} />
+              <Route path="/invoice" element={<Invoice />} />
               <Route path="/customer-details/:id" element={<ShowCustomerDetails />} />
             </Routes>
           </ThemeProvider>
