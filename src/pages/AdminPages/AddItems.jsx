@@ -6,7 +6,7 @@ import noItems from "../../images/noItems.svg";
 import { BiArrowBack } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeContextAuth } from "../../context/ThemeContext";
-import { AiFillDelete } from "react-icons/ai";
+import { AiFillDelete, AiOutlineEdit , AiOutlineSave} from "react-icons/ai";
 import { BsWhatsapp } from "react-icons/bs";
 import { FaRegMoneyBillAlt, FaRupeeSign } from "react-icons/fa";
 import { ImCancelCircle } from "react-icons/im";
@@ -15,6 +15,7 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { ContextAuth } from "../../context/Context";
 import Spinner from "../../components/Spinner";
+import { input } from "@material-tailwind/react";
 
 const AddItems = () => {
   const [item, setItem] = useState("");
@@ -29,26 +30,20 @@ const AddItems = () => {
   const [coupon, setCoupon] = useState();
   const [loading, setLoading] = useState(false);
   const { customerData } = ContextAuth();
-  const [editBill, setEditBill] = useState(-1);
+  const [editIndex, setEditIndex] = useState(null);
   const business = jwtDecode(`${localStorage.getItem("token")}`);
   const businessId = business._id;
   const [data, setData] = useState([]);
   const phoneNumber = "9819094281"; // Replace with your phone number
   const message = "Hello, how can I help you?"; // Replace with your desired message
 
-  const editBillfunction = (index) => {
-    setEditBill(index);
-  };
-const saveBillfunction = () =>{
-  setEditBill(false)
-}
   useEffect(() => {
     console.log(customerData);
     if (items) {
       let total = 0;
 
       items.map((obj) => {
-        total += obj.cost;
+        total += obj.price;
       });
 
       setGrandtotal(total);
@@ -92,14 +87,34 @@ const saveBillfunction = () =>{
     }
   };
 
+
+
+  const handleEditClick = (index) => {
+    setEditIndex(index);
+    setItem(items[index].item);
+    setQty(items[index].qty);
+    setIndividualPrice(items[index].individualPrice);
+    setPrice(items[index].price);
+  };
+
+  const handleSaveClick = (index) => {
+    const updatedItem = {item:item, qty:qty,individualPrice:Number(individualPrice), price: Number(price) };
+    const updatedItems = [...items];
+    updatedItems[index] = updatedItem;
+    setItems(updatedItems);
+    setEditIndex(null);
+    setItem("");
+    setQty("");
+    setPrice(0);
+    setIndividualPrice(0)
+  };
+
+  
   const handleSplice = (index) => {
     const newItems = [...items];
     newItems.splice(index, 1);
     setItems(newItems);
   };
-
-
-
   // const handleInputChange = (e, index) => {
   //   const newValue = e.target.value;
 
@@ -109,8 +124,6 @@ const saveBillfunction = () =>{
   //     return newData;
   //   });
   // };
-
-
 
   const getBill = async () => {
     setLoading(true);
@@ -232,20 +245,22 @@ const saveBillfunction = () =>{
                 >
                   Add
                 </button>
-                {editBill ? (
-                  <button 
-                  onClick={saveBillfunction}
-                  className="bg-blue-500 px-1 py-2  w-40 mx-auto text-white font-semibold rounded-md   text-xl">
+                {/* {editIndex ? (
+                  <button onClick={handleSaveClick()} className="bg-blue-500 px-1 py-2  w-40 mx-auto text-white font-semibold rounded-md   text-xl">
                     Save
                   </button>
                 ) : (
-                  <button
-                    onClick={editBillfunction}
-                    className="bg-blue-500 px-1 py-2  w-40 mx-auto text-white font-semibold rounded-md   text-xl"
-                  >
+                  <button   onClick={() => handleEditClick()} className="bg-blue-500 px-1 py-2  w-40 mx-auto text-white font-semibold rounded-md   text-xl">
                     Edit
                   </button>
-                )}
+                )} */}
+                {/* <button className="bg-blue-500 px-1 py-2  w-40 mx-auto text-white font-semibold rounded-md   text-xl">
+                  Save
+                </button>
+
+                <button className="bg-blue-500 px-1 py-2  w-40 mx-auto text-white font-semibold rounded-md   text-xl">
+                  Edit
+                </button> */}
               </div>
             </div>
           </div>
@@ -274,21 +289,98 @@ const saveBillfunction = () =>{
                       return (
                         <tr
                           key={index}
-                          className=" border-b-2 py-2 border-black text-x text-center "
+                          className=" border-b-2  border-black text-x text-center "
                         >
-                          <td className="sticky left-0 bg-white py-2 px-4 border whitespace-nowrap">
-                            {value?.item}
+                          <td className="sticky left-0 md:w-2/6 bg-white px-2 border whitespace-nowrap">
+                            {index === editIndex ? (
+                              <input
+                                type="text"
+                                value={item}
+                                className="border  text-center md:w-auto border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                onChange={(e) => {
+                                  setItem(e.target.value);
+                                }}
+                              />
+                            ) : (
+                              value.item
+                            )}
                           </td>
-                          <td className="py-2 px-4 border whitespace-nowrap">
-                            {value?.qty}
+                          <td className=" px-2 border md:w-40 whitespace-nowrap">
+                            {index === editIndex ? (
+                              <input
+                              className="border  text-center md:w-32 border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                type="text"
+                                value={qty}
+                                onChange={(e) => {
+                                  setQty(e.target.value);
+                                }}
+                              />
+                            ) : (
+                              value?.qty
+                            )}
                           </td>
-                          <td className="py-2 px-4 border whitespace-nowrap">
-                            &#8377;{value?.individualPrice}
+
+                          <td className=" px-2 border md:w-40  whitespace-nowrap">
+                            &#8377;
+                            {index === editIndex ? (
+                              <input
+                                type="number"
+                                className="border  text-center md:w-32  border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                value={individualPrice}
+                                onChange={(e) => {
+                                  setIndividualPrice(e.target.value);
+                                }}
+                              />
+                            ) : (
+                              value?.individualPrice
+                            )}
                           </td>
-                          <td className="py-2 px-4 border whitespace-nowrap">
-                            &#8377;{value?.cost}
+                          <td className=" px-2  border md:w-40  whitespace-nowrap ">
+                            &#8377;
+                            {index === editIndex ? (
+                              <input
+                                type="number"
+                                className="border  text-center md:w-32 border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                value={  price}
+                                onChange={(e) => {
+                                  setPrice(e.target.value);
+                                }}
+                              />
+                            ) : (
+                              value?.price
+                            )}
                           </td>
-                          <button
+
+                          <td className="border px-4  py-2 flex justify-center  items-center gap-x-2">
+                            <div>
+
+
+                            {index === editIndex ? (
+                              <button
+                                onClick={() => handleSaveClick(index)}
+                                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded "
+                              >
+                                <AiOutlineSave/>
+                              </button>
+                            ) : (
+                              <button
+                                onClick={() => handleEditClick(index)}
+                                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded "
+                              >
+                                <AiOutlineEdit/>
+                              </button>
+                            )}
+                            </div>
+                            <button
+                              onClick={() => {
+                                handleSplice(index);
+                              }}
+                              className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded whitespace-nowrap"
+                            >
+                              <AiFillDelete ></AiFillDelete>
+                            </button>
+                          </td>
+                          {/* <button
                             className="w-full"
                             onClick={() => {
                               handleSplice(index);
@@ -297,7 +389,7 @@ const saveBillfunction = () =>{
                             <td className="py-2 px-4  text-center flex justify-center hover:bg-red-500 rounded-lg  whitespace-nowrap ">
                               <AiFillDelete></AiFillDelete>
                             </td>
-                          </button>
+                          </button> */}
                         </tr>
                       );
                     })}
