@@ -88,8 +88,8 @@ const Main = () => {
       })
         .then((res) => {
           console.log(res.data.response);
-          const response = res.data;
-          setformState(response);
+          const response = res.data.response;
+          setformState(...response);
 
           console.log(response);
 
