@@ -7,6 +7,8 @@ import AddCustomerModal from "../../Modal/AddCustomerModal";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 import axios from "axios";
 import { ContextAuth } from "../../context/Context";
+import CustomerCard from "../../components/cards/HomeCard";
+import { useNavigate } from "react-router-dom";
 
 const AddCustomers = () => {
   const [modal, setModal] = useState({ show: false, data: {} });
@@ -15,6 +17,15 @@ const AddCustomers = () => {
   const [historyCustomer, sethistoryCustomer] = useState(false);
   const { allCustomer, setAllCustomer } = ContextAuth();
   const [searchedCustomer, setSearchedCustomer] = useState([]);
+  const [searchCustomer, setsearchCustomer] = useState("");
+  const navigate = useNavigate();
+  const filterCustomer = allCustomer.filter(
+    (allCustomer) =>
+      allCustomer.customerName
+        .toLowerCase()
+        .includes(searchCustomer.toLowerCase()) ||
+      allCustomer.customerNumber.includes(searchCustomer)
+  );
 
   const handleRecentCustomerClick = () => {
     setrecentCustomer(!recentCustomer);
@@ -47,8 +58,14 @@ const AddCustomers = () => {
       console.log(error);
     }
   }, []);
+  const handleSearch = (e) => {
+    setsearchCustomer(e.target.value);
+  };
+  const handleCardClick = () => {
+    navigate("/add-items");
+  };
 
-  console.log(searchedCustomer);
+  // console.log(searchedCustomer);
 
   return (
     <>
@@ -66,20 +83,46 @@ const AddCustomers = () => {
             <input
               type="text"
               id="searchBar"
-              onChange={(e) => {
-                setSearchedCustomer(e.target.value);
-              }}
+              onChange={handleSearch}
+              value={searchCustomer}
               placeholder="Search"
               className="h-12 w-[90vw] flex justify-center items-center  rounded-lg border-2 border-black pl-2 focus:border-blue-500"
             />
           </div>
         </div>
 
-        {/* <div>
-          {allCustomer.map((value, index) => {
-            return <div key={index}>{value?.customerName}</div>;
-          })}
-        </div> */}
+        {searchCustomer && (
+          <div>
+            {filterCustomer.map((customer, index) => (
+              // <CustomerCard
+              //   key={customer._id + index}
+              //   name={customer.customerName}
+              //   id={customer._id}
+              //   // items={customer.items}
+              //   mobileNumber={customer.customerNumber}
+              // />
+              <div
+                className={`bg-${isDarkMode ? "blue-200" : "cyan-50"} text-${
+                  isDarkMode ? "white" : "gray-800"
+                } p-4 rounded-lg  shadow-md shadow-blue-300 transform  perspective-100    overflow-hidden border m-2`}
+              >
+                <div className=" py-4 flex justify-center items-center gap-x-4 ">
+                  <div className="text-center w-6/12">
+                    <button onClick={handleCardClick}>
+                      <div className="font-bold text-xl mb-2">
+                        {customer.customerName}
+                      </div>
+
+                      <p className=" font-semibold mb-2 text-start">
+                        {customer.customerNumber}
+                      </p>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
         <div className="text-center flex justify-center items-center h-[60vh]">
           <div className=" fixed  w-screen ">
             <button

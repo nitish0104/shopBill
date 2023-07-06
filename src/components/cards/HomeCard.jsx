@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import Modal from "../Modal/CustomerModal";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
-
+function formatDate(dateString) {
+  const options = { day: "numeric", month: "short", year: "numeric" };
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-GB", options);
+}
 const CustomerCard = ({
   name,
   date,
@@ -11,9 +15,9 @@ const CustomerCard = ({
   items,
   div,
   ref,
-  id
+  id,
 }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { isDarkMode } = ThemeContextAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [colorChange, setcolorChange] = useState(false);
@@ -23,12 +27,13 @@ const CustomerCard = ({
   };
   const handleCardClick = () => {
     // setIsModalOpen(true);
-navigate(`/customer-details/${id}`)
+    navigate(`/customer-details/${id}`);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  const formattedDate = formatDate(date);
 
   return (
     <>
@@ -63,7 +68,7 @@ navigate(`/customer-details/${id}`)
             </button>
 
             <div>
-              <div>{date}</div>
+              <div>{formattedDate}</div>
             </div>
           </div>
         </div>

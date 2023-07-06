@@ -26,6 +26,7 @@ import DateTest from './raw/DateTest';
 import CardList from './raw/DateTest';
 import CardComponent from './raw/DateTest';
 import TestForm from './raw/FormTest';
+import DateFormat from './raw/DateFormat';
 
 
 function App() {
@@ -50,7 +51,7 @@ function App() {
               <Route path="/sendWhatsAppmessage" element={<WhatsAppMessageButton />} />
               <Route path="/sendWhatsAppmessagePdf" element={<ShareToWhatsApp />} />
               <Route path="/filtertest" element={<FilterTest />} />
-              <Route path="/datetest" element={<CardComponent />} />
+              <Route path="/dateformat" element={<DateFormat />} />
               <Route path="/formtest" element={<TestForm />} />
               <Route path="/customer-details/:id" element={<ShowCustomerDetails />} />
             </Routes>
