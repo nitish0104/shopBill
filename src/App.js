@@ -25,6 +25,7 @@ import FilterTest from './raw/FilterTest';
 import DateTest from './raw/DateTest';
 import CardList from './raw/DateTest';
 import CardComponent from './raw/DateTest';
+import TestForm from './raw/FormTest';
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
               <Route path="/sendWhatsAppmessagePdf" element={<ShareToWhatsApp />} />
               <Route path="/filtertest" element={<FilterTest />} />
               <Route path="/datetest" element={<CardComponent />} />
+              <Route path="/formtest" element={<TestForm />} />
               <Route path="/customer-details/:id" element={<ShowCustomerDetails />} />
             </Routes>
           </ThemeProvider>

@@ -13,8 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ImageUploadComponent from "../../components/Input/ImageInput";
 import axios from "axios";
-import { Context, ContextAuth } from "../../context/Context";
-import jwtDecode from "jwt-decode";
+import { ContextAuth } from "../../context/Context";
 
 const Main = () => {
   const initialstate = {
@@ -29,13 +28,11 @@ const Main = () => {
   const [isEditable, setisEditable] = useState(false);
   const [data, setData] = useState([]);
   const { setBusiness } = ContextAuth();
-  const handleEditClick = () => {
-    setisEditable(true);
-  };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      axios("https://khatabook-one.vercel.app/updatebusiness", {
+      await axios("https://khatabook-one.vercel.app/updatebusiness", {
         method: "PATCH",
         data: formState,
         headers: {
@@ -45,7 +42,7 @@ const Main = () => {
       })
         .then((res) => {
           console.log(formState);
-          // setformState(res.data);
+          setisEditable(false);
           setData(res.data);
           toast.success("Profile updated !", {
             position: "top-center",
@@ -65,6 +62,12 @@ const Main = () => {
     }
   };
 
+  const handleEditClick = () => {
+    setData((prevData) => ({
+      ...prevData,
+    }));
+    setisEditable(true);
+  };
   const handleChange = (e) => {
     setformState((prevdata) => ({
       ...prevdata,
@@ -73,29 +76,31 @@ const Main = () => {
   };
 
   useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
     try {
-      axios("https://khatabook-one.vercel.app/getregisterbusiness", {
+      await axios("https://khatabook-one.vercel.app/getregisterbusiness", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
         .then((res) => {
-          // setformState(res.data.response);
-          const response = res.data.response;
-          
-          setData(...response);
+          console.log(res.data.response);
+          const response = res.data;
+          setformState(response);
+
           console.log(response);
-          
-          setBusiness(...response)
+
+          setBusiness(response);
         })
         .catch((err) => console.log(err));
     } catch (error) {
       console.log(error);
     }
-  }, []);
-
-
+  };
 
   return (
     <>
@@ -131,8 +136,7 @@ const Main = () => {
                       type="text"
                       name="name"
                       required
-                      // value={formState.businessName}
-                      value={data.businessName}
+                      value={formState.businessName}
                       onChange={handleChange}
                       disabled={!isEditable}
                     />
@@ -163,7 +167,7 @@ const Main = () => {
                       type="text"
                       name="name"
                       required
-                      value={data.businessType}
+                      value={formState.businessType}
                       onChange={handleChange}
                       disabled={!isEditable}
                     />
@@ -192,7 +196,7 @@ const Main = () => {
                       required
                       type="text"
                       name="name"
-                      value={data.gstNo}
+                      value={formState.gstNo}
                       onChange={handleChange}
                       disabled={!isEditable}
                     />
@@ -220,8 +224,8 @@ const Main = () => {
                       id="location"
                       type="text"
                       required
-                      name="name"
-                      value={data.location}
+                      name="location"
+                      value={formState.location}
                       onChange={handleChange}
                       disabled={!isEditable}
                     />
