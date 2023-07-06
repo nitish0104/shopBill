@@ -6,7 +6,7 @@ import noItems from "../../images/noItems.svg";
 import { BiArrowBack } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeContextAuth } from "../../context/ThemeContext";
-import { AiFillDelete, AiOutlineEdit , AiOutlineSave} from "react-icons/ai";
+import { AiFillDelete, AiOutlineEdit, AiOutlineSave } from "react-icons/ai";
 import { BsWhatsapp } from "react-icons/bs";
 import { FaRegMoneyBillAlt, FaRupeeSign } from "react-icons/fa";
 import { ImCancelCircle } from "react-icons/im";
@@ -87,8 +87,6 @@ const AddItems = () => {
     }
   };
 
-
-
   const handleEditClick = (index) => {
     setEditIndex(index);
     setItem(items[index].item);
@@ -98,7 +96,12 @@ const AddItems = () => {
   };
 
   const handleSaveClick = (index) => {
-    const updatedItem = {item:item, qty:qty,individualPrice:Number(individualPrice), price: Number(price) };
+    const updatedItem = {
+      item: item,
+      qty: qty,
+      individualPrice: Number(individualPrice),
+      price: Number(price),
+    };
     const updatedItems = [...items];
     updatedItems[index] = updatedItem;
     setItems(updatedItems);
@@ -106,10 +109,9 @@ const AddItems = () => {
     setItem("");
     setQty("");
     setPrice(0);
-    setIndividualPrice(0)
+    setIndividualPrice(0);
   };
 
-  
   const handleSplice = (index) => {
     const newItems = [...items];
     newItems.splice(index, 1);
@@ -245,22 +247,6 @@ const AddItems = () => {
                 >
                   Add
                 </button>
-                {/* {editIndex ? (
-                  <button onClick={handleSaveClick()} className="bg-blue-500 px-1 py-2  w-40 mx-auto text-white font-semibold rounded-md   text-xl">
-                    Save
-                  </button>
-                ) : (
-                  <button   onClick={() => handleEditClick()} className="bg-blue-500 px-1 py-2  w-40 mx-auto text-white font-semibold rounded-md   text-xl">
-                    Edit
-                  </button>
-                )} */}
-                {/* <button className="bg-blue-500 px-1 py-2  w-40 mx-auto text-white font-semibold rounded-md   text-xl">
-                  Save
-                </button>
-
-                <button className="bg-blue-500 px-1 py-2  w-40 mx-auto text-white font-semibold rounded-md   text-xl">
-                  Edit
-                </button> */}
               </div>
             </div>
           </div>
@@ -275,13 +261,13 @@ const AddItems = () => {
                 >
                   <thead>
                     <tr className="  border-b-2 py-2  text-center">
-                      <th className="sticky left-0  bg-white py-2 px-4  ">
+                      <th className="sticky left-0 w-20 bg-white py-2 px-4  ">
                         Item
                       </th>
                       <th className=" bg-white py-2 px-4 ">Quantity</th>
                       <th className=" bg-white py-2 px-4 ">Individual</th>
                       <th className=" bg-white py-2 px-4 ">Total</th>
-                      <th className=" bg-white py-2 px-4 ">Delete</th>
+                      <th className=" bg-white py-2 px-4 ">Change</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -291,7 +277,7 @@ const AddItems = () => {
                           key={index}
                           className=" border-b-2  border-black text-x text-center "
                         >
-                          <td className="sticky left-0 md:w-2/6 bg-white px-2 border whitespace-nowrap">
+                          <td className="sticky left-0 md:w-2/6 w-40 bg-white px-2 border whitespace-nowrap">
                             {index === editIndex ? (
                               <input
                                 type="text"
@@ -305,10 +291,10 @@ const AddItems = () => {
                               value.item
                             )}
                           </td>
-                          <td className=" px-2 border md:w-40 whitespace-nowrap">
+                          <td className=" px-2 border md:w-40 w-28  whitespace-nowrap">
                             {index === editIndex ? (
                               <input
-                              className="border  text-center md:w-32 border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="border  text-center md:w-32 w-24  border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 type="text"
                                 value={qty}
                                 onChange={(e) => {
@@ -320,12 +306,12 @@ const AddItems = () => {
                             )}
                           </td>
 
-                          <td className=" px-2 border md:w-40  whitespace-nowrap">
+                          <td className=" px-2 border md:w-40 w-28  whitespace-nowrap">
                             &#8377;
                             {index === editIndex ? (
                               <input
                                 type="number"
-                                className="border  text-center md:w-32  border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="border  text-center md:w-32 w-24  border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 value={individualPrice}
                                 onChange={(e) => {
                                   setIndividualPrice(e.target.value);
@@ -335,13 +321,13 @@ const AddItems = () => {
                               value?.individualPrice
                             )}
                           </td>
-                          <td className=" px-2  border md:w-40  whitespace-nowrap ">
+                          <td className=" px-2  border md:w-40 w-28  whitespace-nowrap ">
                             &#8377;
                             {index === editIndex ? (
                               <input
                                 type="number"
-                                className="border  text-center md:w-32 border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                value={  price}
+                                className="border  text-center md:w-32 w-24 border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                value={price}
                                 onChange={(e) => {
                                   setPrice(e.target.value);
                                 }}
@@ -351,25 +337,23 @@ const AddItems = () => {
                             )}
                           </td>
 
-                          <td className="border px-4  py-2 flex justify-center  items-center gap-x-2">
+                          <td className="border px-8  py-2 flex justify-around  items-center gap-x-4">
                             <div>
-
-
-                            {index === editIndex ? (
-                              <button
-                                onClick={() => handleSaveClick(index)}
-                                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded "
-                              >
-                                <AiOutlineSave/>
-                              </button>
-                            ) : (
-                              <button
-                                onClick={() => handleEditClick(index)}
-                                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded "
-                              >
-                                <AiOutlineEdit/>
-                              </button>
-                            )}
+                              {index === editIndex ? (
+                                <button
+                                  onClick={() => handleSaveClick(index)}
+                                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded "
+                                >
+                                  <AiOutlineSave />
+                                </button>
+                              ) : (
+                                <button
+                                  onClick={() => handleEditClick(index)}
+                                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded "
+                                >
+                                  <AiOutlineEdit />
+                                </button>
+                              )}
                             </div>
                             <button
                               onClick={() => {
@@ -377,7 +361,7 @@ const AddItems = () => {
                               }}
                               className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded whitespace-nowrap"
                             >
-                              <AiFillDelete ></AiFillDelete>
+                              <AiFillDelete></AiFillDelete>
                             </button>
                           </td>
                           {/* <button

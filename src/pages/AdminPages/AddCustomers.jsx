@@ -92,28 +92,21 @@ const AddCustomers = () => {
         </div>
 
         {searchCustomer && (
-          <div>
+          <div className="md:w-8/12  w-screen   md:grid md:grid-cols-3 md:gap-x-2 m-auto">
             {filterCustomer.map((customer, index) => (
-              // <CustomerCard
-              //   key={customer._id + index}
-              //   name={customer.customerName}
-              //   id={customer._id}
-              //   // items={customer.items}
-              //   mobileNumber={customer.customerNumber}
-              // />
               <div
                 className={`bg-${isDarkMode ? "blue-200" : "cyan-50"} text-${
                   isDarkMode ? "white" : "gray-800"
                 } p-4 rounded-lg  shadow-md shadow-blue-300 transform  perspective-100    overflow-hidden border m-2`}
               >
-                <div className=" py-4 flex justify-center items-center gap-x-4 ">
-                  <div className="text-center w-6/12">
+                <div className=" py-4 flex justify-center items-center w-[100%] ">
+                  <div className="text-center w-[100%] ">
                     <button onClick={handleCardClick}>
                       <div className="font-bold text-xl mb-2">
                         {customer.customerName}
                       </div>
 
-                      <p className=" font-semibold mb-2 text-start">
+                      <p className=" font-semibold mb-2 text-center">
                         {customer.customerNumber}
                       </p>
                     </button>
