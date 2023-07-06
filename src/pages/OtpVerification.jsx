@@ -24,18 +24,7 @@ const VerifyOTP = () => {
   const [loading, setLoading] = useState(false);
   const stringOTP = otp.join("");
   // Function to handle input change for mobile number
-  useEffect(() => {
-    toast.success("OTP send !", {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: false,
-      pauseOnHover: false,
-      draggable: false,
-      progress: false,
-      theme: "light",
-    });
-  }, []);
+  useEffect(() => {}, []);
 
   const handleChange = (e, index) => {
     const { value } = e.target;
@@ -101,6 +90,16 @@ const VerifyOTP = () => {
     // startTimer();
   };
   useEffect(() => {
+    toast.success("OTP send !", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: false,
+      progress: false,
+      theme: "light",
+    });
     AOS.init();
   }, []);
 

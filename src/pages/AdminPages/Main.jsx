@@ -26,7 +26,6 @@ const Main = () => {
   const { isDarkMode } = ThemeContextAuth();
   const [formState, setformState] = useState(initialstate);
   const [isEditable, setisEditable] = useState(false);
-  const [data, setData] = useState([]);
   const { setBusiness } = ContextAuth();
 
   const handleSubmit = async (e) => {
@@ -43,7 +42,7 @@ const Main = () => {
         .then((res) => {
           console.log(formState);
           setisEditable(false);
-          setData(res.data);
+          setformState(res.data);
           toast.success("Profile updated !", {
             position: "top-center",
             autoClose: 3000,
