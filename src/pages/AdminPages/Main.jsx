@@ -63,7 +63,7 @@ const Main = () => {
   };
 
   const handleEditClick = () => {
-    setData((prevData) => ({
+    setformState((prevData) => ({
       ...prevData,
     }));
     setisEditable(true);
