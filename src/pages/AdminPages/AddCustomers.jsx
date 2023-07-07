@@ -16,7 +16,6 @@ const AddCustomers = () => {
   const [recentCustomer, setrecentCustomer] = useState(false);
   const [historyCustomer, sethistoryCustomer] = useState(false);
   const { allCustomer, setAllCustomer } = ContextAuth();
-  const [searchedCustomer, setSearchedCustomer] = useState([]);
   const [searchCustomer, setsearchCustomer] = useState("");
   const navigate = useNavigate();
   const { setCustomerdata } = ContextAuth();
@@ -64,7 +63,7 @@ const AddCustomers = () => {
     setsearchCustomer(e.target.value);
   };
   const handleCardClick = (_id) => {
-    setCustomerdata(_id)
+    setCustomerdata(_id);
     navigate("/add-items");
   };
 
@@ -108,16 +107,24 @@ const AddCustomers = () => {
                       {customer.customerName}
                     </div>
 
-                    <p className=" font-semibold ">
-                      {customer.customerNumber}
-                    </p>
+                    <p className=" font-semibold ">{customer.customerNumber}</p>
                   </div>
 
                   <div className="flex justify-between w-[100%]">
-                    <button onClick={()=>{
-                      handleCardClick(customer._id)
-                    }} className=" py-1.5 px-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 w-fit">Generate Bill</button>
-                    <Link to={`/customer-details/${customer._id}`} className=" py-1.5 px-2  bg-blue-500 text-white rounded-md hover:bg-blue-600 ">View Bills</Link>
+                    <button
+                      onClick={() => {
+                        handleCardClick(customer._id);
+                      }}
+                      className=" py-1.5 px-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 w-fit"
+                    >
+                      Generate Bill
+                    </button>
+                    <Link
+                      to={`/customer-details/${customer._id}`}
+                      className=" py-1.5 px-2  bg-blue-500 text-white rounded-md hover:bg-blue-600 "
+                    >
+                      View Bills
+                    </Link>
                   </div>
                 </div>
               </div>
