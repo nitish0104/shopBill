@@ -31,6 +31,8 @@ import TableEdit from './raw/TableEdit';
 import Table from './raw/TableEdit';
 // import Invoice from './raw/Invoice';
 import ShowSingleBill from './pages/AdminPages/ShowSingleBill';
+import CloudinaryUpload from './components/CloudinaryUpload';
+
 
 function App() {
   return (
@@ -60,6 +62,7 @@ function App() {
               <Route path="/table-edit" element={<TableEdit />} />
               <Route path="/invoice/:id" element={<ShowSingleBill />} />
               <Route path="/customer-details/:id" element={<ShowCustomerDetails />} />
+              <Route path="/cloudinaryupload" element={<CloudinaryUpload/>} />
             </Routes>
           </ThemeProvider>
         </Context>

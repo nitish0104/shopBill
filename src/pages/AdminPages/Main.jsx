@@ -26,7 +26,7 @@ const Main = () => {
   const { isDarkMode } = ThemeContextAuth();
   const [formState, setformState] = useState(initialstate);
   const [isEditable, setisEditable] = useState(false);
-  const { setBusiness } = ContextAuth();
+  const { setBusiness ,logoUrl} = ContextAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -111,7 +111,7 @@ const Main = () => {
           } `}
         >
           <div className="overflow-y-auto  md:overflow-hidden flex-col justify-center items-center pt-2">
-            <ImageUploadComponent></ImageUploadComponent>
+            <ImageUploadComponent value={formState.businessLogo}></ImageUploadComponent>
             <div className="md:grid md:grid-cols-2 md:px-36">
               <div className="flex items-center gap-x-2 justify-center">
                 <div className="md:w-[30vw]">

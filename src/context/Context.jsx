@@ -12,7 +12,7 @@ const Context = ({ children }) => {
   const [customerData, setCustomerdata] = useState("");
   const [allCustomer, setAllCustomer] = useState([]);
   const [amount, setamount] = useState();
-
+  const [logoUrl, setLogoUrl] = useState("");
   const updateUserDetails = (data) => {
     setUserDetails(data);
   };
@@ -34,6 +34,8 @@ const Context = ({ children }) => {
         setAllCustomer,
         amount,
         setamount,
+        logoUrl, 
+        setLogoUrl
       }}
     >
       {children}
