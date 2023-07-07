@@ -8,7 +8,7 @@ import { ThemeContextAuth } from "../../context/ThemeContext";
 import axios from "axios";
 import { ContextAuth } from "../../context/Context";
 import CustomerCard from "../../components/cards/HomeCard";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AddCustomers = () => {
   const [modal, setModal] = useState({ show: false, data: {} });
@@ -19,6 +19,8 @@ const AddCustomers = () => {
   const [searchedCustomer, setSearchedCustomer] = useState([]);
   const [searchCustomer, setsearchCustomer] = useState("");
   const navigate = useNavigate();
+  const { setCustomerdata } = ContextAuth();
+
   const filterCustomer = allCustomer.filter(
     (allCustomer) =>
       allCustomer.customerName
@@ -61,7 +63,8 @@ const AddCustomers = () => {
   const handleSearch = (e) => {
     setsearchCustomer(e.target.value);
   };
-  const handleCardClick = () => {
+  const handleCardClick = (_id) => {
+    setCustomerdata(_id)
     navigate("/add-items");
   };
 
@@ -92,24 +95,29 @@ const AddCustomers = () => {
         </div>
 
         {searchCustomer && (
-          <div className="md:w-8/12  w-screen   md:grid md:grid-cols-3 md:gap-x-2 m-auto">
+          <div className="md:w-8/12  w-[80vw]   md:grid md:grid-cols-3 md:gap-x-2 m-auto  gap-y-4">
             {filterCustomer.map((customer, index) => (
               <div
                 className={`bg-${isDarkMode ? "blue-200" : "cyan-50"} text-${
                   isDarkMode ? "white" : "gray-800"
                 } p-4 rounded-lg  shadow-md shadow-blue-300 transform  perspective-100    overflow-hidden border m-2`}
               >
-                <div className=" py-4 flex justify-center items-center w-[100%] ">
-                  <div className="text-center w-[100%] ">
-                    <button onClick={handleCardClick}>
-                      <div className="font-bold text-xl mb-2">
-                        {customer.customerName}
-                      </div>
+                <div className=" py-2 gap-y-4 flex flex-col justify-center items-center w-[100%] ">
+                  <div className="flex justify-between items-center gap-x-6 w-[100%]">
+                    <div className="font-semibold  ">
+                      {customer.customerName}
+                    </div>
 
-                      <p className=" font-semibold mb-2 text-center">
-                        {customer.customerNumber}
-                      </p>
-                    </button>
+                    <p className=" font-semibold ">
+                      {customer.customerNumber}
+                    </p>
+                  </div>
+
+                  <div className="flex justify-between w-[100%]">
+                    <button onClick={()=>{
+                      handleCardClick(customer._id)
+                    }} className=" py-1.5 px-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 w-fit">Generate Bill</button>
+                    <Link to={`/customer-details/${customer._id}`} className=" py-1.5 px-2  bg-blue-500 text-white rounded-md hover:bg-blue-600 ">View Bills</Link>
                   </div>
                 </div>
               </div>

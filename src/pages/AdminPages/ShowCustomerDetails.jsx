@@ -4,6 +4,8 @@ import Sidebar from "../../components/Sidebar";
 import DatePicker, { ReactDatePicker } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Input from "../../components/Input/Input";
+import { format } from "date-fns";
+import noItems from "../../images/noItems.svg";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 import {
   AiFillFilter,
@@ -15,35 +17,51 @@ import { BsShare, BsWhatsapp } from "react-icons/bs";
 import "./ShowCustomerDetail.css";
 import axios from "axios";
 import { ContextAuth } from "../../context/Context";
-import { useParams } from "react-router-dom";
+import { Link, json, useNavigate, useParams } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+import { BiArrowBack } from "react-icons/bi";
+import Navigation from "../../components/Navigation";
+import PageLoader from "../../components/PageLoader";
+import ShowSingleBillModal from "../../Modal/ShowSingleBillModal";
+import { data } from "autoprefixer";
 
 const ShowCustomerDetails = () => {
   const { isDarkMode } = ThemeContextAuth();
   const { id } = useParams();
+  const business = jwtDecode(`${localStorage.getItem("token")}`);
+  const businessId = business._id;
   const [selected, setSelected] = useState(null);
-  const [viewCustomerDetails, setViewCustomerDetails] = useState('');
-
+  const [viewCustomerDetails, setViewCustomerDetails] = useState("");
+  const [viewCustomerBills, setViewCustomerBills] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { allCustomer } = ContextAuth();
+  const [modal, setModal] = useState({ show: false, data: {} });
+  const naviGate = useNavigate();
+  useEffect(() => {
+    setLoading(true);
+    try {
+      const data = {
+        customerId: id,
+        businessId: businessId,
+      };
+      axios(`https://khatabook-one.vercel.app/getcustomerbill`, {
+        method: "POST",
+        data: data,
 
-
-  // useEffect(() => {
-  //   try {
-  //     axios("https://khatabook-one.vercel.app/getcustomerbill", {
-  //       method: "GET",
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       },
-  //     })
-  //       .then((res) => {
-  //         setViewCustomerDetails(res.data);
-  //         console.log(res.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
-
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((res) => {
+          setViewCustomerBills(res?.data?.response);
+          setLoading(false);
+          console.log(res.data.response);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   useEffect(() => {
     try {
@@ -55,19 +73,13 @@ const ShowCustomerDetails = () => {
       })
         .then((res) => {
           setViewCustomerDetails(res.data.response);
-          console.log(res.data);
+          // console.log(res.data);
         })
         .catch((err) => console.log(err));
     } catch (error) {
       console.log(error);
     }
   }, []);
-
-
-
-
-
-
 
   const toggle = (e) => {
     if (selected === e) {
@@ -187,10 +199,21 @@ const ShowCustomerDetails = () => {
       )
     : filteredCards;
 
+
+    const handleSingleBill = (_id) =>{
+naviGate(`/invoice/${_id}`)
+    }
   return (
     <>
       <LayoutManin>
+        {modal.show && (
+          <ShowSingleBillModal
+            data={modal.show && modal.data}
+            setmodal={setModal}
+          />
+        )}
         <Sidebar />
+        <Navigation />
         <div>
           <div className="text-xl flex gap-y-2  justify-center items-center pt-4 flex-col">
             <div className="md:w-[30vw] w-full px-2">
@@ -256,7 +279,7 @@ const ShowCustomerDetails = () => {
             />
           </div>
 
-          <div className="overflow-x-scroll px-4 pt-4 flex flex-col gap-y-6 items-center">
+          {/* <div className="overflow-x-scroll px-4 pt-4 flex flex-col gap-y-6 items-center">
             {filteredCardsByDate?.map((value, index) => {
               return (
                 <div key={index}>
@@ -330,7 +353,56 @@ const ShowCustomerDetails = () => {
                 </div>
               );
             })}
-          </div>
+          </div> */}
+
+          {!loading ? (
+            <div>
+              {viewCustomerBills?.length > 0 ? (
+                <div>
+                  {viewCustomerBills?.map((value, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="pt-6 px-3 flex justify-center "
+                      >
+                        <div onClick={()=>{
+                          handleSingleBill(value?._id)
+                        }} className="flex  hover:border-black  duration-200 justify-between items-center py-3 px-2  hover:shadow-lg  outline-none  border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-[30vw] w-full cursor-pointer">
+                          <p className="flex items-center gap-x-1">
+                            Date:{" "}
+                            {format(new Date(value?.createdAt), "dd/MMM/yyyy")}
+                          </p>
+                          <p>
+                            GrandTotal: {value?.grandtotal - value?.discount} Rs
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className=" mt-12   px-8  ">
+                  <div className="flex justify-around flex-col md:justify-center items-center md:flex-row">
+                    <div className="w-[40%] md:w-[20%] ">
+                      <img src={noItems} alt="" />
+                    </div>
+
+                    <div
+                      className={`flex flex-col justify-center items-center   text-${
+                        isDarkMode ? "black" : "gray-800"
+                      } p-4`}
+                    >
+                      <span className="font-mono    text-xl">
+                        Oop's! No Data Available.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <PageLoader className={"h-[40vh]"} />
+          )}
         </div>
       </LayoutManin>
     </>

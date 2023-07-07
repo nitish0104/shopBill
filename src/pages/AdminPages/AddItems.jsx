@@ -27,7 +27,7 @@ const AddItems = () => {
   const [paid, setPaid] = useState(0);
   const [grandtotal, setGrandtotal] = useState(0);
   const { isDarkMode } = ThemeContextAuth();
-  const [coupon, setCoupon] = useState();
+  const [discount, setDiscount] = useState(0);
   const [loading, setLoading] = useState(false);
   const { customerData } = ContextAuth();
   const [editIndex, setEditIndex] = useState(null);
@@ -139,6 +139,8 @@ const AddItems = () => {
           customerId: customerData,
           businessId: businessId,
           items: items,
+          grandtotal:grandtotal,
+          discount:Number(discount)
         },
       })
         .then((res) => {
@@ -389,9 +391,9 @@ const AddItems = () => {
                       Coupon: &#8377;{" "}
                     </p>
                     <input
-                      value={coupon}
+                      value={discount}
                       onChange={(e) => {
-                        setCoupon(e.target.value);
+                        setDiscount(e.target.value);
                       }}
                       className={`  w-[30%]   flex items-center text-black border-none outline-none`}
                       required="true"
@@ -403,7 +405,7 @@ const AddItems = () => {
                     }`}
                   >
                     GrandTotal: &#8377;
-                    {coupon ? grandtotal - coupon : grandtotal} /-
+                    {discount ? grandtotal - discount : grandtotal} /-
                   </p>
                 </div>
               </>

@@ -29,8 +29,8 @@ import TestForm from './raw/FormTest';
 import DateFormat from './raw/DateFormat';
 import TableEdit from './raw/TableEdit';
 import Table from './raw/TableEdit';
-import Invoice from './raw/Invoice';
-
+// import Invoice from './raw/Invoice';
+import ShowSingleBill from './pages/AdminPages/ShowSingleBill';
 
 function App() {
   return (
@@ -58,7 +58,7 @@ function App() {
               <Route path="/tabletest" element={<Table />} />
               <Route path="/formtest" element={<TestForm />} />
               <Route path="/table-edit" element={<TableEdit />} />
-              <Route path="/invoice" element={<Invoice />} />
+              <Route path="/invoice/:id" element={<ShowSingleBill />} />
               <Route path="/customer-details/:id" element={<ShowCustomerDetails />} />
             </Routes>
           </ThemeProvider>
