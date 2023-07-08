@@ -31,9 +31,6 @@ const ImageUploadComponent = ({ businessLogo, setformState, formState , isEditab
       })
         .then((response) => response.json())
         .then(async (data) => {
-
-
-
           await axios("https://khatabook-one.vercel.app/updatebusiness", {
             method: "PATCH",
             data: { businessLogo: data.secure_url },
@@ -164,6 +161,8 @@ const ImageUploadComponent = ({ businessLogo, setformState, formState , isEditab
       <input
         id="uploadImage"
         type="file"
+        readOnly={!isEditable}
+        disabled={!isEditable}
         accept="image/*"
         onChange={handleImageChange}
         className="hidden"

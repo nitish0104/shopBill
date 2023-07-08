@@ -51,10 +51,10 @@ const ShowCustomerDetails = () => {
         customerId: id,
         businessId: businessId,
       };
+      console.log(data)
       axios(`https://khatabook-one.vercel.app/getcustomerbill`, {
         method: "POST",
         data: data,
-
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -62,7 +62,7 @@ const ShowCustomerDetails = () => {
         .then((res) => {
           setViewCustomerBills(res?.data?.response);
           setLoading(false);
-          console.log(res.data.response);
+          console.log(res.data);
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -79,8 +79,7 @@ const ShowCustomerDetails = () => {
         },
       })
         .then((res) => {
-          setViewCustomerDetails(res.data.response);
-          // console.log(res.data);
+          setViewCustomerDetails(res?.data?.response);
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -110,7 +109,7 @@ const ShowCustomerDetails = () => {
     console.log(formattedDate);
   };
 
-  const filteredCards = viewCustomerBills.filter((card) => {
+  const filteredCards = viewCustomerBills?.filter((card) => {
     const cardDate = format(new Date(card?.createdAt), "dd MMM yyyy");
     console.log(cardDate);
 
@@ -167,7 +166,7 @@ const ShowCustomerDetails = () => {
                 id="name"
                 type="text"
                 name="name"
-                value={viewCustomerDetails.customerName}
+                value={viewCustomerDetails?.customerName}
               />
             </div>
             <div className="md:w-[30vw] w-full px-2">
@@ -183,7 +182,7 @@ const ShowCustomerDetails = () => {
                 id="number"
                 type="text"
                 name="name"
-                value={viewCustomerDetails.customerNumber}
+                value={viewCustomerDetails?.customerNumber}
               />
             </div>
           </div>

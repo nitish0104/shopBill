@@ -140,8 +140,11 @@ const AddItems = () => {
           customerId: customerData,
           businessId: businessId,
           items: items,
-          grandtotal:grandtotal,
-          discount:Number(discount)
+          grandtotal: grandtotal,
+          discount: Number(discount)
+        },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
         .then((res) => {
@@ -159,7 +162,7 @@ const AddItems = () => {
     <>
       <LayoutMain className={""}>
         <Sidebar />
-        <Navigation/>
+        <Navigation />
 
         <div className="md:w-[80vw] w-screen m-auto md:px-12   overflow-y-hidden flex-col  justify-center items-center">
           {/* <div className="flex items-center justify-between mb-2  w-[90%]">
@@ -185,9 +188,8 @@ const AddItems = () => {
                       setItem(e.target.value);
                     }}
                     placeholder={"Enter Items"}
-                    className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
-                      isDarkMode ? "border-white" : "border-black"
-                    }`}
+                    className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${isDarkMode ? "border-white" : "border-black"
+                      }`}
                     required
                   />
                 </div>
@@ -202,9 +204,8 @@ const AddItems = () => {
                       setQty(e.target.value);
                     }}
                     placeholder={"Enter Quantity"}
-                    className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
-                      isDarkMode ? "border-white" : "border-black"
-                    }`}
+                    className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${isDarkMode ? "border-white" : "border-black"
+                      }`}
                     required
                   />
                 </div>
@@ -219,9 +220,8 @@ const AddItems = () => {
                       setIndividualPrice(e.target.value);
                     }}
                     placeholder={"Enter Amount"}
-                    className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
-                      isDarkMode ? "border-white" : "border-black"
-                    }`}
+                    className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${isDarkMode ? "border-white" : "border-black"
+                      }`}
                   />
                 </div>
                 <div className="flex-col ">
@@ -235,9 +235,8 @@ const AddItems = () => {
                       setPrice(e.target.value);
                     }}
                     placeholder={"Enter Total Price"}
-                    className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${
-                      isDarkMode ? "border-white" : "border-black"
-                    }`}
+                    className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${isDarkMode ? "border-white" : "border-black"
+                      }`}
                   />
                 </div>
               </div>
@@ -257,9 +256,8 @@ const AddItems = () => {
             {items.length > 0 ? (
               <>
                 <table
-                  className={`min-w-full divide-y divide-gray-200" border-2 border-b-black p-2  border-collapse rounded-lg ${
-                    isDarkMode ? "border-white" : "border-black border-b-black"
-                  }`}
+                  className={`min-w-full divide-y divide-gray-200" border-2 border-b-black p-2  border-collapse rounded-lg ${isDarkMode ? "border-white" : "border-black border-b-black"
+                    }`}
                 >
                   <thead>
                     <tr className="  border-b-2 py-2  text-center">
@@ -383,9 +381,8 @@ const AddItems = () => {
                 </table>
                 <div className=" w-full flex justify-center sticky left-0  pr-2 pt-4 gap-x-3">
                   <div
-                    className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
-                      isDarkMode ? "border-white" : "border-black"
-                    }`}
+                    className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${isDarkMode ? "border-white" : "border-black"
+                      }`}
                   >
                     <p className="flex items-center  text-base">
                       Coupon: &#8377;{" "}
@@ -400,9 +397,8 @@ const AddItems = () => {
                     />
                   </div>
                   <p
-                    className={`border-2 py-1 px-3 text-base flex items-center w-[80%] ${
-                      isDarkMode ? "border-white" : "border-black"
-                    }`}
+                    className={`border-2 py-1 px-3 text-base flex items-center w-[80%] ${isDarkMode ? "border-white" : "border-black"
+                      }`}
                   >
                     GrandTotal: &#8377;
                     {discount ? grandtotal - discount : grandtotal} /-
@@ -417,9 +413,8 @@ const AddItems = () => {
                   </div>
 
                   <div
-                    className={`flex flex-col justify-center items-center   text-${
-                      isDarkMode ? "black" : "gray-800"
-                    } p-4`}
+                    className={`flex flex-col justify-center items-center   text-${isDarkMode ? "black" : "gray-800"
+                      } p-4`}
                   >
                     <span className="font-mono   md:text-5xl text-xl">
                       Oop's! Data Not Found
@@ -431,9 +426,8 @@ const AddItems = () => {
           </div>
 
           <div
-            className={`w-full  flex justify-around items-center  bg-${
-              isDarkMode ? "gray-800" : "white"
-            } text-${isDarkMode ? "white" : "gray-800"} p-4`}
+            className={`w-full  flex justify-around items-center  bg-${isDarkMode ? "gray-800" : "white"
+              } text-${isDarkMode ? "white" : "gray-800"} p-4`}
           >
             <button
               className="bg-blue-600 hover:bg-blue-700 text-white font-bold p-4 rounded-full  flex justify-center items-center gap-2   "

@@ -32,7 +32,6 @@ const Main = () => {
         },
       })
         .then((res) => {
-          console.log(formState);
           setisEditable(false);
           setformState(res.data);
           toast.success("Profile updated !", {

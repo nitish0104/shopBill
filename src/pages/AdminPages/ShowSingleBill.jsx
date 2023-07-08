@@ -8,13 +8,18 @@ import html2canvas from "html2canvas";
 import { AiOutlinePrinter } from "react-icons/ai";
 import { BiArrowBack } from "react-icons/bi";
 import Sidebar from "../../components/Sidebar";
+import moment from "moment";
 const ShowSingleBill = () => {
   const [singleBill, setSingleBill] = useState();
   const [itemsSingeBill, setitemsSingeBill] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [beforePrint, setBeforePrint] = useState(true)
   const { id } = useParams();
   const { business, formState, viewCustomerDetails } = ContextAuth();
 
+  const handlePrint = () => {
+
+  }
   const handleDownload = () => {
     html2canvas(contentRef.current).then((canvas) => {
       const link = document.createElement("a");
@@ -25,12 +30,16 @@ const ShowSingleBill = () => {
   };
   const contentRef = useRef(null);
   useEffect(() => {
-    console.log(business);
+    // window.addEventListener('beforeprint', (e) => {
+    //   setBeforePrint(true)
+    // })
+    // window.addEventListener('afterprint', (e) => {
+    //   setBeforePrint(false)
+    // })
     setLoading(true);
     try {
       axios(`https://khatabook-one.vercel.app/getcustomerbill/${id}`, {
         method: "GET",
-
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -38,11 +47,7 @@ const ShowSingleBill = () => {
         .then((res) => {
           setSingleBill(res?.data?.response);
           setLoading(false);
-          console.log(formState);
-          setitemsSingeBill(res.data.response.items);
-          console.log(itemsSingeBill);
-          console.log(res.data.response.items);
-          console.log(res.data);
+          setitemsSingeBill(res?.data?.response?.items);
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -52,24 +57,22 @@ const ShowSingleBill = () => {
 
   return (
     <>
-      <Sidebar />
-      <div className="py-4 px-4 w-fit">
-
-
-      <Link className="  text-3xl" to={"/add-customer"}>
-        <BiArrowBack />
-      </Link>
-      </div>
+      {beforePrint && <Sidebar />}
+      {beforePrint && <div className="py-4 px-4 w-fit">
+        <Link className="  text-3xl" to={"/add-customer"}>
+          <BiArrowBack />
+        </Link>
+      </div>}
       <div
         className="container mx-auto px-4 md:w-[70%] w-screen "
         ref={contentRef}
       >
-        
+
         <div className="bg-white rounded-lg shadow-lg pb-4">
           <div className="flex justify-between bg-blue-500 text-white px-6 py-4 items-center">
             <h1 className="text-2xl font-bold">Bill</h1>
             {/* <p className='font-bold text-2xl'>Date: {format(new Date(singleBill?.createdAt), "dd/MMM/yyyy")}</p> */}
-            <p className="">Date:{singleBill?.createdAt}</p>
+            <p className="">Date: {moment(singleBill?.createdAt).format("DD MMM, YYYY")}</p>
           </div>
           <div className="flex justify-between px-6 py-4">
             <div>
@@ -83,9 +86,9 @@ const ShowSingleBill = () => {
             </div>
             <div>
               <h2 className="text-xl font-bold">
-                {viewCustomerDetails.customerName}
+                {singleBill?.customerId?.customerName}
               </h2>
-              <p>{viewCustomerDetails.customerNumber}</p>
+              <p>{singleBill?.customerId?.customerNumber}</p>
             </div>
           </div>
           <table className="w-full">
@@ -122,28 +125,34 @@ const ShowSingleBill = () => {
                 <td colSpan="3" className="text-right py-2 px-4 font-bold">
                   Subtotal:
                 </td>
-                <td className="py-2 px-4">71.00</td>
+                <td className="py-2 px-4">{singleBill?.grandtotal}</td>
               </tr>
 
               <tr>
                 <td colSpan="3" className="text-right py-2 px-4 font-bold">
                   Total:
                 </td>
-                <td className="py-2 px-4">{singleBill?.grandtotal}</td>
+                <td className="py-2 px-4">{singleBill?.grandtotal - singleBill?.discount}</td>
               </tr>
             </tfoot>
           </table>
-          
+
         </div>
 
-        <div className="flex justify-center mt-4 mr-6 mb-3 ">
-            <button
-              onClick={handleDownload}
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
-            >
-              <AiOutlinePrinter></AiOutlinePrinter> Print
-            </button>
-          </div>
+        {beforePrint && <div className="flex justify-center mt-4 mr-6 mb-3 ">
+          <button
+            onClick={handleDownload}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
+          >
+            <AiOutlinePrinter></AiOutlinePrinter> Print
+          </button>
+          <button
+            onClick={() => { window.print() }}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
+          >
+            <AiOutlinePrinter></AiOutlinePrinter> Print
+          </button>
+        </div>}
       </div>
     </>
   );

@@ -18,6 +18,7 @@ import "aos/dist/aos.css";
 import Spinner from "../../components/Spinner";
 import PageLoader from "../../components/PageLoader";
 import { subDays, subMonths, subYears } from "date-fns";
+import moment from "moment";
 
 const GetBills = () => {
   const { allCustomer } = ContextAuth();
@@ -25,6 +26,7 @@ const GetBills = () => {
   const message = "Maggie(8) -40Rs  "; // Replace with your desired message
   const [businessBills, setBusinessBills] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [filterResults, setFilterResults] = useState([])
 
   useEffect(() => {
     setLoading(true);
@@ -36,15 +38,19 @@ const GetBills = () => {
         },
       })
         .then((res) => {
+          console.log(res?.data?.response);
           setBusinessBills(res?.data?.response);
           setLoading(false);
-          // console.log("Generate bill ", res?.data?.response);
         })
         .catch((err) => console.log(err));
     } catch (error) {
       console.log(error);
     }
   }, []);
+
+  useEffect(() => {
+    setFilterResults(businessBills)
+  }, [businessBills]);
 
   const handleButtonClick = (phoneNumber) => {
     const encodedMessage = encodeURIComponent(message);
@@ -55,22 +61,33 @@ const GetBills = () => {
   const contentRef = useRef(null);
 
   const [filter, setFilter] = useState("all");
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState("");
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
     setSelectedDate(null);
   };
+
   const handleDateChange = (e) => {
+    setSelectedDate(e.target.value);
+    let finalData = businessBills?.map((bills) => {
+      let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD")
+      return {
+        ...bills,
+        filterDate: finalDate
+      }
+    })
+    const filteredResults = finalData?.filter((data) => {
+      return data?.filterDate === e.target.value
+    })
+    setFilterResults(filteredResults)
     const selected = parse(e.target.value, "yyyy-MM-dd", new Date());
     const formattedDate = format(selected, "dd MMM yyyy");
-    setSelectedDate(formattedDate);
     // console.log(formattedDate);
+
   };
 
-let customerDetail =[...businessBills, ...allCustomer]
-
-console.log(customerDetail);
+  let customerDetail = [...businessBills, ...allCustomer]
 
   const filteredCards = allCustomer.filter((card) => {
     const cardDate = new Date(card?.createdAt);
@@ -140,22 +157,20 @@ console.log(customerDetail);
                 ref={contentRef}
                 data-aos="flip-right"
               >
-                {filteredCardsByDate.map((customer, index) => {
+                {filterResults?.map((customer, index) => {
                   const dateObj = new Date(customer?.createdAt)
                   return (
-
                     <CustomerCard
-                      key={customer._id + index}
-                      name={customer.customerName}
+                      data={customer}
+                      key={customer?.customerId?._id + index}
+                      name={customer?.customerId?.customerName}
                       // date={format(new Date (customer?.createdAt), "dd/MMM/yyyy")}
                       date={dateObj}
                       amount={customer.grandtotal}
-                      id={customer._id}
+                      id={customer?.customerId?._id}
                       // items={customer.items}
                       mobileNumber={customer.customerNumber}
                       grandTotal={customer?.grandtotal}
-
-                      
                       div={
                         <button
                           className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-center "
@@ -170,7 +185,7 @@ console.log(customerDetail);
                       }
                     />
 
-                    
+
                   );
                 })}
               </div>
