@@ -40,6 +40,7 @@ const Login = () => {
         )
           .then((res) => {
             console.log(res.data);
+
             localStorage.setItem("token", `${res?.data}`);
             setLoading(false);
             navigate("/verify");

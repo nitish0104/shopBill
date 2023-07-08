@@ -38,10 +38,10 @@ const ShowCustomerDetails = () => {
   const business = jwtDecode(`${localStorage.getItem("token")}`);
   const businessId = business._id;
   const [selected, setSelected] = useState(null);
-  const [viewCustomerDetails, setViewCustomerDetails] = useState("");
   const [viewCustomerBills, setViewCustomerBills] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { allCustomer } = ContextAuth();
+  const { allCustomer, viewCustomerDetails, setViewCustomerDetails } =
+    ContextAuth();
   const [modal, setModal] = useState({ show: false, data: {} });
   const naviGate = useNavigate();
   useEffect(() => {

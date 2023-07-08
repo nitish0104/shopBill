@@ -4,6 +4,14 @@ import { createContext } from "react";
 const Datacontext = createContext(null);
 
 const Context = ({ children }) => {
+  const initialstate = {
+    businessLogo: "",
+    businessName: "",
+    businessType: "",
+    gstNo: "",
+    location: "",
+  };
+  const [formState, setformState] = useState(initialstate);
   const [userDetails, setUserDetails] = useState(null);
   const [number, setNumber] = useState("");
   const [items, setitems] = useState(null);
@@ -13,6 +21,8 @@ const Context = ({ children }) => {
   const [allCustomer, setAllCustomer] = useState([]);
   const [amount, setamount] = useState();
   const [logoUrl, setLogoUrl] = useState("");
+  const [viewCustomerDetails, setViewCustomerDetails] = useState("");
+
   const updateUserDetails = (data) => {
     setUserDetails(data);
   };
@@ -34,8 +44,12 @@ const Context = ({ children }) => {
         setAllCustomer,
         amount,
         setamount,
-        logoUrl, 
-        setLogoUrl
+        logoUrl,
+        setLogoUrl,
+        formState,
+        setformState,
+        viewCustomerDetails,
+        setViewCustomerDetails,
       }}
     >
       {children}
