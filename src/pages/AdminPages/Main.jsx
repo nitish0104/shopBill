@@ -25,7 +25,7 @@ const Main = () => {
     try {
       await axios("https://khatabook-one.vercel.app/updatebusiness", {
         method: "PATCH",
-        data: {...formState, businessLogo:logoUrl},
+        data: { ...formState },
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -80,11 +80,8 @@ const Main = () => {
       })
         .then((res) => {
           console.log(res.data.response);
-          const response = res.data.response;
-          setformState(...response);
-
-          console.log(response);
-
+          const response = res.data.response[0];
+          setformState(response);
           setBusiness(response);
         })
         .catch((err) => console.log(err));
@@ -98,14 +95,13 @@ const Main = () => {
       <LayoutManin>
         <Sidebar />
         <div
-          className={` overflow-auto md:overflow-y-hidden w-screen min-h-screen h-auto  rounded-t-lg pt-4 ${
-            isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
-          } `}
+          className={` overflow-auto md:overflow-y-hidden w-screen min-h-screen h-auto  rounded-t-lg pt-4 ${isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+            } `}
         >
           <div className="overflow-y-auto  md:overflow-hidden flex-col justify-center items-center pt-2">
             <ImageUploadComponent
-              businessLogo={formState.businessLogo}
-            ></ImageUploadComponent>
+              businessLogo={formState?.businessLogo} setformState={setformState} formState={formState}
+            />
             <div className="md:grid md:grid-cols-2 md:px-36">
               <div className="flex items-center gap-x-2 justify-center">
                 <div className="md:w-[30vw]">
@@ -117,11 +113,10 @@ const Main = () => {
                   </label>
                   <div className="pl-2 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
                     <AiOutlineShop
-                      className={`text-3xl text-transperent ${
-                        isDarkMode
-                          ? "bg-gray-800 text-white"
-                          : "bg-white text-gray-800"
-                      }`}
+                      className={`text-3xl text-transperent ${isDarkMode
+                        ? "bg-gray-800 text-white"
+                        : "bg-white text-gray-800"
+                        }`}
                     />
                     <input
                       className="w-full py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
@@ -148,11 +143,10 @@ const Main = () => {
 
                   <div className=" pl-1 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
                     <IoBusinessOutline
-                      className={`text-3xl text-transperent ${
-                        isDarkMode
-                          ? "bg-gray-800 text-white"
-                          : "bg-white text-gray-800"
-                      }`}
+                      className={`text-3xl text-transperent ${isDarkMode
+                        ? "bg-gray-800 text-white"
+                        : "bg-white text-gray-800"
+                        }`}
                     />
                     <input
                       className="w-full py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
@@ -177,11 +171,10 @@ const Main = () => {
                   </label>
                   <div className=" pl-2 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
                     <HiOutlineReceiptTax
-                      className={`text-3xl text-transperent ${
-                        isDarkMode
-                          ? "bg-gray-800 text-white"
-                          : "bg-white text-gray-800"
-                      }`}
+                      className={`text-3xl text-transperent ${isDarkMode
+                        ? "bg-gray-800 text-white"
+                        : "bg-white text-gray-800"
+                        }`}
                     />
                     <input
                       className="w-full py-2 px-1 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
@@ -206,11 +199,10 @@ const Main = () => {
                   </label>
                   <div className=" pl-2 flex items-center shadow appearance-none border rounded w-full  leading-tight focus:outline-none focus:shadow-outline">
                     <GoLocation
-                      className={`text-3xl text-transperent ${
-                        isDarkMode
-                          ? "bg-gray-800 text-white"
-                          : "bg-white text-gray-800"
-                      }`}
+                      className={`text-3xl text-transperent ${isDarkMode
+                        ? "bg-gray-800 text-white"
+                        : "bg-white text-gray-800"
+                        }`}
                     />
                     <input
                       className="w-full py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
