@@ -23,7 +23,7 @@ const GetBills = () => {
   const { allCustomer } = ContextAuth();
   // const phoneNumber = "9819094281"; // Replace with your phone number
   const message = "Maggie(8) -40Rs  "; // Replace with your desired message
-  const [businessBills, setBusinessBills] = useState("");
+  const [businessBills, setBusinessBills] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -36,9 +36,9 @@ const GetBills = () => {
         },
       })
         .then((res) => {
-          setBusinessBills(res.data);
+          setBusinessBills(res?.data?.response);
           setLoading(false);
-          console.log("Generate bill ", res.data);
+          // console.log("Generate bill ", res?.data?.response);
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -65,12 +65,16 @@ const GetBills = () => {
     const selected = parse(e.target.value, "yyyy-MM-dd", new Date());
     const formattedDate = format(selected, "dd MMM yyyy");
     setSelectedDate(formattedDate);
-    console.log(formattedDate);
+    // console.log(formattedDate);
   };
 
+let customerDetail =[...businessBills, ...allCustomer]
+
+console.log(customerDetail);
+
   const filteredCards = allCustomer.filter((card) => {
-    const cardDate = card?.createdAt;
-    console.log(cardDate);
+    const cardDate = new Date(card?.createdAt);
+    // console.log(cardDate);
 
     if (filter === "today") {
       const today = format(new Date(), "dd MMM yyyy");
@@ -126,7 +130,7 @@ const GetBills = () => {
                 type="date"
                 value={selectedDate}
                 onChange={handleDateChange}
-                className="p-2 ml-2 rounded-lg"
+                className="p-2 ml-2 rounded-lg border-2"
               />
             </div>
 
@@ -143,12 +147,15 @@ const GetBills = () => {
                     <CustomerCard
                       key={customer._id + index}
                       name={customer.customerName}
+                      // date={format(new Date (customer?.createdAt), "dd/MMM/yyyy")}
                       date={dateObj}
                       amount={customer.grandtotal}
                       id={customer._id}
                       // items={customer.items}
                       mobileNumber={customer.customerNumber}
                       grandTotal={customer?.grandtotal}
+
+                      
                       div={
                         <button
                           className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-center "
@@ -162,6 +169,8 @@ const GetBills = () => {
                         </button>
                       }
                     />
+
+                    
                   );
                 })}
               </div>

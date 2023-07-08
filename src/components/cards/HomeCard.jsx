@@ -13,6 +13,7 @@ const CustomerCard = ({
   mobileNumber,
   amount,
   items,
+  grandTotal,
   div,
   ref,
   id,
@@ -53,22 +54,20 @@ const CustomerCard = ({
               <p className=" font-semibold mb-2 text-start">{mobileNumber}</p>
             </button>
           </div>
-          <div className="w-1/12">{div}</div>
+          {/* <div className="w-1/12">{div}</div> */}
           <div className="flex flex-col justify-center items-center w-5/12">
             <button
               // className="text-3xl text-center mb-2 font-bold text-green-500"
-              className={
-                colorChange
-                  ? "text-3xl text-center mb-2 font-bold text-red-500"
-                  : "text-3xl text-center mb-2 font-bold text-green-500"
-              }
-              onClick={handleColorChange}
+              className={"text-xl text-center mb-2 font-bold text-green-500"}
+
             >
-              &#8377;{amount}
+              &#8377;{grandTotal}
             </button>
 
             <div>
-              <div>{formattedDate}</div>
+              <div className="font-semibold mb-2 text-start">
+                {formattedDate}
+              </div>
             </div>
           </div>
         </div>

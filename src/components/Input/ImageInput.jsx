@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { ContextAuth } from "../../context/Context";
 import axios from "axios";
+import Spinner from "../Spinner";
 
-const ImageUploadComponent = ({ businessLogo, setformState, formState }) => {
+const ImageUploadComponent = ({ businessLogo, setformState, formState , isEditable}) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isImageSelected, setIsImageSelected] = useState(false);
+  const [loading, setLoading] = useState(false)
   const [upload, setUpload] = useState(true);
   const [publicId, setPublicId] = useState(null);
   const { setLogoUrl } = ContextAuth();
@@ -17,10 +19,11 @@ const ImageUploadComponent = ({ businessLogo, setformState, formState }) => {
 
   const handleImageUpload = () => {
     if (selectedImage) {
+      setLoading(true)
       const formData = new FormData();
       formData.append("file", selectedImage);
-      formData.append("upload_preset", "dva9i9vs"); // Replace with your actual upload preset
-      formData.append("folder", "ShopConnectLogo"); // Replace with your desired collection name
+      formData.append("upload_preset", "dva9i9vs"); 
+      formData.append("folder", "ShopConnectLogo"); 
 
       fetch("https://api.cloudinary.com/v1_1/dtu9gszzu/image/upload", {
         method: "POST",
@@ -28,6 +31,9 @@ const ImageUploadComponent = ({ businessLogo, setformState, formState }) => {
       })
         .then((response) => response.json())
         .then(async (data) => {
+
+
+
           await axios("https://khatabook-one.vercel.app/updatebusiness", {
             method: "PATCH",
             data: { businessLogo: data.secure_url },
@@ -43,7 +49,8 @@ const ImageUploadComponent = ({ businessLogo, setformState, formState }) => {
           setLogoUrl(data.secure_url);
           setUpload(false);
           setPublicId(data.public_id);
-          // Do something with the URL (e.g., store it in state, display it, etc.)
+          setLoading(false)
+
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -62,7 +69,7 @@ const ImageUploadComponent = ({ businessLogo, setformState, formState }) => {
         },
         body: JSON.stringify({
           public_ids: publicId,
-          upload_preset: "dva9i9vs", // Replace with your actual upload preset
+          upload_preset: "dva9i9vs", 
         }),
       })
         .then((response) => response.json())
@@ -92,7 +99,7 @@ const ImageUploadComponent = ({ businessLogo, setformState, formState }) => {
                 <img
                   src={isImageSelected ? URL.createObjectURL(selectedImage) : businessLogo}
                   alt="Uploaded Image"
-                  className="w-full h-full object-cover"
+                  className={`w-full h-full object-cover ${isEditable ? 'cursor-pointer' : 'cursor-default'}`}
                 />
               </label>
             </div>
@@ -161,6 +168,9 @@ const ImageUploadComponent = ({ businessLogo, setformState, formState }) => {
         onChange={handleImageChange}
         className="hidden"
       />
+
+
+      
       {
         isImageSelected && (
           <div className="flex justify-center items-center">
@@ -168,7 +178,7 @@ const ImageUploadComponent = ({ businessLogo, setformState, formState }) => {
               onClick={handleImageUpload}
               className="bg-blue-500 hover:bg-blue-600 text-white text-center font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-              Upload
+              {!loading ? 'Upload' : <Spinner/>}
             </button>
           </div>
         )

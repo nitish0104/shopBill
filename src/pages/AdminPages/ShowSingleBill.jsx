@@ -53,7 +53,7 @@ const ShowSingleBill = () => {
   return (
     <>
       <Sidebar />
-      <div className="py-4 px-4">
+      <div className="py-4 px-4 w-fit">
 
 
       <Link className="  text-3xl" to={"/add-customer"}>
@@ -133,7 +133,10 @@ const ShowSingleBill = () => {
               </tr>
             </tfoot>
           </table>
-          <div className="flex justify-end mt-4 mr-6 mb-3 ">
+          
+        </div>
+
+        <div className="flex justify-center mt-4 mr-6 mb-3 ">
             <button
               onClick={handleDownload}
               className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
@@ -141,7 +144,6 @@ const ShowSingleBill = () => {
               <AiOutlinePrinter></AiOutlinePrinter> Print
             </button>
           </div>
-        </div>
       </div>
     </>
   );
