@@ -9,7 +9,7 @@ import html2canvas from "html2canvas";
 import { BsWhatsapp } from "react-icons/bs";
 import Modal from "react-modal";
 import { AiFillCloseCircle, AiFillFilter } from "react-icons/ai";
-import { parseISO, subWeeks } from "date-fns";
+import { parse, parseISO, subWeeks } from "date-fns";
 import axios from "axios";
 import { format } from "date-fns";
 import { ContextAuth } from "../../context/Context";
@@ -55,16 +55,17 @@ const GetBills = () => {
   const contentRef = useRef(null);
 
   const [filter, setFilter] = useState("all");
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
-    setSelectedDate("");
+    setSelectedDate(null);
   };
   const handleDateChange = (e) => {
-    const selectedDateString = format(parseISO(e.target.value), "dd MMM yyyy");
-    setSelectedDate(selectedDateString);
-    console.log(selectedDateString);
+    const selected = parse(e.target.value, "yyyy-MM-dd", new Date());
+    const formattedDate = format(selected, "dd MMM yyyy");
+    setSelectedDate(formattedDate);
+    console.log(formattedDate);
   };
 
   const filteredCards = allCustomer.filter((card) => {
@@ -92,7 +93,7 @@ const GetBills = () => {
   });
 
   const filteredCardsByDate = selectedDate
-    ? allCustomer.filter((date) => date === selectedDate)
+    ? allCustomer.filter((card) => card.date === selectedDate)
     : filteredCards;
 
   useEffect(() => {

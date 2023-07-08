@@ -1,38 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { format } from "date-fns";
 
-function formatDate(dateString) {
-  const options = { day: "numeric", month: "short", year: "numeric" };
-  const date = new Date(dateString);
-  return date.toLocaleDateString("en-GB", options);
-}
+const CardComponent = () => {
+  const [selectedDate, setSelectedDate] = useState(null);
 
-const Card = ({ date }) => {
-  const formattedDate = formatDate(date);
-  return (
-    <div className="bg-white rounded-lg shadow-md p-4">
-      <p className="text-lg font-bold mb-2">{formattedDate}</p>
-    </div>
-  );
-};
-
-const DateFormat = () => {
-  const cards = [
-    { date: "2023-01-15" },
-    { date: "2023-02-20" },
-    { date: "2023-03-10" },
-    { date: "2023-04-05" },
-    { date: "2023-05-28" },
-  ];
+  const handleDateChange = (e) => {
+    const selected = new Date(e.target.value);
+    const formattedDate = format(selected, "dd MMM yyyy");
+    setSelectedDate(formattedDate);
+    console.log(formattedDate);
+  };
 
   return (
-    <div className="container mx-auto mt-8">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {cards.map((card, index) => (
-          <Card key={index} date={card.date} />
-        ))}
+    <div className="container mx-auto">
+      <div className="flex justify-center mt-8">
+        <input
+          type="date"
+          onChange={handleDateChange}
+          className="p-2 border border-gray-300 rounded-md"
+        />
+      </div>
+      <div className="mt-8">
+        {selectedDate && (
+          <p className="text-center">Selected Date: {selectedDate}</p>
+        )}
       </div>
     </div>
   );
 };
 
-export default DateFormat;
+export default CardComponent;

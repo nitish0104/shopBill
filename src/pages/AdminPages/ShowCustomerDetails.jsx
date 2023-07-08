@@ -4,7 +4,14 @@ import Sidebar from "../../components/Sidebar";
 import DatePicker, { ReactDatePicker } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Input from "../../components/Input/Input";
-import { format } from "date-fns";
+import {
+  format,
+  parse,
+  subDays,
+  subMonths,
+  subWeeks,
+  subYears,
+} from "date-fns";
 import noItems from "../../images/noItems.svg";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 import {
@@ -89,104 +96,38 @@ const ShowCustomerDetails = () => {
     setSelected(e);
   };
 
-  const cardData = [
-    {
-      date: "29/Jun/2023",
-      items: ["maggi", "oats", "Buscuit"],
-      individualPrice: [10, 10, 10],
-      quantity: [2, 3, 4],
-      total: [20, 30, 40],
-      grandTotal: 90,
-    },
-
-    {
-      date: "28/Jun/2023",
-      items: ["egg", "dall", "Biscuit"],
-      individualPrice: [5, 10, 10],
-      quantity: [1, 1, 2],
-      total: [5, 10, 20],
-      grandTotal: 35,
-    },
-    {
-      date: "20/Jun/2023",
-      items: ["egg", "dall", "Biscuit"],
-      individualPrice: [5, 10, 10],
-      quantity: [1, 1, 2],
-      total: [5, 10, 20],
-      grandTotal: 35,
-    },
-    {
-      date: "28/May/2023",
-      items: ["egg", "dall", "Biscuit"],
-      individualPrice: [5, 10, 10],
-      quantity: [1, 1, 2],
-      total: [5, 10, 20],
-      grandTotal: 35,
-    },
-  ];
-
   const [filter, setFilter] = useState("all");
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const handleFilterChange = (event) => {
-    setSelectedDate("");
     setFilter(event.target.value);
+    setSelectedDate(null);
   };
-  useEffect(() => {
-    setSelectedDate("");
-  }, [filter]);
-
-  // const handleDateChange = (event) => {
-  //   setSelectedDate(event.target.value);
-  // };
-  const getMonthAbbreviation = (monthIndex) => {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    return months[monthIndex];
-  };
-  const handleDateChange = (event) => {
-    const date = new Date(event.target.value);
-    const formattedDate = `${date.getDate()}/${getMonthAbbreviation(
-      date.getMonth()
-    )}/${date.getFullYear()}`;
-
+  const handleDateChange = (e) => {
+    const selected = parse(e.target.value, "yyyy-MM-dd", new Date());
+    const formattedDate = format(selected, "dd MMM yyyy");
     setSelectedDate(formattedDate);
-    // setSelectedDate(event.target.value);
+    console.log(formattedDate);
   };
 
-  const filteredCards = cardData.filter((card) => {
-    const cardDate = new Date(card.date);
+  const filteredCards = viewCustomerBills.filter((card) => {
+    const cardDate = format(new Date(card?.createdAt), "dd MMM yyyy");
+    console.log(cardDate);
 
     if (filter === "today") {
-      const today = new Date();
-      return cardDate.toDateString() === today.toDateString();
+      const today = format(new Date(), "dd MMM yyyy");
+      return cardDate === today;
     } else if (filter === "yesterday") {
-      const yesterday = new Date();
-      yesterday.setDate(yesterday.getDate() - 1);
-      return cardDate.toDateString() === yesterday.toDateString();
+      const yesterday = format(subDays(new Date(), 1), "dd MMM yyyy");
+      return cardDate === yesterday;
     } else if (filter === "lastweek") {
-      const lastWeek = new Date();
-      lastWeek.setDate(lastWeek.getDate() - 7);
+      const lastWeek = format(subWeeks(new Date(), 1), "dd MMM yyyy");
       return cardDate >= lastWeek && cardDate <= new Date();
     } else if (filter === "lastmonth") {
-      const lastMonth = new Date();
-      lastMonth.setMonth(lastMonth.getMonth() - 1);
+      const lastMonth = format(subMonths(new Date(), 1), "dd MMM yyyy");
       return cardDate >= lastMonth && cardDate <= new Date();
     } else if (filter === "lastyear") {
-      const lastYear = new Date();
-      lastYear.setFullYear(lastYear.getFullYear() - 1);
+      const lastYear = format(subYears(new Date(), 1), "dd MMM yyyy");
       return cardDate >= lastYear && cardDate <= new Date();
     } else {
       return true;
@@ -194,15 +135,12 @@ const ShowCustomerDetails = () => {
   });
 
   const filteredCardsByDate = selectedDate
-    ? filteredCards.filter(
-        (card) => card.date === selectedDate.toString().split("T")[0]
-      )
+    ? allCustomer.filter((card) => card.date === selectedDate)
     : filteredCards;
 
-
-    const handleSingleBill = (_id) =>{
-naviGate(`/invoice/${_id}`)
-    }
+  const handleSingleBill = (_id) => {
+    naviGate(`/invoice/${_id}`);
+  };
   return (
     <>
       <LayoutManin>
@@ -357,17 +295,20 @@ naviGate(`/invoice/${_id}`)
 
           {!loading ? (
             <div>
-              {viewCustomerBills?.length > 0 ? (
+              {filteredCardsByDate?.length > 0 ? (
                 <div>
-                  {viewCustomerBills?.map((value, index) => {
+                  {filteredCardsByDate?.map((value, index) => {
                     return (
                       <div
                         key={index}
                         className="pt-6 px-3 flex justify-center "
                       >
-                        <div onClick={()=>{
-                          handleSingleBill(value?._id)
-                        }} className="flex  hover:border-black  duration-200 justify-between items-center py-3 px-2  hover:shadow-lg  outline-none  border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-[30vw] w-full cursor-pointer">
+                        <div
+                          onClick={() => {
+                            handleSingleBill(value?._id);
+                          }}
+                          className="flex  hover:border-black  duration-200 justify-between items-center py-3 px-2  hover:shadow-lg  outline-none  border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-[30vw] w-full cursor-pointer"
+                        >
                           <p className="flex items-center gap-x-1">
                             Date:{" "}
                             {format(new Date(value?.createdAt), "dd/MMM/yyyy")}

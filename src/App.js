@@ -60,7 +60,7 @@ function App() {
               <Route path="/dateformat" element={<DateFormat />} />
               <Route path="/tabletest" element={<Table />} />
               <Route path="/formtest" element={<TestForm />} />
-              <Route path="/datetest" element={<CardFilter />} />
+              <Route path="/datetest" element={<CardComponent />} />
               <Route path="/table-edit" element={<TableEdit />} />
               <Route path="/invoice/:id" element={<ShowSingleBill />} />
               <Route path="/customer-details/:id" element={<ShowCustomerDetails />} />
