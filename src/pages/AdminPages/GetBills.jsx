@@ -9,7 +9,7 @@ import html2canvas from "html2canvas";
 import { BsWhatsapp } from "react-icons/bs";
 import Modal from "react-modal";
 import { AiFillCloseCircle, AiFillFilter } from "react-icons/ai";
-import { getYear } from "date-fns";
+import { parseISO, subWeeks } from "date-fns";
 import axios from "axios";
 import { format } from "date-fns";
 import { ContextAuth } from "../../context/Context";
@@ -17,6 +17,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Spinner from "../../components/Spinner";
 import PageLoader from "../../components/PageLoader";
+import { subDays, subMonths, subYears } from "date-fns";
 
 const GetBills = () => {
   const { allCustomer } = ContextAuth();
@@ -53,86 +54,46 @@ const GetBills = () => {
 
   const contentRef = useRef(null);
 
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-
-  const handleDateRangeChange = (dates) => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
-  };
-
-  // const filteredRangeCards = cardData.filter((card) => {
-  //   if (startDate && endDate) {
-  //     const cardDate = card.date;
-  //     return cardDate >= startDate && cardDate <= endDate;
-  //   }
-  //   return true;
-  // });
-
   const [filter, setFilter] = useState("all");
   const [selectedDate, setSelectedDate] = useState("");
-  const [cardDate, setcardDate] = useState("");
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
-  };
-  useEffect(() => {
     setSelectedDate("");
-  }, [filter]);
-  const getMonthAbbreviation = (monthIndex) => {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    return months[monthIndex];
   };
-  const handleDateChange = (event) => {
-    const date = new Date(event.target.value);
-    const formattedDate = `${date.getDate()}" "${getMonthAbbreviation(
-      date.getMonth()
-    )}" "${date.getFullYear()}`;
-
-    setSelectedDate(formattedDate);
+  const handleDateChange = (e) => {
+    const selectedDateString = format(parseISO(e.target.value), "dd MMM yyyy");
+    setSelectedDate(selectedDateString);
+    console.log(selectedDateString);
   };
 
   const filteredCards = allCustomer.filter((card) => {
-    const cardDate = new Date(card.date);
-    // const selected = new Date(selectedDate);
+    const cardDate = format(new Date(card?.createdAt), "dd MMM yyyy");
+    console.log(cardDate);
 
     if (filter === "today") {
-      const today = new Date();
-      return cardDate.toDateString() === today.toDateString();
+      const today = format(new Date(), "dd MMM yyyy");
+      return cardDate === today;
     } else if (filter === "yesterday") {
-      const yesterday = new Date();
-      yesterday.setDate(yesterday.getDate() - 1);
-      return cardDate.toDateString() === yesterday.toDateString();
+      const yesterday = format(subDays(new Date(), 1), "dd MMM yyyy");
+      return cardDate === yesterday;
     } else if (filter === "lastweek") {
-      const lastWeek = new Date();
-      lastWeek.setDate(lastWeek.getDate() - 7);
+      const lastWeek = format(subWeeks(new Date(), 1), "dd MMM yyyy");
       return cardDate >= lastWeek && cardDate <= new Date();
     } else if (filter === "lastmonth") {
-      const lastMonth = new Date();
-      lastMonth.setMonth(lastMonth.getMonth() - 1);
+      const lastMonth = format(subMonths(new Date(), 1), "dd MMM yyyy");
       return cardDate >= lastMonth && cardDate <= new Date();
     } else if (filter === "lastyear") {
-      const lastYear = new Date();
-      lastYear.setFullYear(lastYear.getFullYear() - 1);
+      const lastYear = format(subYears(new Date(), 1), "dd MMM yyyy");
       return cardDate >= lastYear && cardDate <= new Date();
     } else {
       return true;
     }
   });
+
+  const filteredCardsByDate = selectedDate
+    ? allCustomer.filter((date) => date === selectedDate)
+    : filteredCards;
 
   useEffect(() => {
     AOS.init();
@@ -141,7 +102,7 @@ const GetBills = () => {
     <>
       <LayoutManin>
         <Sidebar />
-        <div className=" md:w-[70vw] w-[100vw]  flex justify-center items-center  mt-8 mx-auto">
+        <div className=" md:w-[70vw] w-[100vw]  flex justify-center items-center  my-9 mx-auto">
           <div>
             <div className="flex justify-center items-center gap-x-4 mb-4">
               <div className=" text-3xl font-extrabold">
@@ -174,16 +135,16 @@ const GetBills = () => {
                 ref={contentRef}
                 data-aos="flip-right"
               >
-                {filteredCards.map((customer, index) => (
+                {filteredCardsByDate.map((customer, index) => (
                   <CustomerCard
                     key={customer._id + index}
                     name={customer.customerName}
-                    // date={format(new Date(customer?.createdAt), "dd/MMM/yyyy")}
+                    date={format(new Date(customer?.createdAt), "dd/MMM/yyyy")}
                     amount={customer.grandtotal}
                     id={customer._id}
                     // items={customer.items}
                     mobileNumber={customer.customerNumber}
-                    grandTotal= {customer?.grandtotal}
+                    grandTotal={customer?.grandtotal}
                     div={
                       <button
                         className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-center "
@@ -200,7 +161,7 @@ const GetBills = () => {
                 ))}
               </div>
             ) : (
-              <PageLoader className={'h-[60vh]'}/>
+              <PageLoader className={"h-[60vh]"} />
             )}
           </div>
         </div>

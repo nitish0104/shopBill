@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import LayoutManin from "../components/layout/LayoutManin";
 import temp_logo from "../images/temp_logo.svg";
 import LoginWithOTP from "../components/Button/LoginWithOTP";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ContextAuth } from "../context/Context";
 import Input from "../components/Input/Input";
@@ -18,28 +17,27 @@ const VerifyOTP = () => {
 
   const navigate = useNavigate();
 
-  const [otp, setOTP] = useState(["", "", "", "", "", ""]);
+  const [otp, setOTP] = useState("");
   const [timer, setTimer] = useState(60);
   const [isTimerActive, setTimerActive] = useState(true);
   const [loading, setLoading] = useState(false);
-  const stringOTP = otp.join("");
+  // const stringOTP = otp.join("");
   // Function to handle input change for mobile number
-  useEffect(() => {}, []);
 
-  const handleChange = (e, index) => {
-    const { value } = e.target;
+  // const handleChange = (e, index) => {
+  //   const { value } = e.target;
 
-    if (value.length <= 1 && /^\d*$/.test(value)) {
-      const newOtp = [...otp];
-      newOtp[index] = value;
-      setOTP(newOtp);
+  //   if (value.length <= 1 && /^\d*$/.test(value)) {
+  //     const newOtp = [...otp];
+  //     newOtp[index] = value;
+  //     setOTP(newOtp);
 
-      if (index < 5 && value !== "") {
-        const nextInput = document.getElementById(`otp-input-${index + 1}`);
-        nextInput.focus();
-      }
-    }
-  };
+  //     if (index < 5 && value !== "") {
+  //       const nextInput = document.getElementById(`otp-input-${index + 1}`);
+  //       nextInput.focus();
+  //     }
+  //   }
+  // };
 
   // Function to start the timer
   const startTimer = () => {
@@ -49,7 +47,7 @@ const VerifyOTP = () => {
 
   // Function to handle form submission
   const handleSubmitotp = async (e) => {
-    console.log(stringOTP);
+    console.log(otp);
     setLoading(true);
 
     e.preventDefault();
@@ -59,7 +57,7 @@ const VerifyOTP = () => {
         {
           method: "POST",
           data: {
-            otp: stringOTP,
+            otp: otp,
             mobileNo: mobileNo,
           },
         },
@@ -152,17 +150,17 @@ const VerifyOTP = () => {
               )}
               <div className="flex justify-center space-x-2">
                 <div className="mt-4">
-                  {otp.map((digit, index) => (
-                    <input
-                      key={index}
-                      id={`otp-input-${index}`}
-                      type="text"
-                      maxLength="1"
-                      value={digit}
-                      onChange={(e) => handleChange(e, index)}
-                      className="w-12 h-12 mx-1 text-3xl text-center border border-gray-300 rounded-full focus:outline-none focus:ring focus:ring-blue-300"
-                    />
-                  ))}
+                  <Input
+                    type={"text"}
+                    className={"pl-2 text-center"}
+                    Label={"OTP"}
+                    id={"otp"}
+                    maxLength={"6"}
+                    value={otp}
+                    onChange={(e) => {
+                      setOTP(e.target.value);
+                    }}
+                  ></Input>
                 </div>
               </div>
               <button

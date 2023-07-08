@@ -32,6 +32,7 @@ import Table from './raw/TableEdit';
 // import Invoice from './raw/Invoice';
 import ShowSingleBill from './pages/AdminPages/ShowSingleBill';
 import CloudinaryUpload from './components/CloudinaryUpload';
+import CardFilter from './raw/DtaeTestFilter';
 
 
 function App() {
@@ -59,10 +60,11 @@ function App() {
               <Route path="/dateformat" element={<DateFormat />} />
               <Route path="/tabletest" element={<Table />} />
               <Route path="/formtest" element={<TestForm />} />
+              <Route path="/datetest" element={<CardFilter />} />
               <Route path="/table-edit" element={<TableEdit />} />
               <Route path="/invoice/:id" element={<ShowSingleBill />} />
               <Route path="/customer-details/:id" element={<ShowCustomerDetails />} />
-              <Route path="/cloudinaryupload" element={<CloudinaryUpload/>} />
+              <Route path="/cloudinaryupload" element={<CloudinaryUpload />} />
             </Routes>
           </ThemeProvider>
         </Context>
