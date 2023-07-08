@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ContextAuth } from "../../context/Context";
 import { format } from "date-fns";
 import { useRef } from "react";
 import html2canvas from "html2canvas";
 import { AiOutlinePrinter } from "react-icons/ai";
+import { BiArrowBack } from "react-icons/bi";
+import Sidebar from "../../components/Sidebar";
 const ShowSingleBill = () => {
   const [singleBill, setSingleBill] = useState();
   const [itemsSingeBill, setitemsSingeBill] = useState([]);
@@ -40,7 +42,7 @@ const ShowSingleBill = () => {
           setitemsSingeBill(res.data.response.items);
           console.log(itemsSingeBill);
           console.log(res.data.response.items);
-          console.log(res.data.response._id);
+          console.log(res.data);
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -50,10 +52,19 @@ const ShowSingleBill = () => {
 
   return (
     <>
+      <Sidebar />
+      <div className="py-4 px-4">
+
+
+      <Link className="  text-3xl" to={"/add-customer"}>
+        <BiArrowBack />
+      </Link>
+      </div>
       <div
-        className="container mx-auto px-4 py-8 md:w-[70%] w-screen "
+        className="container mx-auto px-4 md:w-[70%] w-screen "
         ref={contentRef}
       >
+        
         <div className="bg-white rounded-lg shadow-lg pb-4">
           <div className="flex justify-between bg-blue-500 text-white px-6 py-4 items-center">
             <h1 className="text-2xl font-bold">Bill</h1>
@@ -118,7 +129,7 @@ const ShowSingleBill = () => {
                 <td colSpan="3" className="text-right py-2 px-4 font-bold">
                   Total:
                 </td>
-                <td className="py-2 px-4">76.68</td>
+                <td className="py-2 px-4">{singleBill?.grandtotal}</td>
               </tr>
             </tfoot>
           </table>

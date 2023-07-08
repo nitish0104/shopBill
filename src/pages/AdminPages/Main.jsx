@@ -18,14 +18,14 @@ import { ContextAuth } from "../../context/Context";
 const Main = () => {
   const { isDarkMode } = ThemeContextAuth();
   const [isEditable, setisEditable] = useState(false);
-  const { setBusiness, formState, setformState } = ContextAuth();
+  const { setBusiness, formState, setformState, logoUrl } = ContextAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await axios("https://khatabook-one.vercel.app/updatebusiness", {
         method: "PATCH",
-        data: formState,
+        data: {...formState, businessLogo:logoUrl},
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -104,7 +104,7 @@ const Main = () => {
         >
           <div className="overflow-y-auto  md:overflow-hidden flex-col justify-center items-center pt-2">
             <ImageUploadComponent
-              value={formState.businessLogo}
+              businessLogo={formState.businessLogo}
             ></ImageUploadComponent>
             <div className="md:grid md:grid-cols-2 md:px-36">
               <div className="flex items-center gap-x-2 justify-center">

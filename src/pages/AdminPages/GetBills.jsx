@@ -69,7 +69,7 @@ const GetBills = () => {
   };
 
   const filteredCards = allCustomer.filter((card) => {
-    const cardDate = format(new Date(card?.createdAt), "dd MMM yyyy");
+    const cardDate = card?.createdAt;
     console.log(cardDate);
 
     if (filter === "today") {
@@ -136,30 +136,34 @@ const GetBills = () => {
                 ref={contentRef}
                 data-aos="flip-right"
               >
-                {filteredCardsByDate.map((customer, index) => (
-                  <CustomerCard
-                    key={customer._id + index}
-                    name={customer.customerName}
-                    date={format(new Date(customer?.createdAt), "dd/MMM/yyyy")}
-                    amount={customer.grandtotal}
-                    id={customer._id}
-                    // items={customer.items}
-                    mobileNumber={customer.customerNumber}
-                    grandTotal={customer?.grandtotal}
-                    div={
-                      <button
-                        className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-center "
-                        phoneNumber={customer.customerNumber}
-                        message={message}
-                        onClick={() => {
-                          handleButtonClick(customer.customerNumber);
-                        }}
-                      >
-                        <BsWhatsapp className="text-2xl"></BsWhatsapp>
-                      </button>
-                    }
-                  />
-                ))}
+                {filteredCardsByDate.map((customer, index) => {
+                  const dateObj = new Date(customer?.createdAt)
+                  return (
+
+                    <CustomerCard
+                      key={customer._id + index}
+                      name={customer.customerName}
+                      date={dateObj}
+                      amount={customer.grandtotal}
+                      id={customer._id}
+                      // items={customer.items}
+                      mobileNumber={customer.customerNumber}
+                      grandTotal={customer?.grandtotal}
+                      div={
+                        <button
+                          className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-center "
+                          phoneNumber={customer.customerNumber}
+                          message={message}
+                          onClick={() => {
+                            handleButtonClick(customer.customerNumber);
+                          }}
+                        >
+                          <BsWhatsapp className="text-2xl"></BsWhatsapp>
+                        </button>
+                      }
+                    />
+                  );
+                })}
               </div>
             ) : (
               <PageLoader className={"h-[60vh]"} />

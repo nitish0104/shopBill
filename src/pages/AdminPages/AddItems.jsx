@@ -16,6 +16,7 @@ import jwtDecode from "jwt-decode";
 import { ContextAuth } from "../../context/Context";
 import Spinner from "../../components/Spinner";
 import { input } from "@material-tailwind/react";
+import Navigation from "../../components/Navigation";
 
 const AddItems = () => {
   const [item, setItem] = useState("");
@@ -158,19 +159,18 @@ const AddItems = () => {
     <>
       <LayoutMain className={""}>
         <Sidebar />
+        <Navigation/>
 
         <div className="md:w-[80vw] w-screen m-auto md:px-12   overflow-y-hidden flex-col  justify-center items-center">
-          <div className="flex items-center justify-between mb-2  w-[90%]">
-            <Link className=" px-6 text-2xl" to={"/add-customer"}>
-              <BiArrowBack />
-            </Link>
+          {/* <div className="flex items-center justify-between mb-2  w-[90%]">
+            
             <button
               className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-3 flex justify-center items-center gap-2 md:w-[15%]"
               onClick={cancel}
             >
               <ImCancelCircle></ImCancelCircle> Cancel
             </button>
-          </div>
+          </div> */}
           <div className="flex justify-center items-center gap-x-5">
             <div className="px-2 pt-4 md:w-[100%] flex-col justify-center items-center md:flex md:justify-center md:items-center gap-x-4 ">
               <div className="grid grid-cols-2 gap-x-2 gap-y-2">
