@@ -249,18 +249,60 @@ const AddItems = () => {
               <>
                 <table
                   className={`min-w-full divide-y divide-gray-200" border-2 border-b-black p-2  border-collapse rounded-lg ${
-                    isDarkMode ? "border-white" : "border-black border-b-black"
+                    isDarkMode ? "border-white" : "border-black"
                   }`}
                 >
                   <thead>
-                    <tr className="  border-b-2 py-2  text-center">
-                      <th className="sticky left-0 w-20  py-2 px-4  ">
+                    <tr
+                      className={`border-2 py-2  text-cente ${
+                        isDarkMode ? "border-white" : "border-black"
+                      }`}
+                    >
+                      <th
+                        className={`sticky left-0 w-20  py-2 px-4  ${
+                          isDarkMode
+                            ? "bg-gray-800 text-white"
+                            : "bg-white  text-black"
+                        }`}
+                      >
                         Item
                       </th>
-                      <th className="  py-2 px-4 ">Quantity</th>
-                      <th className="  py-2 px-4 ">Individual</th>
-                      <th className="  py-2 px-4 ">Total</th>
-                      <th className=" py-2 px-4 ">Change</th>
+                      <th
+                        className={` py-2 px-4    ${
+                          isDarkMode
+                            ? "bg-gray-800 text-white"
+                            : "bg-white  text-black"
+                        }`}
+                      >
+                        Quantity
+                      </th>
+                      <th
+                        className={` py-2 px-4   ${
+                          isDarkMode
+                            ? "bg-gray-800 text-white"
+                            : "bg-white  text-black"
+                        }`}
+                      >
+                        Individual
+                      </th>
+                      <th
+                        className={`  py-2 px-4   ${
+                          isDarkMode
+                            ? "bg-gray-800 text-white"
+                            : "bg-white  text-black"
+                        }`}
+                      >
+                        Total
+                      </th>
+                      <th
+                        className={` py-2 px-4   ${
+                          isDarkMode
+                            ? "bg-gray-800 text-white"
+                            : "bg-white  text-black"
+                        }`}
+                      >
+                        Change
+                      </th>
                     </tr>
                   </thead>
                   <tbody className=" divide-y divide-gray-200">
@@ -268,14 +310,28 @@ const AddItems = () => {
                       return (
                         <tr
                           key={index}
-                          className=" border-b-2  border-black text-x text-center "
+                          className={`border-b-2  text-x text-center   ${
+                            isDarkMode
+                              ? "bg-gray-800 text-white"
+                              : "bg-white  text-black"
+                          }`}
                         >
-                          <td className="sticky left-0 md:w-2/6 w-40  px-2 border whitespace-nowrap">
+                          <td
+                            className={`sticky left-0 md:w-2/6 w-40  px-2 border whitespace-nowrap ${
+                              isDarkMode
+                                ? "bg-gray-800 border-white"
+                                : "bg-white border-black "
+                            }`}
+                          >
                             {index === editIndex ? (
                               <input
                                 type="text"
                                 value={item}
-                                className="border  text-center md:w-auto bg-transparent border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className={`border  text-center md:w-auto bg-transparent border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                                  isDarkMode
+                                    ? "bg-gray-800 text-white border-white"
+                                    : "bg-white  text-gray-800 border-black"
+                                }`}
                                 onChange={(e) => {
                                   setItem(e.target.value);
                                 }}
@@ -284,10 +340,20 @@ const AddItems = () => {
                               value.item
                             )}
                           </td>
-                          <td className=" px-2 border md:w-40 w-28  whitespace-nowrap">
+                          <td
+                            className={`px-2 border md:w-40 w-28  whitespace-nowrap ${
+                              isDarkMode
+                                ? "bg-gray-800 border-white"
+                                : "bg-white border-black "
+                            }`}
+                          >
                             {index === editIndex ? (
                               <input
-                                className="border  text-center md:w-32 w-24 bg-transparent border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className={`border  text-center md:w-32 w-24 bg-transparent border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                                  isDarkMode
+                                    ? "bg-gray-800 text-white border-white"
+                                    : "bg-white  text-gray-800 border-black"
+                                }`}
                                 type="text"
                                 value={qty}
                                 onChange={(e) => {
@@ -299,12 +365,22 @@ const AddItems = () => {
                             )}
                           </td>
 
-                          <td className=" px-2 border md:w-40 w-28  whitespace-nowrap">
+                          <td
+                            className={` px-2 border md:w-40 w-28  whitespace-nowrap ${
+                              isDarkMode
+                                ? "bg-gray-800 border-white"
+                                : "bg-white border-black "
+                            }`}
+                          >
                             &#8377;
                             {index === editIndex ? (
                               <input
                                 type="number"
-                                className="border  text-center md:w-32 w-24 bg-transparent  border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className={`border  text-center md:w-32 w-24  border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                                  isDarkMode
+                                    ? "bg-gray-800 text-white border-white"
+                                    : "bg-white  text-gray-800 border-black"
+                                }`}
                                 value={individualPrice}
                                 onChange={(e) => {
                                   setIndividualPrice(e.target.value);
@@ -314,12 +390,22 @@ const AddItems = () => {
                               value?.individualPrice
                             )}
                           </td>
-                          <td className=" px-2  border md:w-40 w-28  whitespace-nowrap ">
+                          <td
+                            className={` px-2  border md:w-40 w-28  whitespace-nowrap ${
+                              isDarkMode
+                                ? "bg-gray-800 border-white "
+                                : "bg-white border-black "
+                            }`}
+                          >
                             &#8377;
                             {index === editIndex ? (
                               <input
                                 type="number"
-                                className="border  text-center md:w-32 w-24 bg-transparent border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className={`border  text-center md:w-32 w-24  border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500  ${
+                                  isDarkMode
+                                    ? "bg-gray-800 text-white border-black"
+                                    : "bg-white  text-gray-800 border-white"
+                                }`}
                                 value={price}
                                 onChange={(e) => {
                                   setPrice(e.target.value);
