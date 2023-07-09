@@ -27,7 +27,6 @@ const CloudinaryUpload = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Image URL:', data.secure_url);
         // Do something with the URL (e.g., store it in state, display it, etc.)
       })
       .catch((error) => {

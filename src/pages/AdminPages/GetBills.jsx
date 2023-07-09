@@ -64,54 +64,110 @@ const GetBills = () => {
   const [selectedDate, setSelectedDate] = useState("");
 
   const handleFilterChange = (event) => {
-    setFilter(event.target.value);
-    setSelectedDate(null);
-  };
-
-  const handleDateChange = (e) => {
-    setSelectedDate(e.target.value);
-    let finalData = businessBills?.map((bills) => {
-      let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
+    setSelectedDate("");
+    setFilter(event.target.value)
+    const finalData = businessBills?.map((bill) => {
+      const filterDate = moment(bill?.createdAt).format("YYYY-MM-DD")
       return {
-        ...bills,
-        filterDate: finalDate,
-      };
-    });
-    const filteredResults = finalData?.filter((data) => {
-      return data?.filterDate === e.target.value;
-    });
-    setFilterResults(filteredResults);
-    const selected = parse(e.target.value, "yyyy-MM-dd", new Date());
-    const formattedDate = format(selected, "dd MMM yyyy");
+        ...bill,
+        filterDate: filterDate,
+        filterDateMilliseconds: moment(bill?.createdAt).format("X")
+      }
+    })
+    if (event.target.value === "all") {
+      setFilterResults(businessBills);
+    } else if (event.target.value === "today") {
+      const today = moment().format("YYYY-MM-DD");
+      setFilterResults(
+        finalData?.filter((bill) => {
+          return bill?.filterDate === today
+        })
+      )
+    } else if (event.target.value === "yesterday") {
+      const yesterday = moment().subtract(1, 'days').format("YYYY-MM-DD");
+      setFilterResults(
+        finalData?.filter((bill) => {
+          return bill?.filterDate === yesterday
+        })
+      )
+    } else if (event.target.value === "lastWeek") {
+      const lastWeek = moment().subtract(1, 'week').format("X");
+      const today = moment().format("X");
+      setFilterResults(
+        finalData?.filter((bill) => {
+          return lastWeek <= bill?.filterDateMilliseconds && bill?.filterDateMilliseconds < today
+        })
+      )
+    } else if (event.target.value === "lastMonth") {
+      const lastMonth = moment().subtract(1, 'months').format("X");
+      const today = moment().format("X");
+      setFilterResults(
+        finalData?.filter((bill) => {
+          return lastMonth <= bill?.filterDateMilliseconds && bill?.filterDateMilliseconds < today
+        })
+      )
+    } else if (event.target.value === "lastYear") {
+      const lastYear = moment().subtract(1, 'years').format("X");
+      const today = moment().format("X");
+      setFilterResults(
+        finalData?.filter((bill) => {
+          return lastYear <= bill?.filterDateMilliseconds && bill?.filterDateMilliseconds < today
+        })
+      )
+    } else {
+      setFilterResults(businessBills)
+    }
   };
 
-  const filteredCards = filterResults.filter((card) => {
-    const cardDate = new Date(card?.createdAt);
-    // console.log(cardDate);
 
-    if (filter === "today") {
-      const today = format(new Date(), "dd MMM yyyy");
-      return cardDate === today;
-    } else if (filter === "yesterday") {
-      const yesterday = format(subDays(new Date(), 1), "dd MMM yyyy");
-      return cardDate === yesterday;
-    } else if (filter === "lastweek") {
-      const lastWeek = format(subWeeks(new Date(), 1), "dd MMM yyyy");
-      return cardDate >= lastWeek && cardDate <= new Date();
-    } else if (filter === "lastmonth") {
-      const lastMonth = format(subMonths(new Date(), 1), "dd MMM yyyy");
-      return cardDate >= lastMonth && cardDate <= new Date();
-    } else if (filter === "lastyear") {
-      const lastYear = format(subYears(new Date(), 1), "dd MMM yyyy");
-      return cardDate >= lastYear && cardDate <= new Date();
+  useEffect(() => {
+    if (selectedDate?.length !== 0) {
+      setFilter("all")
+      let finalData = businessBills?.map((bills) => {
+        let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
+        return {
+          ...bills,
+          filterDate: finalDate,
+        };
+      });
+      const filteredResults = finalData?.filter((data) => {
+        return data?.filterDate === selectedDate;
+      });
+      setFilterResults(filteredResults);
     } else {
-      return true;
+      setFilterResults(businessBills)
     }
-  });
+  }, [selectedDate]);
 
-  const filteredCardsByDate = selectedDate
-    ? allCustomer.filter((card) => card.date === selectedDate)
-    : filteredCards;
+
+  // useEffect(() => {
+  //   const filteredCards = filterResults.filter((card) => {
+  //     const cardDate = new Date(card?.createdAt);
+  //     if (filter === "today") {
+  //       const today = format(new Date(), "dd MMM yyyy");
+  //       return cardDate === today;
+  //     } else if (filter === "yesterday") {
+  //       const yesterday = format(subDays(new Date(), 1), "dd MMM yyyy");
+  //       return cardDate === yesterday;
+  //     } else if (filter === "lastweek") {
+  //       const lastWeek = format(subWeeks(new Date(), 1), "dd MMM yyyy");
+  //       console.log(lastWeek)
+  //       return cardDate >= lastWeek && cardDate <= new Date();
+  //     } else if (filter === "lastmonth") {
+  //       const lastMonth = format(subMonths(new Date(), 1), "dd MMM yyyy");
+  //       return cardDate >= lastMonth && cardDate <= new Date();
+  //     } else if (filter === "lastyear") {
+  //       const lastYear = format(subYears(new Date(), 1), "dd MMM yyyy");
+  //       return cardDate >= lastYear && cardDate <= new Date();
+  //     } else {
+  //       return true;
+  //     }
+  //   });
+  // }, [businessBills, filter]);
+
+  // const filteredCardsByDate = selectedDate
+  //   ? allCustomer.filter((card) => card.date === selectedDate)
+  //   : filteredCards;
 
   useEffect(() => {
     AOS.init();
@@ -139,16 +195,18 @@ const GetBills = () => {
               <input
                 type="date"
                 value={selectedDate}
-                onChange={handleDateChange}
+                onChange={(e) => {
+                  setSelectedDate(e.target.value);
+                }}
                 className=" outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-1/2"
               />
             </div>
 
             {!loading ? (
               <div ref={contentRef} data-aos="flip-right">
-                {filteredCards.length > 0 ? (
+                {filterResults?.length > 0 ? (
                   <div className="  md:grid md:grid-cols-2 md:gap-2 md:w-[50vw] gap-y-3 px-7 md:px-0 w-[100vw] pb-5">
-                    {filteredCards?.map((customer, index) => {
+                    {filterResults?.map((customer, index) => {
                       const dateObj = new Date(customer?.createdAt);
                       return (
                         <CustomerCard
@@ -156,17 +214,17 @@ const GetBills = () => {
                           key={customer?.customerId?._id + index}
                           name={customer?.customerId?.customerName}
                           date={dateObj}
-                          amount={customer.grandtotal}
+                          amount={customer?.grandtotal}
                           id={customer?.customerId?._id}
                           mobileNumber={customer?.customerId?.customerNumber}
                           grandTotal={customer?.grandtotal}
                           div={
                             <button
                               className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-start "
-                              phoneNumber={customer.customerNumber}
+                              phoneNumber={customer?.customerNumber}
                               message={message}
                               onClick={() => {
-                                handleButtonClick(customer.customerNumber);
+                                handleButtonClick(customer?.customerNumber);
                               }}
                             >
                               <BsWhatsapp className="text-2xl"></BsWhatsapp>
@@ -184,9 +242,8 @@ const GetBills = () => {
                       </div>
 
                       <div
-                        className={`flex flex-col justify-center items-center   text-${
-                          isDarkMode ? "black" : "gray-800"
-                        } p-4`}
+                        className={`flex flex-col justify-center items-center   text-${isDarkMode ? "black" : "gray-800"
+                          } p-4`}
                       >
                         <span className="font-mono    text-xl">
                           Oop's! No Data Available.

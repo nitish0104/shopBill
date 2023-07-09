@@ -71,7 +71,6 @@ const ImageUploadComponent = ({ businessLogo, setformState, formState , isEditab
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log("Image deleted:", data);
           setSelectedImage(null);
           setIsImageSelected(false);
           setPublicId(null);
