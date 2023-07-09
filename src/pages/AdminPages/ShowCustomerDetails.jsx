@@ -42,7 +42,7 @@ const ShowCustomerDetails = () => {
   const { allCustomer, viewCustomerDetails, setViewCustomerDetails } =
     ContextAuth();
   const [modal, setModal] = useState({ show: false, data: {} });
-  const [filterResults, setFilterResults] = useState([])
+  const [filterResults, setFilterResults] = useState([]);
   const naviGate = useNavigate();
   useEffect(() => {
     setLoading(true);
@@ -51,7 +51,7 @@ const ShowCustomerDetails = () => {
         customerId: id,
         businessId: businessId,
       };
-      console.log(data)
+
       axios(`https://khatabook-one.vercel.app/getcustomerbill`, {
         method: "POST",
         data: data,
@@ -62,7 +62,6 @@ const ShowCustomerDetails = () => {
         .then((res) => {
           setViewCustomerBills(res?.data?.response);
           setLoading(false);
-          console.log(res.data);
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -94,11 +93,10 @@ const ShowCustomerDetails = () => {
 
     setSelected(e);
   };
-  
-  useEffect(() => {
-    setFilterResults(viewCustomerBills)
-  }, [viewCustomerBills]);
 
+  useEffect(() => {
+    setFilterResults(viewCustomerBills);
+  }, [viewCustomerBills]);
 
   const [filter, setFilter] = useState("all");
   const [selectedDate, setSelectedDate] = useState("");
@@ -111,25 +109,21 @@ const ShowCustomerDetails = () => {
   const handleDateChange = (e) => {
     setSelectedDate(e.target.value);
     let finalData = viewCustomerBills?.map((bills) => {
-      let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD")
+      let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
       return {
         ...bills,
-        filterDate: finalDate
-      }
-    })
+        filterDate: finalDate,
+      };
+    });
     const filteredResults = finalData?.filter((data) => {
-      return data?.filterDate === e.target.value
-    })
-    setFilterResults(filteredResults)
+      return data?.filterDate === e.target.value;
+    });
+    setFilterResults(filteredResults);
     console.log(filterResults);
     const selected = parse(e.target.value, "yyyy-MM-dd", new Date());
     const formattedDate = format(selected, "dd MMM yyyy");
     // console.log(formattedDate);
-
   };
-
-
-
 
   const filteredCards = filterResults?.filter((card) => {
     const cardDate = format(new Date(card?.createdAt), "dd MMM yyyy");
@@ -185,7 +179,7 @@ const ShowCustomerDetails = () => {
               </label>
 
               <input
-                className="pl-2  flex items-center shadow appearance-none border rounded  focus:shadow-outline w-full py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
+                className="pl-2  flex items-center shadow appearance-none border rounded  focus:shadow-outline w-full py-2 px-2 bg-transparent leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
                 id="name"
                 type="text"
                 name="name"
@@ -201,7 +195,7 @@ const ShowCustomerDetails = () => {
               </label>
 
               <input
-                className="pl-2  flex items-center shadow appearance-none border rounded  focus:shadow-outline w-full py-2 px-2 text-black leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
+                className="pl-2  flex items-center shadow appearance-none border rounded  focus:shadow-outline w-full py-2 px-2  bg-transparent leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800"
                 id="number"
                 type="text"
                 name="name"
@@ -221,14 +215,43 @@ const ShowCustomerDetails = () => {
               id="filter"
               value={filter}
               onChange={handleFilterChange}
-              className="outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[45vw]"
+              className="outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[45vw] "
             >
-              <option value="all">All</option>
-              <option value="today">Today</option>
-              <option value="yesterday">Yesterday</option>
-              <option value="lastWeek">Last Week</option>
-              <option value="lastMonth">Last Month</option>
-              <option value="lastYear">Last Year</option>
+              <option
+                className={`  ${
+                  isDarkMode
+                    ? "bg-gray-800 text-white"
+                    : "bg-white text-gray-800"
+                }`}
+                value="all"
+              >
+                All
+              </option>
+              <option className={`  ${
+                  isDarkMode
+                    ? "bg-gray-800 text-white"
+                    : "bg-white text-gray-800"
+                }`} value="today">Today</option>
+              <option className={`  ${
+                  isDarkMode
+                    ? "bg-gray-800 text-white"
+                    : "bg-white text-gray-800"
+                }`} value="yesterday">Yesterday</option>
+              <option className={`  ${
+                  isDarkMode
+                    ? "bg-gray-800 text-white"
+                    : "bg-white text-gray-800"
+                }`} value="lastWeek">Last Week</option>
+              <option className={`  ${
+                  isDarkMode
+                    ? "bg-gray-800 text-white"
+                    : "bg-white text-gray-800"
+                }`} value="lastMonth">Last Month</option>
+              <option className={`  ${
+                  isDarkMode
+                    ? "bg-gray-800 text-white"
+                    : "bg-white text-gray-800"
+                }`} value="lastYear">Last Year</option>
             </select>
 
             <input
@@ -329,7 +352,9 @@ const ShowCustomerDetails = () => {
                           onClick={() => {
                             handleSingleBill(value?._id);
                           }}
-                          className="flex  hover:border-black  duration-200 justify-between items-center py-3 px-2  hover:shadow-lg  outline-none  border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-[30vw] w-full cursor-pointer"
+                            className={`flex    duration-200 justify-between items-center py-3 px-2  hover:shadow-md  shadow-sm shadow-blue-200 outline-none  border border-gray-300 bg-transparent   hover:shadow-blue-200 rounded-md md:w-[30vw] w-full cursor-pointer   ${
+                              isDarkMode ? "hover:border-white" : "hover:border-black"
+                            }`}
                         >
                           <p className="flex items-center gap-x-1">
                             Date:{" "}

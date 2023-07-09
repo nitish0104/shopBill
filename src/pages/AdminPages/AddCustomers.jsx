@@ -39,7 +39,7 @@ const AddCustomers = () => {
   };
   useEffect(() => {
     handleRecentCustomerClick();
-    // eslint-disable-next-line
+    
   }, []);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const AddCustomers = () => {
       })
         .then((res) => {
           setAllCustomer(res.data.response);
-          console.log("All Customer ", res.data.response);
+          
         })
         .catch((err) => console.log(err));
     } catch (error) {

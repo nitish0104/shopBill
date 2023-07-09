@@ -34,7 +34,9 @@ const Navigation = ({ className }) => {
         } `}
       >
         <div
-          className={`flex items-center justify-between w-full   px-10 text-black `}
+          className={`flex items-center justify-between w-full   px-10  ${
+            isDarkMode ? "text-white text-opacity-75 " : "text-black "
+          } `}
         >
           {routes.map((obj, index) => {
             return (
@@ -43,7 +45,7 @@ const Navigation = ({ className }) => {
                 key={index}
                 className={
                   obj.route === loaction.pathname
-                    ? "flex flex-col items-center pt-1 text-blue-600 text-sm font-semibold rounded-lg ${className}"
+                    ? "flex flex-col items-center pt-1 text-blue-800 text-sm font-semibold rounded-lg ${className}"
                     : "flex flex-col items-center pt-1 text-sm "
                 }
               >

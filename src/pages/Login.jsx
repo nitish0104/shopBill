@@ -45,7 +45,21 @@ const Login = () => {
             setLoading(false);
             navigate("/verify");
           })
-          .catch((err) => console.log(err));
+          .catch((err) =>{
+            
+
+            toast.error("Check Your Internet Connection or Try again later", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: false,
+              draggable: false,
+              progress: false,
+              theme: "light",
+            })
+            setLoading(false)
+          });
       } catch (error) {
         console.log(error);
       }
@@ -68,23 +82,26 @@ const Login = () => {
     AOS.init();
   }, []);
   return (
-    <LayoutManin>
+    
+<>
+<LayoutManin>
+
       <div className="w-screen h-screen   md:flex md:items-center md:justify-center ">
         <div
           data-aos="fade-right"
           className="flex justify-center items-center bg-[#F1F1F1]  w-[100%] h-[35%] md:gap-6 md:w-[50%] md:h-screen "
-        >
+          >
           <img
             data-aos="zoom-in"
             data-aos-duration="1000"
             src={temp_logo}
             alt="logo"
             className=" px-4 h-[60%] md:h-[40%]"
-          />
+            />
         </div>
         <div className="flex  flex-col  justify-center items-center md:w-[50%] md:h-screen  w-[100%] h-[50%] mt-2 md:mt-0">
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-5xl font-bold text-center">Welcome</h1>
+            <h1 className="text-4xl font-bold text-center">Welcome</h1>
             <h1 className="font-semibold">Please login to your Shop</h1>
           </div>
           <div className="flex flex-col items-center justify-center md:w-full">
@@ -106,10 +123,10 @@ const Login = () => {
                 onClick={handleSubmitnumber}
                 type="submit"
                 className={`bg-blue-500 hover:bg-blue-600 text-white font-semibold flex items-center justify-center  w-[100%] py-2 px-4 rounded-full  mt-4 ${
-                  !loading ? "cursor-pointer" : "cursor-not-allowed"
+                  !loading ? "cursor-pointer" : "cursor-default"
                 }`}
                 // onClick={handleSubmit}
-              >
+                >
                 {!loading ? "Send Otp" : <Spinner />}
               </button>
             </div>
@@ -117,7 +134,12 @@ const Login = () => {
         </div>
       </div>
       <ToastContainer />
-    </LayoutManin>
+    
+
+                </LayoutManin>
+
+
+</>
   );
 };
 

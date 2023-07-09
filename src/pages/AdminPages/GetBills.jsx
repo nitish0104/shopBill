@@ -15,7 +15,8 @@ import { format } from "date-fns";
 import { ContextAuth } from "../../context/Context";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Spinner from "../../components/Spinner";
+import { ThemeContextAuth } from "../../context/ThemeContext";
+import noItems from "../../images/noItems.svg";
 import PageLoader from "../../components/PageLoader";
 import { subDays, subMonths, subYears } from "date-fns";
 import moment from "moment";
@@ -26,8 +27,8 @@ const GetBills = () => {
   const message = "Maggie(8) -40Rs  "; // Replace with your desired message
   const [businessBills, setBusinessBills] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [filterResults, setFilterResults] = useState([])
-
+  const [filterResults, setFilterResults] = useState([]);
+  const { isDarkMode } = ThemeContextAuth();
   useEffect(() => {
     setLoading(true);
     try {
@@ -38,7 +39,6 @@ const GetBills = () => {
         },
       })
         .then((res) => {
-          console.log(res?.data?.response);
           setBusinessBills(res?.data?.response);
           setLoading(false);
         })
@@ -49,7 +49,7 @@ const GetBills = () => {
   }, []);
 
   useEffect(() => {
-    setFilterResults(businessBills)
+    setFilterResults(businessBills);
   }, [businessBills]);
 
   const handleButtonClick = (phoneNumber) => {
@@ -71,23 +71,19 @@ const GetBills = () => {
   const handleDateChange = (e) => {
     setSelectedDate(e.target.value);
     let finalData = businessBills?.map((bills) => {
-      let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD")
+      let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
       return {
         ...bills,
-        filterDate: finalDate
-      }
-    })
+        filterDate: finalDate,
+      };
+    });
     const filteredResults = finalData?.filter((data) => {
-      return data?.filterDate === e.target.value
-    })
-    setFilterResults(filteredResults)
+      return data?.filterDate === e.target.value;
+    });
+    setFilterResults(filteredResults);
     const selected = parse(e.target.value, "yyyy-MM-dd", new Date());
     const formattedDate = format(selected, "dd MMM yyyy");
-    // console.log(formattedDate);
-
   };
-
-  
 
   const filteredCards = filterResults.filter((card) => {
     const cardDate = new Date(card?.createdAt);
@@ -126,10 +122,7 @@ const GetBills = () => {
         <Sidebar />
         <div className=" md:w-[70vw] w-[100vw]  flex justify-center items-center  my-9 mx-auto">
           <div>
-            <div className="flex justify-center items-center gap-x-4 mb-4 px-8">
-              {/* <div className=" text-3xl font-extrabold">
-                <AiFillFilter></AiFillFilter>
-              </div> */}
+            <div className="flex justify-center items-center gap-x-4 mb-4 px-9">
               <select
                 id="filter"
                 value={filter}
@@ -152,42 +145,56 @@ const GetBills = () => {
             </div>
 
             {!loading ? (
-              <div
-                className="  md:grid md:grid-cols-2 md:gap-2 md:w-[50vw] gap-y-3 px-7 md:px-0 w-[100vw] pb-5"
-                ref={contentRef}
-                data-aos="flip-right"
-              >
-                {filteredCards?.map((customer, index) => {
-                  const dateObj = new Date(customer?.createdAt)
-                  return (
-                    <CustomerCard
-                      data={customer}
-                      key={customer?.customerId?._id + index}
-                      name={customer?.customerId?.customerName}
-                      
-                      date={dateObj}
-                      amount={customer.grandtotal}
-                      id={customer?.customerId?._id}
+              <div ref={contentRef} data-aos="flip-right">
+                {filteredCards.length > 0 ? (
+                  <div className="  md:grid md:grid-cols-2 md:gap-2 md:w-[50vw] gap-y-3 px-7 md:px-0 w-[100vw] pb-5">
+                    {filteredCards?.map((customer, index) => {
+                      const dateObj = new Date(customer?.createdAt);
+                      return (
+                        <CustomerCard
+                          data={customer}
+                          key={customer?.customerId?._id + index}
+                          name={customer?.customerId?.customerName}
+                          date={dateObj}
+                          amount={customer.grandtotal}
+                          id={customer?.customerId?._id}
+                          mobileNumber={customer?.customerId?.customerNumber}
+                          grandTotal={customer?.grandtotal}
+                          div={
+                            <button
+                              className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-start "
+                              phoneNumber={customer.customerNumber}
+                              message={message}
+                              onClick={() => {
+                                handleButtonClick(customer.customerNumber);
+                              }}
+                            >
+                              <BsWhatsapp className="text-2xl"></BsWhatsapp>
+                            </button>
+                          }
+                        />
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className=" mt-36   px-8 ">
+                    <div className="flex md:justify-around flex-col justify-center items-center md:flex-row">
+                      <div className="w-[40%] md:w-[20%] ">
+                        <img src={noItems} alt="" />
+                      </div>
 
-                      mobileNumber={customer?.customerId?.customerNumber}
-                      grandTotal={customer?.grandtotal}
-                      div={
-                        <button
-                          className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-start "
-                          phoneNumber={customer.customerNumber}
-                          message={message}
-                          onClick={() => {
-                            handleButtonClick(customer.customerNumber);
-                          }}
-                        >
-                          <BsWhatsapp className="text-2xl"></BsWhatsapp>
-                        </button>
-                      }
-                    />
-
-
-                  );
-                })}
+                      <div
+                        className={`flex flex-col justify-center items-center   text-${
+                          isDarkMode ? "black" : "gray-800"
+                        } p-4`}
+                      >
+                        <span className="font-mono    text-xl">
+                          Oop's! No Data Available.
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <PageLoader className={"h-[60vh]"} />

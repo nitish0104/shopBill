@@ -39,7 +39,6 @@ const AddItems = () => {
   const message = "Hello, how can I help you?"; // Replace with your desired message
 
   useEffect(() => {
-    console.log(customerData);
     if (items) {
       let total = 0;
 
@@ -130,9 +129,7 @@ const AddItems = () => {
 
   const getBill = async () => {
     setLoading(true);
-    console.log(customerData);
-    console.log(businessId);
-    console.log(items);
+
     try {
       await axios("https://khatabook-one.vercel.app/generatebill", {
         method: "POST",
@@ -141,7 +138,7 @@ const AddItems = () => {
           businessId: businessId,
           items: items,
           grandtotal: grandtotal,
-          discount: Number(discount)
+          discount: Number(discount),
         },
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -165,15 +162,6 @@ const AddItems = () => {
         <Navigation />
 
         <div className="md:w-[80vw] w-screen m-auto md:px-12   overflow-y-hidden flex-col  justify-center items-center">
-          {/* <div className="flex items-center justify-between mb-2  w-[90%]">
-            
-            <button
-              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-3 flex justify-center items-center gap-2 md:w-[15%]"
-              onClick={cancel}
-            >
-              <ImCancelCircle></ImCancelCircle> Cancel
-            </button>
-          </div> */}
           <div className="flex justify-center items-center gap-x-5">
             <div className="px-2 pt-4 md:w-[100%] flex-col justify-center items-center md:flex md:justify-center md:items-center gap-x-4 ">
               <div className="grid grid-cols-2 gap-x-2 gap-y-2">
@@ -188,8 +176,9 @@ const AddItems = () => {
                       setItem(e.target.value);
                     }}
                     placeholder={"Enter Items"}
-                    className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${isDarkMode ? "border-white" : "border-black"
-                      }`}
+                    className={`w-full h-12  rounded-lg border  pl-2  bg-transparent ${
+                      isDarkMode ? " text-white" : " text-black"
+                    }`}
                     required
                   />
                 </div>
@@ -204,8 +193,9 @@ const AddItems = () => {
                       setQty(e.target.value);
                     }}
                     placeholder={"Enter Quantity"}
-                    className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${isDarkMode ? "border-white" : "border-black"
-                      }`}
+                    className={`w-full h-12  rounded-lg border duration-200 pl-2 bg-transparent ${
+                      isDarkMode ? " text-white" : " text-black"
+                    }`}
                     required
                   />
                 </div>
@@ -220,8 +210,9 @@ const AddItems = () => {
                       setIndividualPrice(e.target.value);
                     }}
                     placeholder={"Enter Amount"}
-                    className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${isDarkMode ? "border-white" : "border-black"
-                      }`}
+                    className={`w-full h-12  rounded-lg border duration-200 pl-2 bg-transparent ${
+                      isDarkMode ? " text-white" : " text-black"
+                    }`}
                   />
                 </div>
                 <div className="flex-col ">
@@ -235,8 +226,9 @@ const AddItems = () => {
                       setPrice(e.target.value);
                     }}
                     placeholder={"Enter Total Price"}
-                    className={`w-full h-12  rounded-lg border-2  pl-2 focus:border-blue-500 text-black ${isDarkMode ? "border-white" : "border-black"
-                      }`}
+                    className={`w-full h-12  rounded-lg border duration-200 pl-2 bg-transparent ${
+                      isDarkMode ? " text-white" : " text-black"
+                    }`}
                   />
                 </div>
               </div>
@@ -256,33 +248,34 @@ const AddItems = () => {
             {items.length > 0 ? (
               <>
                 <table
-                  className={`min-w-full divide-y divide-gray-200" border-2 border-b-black p-2  border-collapse rounded-lg ${isDarkMode ? "border-white" : "border-black border-b-black"
-                    }`}
+                  className={`min-w-full divide-y divide-gray-200" border-2 border-b-black p-2  border-collapse rounded-lg ${
+                    isDarkMode ? "border-white" : "border-black border-b-black"
+                  }`}
                 >
                   <thead>
                     <tr className="  border-b-2 py-2  text-center">
-                      <th className="sticky left-0 w-20 bg-white py-2 px-4  ">
+                      <th className="sticky left-0 w-20  py-2 px-4  ">
                         Item
                       </th>
-                      <th className=" bg-white py-2 px-4 ">Quantity</th>
-                      <th className=" bg-white py-2 px-4 ">Individual</th>
-                      <th className=" bg-white py-2 px-4 ">Total</th>
-                      <th className=" bg-white py-2 px-4 ">Change</th>
+                      <th className="  py-2 px-4 ">Quantity</th>
+                      <th className="  py-2 px-4 ">Individual</th>
+                      <th className="  py-2 px-4 ">Total</th>
+                      <th className=" py-2 px-4 ">Change</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className=" divide-y divide-gray-200">
                     {items?.map((value, index) => {
                       return (
                         <tr
                           key={index}
                           className=" border-b-2  border-black text-x text-center "
                         >
-                          <td className="sticky left-0 md:w-2/6 w-40 bg-white px-2 border whitespace-nowrap">
+                          <td className="sticky left-0 md:w-2/6 w-40  px-2 border whitespace-nowrap">
                             {index === editIndex ? (
                               <input
                                 type="text"
                                 value={item}
-                                className="border  text-center md:w-auto border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="border  text-center md:w-auto bg-transparent border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 onChange={(e) => {
                                   setItem(e.target.value);
                                 }}
@@ -294,7 +287,7 @@ const AddItems = () => {
                           <td className=" px-2 border md:w-40 w-28  whitespace-nowrap">
                             {index === editIndex ? (
                               <input
-                                className="border  text-center md:w-32 w-24  border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="border  text-center md:w-32 w-24 bg-transparent border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 type="text"
                                 value={qty}
                                 onChange={(e) => {
@@ -311,7 +304,7 @@ const AddItems = () => {
                             {index === editIndex ? (
                               <input
                                 type="number"
-                                className="border  text-center md:w-32 w-24  border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="border  text-center md:w-32 w-24 bg-transparent  border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 value={individualPrice}
                                 onChange={(e) => {
                                   setIndividualPrice(e.target.value);
@@ -326,7 +319,7 @@ const AddItems = () => {
                             {index === editIndex ? (
                               <input
                                 type="number"
-                                className="border  text-center md:w-32 w-24 border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="border  text-center md:w-32 w-24 bg-transparent border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 value={price}
                                 onChange={(e) => {
                                   setPrice(e.target.value);
@@ -381,24 +374,28 @@ const AddItems = () => {
                 </table>
                 <div className=" w-full flex justify-center sticky left-0  pr-2 pt-4 gap-x-3">
                   <div
-                    className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${isDarkMode ? "border-white" : "border-black"
-                      }`}
+                    className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
+                      isDarkMode ? "border-white" : "border-black"
+                    }`}
                   >
                     <p className="flex items-center  text-base">
-                      Coupon: &#8377;{" "}
+                      Discount: &#8377;{" "}
                     </p>
                     <input
                       value={discount}
                       onChange={(e) => {
                         setDiscount(e.target.value);
                       }}
-                      className={`  w-[30%]   flex items-center text-black border-none outline-none`}
+                      className={`  w-[30%]   flex items-center  border-none outline-none  ${
+                        isDarkMode ? "bg-gray-800 " : "bg-white "
+                      }`}
                       required="true"
                     />
                   </div>
                   <p
-                    className={`border-2 py-1 px-3 text-base flex items-center w-[80%] ${isDarkMode ? "border-white" : "border-black"
-                      }`}
+                    className={`border-2 py-1 px-3 text-base flex items-center w-[80%] ${
+                      isDarkMode ? "border-white" : "border-black"
+                    }`}
                   >
                     GrandTotal: &#8377;
                     {discount ? grandtotal - discount : grandtotal} /-
@@ -413,8 +410,9 @@ const AddItems = () => {
                   </div>
 
                   <div
-                    className={`flex flex-col justify-center items-center   text-${isDarkMode ? "black" : "gray-800"
-                      } p-4`}
+                    className={`flex flex-col justify-center items-center   t${
+                      isDarkMode ? "text-white" : "text-gray-800"
+                    } p-4`}
                   >
                     <span className="font-mono   md:text-5xl text-xl">
                       Oop's! Data Not Found
@@ -426,8 +424,9 @@ const AddItems = () => {
           </div>
 
           <div
-            className={`w-full  flex justify-around items-center  bg-${isDarkMode ? "gray-800" : "white"
-              } text-${isDarkMode ? "white" : "gray-800"} p-4`}
+            className={`w-full  flex justify-around items-center  bg-${
+              isDarkMode ? "gray-800" : "white"
+            } text-${isDarkMode ? "white" : "gray-800"} p-4`}
           >
             <button
               className="bg-blue-600 hover:bg-blue-700 text-white font-bold p-4 rounded-full  flex justify-center items-center gap-2   "
