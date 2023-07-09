@@ -23,31 +23,12 @@ const VerifyOTP = () => {
   const [isTimerActive, setTimerActive] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  // const stringOTP = otp.join("");
-  // Function to handle input change for mobile number
-
-  // const handleChange = (e, index) => {
-  //   const { value } = e.target;
-
-  //   if (value.length <= 1 && /^\d*$/.test(value)) {
-  //     const newOtp = [...otp];
-  //     newOtp[index] = value;
-  //     setOTP(newOtp);
-
-  //     if (index < 5 && value !== "") {
-  //       const nextInput = document.getElementById(`otp-input-${index + 1}`);
-  //       nextInput.focus();
-  //     }
-  //   }
-  // };
-
-  // Function to start the timer
   const startTimer = async (e) => {
     setTimerActive(true);
     setTimer(60);
 
     if (mobileNo.length >= 10) {
-      setLoading(true);
+
 
       e.preventDefault();
       try {
@@ -93,41 +74,65 @@ const VerifyOTP = () => {
 
   // Function to handle form submission
   const handleSubmitotp = async (e) => {
-    console.log(otp);
-    setLoading(true);
+    if (otp.length >= 6) {
+      setLoading(true);
 
-    e.preventDefault();
-    try {
-      await axios(
-        "https://khatabook-one.vercel.app/verifyotp",
-        {
-          method: "POST",
-          data: {
-            otp: otp,
-            mobileNo: mobileNo,
+      e.preventDefault();
+      try {
+        await axios(
+          "https://khatabook-one.vercel.app/verifyotp",
+          {
+            method: "POST",
+            data: {
+              otp: otp,
+              mobileNo: mobileNo,
+            },
           },
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      )
-        .then((res) => {
-          console.log(res);
-          console.log(res.data);
-          console.log(res.data.response);
-          localStorage.setItem("token", res.data.response);
-          setLoading(false);
-          navigate("/dashboard");
-        })
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.log(error);
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          }
+        )
+          .then((res) => {
+            if (res.ok) {
+              console.log(res);
+              console.log(res.data);
+              console.log(res.data.response);
+              localStorage.setItem("token", res.data.response);
+              setLoading(false);
+              navigate("/dashboard");
+            } else {
+              toast.error("Incorrect Otp", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: false,
+                progress: false,
+                theme: "light",
+              });
+              setLoading(false)
+            }
+          })
+          .catch((err) => console.log(err));
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      toast.error("Enter the OTP", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: false,
+        theme: "light",
+      });
     }
-
-    console.log(otp);
     // Perform mobile number verification here
 
     // Start the timer
