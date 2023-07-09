@@ -137,7 +137,7 @@ const AddCustomers = () => {
               onClick={() => {
                 setModal({ show: true });
               }}
-              className={`   text-6xl p-2   rounded-full    ${
+              className={`   text-6xl p-2   rounded-full   ${
                 isDarkMode ? "text-white" : "text-black"
               }`}
             >

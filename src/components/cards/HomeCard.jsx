@@ -13,7 +13,6 @@ const CustomerCard = ({
   mobileNumber,
   amount,
   items,
-  grandTotal,
   div,
   ref,
   id,
@@ -44,31 +43,29 @@ const CustomerCard = ({
         } p-4 rounded-lg  shadow-md shadow-blue-300 transform  perspective-100    overflow-hidden border m-2`}
       >
         <div
-          className=" py-4 flex justify-between items-center gap-x-4 "
+          className=" py-4 flex justify-between items-start "
           ref={ref}
         >
           <div className="text-start w-6/12">
-            <button onClick={handleCardClick}>
-              <div className="font-bold text-xl mb-2">{name}</div>
+            <button onClick={handleCardClick} className="flex flex-col  items-start gap-y-3 md:flex-none">
+              <div className="font-bold text-xl ">{name}</div>
 
-              <p className=" font-semibold mb-2 text-start">{mobileNumber}</p>
+              <p className=" font-semibold  text-start">{mobileNumber}</p>
             </button>
           </div>
-          {/* <div className="w-1/12">{div}</div> */}
-          <div className="flex flex-col justify-center items-center w-5/12">
+          
+          <div className="flex flex-col gap-y-3 justify-center items-end w-6/12">
             <button
               // className="text-3xl text-center mb-2 font-bold text-green-500"
-              className={"text-xl text-center mb-2 font-bold text-green-500"}
-
+              className={"text-center  font-bold text-xl text-green-500"}
+              onClick={handleColorChange}
             >
-              &#8377;{grandTotal}
+              &#8377;{amount}
             </button>
 
-            <div>
-              <div className="font-semibold mb-2 text-start">
-                {formattedDate}
-              </div>
-            </div>
+            
+              <div className="text-center font-semibold " >{formattedDate}</div>
+        
           </div>
         </div>
       </div>

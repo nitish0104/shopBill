@@ -87,9 +87,9 @@ const GetBills = () => {
 
   };
 
-  let customerDetail = [...businessBills, ...allCustomer]
+  
 
-  const filteredCards = allCustomer.filter((card) => {
+  const filteredCards = filterResults.filter((card) => {
     const cardDate = new Date(card?.createdAt);
     // console.log(cardDate);
 
@@ -126,15 +126,15 @@ const GetBills = () => {
         <Sidebar />
         <div className=" md:w-[70vw] w-[100vw]  flex justify-center items-center  my-9 mx-auto">
           <div>
-            <div className="flex justify-center items-center gap-x-4 mb-4">
-              <div className=" text-3xl font-extrabold">
+            <div className="flex justify-center items-center gap-x-4 mb-4 px-8">
+              {/* <div className=" text-3xl font-extrabold">
                 <AiFillFilter></AiFillFilter>
-              </div>
+              </div> */}
               <select
                 id="filter"
                 value={filter}
                 onChange={handleFilterChange}
-                className="px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[35vw]"
+                className=" outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-1/2"
               >
                 <option value="all">All</option>
                 <option value="today">Today</option>
@@ -147,33 +147,33 @@ const GetBills = () => {
                 type="date"
                 value={selectedDate}
                 onChange={handleDateChange}
-                className="p-2 ml-2 rounded-lg border-2"
+                className=" outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-1/2"
               />
             </div>
 
             {!loading ? (
               <div
-                className="  md:grid md:grid-cols-2 md:gap-2 "
+                className="  md:grid md:grid-cols-2 md:gap-2 md:w-[50vw] gap-y-3 px-7 md:px-0 w-[100vw] pb-5"
                 ref={contentRef}
                 data-aos="flip-right"
               >
-                {filterResults?.map((customer, index) => {
+                {filteredCards?.map((customer, index) => {
                   const dateObj = new Date(customer?.createdAt)
                   return (
                     <CustomerCard
                       data={customer}
                       key={customer?.customerId?._id + index}
                       name={customer?.customerId?.customerName}
-                      // date={format(new Date (customer?.createdAt), "dd/MMM/yyyy")}
+                      
                       date={dateObj}
                       amount={customer.grandtotal}
                       id={customer?.customerId?._id}
-                      // items={customer.items}
-                      mobileNumber={customer.customerNumber}
+
+                      mobileNumber={customer?.customerId?.customerNumber}
                       grandTotal={customer?.grandtotal}
                       div={
                         <button
-                          className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-center "
+                          className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-start "
                           phoneNumber={customer.customerNumber}
                           message={message}
                           onClick={() => {

@@ -30,8 +30,7 @@ import { BiArrowBack } from "react-icons/bi";
 import Navigation from "../../components/Navigation";
 import PageLoader from "../../components/PageLoader";
 import ShowSingleBillModal from "../../Modal/ShowSingleBillModal";
-import { data } from "autoprefixer";
-
+import moment from "moment";
 const ShowCustomerDetails = () => {
   const { isDarkMode } = ThemeContextAuth();
   const { id } = useParams();
@@ -43,6 +42,7 @@ const ShowCustomerDetails = () => {
   const { allCustomer, viewCustomerDetails, setViewCustomerDetails } =
     ContextAuth();
   const [modal, setModal] = useState({ show: false, data: {} });
+  const [filterResults, setFilterResults] = useState([])
   const naviGate = useNavigate();
   useEffect(() => {
     setLoading(true);
@@ -94,30 +94,53 @@ const ShowCustomerDetails = () => {
 
     setSelected(e);
   };
+  
+  useEffect(() => {
+    setFilterResults(viewCustomerBills)
+  }, [viewCustomerBills]);
+
 
   const [filter, setFilter] = useState("all");
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState("");
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
     setSelectedDate(null);
   };
+
   const handleDateChange = (e) => {
+    setSelectedDate(e.target.value);
+    let finalData = viewCustomerBills?.map((bills) => {
+      let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD")
+      return {
+        ...bills,
+        filterDate: finalDate
+      }
+    })
+    const filteredResults = finalData?.filter((data) => {
+      return data?.filterDate === e.target.value
+    })
+    setFilterResults(filteredResults)
+    console.log(filterResults);
     const selected = parse(e.target.value, "yyyy-MM-dd", new Date());
     const formattedDate = format(selected, "dd MMM yyyy");
-    setSelectedDate(formattedDate);
-    console.log(formattedDate);
+    // console.log(formattedDate);
+
   };
 
-  const filteredCards = viewCustomerBills?.filter((card) => {
+
+
+
+  const filteredCards = filterResults?.filter((card) => {
     const cardDate = format(new Date(card?.createdAt), "dd MMM yyyy");
-    console.log(cardDate);
+    // const cardDate = moment(car?.createdAt).format("YYYY-MM-DD");
+    // console.log(cardDate);
 
     if (filter === "today") {
       const today = format(new Date(), "dd MMM yyyy");
       return cardDate === today;
     } else if (filter === "yesterday") {
-      const yesterday = format(subDays(new Date(), 1), "dd MMM yyyy");
+      const yesterday = moment(subDays(new Date(), 1), "dd MMM yyyy");
       return cardDate === yesterday;
     } else if (filter === "lastweek") {
       const lastWeek = format(subWeeks(new Date(), 1), "dd MMM yyyy");
@@ -151,8 +174,8 @@ const ShowCustomerDetails = () => {
         )}
         <Sidebar />
         <Navigation />
-        <div>
-          <div className="text-xl flex gap-y-2  justify-center items-center pt-4 flex-col">
+        <div className="overflow-y-auto pb-20">
+          <div className="text-xl flex gap-y-2  justify-center items-center pt-4 flex-col overflow-y-auto">
             <div className="md:w-[30vw] w-full px-2">
               <label
                 className="  text-sm flex  items-center font-bold mb-0.5 px-1"
@@ -294,9 +317,9 @@ const ShowCustomerDetails = () => {
 
           {!loading ? (
             <div>
-              {filteredCardsByDate?.length > 0 ? (
+              {filteredCards?.length > 0 ? (
                 <div>
-                  {filteredCardsByDate?.map((value, index) => {
+                  {filteredCards?.map((value, index) => {
                     return (
                       <div
                         key={index}
