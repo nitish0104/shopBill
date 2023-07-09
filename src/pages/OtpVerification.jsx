@@ -27,9 +27,7 @@ const VerifyOTP = () => {
     setTimerActive(true);
     setTimer(60);
 
-    if (mobileNo.length >= 10) {
-
-
+    if (mobileNo.length == 10) {
       e.preventDefault();
       try {
         await axios(
@@ -74,7 +72,7 @@ const VerifyOTP = () => {
 
   // Function to handle form submission
   const handleSubmitotp = async (e) => {
-    if (otp.length >= 6) {
+    if (otp.length == 6) {
       setLoading(true);
 
       e.preventDefault();
@@ -96,8 +94,8 @@ const VerifyOTP = () => {
           }
         )
           .then((res) => {
-            if (res.ok) {
-              console.log(res);
+            console.log(res);
+            if (res?.data?.error == false) {
               console.log(res.data);
               console.log(res.data.response);
               localStorage.setItem("token", res.data.response);
@@ -114,7 +112,7 @@ const VerifyOTP = () => {
                 progress: false,
                 theme: "light",
               });
-              setLoading(false)
+              setLoading(false);
             }
           })
           .catch((err) => console.log(err));
@@ -122,7 +120,7 @@ const VerifyOTP = () => {
         console.log(error);
       }
     } else {
-      toast.error("Enter the OTP", {
+      toast.error("The OTP Should be in six digit", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,

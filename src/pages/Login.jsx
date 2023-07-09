@@ -20,7 +20,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleSubmitnumber = async (e) => {
-    if (mobileNo.length >= 10) {
+    if (mobileNo.length == 10) {
       setLoading(true);
 
       e.preventDefault();
