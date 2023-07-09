@@ -29,12 +29,14 @@ const ShowSingleBill = () => {
   };
   const contentRef = useRef(null);
   useEffect(() => {
-    // window.addEventListener('beforeprint', (e) => {
-    //   setBeforePrint(true)
-    // })
-    // window.addEventListener('afterprint', (e) => {
-    //   setBeforePrint(false)
-    // })
+    window.addEventListener('afterprint', (e) => {
+      const originalContents = document.body.innerHTML;
+      document.body.innerHTML = originalContents;
+    })
+    window.addEventListener('beforeprint', (e) => {
+      const printContents = document.getElementById("myDiv").innerHTML;
+      document.body.innerHTML = printContents;
+    })
     setLoading(true);
     try {
       axios(`https://khatabook-one.vercel.app/getcustomerbill/${id}`, {
@@ -57,30 +59,19 @@ const ShowSingleBill = () => {
   // console.log(business);
   const printableRef = useRef(null);
 
-  const handlePrint = () => {
-    const printContents = document.getElementById("myDiv").innerHTML;
-    const originalContents = document.body.innerHTML;
-    document.body.innerHTML = printContents;
-    setTimeout(() => {
-      window.print();
-      document.body.innerHTML = originalContents;
-    }, 0);
-  };
 
   return (
     <>
       <div
-        className={`min-h-screen h-fit  ${
-          isDarkMode ? "bg-gray-800 " : "bg-white "
-        }`}
+        className={`min-h-screen h-fit  ${isDarkMode ? "bg-gray-800 " : "bg-white "
+          }`}
       >
         {beforePrint && <Sidebar />}
         {beforePrint && (
           <Link
             to={`/customer-details/${singleBill?.customerId?._id}`}
-            className={`flex items-center justify-center w-12 h-12 rounded-full border mt-3 ml-3  ${
-              isDarkMode ? "text-white" : "text-gray-800 "
-            } `}
+            className={`flex items-center justify-center w-12 h-12 rounded-full border mt-3 ml-3  ${isDarkMode ? "text-white" : "text-gray-800 "
+              } `}
           >
             <div className="  text-3xl ">
               <BiArrowBack />
@@ -201,7 +192,9 @@ const ShowSingleBill = () => {
           {beforePrint && (
             <div className="flex justify-center mt-4 mr-6 mb-3 ">
               <button
-                onClick={handlePrint}
+                onClick={() => {
+                  window.print()
+                }}
                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
               >
                 <AiOutlinePrinter></AiOutlinePrinter> Print
