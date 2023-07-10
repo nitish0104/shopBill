@@ -21,14 +21,6 @@ const ShowSingleBill = () => {
 
   const contentRef = useRef(null);
   useEffect(() => {
-    // window.addEventListener('afterprint', (e) => {
-    //   const originalContents = document.body.innerHTML;
-    //   document.body.innerHTML = originalContents;
-    // })
-    // window.addEventListener('beforeprint', (e) => {
-    //   const printContents = document.getElementById("myDiv").innerHTML;
-    //   document.body.innerHTML = printContents;
-    // })
     setLoading(true);
     try {
       axios(`https://khatabook-one.vercel.app/getcustomerbill/${id}`, {
@@ -49,7 +41,6 @@ const ShowSingleBill = () => {
     }
   }, []);
   // console.log(business);
-  const printableRef = useRef(null);
 
   return (
     <>
@@ -58,7 +49,7 @@ const ShowSingleBill = () => {
           isDarkMode ? "bg-gray-800 " : "bg-white "
         }`}
       >
-        <div id="print">
+        <div  ref={contentRef}>
           <Sidebar />
           <Link
             to={`/customer-details/${singleBill?.customerId?._id}`}
@@ -74,11 +65,11 @@ const ShowSingleBill = () => {
         <div
           id="myDiv"
           className={`container mx-auto px-4 md:w-[70%] w-screen py-4  `}
+          
         >
           <div className="bg-white rounded-lg shadow-lg pb-4">
             <div className="flex justify-between bg-blue-500 text-white px-6 py-4 items-center">
               <h1 className="text-2xl font-bold">Bill</h1>
-              {/* <p className='font-bold text-2xl'>Date: {format(new Date(singleBill?.createdAt), "dd/MMM/yyyy")}</p> */}
               <p className="">
                 Date:{" "}
                 {moment(singleBill?.createdAt).format("DD MMM, YYYY  h:mm a")}
@@ -108,7 +99,9 @@ const ShowSingleBill = () => {
               <table className="min-w-full">
                 <thead className="bg-gray-200 text-gray-800 text-center">
                   <tr className="border-2 border-black">
-                    <th className="sticky left-0 w-20  py-2 px-4  bg-gray-200 ">Items</th>
+                    <th className="sticky left-0 w-20  py-2 px-4  bg-gray-200 ">
+                      Items
+                    </th>
                     <th className="  py-2 px-4 border-x">Quantity</th>
                     <th className="  py-2 px-4 border-x">Individual Price</th>
                     <th className="  py-2 px-4 border-x">Total </th>
@@ -176,10 +169,10 @@ const ShowSingleBill = () => {
               onClick={(e) => {
                 document.title = `ShopConnect - ${singleBill?.customerId?.customerName}`;
                 e.target.style.opacity = 0;
-                document.getElementById("print").style.display = "none";
+                contentRef.current.style.display = "none";
                 window.print();
                 e.target.style.opacity = 1;
-                document.getElementById("print").style.display = "";
+                contentRef.current.style.display = "";
               }}
               className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
             >
