@@ -22,14 +22,14 @@ const ShowSingleBill = () => {
   
   const contentRef = useRef(null);
   useEffect(() => {
-    window.addEventListener('afterprint', (e) => {
-      const originalContents = document.body.innerHTML;
-      document.body.innerHTML = originalContents;
-    })
-    window.addEventListener('beforeprint', (e) => {
-      const printContents = document.getElementById("myDiv").innerHTML;
-      document.body.innerHTML = printContents;
-    })
+    // window.addEventListener('afterprint', (e) => {
+    //   const originalContents = document.body.innerHTML;
+    //   document.body.innerHTML = originalContents;
+    // })
+    // window.addEventListener('beforeprint', (e) => {
+    //   const printContents = document.getElementById("myDiv").innerHTML;
+    //   document.body.innerHTML = printContents;
+    // })
     setLoading(true);
     try {
       axios(`https://khatabook-one.vercel.app/getcustomerbill/${id}`, {
@@ -173,7 +173,7 @@ const ShowSingleBill = () => {
                 }}
                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
               >
-                <AiOutlinePrinter></AiOutlinePrinter> Print
+                <AiOutlinePrinter/> Print
               </button>
             </div>
           )}
