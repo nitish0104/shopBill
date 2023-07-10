@@ -51,19 +51,20 @@ const ShowSingleBill = () => {
   // console.log(business);
   const printableRef = useRef(null);
 
-
   return (
     <>
       <div
-        className={`min-h-screen h-fit  ${isDarkMode ? "bg-gray-800 " : "bg-white "
-          }`}
+        className={`min-h-screen h-fit  ${
+          isDarkMode ? "bg-gray-800 " : "bg-white "
+        }`}
       >
         <div id="print">
-          <Sidebar/>
+          <Sidebar />
           <Link
             to={`/customer-details/${singleBill?.customerId?._id}`}
-            className={`flex items-center justify-center w-12 h-12 rounded-full border mt-3 ml-3  ${isDarkMode ? "text-white" : "text-gray-800 "
-              } `}
+            className={`flex items-center justify-center w-12 h-12 rounded-full border mt-3 ml-3  ${
+              isDarkMode ? "text-white" : "text-gray-800 "
+            } `}
           >
             <div className="  text-3xl ">
               <BiArrowBack />
@@ -102,61 +103,67 @@ const ShowSingleBill = () => {
                 <p>{singleBill?.customerId?.customerNumber}</p>
               </div>
             </div>
-            <table className="w-full">
-              <thead className="bg-gray-200 text-gray-800 text-center">
-                <tr>
-                  <th className="sticky left-0 w-20  py-2 px-4  ">Items</th>
-                  <th className="  py-2 px-4 ">Quantity</th>
-                  <th className="  py-2 px-4 ">Individual Price</th>
-                  <th className="  py-2 px-4 ">Total </th>
-                </tr>
-              </thead>
-              <tbody>
-                {itemsSingeBill?.map((items) => {
-                  return (
-                    <tr className="text-center">
-                      <td className="sticky left-0 w-2/5  bg-white px-2 border whitespace-nowrap">
-                        {items?.item}
-                      </td>
-                      <td className=" py-2  w-1/5 border whitespace-nowrap">
-                        {items?.qty}
-                      </td>
-                      <td className=" py-2  w-1/5 border  whitespace-nowrap text-sm">
-                        {items?.price} Rs
-                      </td>
-                      <td className=" py-2 w-1/5 border whitespace-nowrap text-sm">
-                        {items?.cost} Rs
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-              <tfoot className="bg-gray-200 text-gray-800 ">
-                <tr className="w-[50vw]">
-                  <td colSpan="3" className="text-right py-2 px-4 font-bold ">
-                    Subtotal:
-                  </td>
-                  <td className="py-2 text-sm">{singleBill?.grandtotal} Rs</td>
-                </tr>
-                <tr>
-                  <td colSpan="3" className="text-right py-2 px-4 font-bold ">
-                    Discount:
-                  </td>
-                  <td className="py-2  border-b border-black text-sm">
-                    {singleBill?.discount} Rs
-                  </td>
-                </tr>
 
-                <tr>
-                  <td colSpan="3" className="text-right py-2 px-4 font-bold ">
-                    Total:
-                  </td>
-                  <td className="py-2  font-bold text-sm ">
-                    {singleBill?.grandtotal - singleBill?.discount} Rs
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
+            <div className="overflow-x-auto">
+              <table className="min-w-full">
+                <thead className="bg-gray-200 text-gray-800 text-center">
+                  <tr>
+                    <th className="sticky left-0 w-20  py-2 px-4  ">Items</th>
+                    <th className="  py-2 px-4 ">Quantity</th>
+                    <th className="  py-2 px-4 ">Individual Price</th>
+                    <th className="  py-2 px-4 ">Total </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {itemsSingeBill?.map((items) => {
+                    return (
+                      <tr className="text-center">
+                        <td className="sticky left-0 w-2/5  bg-white px-2 border whitespace-nowrap">
+                          {items?.item}
+                        </td>
+                        <td className=" py-2  w-1/5 border whitespace-nowrap">
+                          {items?.qty}
+                        </td>
+                        <td className=" py-2  w-1/5 border  whitespace-nowrap text-sm">
+                          {items?.price} Rs
+                        </td>
+                        <td className=" py-2 w-1/5 border whitespace-nowrap text-sm">
+                          {items?.cost} Rs
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+                <tfoot className="bg-gray-200 text-gray-800 ">
+                  <tr className="w-[50vw]">
+                    <td colSpan="3" className="text-right py-2 px-4 font-bold ">
+                      Subtotal:
+                    </td>
+                    <td className="py-2 text-sm">
+                      {singleBill?.grandtotal} Rs
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan="3" className="text-right py-2 px-4 font-bold ">
+                      Discount:
+                    </td>
+                    <td className="py-2  border-b border-black text-sm">
+                      {singleBill?.discount} Rs
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td colSpan="3" className="text-right py-2 px-4 font-bold ">
+                      Total:
+                    </td>
+                    <td className="py-2  font-bold text-sm ">
+                      {singleBill?.grandtotal - singleBill?.discount} Rs
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+
             <div className="px-4 pt-4 ">
               <p className="text-center font-bold text-xl">
                 Thanks, Visit Again!
@@ -167,12 +174,12 @@ const ShowSingleBill = () => {
           <div className="flex justify-center mt-4 mr-6 mb-3 ">
             <button
               onClick={(e) => {
-                document.title = `ShopConnect - ${singleBill?.customerId?.customerName}`
+                document.title = `ShopConnect - ${singleBill?.customerId?.customerName}`;
                 e.target.style.opacity = 0;
-                document.getElementById("print").style.display = "none"
-                window.print()
+                document.getElementById("print").style.display = "none";
+                window.print();
                 e.target.style.opacity = 1;
-                document.getElementById("print").style.display = ""
+                document.getElementById("print").style.display = "";
               }}
               className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
             >
