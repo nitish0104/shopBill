@@ -79,16 +79,16 @@ const ShowSingleBill = () => {
               <div>
                 <span>
                   <h2 className="text-xl font-bold">
-                    {singleBill?.businessId?.businessName}
+                {singleBill?.businessId?.businessName}
                   </h2>
                 </span>
-                <h2 className="text-lg font-bold">{business?.businessType}</h2>
-                <p>{singleBill?.businessId?.location}</p>
+                <h2 className="font-bold">{business?.businessType}</h2>
+                <p className="text-sm">{singleBill?.businessId?.location}</p>
 
-                <p>{singleBill?.businessId?.phoneNo}</p>
+                <p className="text-sm">{singleBill?.businessId?.phoneNo}</p>
               </div>
               <div>
-                <h2 className="text-xl font-bold">
+                <h2 className="text-xl ">
                   {singleBill?.customerId?.customerName}
                 </h2>
                 <p>{singleBill?.customerId?.customerNumber}</p>
@@ -159,7 +159,7 @@ const ShowSingleBill = () => {
 
             <div className="px-4 pt-4 ">
               <p className="text-center font-bold text-xl">
-                Thanks, Visit Again!
+                Thank You, Visit Again!
               </p>
             </div>
           </div>
