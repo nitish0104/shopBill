@@ -15,11 +15,10 @@ const ShowSingleBill = () => {
   const [singleBill, setSingleBill] = useState();
   const [itemsSingeBill, setitemsSingeBill] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [beforePrint, setBeforePrint] = useState(true);
   const { id } = useParams();
   const { business, formState } = ContextAuth();
   const { isDarkMode } = ThemeContextAuth();
-  
+
   const contentRef = useRef(null);
   useEffect(() => {
     // window.addEventListener('afterprint', (e) => {
@@ -59,8 +58,8 @@ const ShowSingleBill = () => {
         className={`min-h-screen h-fit  ${isDarkMode ? "bg-gray-800 " : "bg-white "
           }`}
       >
-        {beforePrint && <Sidebar />}
-        {beforePrint && (
+        <div id="print">
+          <Sidebar/>
           <Link
             to={`/customer-details/${singleBill?.customerId?._id}`}
             className={`flex items-center justify-center w-12 h-12 rounded-full border mt-3 ml-3  ${isDarkMode ? "text-white" : "text-gray-800 "
@@ -70,7 +69,7 @@ const ShowSingleBill = () => {
               <BiArrowBack />
             </div>
           </Link>
-        )}
+        </div>
         <div
           id="myDiv"
           className={`container mx-auto px-4 md:w-[70%] w-screen py-4  `}
@@ -165,18 +164,21 @@ const ShowSingleBill = () => {
             </div>
           </div>
 
-          {beforePrint && (
-            <div className="flex justify-center mt-4 mr-6 mb-3 ">
-              <button
-                onClick={() => {
-                  window.print()
-                }}
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
-              >
-                <AiOutlinePrinter/> Print
-              </button>
-            </div>
-          )}
+          <div className="flex justify-center mt-4 mr-6 mb-3 ">
+            <button
+              onClick={(e) => {
+                document.title = `ShopConnect - ${singleBill?.customerId?.customerName}`
+                e.target.style.opacity = 0;
+                document.getElementById("print").style.display = "none"
+                window.print()
+                e.target.style.opacity = 1;
+                document.getElementById("print").style.display = ""
+              }}
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
+            >
+              <AiOutlinePrinter /> Print
+            </button>
+          </div>
         </div>
       </div>
     </>
