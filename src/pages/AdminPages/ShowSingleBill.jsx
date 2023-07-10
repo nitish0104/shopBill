@@ -107,27 +107,27 @@ const ShowSingleBill = () => {
             <div className="overflow-x-auto">
               <table className="min-w-full">
                 <thead className="bg-gray-200 text-gray-800 text-center">
-                  <tr>
-                    <th className="sticky left-0 w-20  py-2 px-4  ">Items</th>
-                    <th className="  py-2 px-4 ">Quantity</th>
-                    <th className="  py-2 px-4 ">Individual Price</th>
-                    <th className="  py-2 px-4 ">Total </th>
+                  <tr className="border-2 border-black">
+                    <th className="sticky left-0 w-20  py-2 px-4  bg-gray-200 ">Items</th>
+                    <th className="  py-2 px-4 border-x">Quantity</th>
+                    <th className="  py-2 px-4 border-x">Individual Price</th>
+                    <th className="  py-2 px-4 border-x">Total </th>
                   </tr>
                 </thead>
                 <tbody>
                   {itemsSingeBill?.map((items) => {
                     return (
-                      <tr className="text-center">
-                        <td className="sticky left-0 w-2/5  bg-white px-2 border whitespace-nowrap">
+                      <tr className="text-center border-2 border-black ">
+                        <td className="sticky left-0 w-2/5  bg-white px-2 border whitespace-nowrap ">
                           {items?.item}
                         </td>
-                        <td className=" py-2  w-1/5 border whitespace-nowrap">
+                        <td className=" py-2  w-1/5 border-x whitespace-nowrap">
                           {items?.qty}
                         </td>
-                        <td className=" py-2  w-1/5 border  whitespace-nowrap text-sm">
+                        <td className=" py-2  w-1/5 border-x  whitespace-nowrap text-sm">
                           {items?.price} Rs
                         </td>
-                        <td className=" py-2 w-1/5 border whitespace-nowrap text-sm">
+                        <td className=" py-2 w-1/5 border-x whitespace-nowrap text-sm">
                           {items?.cost} Rs
                         </td>
                       </tr>
