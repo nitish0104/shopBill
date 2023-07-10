@@ -185,6 +185,7 @@ const GetBills = () => {
                           id={customer?.customerId?._id}
                           mobileNumber={customer?.customerId?.customerNumber}
                           grandTotal={customer?.grandtotal}
+                        time = {moment(customer?.createdAt).format("h:mm a")}
                           div={
                             <button
                               className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-start "

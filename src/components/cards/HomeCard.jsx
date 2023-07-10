@@ -15,6 +15,7 @@ const CustomerCard = ({
   div,
   ref,
   id,
+  time
 }) => {
   const navigate = useNavigate();
   const { isDarkMode } = ThemeContextAuth();
@@ -62,8 +63,10 @@ const CustomerCard = ({
               &#8377;{amount}
             </button>
 
-            
+            <div>
               <div className="text-center font-semibold " >{formattedDate}</div>
+              <p className="text-sm text-center">{time}</p>
+            </div>
         
           </div>
         </div>
