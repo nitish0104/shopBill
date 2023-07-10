@@ -6,7 +6,7 @@ import { TbReceiptTax } from "react-icons/tb";
 import { GoLocation } from "react-icons/go";
 import { TiBusinessCard } from "react-icons/ti";
 
-import LayoutManin from "../components/layout/LayoutManin";
+import LayoutMain from "../components/layout/LayoutMain";
 import { User, Save, Type } from "react-feather";
 const ProfilePage = () => {
   const [logo, setLogo] = useState("");
@@ -18,7 +18,7 @@ const ProfilePage = () => {
   return (
     <>
       <div className="min-h-screen h-auto">
-        <LayoutManin
+        <LayoutMain
           className={
             "flex justify-center min-h-screen h-fit items-center flex-col bg-gray-900"
           }
@@ -168,12 +168,6 @@ const ProfilePage = () => {
               </div>
             </div>
 
-            {/* <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md mt-4"
-            >
-              Submit
-            </button> */}
 
             <button
               className={`bg-blue-500 hover:bg-blue-600 text-white py-2 text-2xl  px-4 rounded-lg ${
@@ -185,7 +179,7 @@ const ProfilePage = () => {
               Save
             </button>
           </form>
-        </LayoutManin>
+        </LayoutMain>
       </div>
     </>
   );

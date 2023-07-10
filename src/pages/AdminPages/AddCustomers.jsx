@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import LayoutManin from "../../components/layout/LayoutManin";
+import LayoutMain from "../../components/layout/LayoutMain";
 import Sidebar from "../../components/Sidebar";
 import Navigation from "../../components/Navigation";
 import { AiOutlineUserAdd } from "react-icons/ai";
@@ -67,11 +67,11 @@ const AddCustomers = () => {
     navigate("/add-items");
   };
 
-  // console.log(searchedCustomer);
+  
 
   return (
     <>
-      <LayoutManin>
+      <LayoutMain>
         {modal.show && (
           <AddCustomerModal
             data={modal.show && modal.data}
@@ -145,7 +145,7 @@ const AddCustomers = () => {
             </button>
           </div>
         </div>
-      </LayoutManin>
+      </LayoutMain>
     </>
   );
 };

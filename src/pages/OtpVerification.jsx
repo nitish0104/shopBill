@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import LayoutManin from "../components/layout/LayoutManin";
+import LayoutMain from "../components/layout/LayoutMain";
 import temp_logo from "../images/temp_logo.svg";
 import LoginWithOTP from "../components/Button/LoginWithOTP";
 import { Link, useNavigate } from "react-router-dom";
@@ -27,7 +27,7 @@ const VerifyOTP = () => {
     setTimerActive(true);
     setTimer(60);
 
-    if (mobileNo.length == 10) {
+    if (mobileNo.length === 10) {
       e.preventDefault();
       try {
         await axios(
@@ -72,7 +72,7 @@ const VerifyOTP = () => {
 
   // Function to handle form submission
   const handleSubmitotp = async (e) => {
-    if (otp.length == 6) {
+    if (otp.length === 6) {
       setLoading(true);
 
       e.preventDefault();
@@ -164,7 +164,7 @@ const VerifyOTP = () => {
 
   return (
     <>
-      <LayoutManin>
+      <LayoutMain>
         <div
           className="w-screen h-screen   md:flex md:items-center md:justify-center "
           data-aos="zoom-in"
@@ -245,7 +245,7 @@ const VerifyOTP = () => {
           </div>
         </div>
         <ToastContainer />
-      </LayoutManin>
+      </LayoutMain>
     </>
   );
 };

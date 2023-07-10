@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import LayoutManin from "../../components/layout/LayoutManin";
+import LayoutMain from "../../components/layout/LayoutMain";
 import Sidebar from "../../components/Sidebar";
 import Navigation from "../../components/Navigation";
-import "react-datepicker/dist/react-datepicker.css";
-
 import { AiOutlineShop } from "react-icons/ai";
 import { IoBusinessOutline } from "react-icons/io5";
 import { HiOutlineReceiptTax } from "react-icons/hi";
@@ -102,7 +100,7 @@ const Main = () => {
 
   return (
     <>
-      <LayoutManin>
+      <LayoutMain>
         <Sidebar />
         <div
           className={` overflow-auto md:overflow-y-hidden w-screen min-h-screen h-auto  rounded-t-lg pt-4 ${
@@ -282,7 +280,7 @@ const Main = () => {
         <ToastContainer />
 
         <Navigation />
-      </LayoutManin>
+      </LayoutMain>
     </>
   );
 };

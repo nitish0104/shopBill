@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { ContextAuth } from "../../context/Context";
 
 import { useRef } from "react";
-import html2canvas from "html2canvas";
+
 import { AiOutlinePrinter } from "react-icons/ai";
 import { BiArrowBack } from "react-icons/bi";
 import Sidebar from "../../components/Sidebar";
@@ -19,14 +19,7 @@ const ShowSingleBill = () => {
   const { id } = useParams();
   const { business, formState } = ContextAuth();
   const { isDarkMode } = ThemeContextAuth();
-  const handleDownload = () => {
-    html2canvas(contentRef.current).then((canvas) => {
-      const link = document.createElement("a");
-      link.href = canvas.toDataURL();
-      link.download = "download.png";
-      link.click();
-    });
-  };
+  
   const contentRef = useRef(null);
   useEffect(() => {
     window.addEventListener('afterprint', (e) => {
@@ -124,16 +117,16 @@ const ShowSingleBill = () => {
                   return (
                     <tr className="text-center">
                       <td className="sticky left-0 w-2/5  bg-white px-2 border whitespace-nowrap">
-                        {items.item}
+                        {items?.item}
                       </td>
                       <td className=" py-2  w-1/5 border whitespace-nowrap">
-                        {items.qty}
+                        {items?.qty}
                       </td>
-                      <td className=" py-2  w-1/5 border  whitespace-nowrap">
-                        {items.price} Rs
+                      <td className=" py-2  w-1/5 border  whitespace-nowrap text-sm">
+                        {items?.price} Rs
                       </td>
-                      <td className=" py-2 w-1/5 border whitespace-nowrap">
-                        {items.cost} Rs
+                      <td className=" py-2 w-1/5 border whitespace-nowrap text-sm">
+                        {items?.cost} Rs
                       </td>
                     </tr>
                   );
@@ -144,47 +137,30 @@ const ShowSingleBill = () => {
                   <td colSpan="3" className="text-right py-2 px-4 font-bold ">
                     Subtotal:
                   </td>
-                  <td className="py-2 pl-2 ">{singleBill?.grandtotal} Rs</td>
+                  <td className="py-2 text-sm">{singleBill?.grandtotal} Rs</td>
                 </tr>
                 <tr>
                   <td colSpan="3" className="text-right py-2 px-4 font-bold ">
                     Discount:
                   </td>
-                  <td className="py-2 pl-2 border-b border-black">
+                  <td className="py-2  border-b border-black text-sm">
                     {singleBill?.discount} Rs
                   </td>
                 </tr>
 
                 <tr>
-                  <td colSpan="3" className="text-right py-2 px-4 font-bold">
+                  <td colSpan="3" className="text-right py-2 px-4 font-bold ">
                     Total:
                   </td>
-                  <td className="py-2 pl-2 font-bold">
+                  <td className="py-2  font-bold text-sm ">
                     {singleBill?.grandtotal - singleBill?.discount} Rs
                   </td>
                 </tr>
               </tfoot>
             </table>
-            {/* <div className=" ">
-            <div className="p-4 flex justify-end items-end flex-col">
-            <div className="flex gap-x-2 justify-between">
-                <p>Subtotal:</p>
-                <p>{singleBill?.grandtotal} Rs</p>
-                </div>
-                <div className="flex gap-x-2 items-start">
-                <p>Discount:</p>
-                <p>{singleBill?.discount} Rs</p>
-                </div>
-              <div className="flex gap-x-2">
-                <p>Total:</p>
-                <p>{singleBill?.grandtotal - singleBill?.discount} Rs</p>
-              </div>
-            </div>
-          </div> */}
-
             <div className="px-4 pt-4 ">
               <p className="text-center font-bold text-xl">
-                Thanks! Visit Again.
+                Thanks, Visit Again!
               </p>
             </div>
           </div>

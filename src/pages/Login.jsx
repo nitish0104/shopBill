@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import LayoutManin from "../components/layout/LayoutManin";
+import LayoutMain from "../components/layout/LayoutMain";
 import temp_logo from "../images/temp_logo.svg";
-import LoginWithOTP from "../components/Button/LoginWithOTP";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ContextAuth } from "../context/Context";
@@ -9,7 +8,7 @@ import Input from "../components/Input/Input";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { useContext } from "react";
+
 import Spinner from "../components/Spinner";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -20,7 +19,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleSubmitnumber = async (e) => {
-    if (mobileNo.length == 10) {
+    if (mobileNo.length >= 10) {
       setLoading(true);
 
       e.preventDefault();
@@ -84,7 +83,7 @@ const Login = () => {
   return (
     
 <>
-<LayoutManin>
+<LayoutMain>
 
       <div className="w-screen h-screen   md:flex md:items-center md:justify-center ">
         <div
@@ -136,7 +135,7 @@ const Login = () => {
       <ToastContainer />
     
 
-                </LayoutManin>
+                </LayoutMain>
 
 
 </>

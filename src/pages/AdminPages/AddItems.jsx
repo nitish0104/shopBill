@@ -1,21 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import LayoutMain from "../../components/layout/LayoutManin";
+import LayoutMain from "../../components/layout/LayoutMain";
 import Sidebar from "../../components/Sidebar";
-import html2canvas from "html2canvas";
 import noItems from "../../images/noItems.svg";
-import { BiArrowBack } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 import { AiFillDelete, AiOutlineEdit, AiOutlineSave } from "react-icons/ai";
-import { BsWhatsapp } from "react-icons/bs";
-import { FaRegMoneyBillAlt, FaRupeeSign } from "react-icons/fa";
-import { ImCancelCircle } from "react-icons/im";
-import WhatsAppButton from "react-whatsapp-button";
+import { FaRupeeSign } from "react-icons/fa";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { ContextAuth } from "../../context/Context";
 import Spinner from "../../components/Spinner";
-import { input } from "@material-tailwind/react";
 import Navigation from "../../components/Navigation";
 
 const AddItems = () => {
@@ -25,7 +19,6 @@ const AddItems = () => {
   const [individualPrice, setIndividualPrice] = useState(0);
   const [items, setItems] = useState([]);
   const [pending, setPending] = useState(0);
-  const [paid, setPaid] = useState(0);
   const [grandtotal, setGrandtotal] = useState(0);
   const { isDarkMode } = ThemeContextAuth();
   const [discount, setDiscount] = useState(0);
@@ -35,8 +28,6 @@ const AddItems = () => {
   const business = jwtDecode(`${localStorage.getItem("token")}`);
   const businessId = business._id;
   const [data, setData] = useState([]);
-  const phoneNumber = "9819094281"; // Replace with your phone number
-  const message = "Hello, how can I help you?"; // Replace with your desired message
 
   useEffect(() => {
     if (items) {
@@ -49,14 +40,7 @@ const AddItems = () => {
       setGrandtotal(total);
     }
   }, [items]);
-  const handleDownload = () => {
-    html2canvas(contentRef.current).then((canvas) => {
-      const link = document.createElement("a");
-      link.href = canvas.toDataURL();
-      link.download = "download.png";
-      link.click();
-    });
-  };
+  
   const contentRef = useRef(null);
 
   const navigate = useNavigate();
@@ -117,15 +101,7 @@ const AddItems = () => {
     newItems.splice(index, 1);
     setItems(newItems);
   };
-  // const handleInputChange = (e, index) => {
-  //   const newValue = e.target.value;
 
-  //   setData((items) => {
-  //     const newData = [...items];
-  //     newData[index] = { ...newData[index], value: newValue };
-  //     return newData;
-  //   });
-  // };
 
   const getBill = async () => {
     setLoading(true);
@@ -313,7 +289,7 @@ const AddItems = () => {
                           className={`border-b-2  text-x text-center   ${
                             isDarkMode
                               ? "bg-gray-800 text-white"
-                              : "bg-white  text-black"
+                              : "bg-white  text-black border-black"
                           }`}
                         >
                           <td
@@ -403,8 +379,8 @@ const AddItems = () => {
                                 type="number"
                                 className={`border  text-center md:w-32 w-24  border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500  ${
                                   isDarkMode
-                                    ? "bg-gray-800 text-white border-black"
-                                    : "bg-white  text-gray-800 border-white"
+                                    ? "bg-gray-800 text-white border-white"
+                                    : "bg-white  text-gray-800 border-black"
                                 }`}
                                 value={price}
                                 onChange={(e) => {
@@ -443,22 +419,13 @@ const AddItems = () => {
                               <AiFillDelete></AiFillDelete>
                             </button>
                           </td>
-                          {/* <button
-                            className="w-full"
-                            onClick={() => {
-                              handleSplice(index);
-                            }}
-                          >
-                            <td className="py-2 px-4  text-center flex justify-center hover:bg-red-500 rounded-lg  whitespace-nowrap ">
-                              <AiFillDelete></AiFillDelete>
-                            </td>
-                          </button> */}
+                          
                         </tr>
                       );
                     })}
                   </tbody>
                 </table>
-                <div className=" w-full flex justify-center sticky left-0  pr-2 pt-4 gap-x-3">
+                <div className=" w-full flex justify-center sticky left-0  pt-4 gap-x-3">
                   <div
                     className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
                       isDarkMode ? "border-white" : "border-black"

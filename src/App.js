@@ -13,26 +13,12 @@ import GetBills from './pages/AdminPages/GetBills';
 import Card from '../src/theme/DarkMode';
 import { ThemeProvider } from './context/ThemeContext';
 import AddItems from './pages/AdminPages/AddItems';
-import GeneratedBill from './pages/AdminPages/GeneratedBill';
-import SendMessage from './pages/AdminPages/SendMessage';
-import WhatsAppMessageButton from './raw/WhatsappTest';
-import Date from './raw/DateTest';
+
 import VerifyOTP from './pages/OtpVerification';
 import ShowCustomerDetails from './pages/AdminPages/ShowCustomerDetails';
-import ShareToWhatsApp from './raw/WhatsappPdf';
-import ShareContent from './raw/WhatsappPdf';
-import FilterTest from './raw/FilterTest';
-import DateTest from './raw/DateTest';
-import CardList from './raw/DateTest';
-import CardComponent from './raw/DateTest';
-import TestForm from './raw/FormTest';
-import DateFormat from './raw/DateFormat';
-import TableEdit from './raw/TableEdit';
-import Table from './raw/TableEdit';
-// import Invoice from './raw/Invoice';
+
 import ShowSingleBill from './pages/AdminPages/ShowSingleBill';
-import CloudinaryUpload from './components/CloudinaryUpload';
-import CardFilter from './raw/DtaeTestFilter';
+
 
 
 function App() {
@@ -51,20 +37,10 @@ function App() {
               <Route path="/add-customer" element={<AddCustomers />} />
               <Route path="/get-bill" element={<GetBills />} />
               <Route path="/darkmode" element={<Card />} />
-              <Route path="/add-items" element={<AddItems />} />
-              <Route path="/generated-bill" element={<GeneratedBill />} />
-              <Route path="/send-message" element={<SendMessage />} />
-              <Route path="/sendWhatsAppmessage" element={<WhatsAppMessageButton />} />
-              <Route path="/sendWhatsAppmessagePdf" element={<ShareToWhatsApp />} />
-              <Route path="/filtertest" element={<FilterTest />} />
-              <Route path="/dateformat" element={<DateFormat />} />
-              <Route path="/tabletest" element={<Table />} />
-              <Route path="/formtest" element={<TestForm />} />
-              <Route path="/datetest" element={<CardComponent />} />
-              <Route path="/table-edit" element={<TableEdit />} />
+              <Route path="/add-items" element={<AddItems />} />           
               <Route path="/invoice/:id" element={<ShowSingleBill />} />
               <Route path="/customer-details/:id" element={<ShowCustomerDetails />} />
-              <Route path="/cloudinaryupload" element={<CloudinaryUpload />} />
+
             </Routes>
           </ThemeProvider>
         </Context>

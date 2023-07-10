@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import LayoutManin from "../../components/layout/LayoutManin";
+import LayoutMain from "../../components/layout/LayoutMain";
 import Sidebar from "../../components/Sidebar";
-import DatePicker, { ReactDatePicker } from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import Input from "../../components/Input/Input";
 import {
   format,
@@ -29,7 +27,6 @@ import jwtDecode from "jwt-decode";
 import { BiArrowBack } from "react-icons/bi";
 import Navigation from "../../components/Navigation";
 import PageLoader from "../../components/PageLoader";
-import ShowSingleBillModal from "../../Modal/ShowSingleBillModal";
 import moment from "moment";
 const ShowCustomerDetails = () => {
   const { isDarkMode } = ThemeContextAuth();
@@ -102,70 +99,97 @@ const ShowCustomerDetails = () => {
   const [selectedDate, setSelectedDate] = useState("");
 
   const handleFilterChange = (event) => {
+    setSelectedDate("");
     setFilter(event.target.value);
-    setSelectedDate(null);
-  };
-
-  const handleDateChange = (e) => {
-    setSelectedDate(e.target.value);
-    let finalData = viewCustomerBills?.map((bills) => {
-      let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
+    const finalData = viewCustomerBills?.map((bill) => {
+      const filterDate = moment(bill?.createdAt).format("YYYY-MM-DD");
       return {
-        ...bills,
-        filterDate: finalDate,
+        ...bill,
+        filterDate: filterDate,
+        filterDateMilliseconds: moment(bill?.createdAt).format("X"),
       };
     });
-    const filteredResults = finalData?.filter((data) => {
-      return data?.filterDate === e.target.value;
-    });
-    setFilterResults(filteredResults);
-    console.log(filterResults);
-    const selected = parse(e.target.value, "yyyy-MM-dd", new Date());
-    const formattedDate = format(selected, "dd MMM yyyy");
-    // console.log(formattedDate);
+    if (event.target.value === "all") {
+      setFilterResults(viewCustomerBills);
+    } else if (event.target.value === "today") {
+      const today = moment().format("YYYY-MM-DD");
+      setFilterResults(
+        finalData?.filter((bill) => {
+          return bill?.filterDate === today;
+        })
+      );
+    } else if (event.target.value === "yesterday") {
+      const yesterday = moment().subtract(1, "days").format("YYYY-MM-DD");
+      setFilterResults(
+        finalData?.filter((bill) => {
+          return bill?.filterDate === yesterday;
+        })
+      );
+    } else if (event.target.value === "lastWeek") {
+      const lastWeek = moment().subtract(1, "week").format("X");
+      const today = moment().format("X");
+      setFilterResults(
+        finalData?.filter((bill) => {
+          return (
+            lastWeek <= bill?.filterDateMilliseconds &&
+            bill?.filterDateMilliseconds < today
+          );
+        })
+      );
+    } else if (event.target.value === "lastMonth") {
+      const lastMonth = moment().subtract(1, "months").format("X");
+      const today = moment().format("X");
+      setFilterResults(
+        finalData?.filter((bill) => {
+          return (
+            lastMonth <= bill?.filterDateMilliseconds &&
+            bill?.filterDateMilliseconds < today
+          );
+        })
+      );
+    } else if (event.target.value === "lastYear") {
+      const lastYear = moment().subtract(1, "years").format("X");
+      const today = moment().format("X");
+      setFilterResults(
+        finalData?.filter((bill) => {
+          return (
+            lastYear <= bill?.filterDateMilliseconds &&
+            bill?.filterDateMilliseconds < today
+          );
+        })
+      );
+    } else {
+      setFilterResults(viewCustomerBills);
+    }
   };
 
-  const filteredCards = filterResults?.filter((card) => {
-    const cardDate = format(new Date(card?.createdAt), "dd MMM yyyy");
-    // const cardDate = moment(car?.createdAt).format("YYYY-MM-DD");
-    // console.log(cardDate);
 
-    if (filter === "today") {
-      const today = format(new Date(), "dd MMM yyyy");
-      return cardDate === today;
-    } else if (filter === "yesterday") {
-      const yesterday = moment(subDays(new Date(), 1), "dd MMM yyyy");
-      return cardDate === yesterday;
-    } else if (filter === "lastweek") {
-      const lastWeek = format(subWeeks(new Date(), 1), "dd MMM yyyy");
-      return cardDate >= lastWeek && cardDate <= new Date();
-    } else if (filter === "lastmonth") {
-      const lastMonth = format(subMonths(new Date(), 1), "dd MMM yyyy");
-      return cardDate >= lastMonth && cardDate <= new Date();
-    } else if (filter === "lastyear") {
-      const lastYear = format(subYears(new Date(), 1), "dd MMM yyyy");
-      return cardDate >= lastYear && cardDate <= new Date();
+  useEffect(() => {
+    if (selectedDate?.length !== 0) {
+      setFilter("all")
+      let finalData = viewCustomerBills?.map((bills) => {
+        let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
+        return {
+          ...bills,
+          filterDate: finalDate,
+        };
+      });
+      const filteredResults = finalData?.filter((data) => {
+        return data?.filterDate === selectedDate;
+      });
+      setFilterResults(filteredResults);
     } else {
-      return true;
+      setFilterResults(viewCustomerBills)
     }
-  });
+  }, [selectedDate]);
 
-  const filteredCardsByDate = selectedDate
-    ? allCustomer.filter((card) => card.date === selectedDate)
-    : filteredCards;
 
   const handleSingleBill = (_id) => {
     naviGate(`/invoice/${_id}`);
   };
   return (
     <>
-      <LayoutManin>
-        {modal.show && (
-          <ShowSingleBillModal
-            data={modal.show && modal.data}
-            setmodal={setModal}
-          />
-        )}
+      <LayoutMain>
         <Sidebar />
         <Navigation />
         <div className="overflow-y-auto pb-20">
@@ -227,122 +251,73 @@ const ShowCustomerDetails = () => {
               >
                 All
               </option>
-              <option className={`  ${
+              <option
+                className={`  ${
                   isDarkMode
                     ? "bg-gray-800 text-white"
                     : "bg-white text-gray-800"
-                }`} value="today">Today</option>
-              <option className={`  ${
+                }`}
+                value="today"
+              >
+                Today
+              </option>
+              <option
+                className={`  ${
                   isDarkMode
                     ? "bg-gray-800 text-white"
                     : "bg-white text-gray-800"
-                }`} value="yesterday">Yesterday</option>
-              <option className={`  ${
+                }`}
+                value="yesterday"
+              >
+                Yesterday
+              </option>
+              <option
+                className={`  ${
                   isDarkMode
                     ? "bg-gray-800 text-white"
                     : "bg-white text-gray-800"
-                }`} value="lastWeek">Last Week</option>
-              <option className={`  ${
+                }`}
+                value="lastWeek"
+              >
+                Last Week
+              </option>
+              <option
+                className={`  ${
                   isDarkMode
                     ? "bg-gray-800 text-white"
                     : "bg-white text-gray-800"
-                }`} value="lastMonth">Last Month</option>
-              <option className={`  ${
+                }`}
+                value="lastMonth"
+              >
+                Last Month
+              </option>
+              <option
+                className={`  ${
                   isDarkMode
                     ? "bg-gray-800 text-white"
                     : "bg-white text-gray-800"
-                }`} value="lastYear">Last Year</option>
+                }`}
+                value="lastYear"
+              >
+                Last Year
+              </option>
             </select>
 
             <input
               type="date"
               value={selectedDate}
-              onChange={handleDateChange}
+              onChange={(e) => {
+                setSelectedDate(e.target.value);
+              }}
               className="outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[45vw]"
             />
           </div>
 
-          {/* <div className="overflow-x-scroll px-4 pt-4 flex flex-col gap-y-6 items-center">
-            {filteredCardsByDate?.map((value, index) => {
-              return (
-                <div key={index}>
-                  <div
-                    className="pb-2 px-1 "
-                    onClick={() => {
-                      toggle(index);
-                    }}
-                  >
-                    <div
-                      className={`${
-                        selected === index
-                          ? "flex justify-between items-center border p-2"
-                          : "flex justify-between items-center  border border-black p-2"
-                      } `}
-                    >
-                      <p>Date: {value?.date}</p>
-                      <p>Grand Total: {value?.grandTotal}</p>
-
-                      <button className="  font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-center ">
-                        {selected === index ? (
-                          <AiOutlineMinus className="text-xl"></AiOutlineMinus>
-                        ) : (
-                          <AiOutlinePlus className="text-xl"></AiOutlinePlus>
-                        )}
-                      </button>
-                    </div>
-                  </div>
-
-                  <div
-                    className={`${
-                      selected === index
-                        ? "cursor-pointer block h-auto max-h-full  "
-                        : "max-h-0 overflow-hidden cursor-pointer"
-                    }  `}
-                  >
-                    <table
-                      className={`min-w-full divide-y divide-gray-200" border-2 border-b-black p-2  border-collapse rounded-lg ${
-                        isDarkMode
-                          ? "border-white"
-                          : "border-black border-b-black"
-                      }`}
-                    >
-                      <thead>
-                        <tr className="  border-b-2 py-2  text-center">
-                          <th className=" bg-white py-2 px-4  ">Item</th>
-                          <th className=" bg-white py-2 px-4 ">Quantity</th>
-                          <th className=" bg-white py-2 px-4 ">Individual</th>
-                          <th className=" bg-white py-2 px-4 ">Total</th>
-                        </tr>
-                      </thead>
-
-                      <tbody className="bg-white divide-y divide-gray-200 flex">
-                        <div>
-                          <tr className=" border-b-2 py-2 border-black text-x text-center flex flex-col ">
-                            {value.items?.map((value, index) => {
-                              return (
-                                <td
-                                  className=" bg-white py-2 px-4 border whitespace-nowrap"
-                                  key={index}
-                                >
-                                  {value}
-                                </td>
-                              );
-                            })}
-                          </tr>
-                        </div>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              );
-            })}
-          </div> */}
-
           {!loading ? (
             <div>
-              {filteredCards?.length > 0 ? (
+              {filterResults?.length > 0 ? (
                 <div>
-                  {filteredCards?.map((value, index) => {
+                  {filterResults?.map((value, index) => {
                     return (
                       <div
                         key={index}
@@ -352,9 +327,11 @@ const ShowCustomerDetails = () => {
                           onClick={() => {
                             handleSingleBill(value?._id);
                           }}
-                            className={`flex    duration-200 justify-between items-center py-3 px-2  hover:shadow-md  shadow-sm shadow-blue-200 outline-none  border border-gray-300 bg-transparent   hover:shadow-blue-200 rounded-md md:w-[30vw] w-full cursor-pointer   ${
-                              isDarkMode ? "hover:border-white" : "hover:border-black"
-                            }`}
+                          className={`flex    duration-200 justify-between items-center py-3 px-2  hover:shadow-md  shadow-sm shadow-blue-200 outline-none  border border-gray-300 bg-transparent   hover:shadow-blue-200 rounded-md md:w-[30vw] w-full cursor-pointer   ${
+                            isDarkMode
+                              ? "hover:border-white"
+                              : "hover:border-black"
+                          }`}
                         >
                           <p className="flex items-center gap-x-1">
                             Date:{" "}
@@ -392,7 +369,7 @@ const ShowCustomerDetails = () => {
             <PageLoader className={"h-[40vh]"} />
           )}
         </div>
-      </LayoutManin>
+      </LayoutMain>
     </>
   );
 };

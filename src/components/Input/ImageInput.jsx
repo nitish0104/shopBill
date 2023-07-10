@@ -55,32 +55,6 @@ const ImageUploadComponent = ({ businessLogo, setformState, formState , isEditab
     }
   };
 
-  const handleImageRemove = () => {
-    setSelectedImage(null);
-    setIsImageSelected(false);
-    if (publicId) {
-      fetch(`https://api.cloudinary.com/v1_1/dtu9gszzu/image/destroy`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          public_ids: publicId,
-          upload_preset: "dva9i9vs", 
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setSelectedImage(null);
-          setIsImageSelected(false);
-          setPublicId(null);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    }
-  };
-
   return (
     <div className="max-w-md mx-auto ">
       <h1 className="text-lg font-bold mb-2 text-center">Business Logo</h1>

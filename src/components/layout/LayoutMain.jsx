@@ -1,7 +1,7 @@
 import React from "react";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 
-const LayoutManin = ({ children, className }) => {
+const LayoutMain = ({ children, className }) => {
   const { isDarkMode } = ThemeContextAuth();
 
   return (
@@ -16,4 +16,4 @@ const LayoutManin = ({ children, className }) => {
   );
 };
 
-export default LayoutManin;
+export default LayoutMain;

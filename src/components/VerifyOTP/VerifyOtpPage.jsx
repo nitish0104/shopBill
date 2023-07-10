@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import temp_verify from "../../images/temp_verify.svg";
-import LayoutManin from "../layout/LayoutManin";
+import LayoutMain from "../layout/LayoutMain";
 import { ContextAuth } from "../../context/Context";
 
 const VerifyOtpPage = () => {
@@ -54,7 +54,7 @@ const VerifyOtpPage = () => {
   }, [timer]);
 
   return (
-    <LayoutManin>
+    <LayoutMain>
       <div className=" relative flex flex-col items-center justify-start h-screen w-screen bg-gray-800">
         <img
           src={temp_verify}
@@ -119,7 +119,7 @@ const VerifyOtpPage = () => {
           )}
         </div>
       </div>
-    </LayoutManin>
+    </LayoutMain>
   );
 };
 

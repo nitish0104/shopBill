@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import LayoutManin from "../components/layout/LayoutManin";
+import LayoutMain from "../components/layout/LayoutMain";
 import temp_img from "../images/temp_img.svg";
 import { useNavigate } from "react-router";
 
@@ -17,7 +17,7 @@ const InitialPage = () => {
   }, [navigate]);
   return (
     <div>
-      <LayoutManin>
+      <LayoutMain>
         <div className="relative flex items-center justify-center h-screen transition duration-500 ease-in delay-500 bg-gray-800 ">
           <img
             src={temp_img}
@@ -29,7 +29,7 @@ const InitialPage = () => {
             <div className="text-center text-white mt-4">Kirana</div>
           </div>
         </div>
-      </LayoutManin>
+      </LayoutMain>
     </div>
   );
 };

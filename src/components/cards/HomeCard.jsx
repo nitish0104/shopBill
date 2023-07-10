@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Modal from "../Modal/CustomerModal";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
 function formatDate(dateString) {
@@ -69,22 +68,7 @@ const CustomerCard = ({
           </div>
         </div>
       </div>
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
-          <h2 className="text-xl font-bold mb-4">Purchased Items</h2>
-
-          <ul>
-            {items.map((item, index) => (
-              <li className="text-lg text text-center text-black" key={index}>
-                {item}
-              </li>
-            ))}
-          </ul>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
-            Edit Items
-          </button>
-        </Modal>
-      )}
+      
     </>
   );
 };

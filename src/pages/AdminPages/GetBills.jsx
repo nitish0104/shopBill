@@ -1,29 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
-import LayoutManin from "../../components/layout/LayoutManin";
+import LayoutMain from "../../components/layout/LayoutMain";
 import Sidebar from "../../components/Sidebar";
 import Navigation from "../../components/Navigation";
 import CustomerCard from "../../components/cards/HomeCard";
-import DatePicker, { ReactDatePicker } from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import html2canvas from "html2canvas";
+
 import { BsWhatsapp } from "react-icons/bs";
 import Modal from "react-modal";
-import { AiFillCloseCircle, AiFillFilter } from "react-icons/ai";
-import { parse, parseISO, subWeeks } from "date-fns";
 import axios from "axios";
-import { format } from "date-fns";
 import { ContextAuth } from "../../context/Context";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 import noItems from "../../images/noItems.svg";
 import PageLoader from "../../components/PageLoader";
-import { subDays, subMonths, subYears } from "date-fns";
 import moment from "moment";
 
 const GetBills = () => {
   const { allCustomer } = ContextAuth();
-  // const phoneNumber = "9819094281"; // Replace with your phone number
   const message = "Maggie(8) -40Rs  "; // Replace with your desired message
   const [businessBills, setBusinessBills] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -40,6 +33,7 @@ const GetBills = () => {
       })
         .then((res) => {
           setBusinessBills(res?.data?.response);
+          console.log(res?.data?.response);
           setLoading(false);
         })
         .catch((err) => console.log(err));
@@ -140,41 +134,14 @@ const GetBills = () => {
   }, [selectedDate]);
 
 
-  // useEffect(() => {
-  //   const filteredCards = filterResults.filter((card) => {
-  //     const cardDate = new Date(card?.createdAt);
-  //     if (filter === "today") {
-  //       const today = format(new Date(), "dd MMM yyyy");
-  //       return cardDate === today;
-  //     } else if (filter === "yesterday") {
-  //       const yesterday = format(subDays(new Date(), 1), "dd MMM yyyy");
-  //       return cardDate === yesterday;
-  //     } else if (filter === "lastweek") {
-  //       const lastWeek = format(subWeeks(new Date(), 1), "dd MMM yyyy");
-  //       console.log(lastWeek)
-  //       return cardDate >= lastWeek && cardDate <= new Date();
-  //     } else if (filter === "lastmonth") {
-  //       const lastMonth = format(subMonths(new Date(), 1), "dd MMM yyyy");
-  //       return cardDate >= lastMonth && cardDate <= new Date();
-  //     } else if (filter === "lastyear") {
-  //       const lastYear = format(subYears(new Date(), 1), "dd MMM yyyy");
-  //       return cardDate >= lastYear && cardDate <= new Date();
-  //     } else {
-  //       return true;
-  //     }
-  //   });
-  // }, [businessBills, filter]);
-
-  // const filteredCardsByDate = selectedDate
-  //   ? allCustomer.filter((card) => card.date === selectedDate)
-  //   : filteredCards;
+  
 
   useEffect(() => {
     AOS.init();
   }, []);
   return (
     <>
-      <LayoutManin>
+      <LayoutMain>
         <Sidebar />
         <div className=" md:w-[70vw] w-[100vw]  flex justify-center items-center  my-9 mx-auto">
           <div>
@@ -259,7 +226,7 @@ const GetBills = () => {
           </div>
         </div>
         <Navigation />
-      </LayoutManin>
+      </LayoutMain>
     </>
   );
 };
