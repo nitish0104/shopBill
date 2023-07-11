@@ -182,6 +182,7 @@ const GetBills = () => {
                           name={customer?.customerId?.customerName}
                           date={dateObj}
                           amount={customer?.grandtotal}
+                          discount = {customer?.discount}
                           id={customer?.customerId?._id}
                           mobileNumber={customer?.customerId?.customerNumber}
                           grandTotal={customer?.grandtotal}

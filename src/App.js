@@ -18,8 +18,7 @@ import VerifyOTP from './pages/OtpVerification';
 import ShowCustomerDetails from './pages/AdminPages/ShowCustomerDetails';
 
 import ShowSingleBill from './pages/AdminPages/ShowSingleBill';
-
-
+import PDFSender from './Raw/WhatsappSendPdfTest';
 
 function App() {
   return (
@@ -37,10 +36,10 @@ function App() {
               <Route path="/add-customer" element={<AddCustomers />} />
               <Route path="/get-bill" element={<GetBills />} />
               <Route path="/darkmode" element={<Card />} />
-              <Route path="/add-items" element={<AddItems />} />           
+              <Route path="/add-items" element={<AddItems />} />
               <Route path="/invoice/:id" element={<ShowSingleBill />} />
               <Route path="/customer-details/:id" element={<ShowCustomerDetails />} />
-
+              <Route path='/sendbill' element={<PDFSender />} />
             </Routes>
           </ThemeProvider>
         </Context>

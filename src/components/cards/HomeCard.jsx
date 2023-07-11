@@ -15,7 +15,9 @@ const CustomerCard = ({
   div,
   ref,
   id,
-  time
+  time,
+  discount,
+
 }) => {
   const navigate = useNavigate();
   const { isDarkMode } = ThemeContextAuth();
@@ -60,7 +62,7 @@ const CustomerCard = ({
               className={"text-center  font-bold text-xl text-green-500"}
               onClick={handleColorChange}
             >
-              &#8377;{amount}
+              &#8377;{amount - discount}
             </button>
 
             <div>
