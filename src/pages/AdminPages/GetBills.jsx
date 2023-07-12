@@ -162,13 +162,21 @@ const GetBills = () => {
             <div className="flex flex-col justify-center gap-y-2">
               <div className="flex justify-center">
                 <DatePicker
-                      selected={startDate}
-                      onChange={handleDateChange}
-                      startDate={startDate}
-                      endDate={endDate}
-                      selectsRange
-                      popperPlacement="bottom-start"
-                      className="outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-fit w-1/2 "
+                   selected={startDate}
+                   onChange={handleDateChange}
+                   startDate={startDate}
+                   endDate={endDate}
+                   selectsRange
+                   dateFormat="dd/MMM/yyyy"
+                   popperPlacement="bottom-start"
+                   className="outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-fit w-fit "
+                   renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
+                     <div>
+                       <button onClick={decreaseMonth}>{'<'}</button>
+                       <span>{moment(date).format('MMM yyyy')}</span>
+                       <button onClick={increaseMonth}>{'>'}</button>
+                     </div>
+                   )}
                 />
               </div>
               <div className="flex justify-center items-center gap-x-4 mb-4 px-9">
