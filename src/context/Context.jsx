@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
+import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
+
 
 const Datacontext = createContext(null);
 
@@ -22,10 +25,39 @@ const Context = ({ children }) => {
   const [amount, setamount] = useState();
   const [logoUrl, setLogoUrl] = useState("");
   const [viewCustomerDetails, setViewCustomerDetails] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const updateUserDetails = (data) => {
     setUserDetails(data);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem('token');
+      
+      if (token) {
+        try {
+           await axios.get("https://khatabook-one.vercel.app/getregisterbusiness", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }).then(()=>{
+
+            navigate("/dashboard");
+          });
+          
+        } catch (error) {
+          navigate("/");
+        }
+      } else {
+        navigate('/login');
+      }
+    };
+
+    fetchData();
+  }, []);
+
 
   return (
     <Datacontext.Provider
