@@ -19,6 +19,7 @@ import ShowCustomerDetails from './pages/AdminPages/ShowCustomerDetails';
 
 import ShowSingleBill from './pages/AdminPages/ShowSingleBill';
 import PDFSender from './Raw/WhatsappSendPdfTest';
+import Mydate from './Raw/DateTest';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
               <Route path="/invoice/:id" element={<ShowSingleBill />} />
               <Route path="/customer-details/:id" element={<ShowCustomerDetails />} />
               <Route path='/sendbill' element={<PDFSender />} />
+              <Route path='/date' element={<Mydate />} />
             </Routes>
           </ThemeProvider>
         </Context>

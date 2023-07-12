@@ -14,7 +14,8 @@ import { ThemeContextAuth } from "../../context/ThemeContext";
 import noItems from "../../images/noItems.svg";
 import PageLoader from "../../components/PageLoader";
 import moment from "moment";
-
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 const GetBills = () => {
   const { allCustomer } = ContextAuth();
   const message = "Maggie(8) -40Rs  "; // Replace with your desired message
@@ -22,6 +23,14 @@ const GetBills = () => {
   const [loading, setLoading] = useState(false);
   const [filterResults, setFilterResults] = useState([]);
   const { isDarkMode } = ThemeContextAuth();
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const handleDateChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
   useEffect(() => {
     setLoading(true);
     try {
@@ -59,64 +68,72 @@ const GetBills = () => {
 
   const handleFilterChange = (event) => {
     setSelectedDate("");
-    setFilter(event.target.value)
+    setFilter(event.target.value);
     const finalData = businessBills?.map((bill) => {
-      const filterDate = moment(bill?.createdAt).format("YYYY-MM-DD")
+      const filterDate = moment(bill?.createdAt).format("YYYY-MM-DD");
       return {
         ...bill,
         filterDate: filterDate,
-        filterDateMilliseconds: moment(bill?.createdAt).format("X")
-      }
-    })
+        filterDateMilliseconds: moment(bill?.createdAt).format("X"),
+      };
+    });
     if (event.target.value === "all") {
       setFilterResults(businessBills);
     } else if (event.target.value === "today") {
       const today = moment().format("YYYY-MM-DD");
       setFilterResults(
         finalData?.filter((bill) => {
-          return bill?.filterDate === today
+          return bill?.filterDate === today;
         })
-      )
+      );
     } else if (event.target.value === "yesterday") {
-      const yesterday = moment().subtract(1, 'days').format("YYYY-MM-DD");
+      const yesterday = moment().subtract(1, "days").format("YYYY-MM-DD");
       setFilterResults(
         finalData?.filter((bill) => {
-          return bill?.filterDate === yesterday
+          return bill?.filterDate === yesterday;
         })
-      )
+      );
     } else if (event.target.value === "lastWeek") {
-      const lastWeek = moment().subtract(1, 'week').format("X");
+      const lastWeek = moment().subtract(1, "week").format("X");
       const today = moment().format("X");
       setFilterResults(
         finalData?.filter((bill) => {
-          return lastWeek <= bill?.filterDateMilliseconds && bill?.filterDateMilliseconds < today
+          return (
+            lastWeek <= bill?.filterDateMilliseconds &&
+            bill?.filterDateMilliseconds < today
+          );
         })
-      )
+      );
     } else if (event.target.value === "lastMonth") {
-      const lastMonth = moment().subtract(1, 'months').format("X");
+      const lastMonth = moment().subtract(1, "months").format("X");
       const today = moment().format("X");
       setFilterResults(
         finalData?.filter((bill) => {
-          return lastMonth <= bill?.filterDateMilliseconds && bill?.filterDateMilliseconds < today
+          return (
+            lastMonth <= bill?.filterDateMilliseconds &&
+            bill?.filterDateMilliseconds < today
+          );
         })
-      )
+      );
     } else if (event.target.value === "lastYear") {
-      const lastYear = moment().subtract(1, 'years').format("X");
+      const lastYear = moment().subtract(1, "years").format("X");
       const today = moment().format("X");
       setFilterResults(
         finalData?.filter((bill) => {
-          return lastYear <= bill?.filterDateMilliseconds && bill?.filterDateMilliseconds < today
+          return (
+            lastYear <= bill?.filterDateMilliseconds &&
+            bill?.filterDateMilliseconds < today
+          );
         })
-      )
+      );
     } else {
-      setFilterResults(businessBills)
+      setFilterResults(businessBills);
     }
   };
 
-
   useEffect(() => {
     if (selectedDate?.length !== 0) {
-      setFilter("all")
+      setFilter("all");
       let finalData = businessBills?.map((bills) => {
         let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
         return {
@@ -129,12 +146,9 @@ const GetBills = () => {
       });
       setFilterResults(filteredResults);
     } else {
-      setFilterResults(businessBills)
+      setFilterResults(businessBills);
     }
   }, [selectedDate]);
-
-
-  
 
   useEffect(() => {
     AOS.init();
@@ -145,28 +159,41 @@ const GetBills = () => {
         <Sidebar />
         <div className=" md:w-[70vw] w-[100vw]  flex justify-center items-center  my-9 mx-auto">
           <div>
-            <div className="flex justify-center items-center gap-x-4 mb-4 px-9">
-              <select
-                id="filter"
-                value={filter}
-                onChange={handleFilterChange}
-                className=" outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-1/2"
-              >
-                <option value="all">All</option>
-                <option value="today">Today</option>
-                <option value="yesterday">Yesterday</option>
-                <option value="lastWeek">Last Week</option>
-                <option value="lastMonth">Last Month</option>
-                <option value="lastYear">Last Year</option>
-              </select>
-              <input
-                type="date"
-                value={selectedDate}
-                onChange={(e) => {
-                  setSelectedDate(e.target.value);
-                }}
-                className=" outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-1/2"
-              />
+            <div className="flex flex-col justify-center gap-y-2">
+              <div className="flex justify-center">
+                <DatePicker
+                      selected={startDate}
+                      onChange={handleDateChange}
+                      startDate={startDate}
+                      endDate={endDate}
+                      selectsRange
+                      popperPlacement="bottom-start"
+                      className="outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-fit w-1/2 "
+                />
+              </div>
+              <div className="flex justify-center items-center gap-x-4 mb-4 px-9">
+                <select
+                  id="filter"
+                  value={filter}
+                  onChange={handleFilterChange}
+                  className=" outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-1/2"
+                >
+                  <option value="all">All</option>
+                  <option value="today">Today</option>
+                  <option value="yesterday">Yesterday</option>
+                  <option value="lastWeek">Last Week</option>
+                  <option value="lastMonth">Last Month</option>
+                  <option value="lastYear">Last Year</option>
+                </select>
+                <input
+                  type="date"
+                  value={selectedDate}
+                  onChange={(e) => {
+                    setSelectedDate(e.target.value);
+                  }}
+                  className=" outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-1/2"
+                />
+              </div>
             </div>
 
             {!loading ? (
@@ -182,11 +209,11 @@ const GetBills = () => {
                           name={customer?.customerId?.customerName}
                           date={dateObj}
                           amount={customer?.grandtotal}
-                          discount = {customer?.discount}
+                          discount={customer?.discount}
                           id={customer?.customerId?._id}
                           mobileNumber={customer?.customerId?.customerNumber}
                           grandTotal={customer?.grandtotal}
-                        time = {moment(customer?.createdAt).format("h:mm a")}
+                          time={moment(customer?.createdAt).format("h:mm a")}
                           div={
                             <button
                               className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-start "
@@ -211,8 +238,9 @@ const GetBills = () => {
                       </div>
 
                       <div
-                        className={`flex flex-col justify-center items-center   text-${isDarkMode ? "black" : "gray-800"
-                          } p-4`}
+                        className={`flex flex-col justify-center items-center   text-${
+                          isDarkMode ? "black" : "gray-800"
+                        } p-4`}
                       >
                         <span className="font-mono    text-xl">
                           Oop's! No Data Available.
