@@ -166,6 +166,7 @@ const GetBills = () => {
                    onChange={handleDateChange}
                    startDate={startDate}
                    endDate={endDate}
+                   placeholderText="dd/mm/yyyy"
                    selectsRange
                    dateFormat="dd/MMM/yyyy"
                    popperPlacement="bottom-start"
