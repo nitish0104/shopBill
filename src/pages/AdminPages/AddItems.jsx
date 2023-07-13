@@ -28,7 +28,8 @@ const AddItems = () => {
   const business = jwtDecode(`${localStorage.getItem("token")}`);
   const businessId = business._id;
   const [data, setData] = useState([]);
-
+  const [paid, setPaid] = useState(0);
+  const [unPaid, setUnPaid] = useState(0);
   useEffect(() => {
     if (items) {
       let total = 0;
@@ -40,7 +41,7 @@ const AddItems = () => {
       setGrandtotal(total);
     }
   }, [items]);
-  
+
   const contentRef = useRef(null);
 
   const navigate = useNavigate();
@@ -102,7 +103,6 @@ const AddItems = () => {
     setItems(newItems);
   };
 
-
   const getBill = async () => {
     setLoading(true);
 
@@ -115,6 +115,8 @@ const AddItems = () => {
           items: items,
           grandtotal: grandtotal,
           discount: Number(discount),
+          paid: Number(paid),
+          unPaid: Number(unPaid),
         },
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -130,6 +132,12 @@ const AddItems = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    setUnPaid(grandtotal - discount - paid);
+    
+    
+  }, [ paid, discount, grandtotal]);
 
   return (
     <>
@@ -419,13 +427,13 @@ const AddItems = () => {
                               <AiFillDelete></AiFillDelete>
                             </button>
                           </td>
-                          
                         </tr>
                       );
                     })}
                   </tbody>
                 </table>
-                <div className=" w-full flex justify-center sticky left-0  pt-4 gap-x-3">
+
+                <div className=" w-full flex justify-center sticky left-0  pt-4 gap-x-3 px-1">
                   <div
                     className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
                       isDarkMode ? "border-white" : "border-black"
@@ -453,6 +461,45 @@ const AddItems = () => {
                     GrandTotal: &#8377;
                     {discount ? grandtotal - discount : grandtotal} /-
                   </p>
+                </div>
+
+                <div className=" w-full flex justify-center  pt-4 gap-x-3  sticky left-0 px-1">
+                  <div
+                    className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
+                      isDarkMode ? "border-white" : "border-black"
+                    }`}
+                  >
+                    <p className="flex items-center  text-base">
+                      Paid: &#8377;{" "}
+                    </p>
+                    <input
+                      value={paid}
+                      onChange={(e) => {
+                        setPaid(e.target.value);
+                      }}
+                      className={`  w-[30%]   flex items-center  border-none outline-none  ${
+                        isDarkMode ? "bg-gray-800 " : "bg-white "
+                      }`}
+                      required="true"
+                    />
+                  </div>
+                  <div
+                    className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
+                      isDarkMode ? "border-white" : "border-black"
+                    }`}
+                  >
+                    <p className="flex items-center  text-base">
+                      Unpaid: &#8377;{" "}
+                    </p>
+                    <input
+                      value={unPaid }
+                      readOnly
+                      className={`  w-[30%]   flex items-center  border-none outline-none  ${
+                        isDarkMode ? "bg-gray-800 " : "bg-white "
+                      }`}
+                      required="true"
+                    />
+                  </div>
                 </div>
               </>
             ) : (

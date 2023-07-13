@@ -3,7 +3,6 @@ import { createContext } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 
-
 const Datacontext = createContext(null);
 
 const Context = ({ children }) => {
@@ -34,30 +33,34 @@ const Context = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem('token');
-      
+      const token = localStorage.getItem("token");
+
       if (token) {
         try {
-           await axios.get("https://khatabook-one.vercel.app/getregisterbusiness", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }).then(()=>{
-
-            navigate("/dashboard");
-          });
-          
+          await axios
+            .get("https://khatabook-one.vercel.app/getregisterbusiness", {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then(() => {
+              console.log(location);
+              if (location.pathname === "/") {
+                navigate("/dashboard");
+              }else{
+                return
+              }
+            });
         } catch (error) {
           navigate("/");
         }
       } else {
-        navigate('/login');
+        navigate("/login");
       }
     };
 
     fetchData();
   }, []);
-
 
   return (
     <Datacontext.Provider
