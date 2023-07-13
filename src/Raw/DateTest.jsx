@@ -1,85 +1,146 @@
 import React, { useState } from "react";
 import moment from "moment";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-const Card = ({ title, date }) => {
+const Card = ({ date }) => {
   return (
-    <div className="bg-white rounded-lg p-4 shadow">
-      <h3 className="text-xl font-bold mb-2">{title}</h3>
-      <p className="text-gray-500">{moment(date).format("MMMM Do, YYYY")}</p>
+    <div className="p-4 border rounded shadow">
+      <p>{moment(date).format("MMMM Do, YYYY")}</p>
+      {/* Card content */}
     </div>
   );
 };
 
-const CardList = ({ cards }) => {
+const CardList = ({ dates }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {cards.map((card, index) => (
-        <Card key={index} title={card.title} date={card.date} />
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {dates.map((date, index) => (
+        <Card key={index} date={date} />
       ))}
     </div>
   );
 };
 
-const Calendar = ({ onRangeSelect }) => {
+const DateTest = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [filteredDates, setFilteredDates] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleRangeSelect = () => {
-    if (startDate && endDate) {
-      onRangeSelect(startDate, endDate);
-    }
+  const handleInputChange = () => {
+    setIsOpen(true);
+  };
+  const handleDateRangeChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    setIsOpen(false);
+
+    // Filter the dates based on the selected range
+    const filtered = dateArray.filter((date) =>
+      moment(date).isBetween(start, end, null, "[]")
+    );
+    setFilteredDates(filtered);
   };
 
-  return (
-    <div>
-      <input
-        type="text"
-        className="border rounded p-2"
-        placeholder="Select start date"
-        onChange={(e) => setStartDate(e.target.value)}
-      />
-      <input
-        type="text"
-        className="border rounded p-2"
-        placeholder="Select end date"
-        onChange={(e) => setEndDate(e.target.value)}
-      />
-      <button
-        className="bg-blue-500 text-white py-2 px-4 rounded mt-2"
-        onClick={handleRangeSelect}
-      >
-        Apply Filter
-      </button>
-    </div>
-  );
-};
-
-const DateTest = () => {
-  const initialCards = [
-    { title: "Card 1", date: "2023-07-01" },
-    { title: "Card 2", date: "2023-07-05" },
-    { title: "Card 3", date: "2023-07-10" },
-    { title: "Card 4", date: "2023-07-15" },
-    { title: "Card 5", date: "2023-07-20" },
+  // Array of 5 dates
+  const dateArray = [
+    moment().subtract(2, "days").toDate(),
+    moment().subtract(1, "days").toDate(),
+    moment().toDate(),
+    moment().add(1, "days").toDate(),
+    moment().add(2, "days").toDate(),
   ];
-
-  const [filteredCards, setFilteredCards] = useState(initialCards);
-
-  const handleRangeSelect = (startDate, endDate) => {
-    const filtered = initialCards.filter((card) => {
-      const cardDate = moment(card.date);
-      return cardDate.isBetween(startDate, endDate, "day", "[]");
-    });
-    setFilteredCards(filtered);
-  };
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Card List</h1>
-      <Calendar onRangeSelect={handleRangeSelect} />
-      <CardList cards={filteredCards} />
+      <h1 className="text-2xl font-bold mb-4">Card List</h1>
+      <div className="mb-4">
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Select Date Range"
+            className="py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+            onClick={handleInputChange}
+            value={
+              startDate && endDate
+                ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
+                : ""
+            }
+            readOnly
+          />
+          {isOpen && (
+            <div className="absolute z-10 top-12 left-0">
+              <DatePicker
+                selected={startDate}
+                onChange={handleDateRangeChange}
+                startDate={startDate}
+                endDate={endDate}
+                selectsRange
+                inline
+              />
+            </div>
+          )}
+        </div>
+      </div>
+      <CardList dates={filteredDates.length > 0 ? filteredDates : dateArray} />
     </div>
   );
 };
 
 export default DateTest;
+
+// import React, { useState } from "react";
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
+
+// const DateTest = () => {
+//   const [startDate, setStartDate] = useState(null);
+//   const [endDate, setEndDate] = useState(null);
+//   const [isOpen, setIsOpen] = useState(false);
+
+//   const handleInputChange = () => {
+//     setIsOpen(true);
+//   };
+
+//   const handleDateRangeChange = (dates) => {
+//     const [start, end] = dates;
+//     setStartDate(start);
+//     setEndDate(end);
+//   };
+
+//   return (
+//     <div className="container mx-auto p-4">
+//       <h1 className="text-2xl font-bold mb-4">Date Range Picker</h1>
+//       <div className="relative">
+//         <input
+//           type="text"
+//           placeholder="Select Date Range"
+//           className="py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+//           onClick={handleInputChange}
+//           value={
+//             startDate && endDate
+//               ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
+//               : ""
+//           }
+//           readOnly
+//         />
+//         {isOpen && (
+//           <div className="absolute z-10 top-12 left-0">
+//             <DatePicker
+//               selected={startDate}
+//               onChange={handleDateRangeChange}
+//               startDate={startDate}
+//               endDate={endDate}
+//               selectsRange
+//               inline
+//             />
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default DateTest;
