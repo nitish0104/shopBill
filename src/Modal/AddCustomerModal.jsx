@@ -104,6 +104,7 @@ const AddCustomerModal = ({ data, setModal }) => {
                     setcustomerName(e.target.value);
                   }}
                   className={"w-[95%]"}
+                  
                 />
 
                 <Input
