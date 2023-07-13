@@ -14,8 +14,8 @@ import { ThemeContextAuth } from "../../context/ThemeContext";
 import noItems from "../../images/noItems.svg";
 import PageLoader from "../../components/PageLoader";
 import moment from "moment";
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 const GetBills = () => {
   const { allCustomer } = ContextAuth();
   const message = "Maggie(8) -40Rs  "; // Replace with your desired message
@@ -23,8 +23,6 @@ const GetBills = () => {
   const [loading, setLoading] = useState(false);
   const [filterResults, setFilterResults] = useState([]);
   const { isDarkMode } = ThemeContextAuth();
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
 
   const handleDateChange = (dates) => {
     const [start, end] = dates;
@@ -65,6 +63,26 @@ const GetBills = () => {
 
   const [filter, setFilter] = useState("all");
   const [selectedDate, setSelectedDate] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  // const [filteredDates, setFilteredDates] = useState([]);
+  // const [isOpen, setIsOpen] = useState(false);
+
+  // const handleInputChange = () => {
+  //   setIsOpen(true);
+  // };
+  // const handleDateRangeChange = (dates) => {
+  //   const [start, end] = dates;
+  //   setStartDate(start);
+  //   setEndDate(end);
+  //   setIsOpen(false);
+
+  //   // Filter the dates based on the selected range
+  //   const filtered = businessBills.filter((date) =>
+  //     moment(date).isBetween(start, end, null, "[]")
+  //   );
+  //   setFilteredDates(filtered);
+  // };
 
   const handleFilterChange = (event) => {
     setSelectedDate("");
@@ -150,6 +168,25 @@ const GetBills = () => {
     }
   }, [selectedDate]);
 
+  // useEffect(() => {
+  //   if (filteredDates?.length !== 0) {
+  //     setFilter("all");
+  //     let finalData = businessBills?.map((bills) => {
+  //       let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
+  //       return {
+  //         ...bills,
+  //         filterDate: finalDate,
+  //       };
+  //     });
+  //     const filteredResults = finalData?.filter((data) => {
+  //       return data?.filterDate === filteredDates;
+  //     });
+  //     setFilterResults(filteredResults);
+  //   } else {
+  //     setFilterResults(businessBills);
+  //   }
+  // }, [filteredDates]);
+
   useEffect(() => {
     AOS.init();
   }, []);
@@ -162,24 +199,54 @@ const GetBills = () => {
             <div className="flex flex-col justify-center gap-y-2">
               <div className="flex justify-center">
                 <DatePicker
-                   selected={startDate}
-                   onChange={handleDateChange}
-                   startDate={startDate}
-                   endDate={endDate}
-                   placeholderText="dd/mm/yyyy"
-                   selectsRange
-                   dateFormat="dd/MMM/yyyy"
-                   popperPlacement="bottom-start"
-                   className="outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-fit w-fit "
-                   renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
-                     <div>
-                       <button onClick={decreaseMonth}>{'<'}</button>
-                       <span>{moment(date).format('MMM yyyy')}</span>
-                       <button onClick={increaseMonth}>{'>'}</button>
-                     </div>
-                   )}
+                  selected={startDate}
+                  onChange={handleDateChange}
+                  startDate={startDate}
+                  endDate={endDate}
+                  placeholderText="Date"
+                  selectsRange
+                  dateFormat="dd/MMM/yyyy"
+                  popperPlacement="bottom-start"
+                  className="outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-fit w-fit "
+                  renderCustomHeader={({
+                    date,
+                    decreaseMonth,
+                    increaseMonth,
+                  }) => (
+                    <div>
+                      <button onClick={decreaseMonth}>{"<"}</button>
+                      <span>{moment(date).format("MMM yyyy")}</span>
+                      <button onClick={increaseMonth}>{">"}</button>
+                    </div>
+                  )}
                 />
               </div>
+              {/* <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Select Date Range"
+                  className="py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                  onClick={handleInputChange}
+                  value={
+                    startDate && endDate
+                      ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
+                      : ""
+                  }
+                  readOnly
+                />
+                {isOpen && (
+                  <div className="absolute z-10 top-12 left-0">
+                    <DatePicker
+                      selected={startDate}
+                      onChange={handleDateRangeChange}
+                      startDate={startDate}
+                      endDate={endDate}
+                      selectsRange
+                      inline
+                    />
+                  </div>
+                )}
+              </div> */}
               <div className="flex justify-center items-center gap-x-4 mb-4 px-9">
                 <select
                   id="filter"
