@@ -1,146 +1,137 @@
 import React, { useState } from "react";
-import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-const Card = ({ date }) => {
-  return (
-    <div className="p-4 border rounded shadow">
-      <p>{moment(date).format("MMMM Do, YYYY")}</p>
-      {/* Card content */}
-    </div>
-  );
-};
-
-const CardList = ({ dates }) => {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {dates.map((date, index) => (
-        <Card key={index} date={date} />
-      ))}
-    </div>
-  );
-};
+import moment from "moment";
 
 const DateTest = () => {
+  const [filter, setFilter] = useState("all");
+  const [selectedDate, setSelectedDate] = useState(null);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [filteredDates, setFilteredDates] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
 
-  const handleInputChange = () => {
-    setIsOpen(true);
+  const cards = [
+    { title: "Card 1", date: "15 Jul 2023" },
+    { title: "Card 2", date: "16 Jul 2023" },
+    { title: "Card 3", date: "12 Jul 2023" },
+    { title: "Card 4", date: "3 Jun 2023" },
+    { title: "Card 5", date: "1 Jan 2022" },
+  ];
+
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
   };
-  const handleDateRangeChange = (dates) => {
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
+  const handleRangeChange = (dates) => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
-    setIsOpen(false);
-
-    // Filter the dates based on the selected range
-    const filtered = dateArray.filter((date) =>
-      moment(date).isBetween(start, end, null, "[]")
-    );
-    setFilteredDates(filtered);
   };
 
-  // Array of 5 dates
-  const dateArray = [
-    moment().subtract(2, "days").toDate(),
-    moment().subtract(1, "days").toDate(),
-    moment().toDate(),
-    moment().add(1, "days").toDate(),
-    moment().add(2, "days").toDate(),
-  ];
+  const filterCards = () => {
+    let filteredCards = cards;
+
+    if (filter === "today") {
+      filteredCards = filteredCards.filter((card) =>
+        moment(card.date, "DD MMM YYYY").isSame(moment(), "day")
+      );
+    } else if (filter === "yesterday") {
+      filteredCards = filteredCards.filter((card) =>
+        moment(card.date, "DD MMM YYYY").isSame(
+          moment().subtract(1, "day"),
+          "day"
+        )
+      );
+    } else if (filter === "last-week") {
+      filteredCards = filteredCards.filter((card) =>
+        moment(card.date, "DD MMM YYYY").isAfter(
+          moment().subtract(1, "week"),
+          "day"
+        )
+      );
+    } else if (filter === "last-month") {
+      filteredCards = filteredCards.filter((card) =>
+        moment(card.date, "DD MMM YYYY").isAfter(
+          moment().subtract(1, "month"),
+          "day"
+        )
+      );
+    } else if (filter === "last-year") {
+      filteredCards = filteredCards.filter((card) =>
+        moment(card.date, "DD MMM YYYY").isAfter(
+          moment().subtract(1, "year"),
+          "day"
+        )
+      );
+    } else if (filter === "selected-date" && selectedDate) {
+      filteredCards = filteredCards.filter((card) =>
+        moment(card.date, "DD MMM YYYY").isSame(selectedDate, "day")
+      );
+    } else if (filter === "range" && startDate && endDate) {
+      filteredCards = filteredCards.filter((card) =>
+        moment(card.date, "DD MMM YYYY").isBetween(
+          startDate,
+          endDate,
+          "day",
+          "[]"
+        )
+      );
+    }
+
+    return filteredCards;
+  };
+
+  const filteredCards = filterCards();
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Card List</h1>
-      <div className="mb-4">
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Select Date Range"
-            className="py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-            onClick={handleInputChange}
-            value={
-              startDate && endDate
-                ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
-                : ""
-            }
-            readOnly
+    <div className="flex">
+      <div>
+        <select value={filter} onChange={handleFilterChange} className="mr-2">
+          <option value="all">All</option>
+          <option value="today">Today</option>
+          <option value="yesterday">Yesterday</option>
+          <option value="last-week">Last Week</option>
+          <option value="last-month">Last Month</option>
+          <option value="last-year">Last Year</option>
+          <option value="selected-date">Select Date</option>
+          <option value="range">Select Range</option>
+        </select>
+
+        {filter === "selected-date" && (
+          <DatePicker
+            selected={selectedDate}
+            onChange={handleDateChange}
+            dateFormat="dd MMM yyyy"
+            className="mr-2"
           />
-          {isOpen && (
-            <div className="absolute z-10 top-12 left-0">
-              <DatePicker
-                selected={startDate}
-                onChange={handleDateRangeChange}
-                startDate={startDate}
-                endDate={endDate}
-                selectsRange
-                inline
-              />
-            </div>
-          )}
-        </div>
+        )}
+
+        {filter === "range" && (
+          <DatePicker
+            selected={startDate}
+            onChange={handleRangeChange}
+            selectsRange
+            startDate={startDate}
+            endDate={endDate}
+            dateFormat="dd MMM yyyy"
+            className="mr-2"
+          />
+        )}
       </div>
-      <CardList dates={filteredDates.length > 0 ? filteredDates : dateArray} />
+
+      <div>
+        {filteredCards.map((card, index) => (
+          <div key={index} className="bg-gray-200 p-2 m-2">
+            <h3>{card.title}</h3>
+            <p>{card.date}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
 export default DateTest;
-
-// import React, { useState } from "react";
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
-
-// const DateTest = () => {
-//   const [startDate, setStartDate] = useState(null);
-//   const [endDate, setEndDate] = useState(null);
-//   const [isOpen, setIsOpen] = useState(false);
-
-//   const handleInputChange = () => {
-//     setIsOpen(true);
-//   };
-
-//   const handleDateRangeChange = (dates) => {
-//     const [start, end] = dates;
-//     setStartDate(start);
-//     setEndDate(end);
-//   };
-
-//   return (
-//     <div className="container mx-auto p-4">
-//       <h1 className="text-2xl font-bold mb-4">Date Range Picker</h1>
-//       <div className="relative">
-//         <input
-//           type="text"
-//           placeholder="Select Date Range"
-//           className="py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-//           onClick={handleInputChange}
-//           value={
-//             startDate && endDate
-//               ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
-//               : ""
-//           }
-//           readOnly
-//         />
-//         {isOpen && (
-//           <div className="absolute z-10 top-12 left-0">
-//             <DatePicker
-//               selected={startDate}
-//               onChange={handleDateRangeChange}
-//               startDate={startDate}
-//               endDate={endDate}
-//               selectsRange
-//               inline
-//             />
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default DateTest;

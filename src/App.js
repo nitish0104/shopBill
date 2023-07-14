@@ -32,7 +32,7 @@ function App() {
       <Router>
         <Context>
           <ThemeProvider>
-              <Routes>
+            <Routes>
               <Route path="/" element={<InitialPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/verify" element={<VerifyOTP />} />
@@ -45,9 +45,9 @@ function App() {
               <Route path="/customer-details/:id" element={<ShowCustomerDetails />} />
               <Route path='/sendbill' element={<PDFSender />} />
               <Route path='/date' element={<Mydate />} />
-              <Route path='/date-test' element={<DateTest />} />
+              <Route path='/datetest' element={<DateTest />} />
               <Route path='/totaltest' element={<ItemForm />} />
-              <Route path='/imgtest' element={<DivToImage/>} />
+              <Route path='/imgtest' element={<DivToImage />} />
             </Routes>
           </ThemeProvider>
         </Context>
