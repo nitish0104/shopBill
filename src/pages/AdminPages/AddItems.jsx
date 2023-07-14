@@ -13,11 +13,13 @@ import Spinner from "../../components/Spinner";
 import Navigation from "../../components/Navigation";
 
 const AddItems = () => {
+  const [items, setItems] = useState([]);
   const [item, setItem] = useState("");
   const [qty, setQty] = useState("");
-  const [price, setPrice] = useState(0);
   const [individualPrice, setIndividualPrice] = useState(0);
-  const [items, setItems] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [selectedUnit, setSelectedUnit] = useState("piece");
+  const [isTotalEditable, setIsTotalEditable] = useState(false);
   const [pending, setPending] = useState(0);
   const [grandtotal, setGrandtotal] = useState(0);
   const { isDarkMode } = ThemeContextAuth();
@@ -27,49 +29,83 @@ const AddItems = () => {
   const [editIndex, setEditIndex] = useState(null);
   const business = jwtDecode(`${localStorage.getItem("token")}`);
   const businessId = business._id;
-  const [data, setData] = useState([]);
   const [paid, setPaid] = useState(0);
   const [unPaid, setUnPaid] = useState(0);
   useEffect(() => {
     if (items) {
-      let total = 0;
+      let itemtotal = 0;
 
       items.map((obj) => {
-        total += obj.price;
+        itemtotal += obj.total;
       });
 
-      setGrandtotal(total);
+      setGrandtotal(itemtotal);
     }
   }, [items]);
 
-  const contentRef = useRef(null);
+  const handleItemChange = (e) => {
+    setItem(e.target.value);
+  };
 
-  const navigate = useNavigate();
+  const handleQtyChange = (e) => {
+    setQty(e.target.value);
+    calculateTotal(e.target.value, individualPrice);
+  };
 
-  const cancel = () => {
-    navigate("/add-customer");
+  const handlePriceChange = (e) => {
+    setIndividualPrice(e.target.value);
+    calculateTotal(qty, e.target.value);
+  };
+
+  const calculateTotal = (qty, individualPrice) => {
+    let total = 0;
+    if (selectedUnit === "piece") {
+      total = qty * individualPrice;
+    }
+    setTotal(total);
+  };
+
+  const handleUnitChange = (e) => {
+    setSelectedUnit(e.target.value);
+    calculateTotal(qty, individualPrice);
   };
   const addItem = () => {
     if (item.length >= 1) {
       let obj = {
         item: item,
-
         qty: qty,
+        selectedUnit: selectedUnit,
         individualPrice: individualPrice,
-        price: Number(price),
-
-        cost: Number(price),
+        total: Number(total),
+        unit: selectedUnit,
+        cost: Number(individualPrice),
         grandTotal: Number(grandtotal),
       };
       let finalItems = [...items];
       finalItems.push(obj);
       setItems(finalItems);
       setItem("");
-      setPrice(0);
+      setQty(0);
+      setTotal(0);
       setIndividualPrice(0);
-      setQty("");
+
       setGrandtotal(0);
     }
+  };
+
+  const handleTotalEdit = () => {
+    setIsTotalEditable(true);
+  };
+
+  const handleTotalSave = (e) => {
+    if (e.key === "Enter") {
+      setIsTotalEditable(false);
+    }
+  };
+  const navigate = useNavigate();
+
+  const cancel = () => {
+    navigate("/add-customer");
   };
 
   const handleEditClick = (index) => {
@@ -77,15 +113,16 @@ const AddItems = () => {
     setItem(items[index].item);
     setQty(items[index].qty);
     setIndividualPrice(items[index].individualPrice);
-    setPrice(items[index].price);
+    setTotal(items[index].total);
   };
 
   const handleSaveClick = (index) => {
     const updatedItem = {
       item: item,
       qty: qty,
+      selectedUnit: selectedUnit,
       individualPrice: Number(individualPrice),
-      price: Number(price),
+      total: Number(total),
     };
     const updatedItems = [...items];
     updatedItems[index] = updatedItem;
@@ -93,8 +130,9 @@ const AddItems = () => {
     setEditIndex(null);
     setItem("");
     setQty("");
-    setPrice(0);
+    setSelectedUnit("piece");
     setIndividualPrice(0);
+    setTotal(0);
   };
 
   const handleSplice = (index) => {
@@ -113,6 +151,7 @@ const AddItems = () => {
           customerId: customerData,
           businessId: businessId,
           items: items,
+
           grandtotal: grandtotal,
           discount: Number(discount),
           paid: Number(paid),
@@ -135,9 +174,7 @@ const AddItems = () => {
 
   useEffect(() => {
     setUnPaid(grandtotal - discount - paid);
-    
-    
-  }, [ paid, discount, grandtotal]);
+  }, [paid, discount, grandtotal]);
 
   return (
     <>
@@ -156,9 +193,7 @@ const AddItems = () => {
                   <input
                     type="text"
                     value={item}
-                    onChange={(e) => {
-                      setItem(e.target.value);
-                    }}
+                    onChange={handleItemChange}
                     placeholder={"Enter Items"}
                     className={`w-full h-12  rounded-lg border  pl-2  bg-transparent ${
                       isDarkMode ? " text-white" : " text-black"
@@ -173,15 +208,22 @@ const AddItems = () => {
                   <input
                     type="text"
                     value={qty}
-                    onChange={(e) => {
-                      setQty(e.target.value);
-                    }}
+                    onChange={handleQtyChange}
                     placeholder={"Enter Quantity"}
                     className={`w-full h-12  rounded-lg border duration-200 pl-2 bg-transparent ${
                       isDarkMode ? " text-white" : " text-black"
                     }`}
                     required
                   />
+                  <select
+                    value={selectedUnit}
+                    onChange={handleUnitChange}
+                    className="ml-2 px-2 py-1 border rounded"
+                  >
+                    <option value="piece">Piece</option>
+                    <option value="kg">Kg</option>
+                    <option value="gm">Gm</option>
+                  </select>
                 </div>
                 <div className="flex-col ">
                   <div>
@@ -190,9 +232,7 @@ const AddItems = () => {
                   <input
                     type="number"
                     value={individualPrice}
-                    onChange={(e) => {
-                      setIndividualPrice(e.target.value);
-                    }}
+                    onChange={handlePriceChange}
                     placeholder={"Enter Amount"}
                     className={`w-full h-12  rounded-lg border duration-200 pl-2 bg-transparent ${
                       isDarkMode ? " text-white" : " text-black"
@@ -203,17 +243,27 @@ const AddItems = () => {
                   <div>
                     <label className="font-semibold"> Total</label>
                   </div>
-                  <input
-                    type="number"
-                    value={price}
-                    onChange={(e) => {
-                      setPrice(e.target.value);
-                    }}
-                    placeholder={"Enter Total Price"}
-                    className={`w-full h-12  rounded-lg border duration-200 pl-2 bg-transparent ${
-                      isDarkMode ? " text-white" : " text-black"
-                    }`}
-                  />
+                  {isTotalEditable ? (
+                    <input
+                      id="total"
+                      type="number"
+                      value={total}
+                      onChange={(e) => setTotal(e.target.value)}
+                      onKeyDown={handleTotalSave}
+                      className="px-2 py-1 border rounded"
+                    />
+                  ) : (
+                    <div className="flex items-center">
+                      <input
+                        type="text"
+                        value={total}
+                        readOnly
+                        className="px-2 py-1 border rounded bg-gray-100 cursor-pointer"
+                        onClick={handleTotalEdit}
+                      />
+                      <span className="ml-2 text-xs cursor-pointer">Edit</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -259,6 +309,15 @@ const AddItems = () => {
                         }`}
                       >
                         Quantity
+                      </th>
+                      <th
+                        className={` py-2 px-4    ${
+                          isDarkMode
+                            ? "bg-gray-800 text-white"
+                            : "bg-white  text-black"
+                        }`}
+                      >
+                        Unit
                       </th>
                       <th
                         className={` py-2 px-4   ${
@@ -348,6 +407,30 @@ const AddItems = () => {
                               value?.qty
                             )}
                           </td>
+                          <td
+                            className={`px-2 border md:w-40 w-28  whitespace-nowrap ${
+                              isDarkMode
+                                ? "bg-gray-800 border-white"
+                                : "bg-white border-black "
+                            }`}
+                          >
+                            {index === editIndex ? (
+                              <input
+                                className={`border  text-center md:w-32 w-24 bg-transparent border-gray-400 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                                  isDarkMode
+                                    ? "bg-gray-800 text-white border-white"
+                                    : "bg-white  text-gray-800 border-black"
+                                }`}
+                                type="text"
+                                value={selectedUnit}
+                                onChange={(e) => {
+                                  setSelectedUnit(e.target.value);
+                                }}
+                              />
+                            ) : (
+                              value?.selectedUnit
+                            )}
+                          </td>
 
                           <td
                             className={` px-2 border md:w-40 w-28  whitespace-nowrap ${
@@ -390,13 +473,13 @@ const AddItems = () => {
                                     ? "bg-gray-800 text-white border-white"
                                     : "bg-white  text-gray-800 border-black"
                                 }`}
-                                value={price}
+                                value={total}
                                 onChange={(e) => {
-                                  setPrice(e.target.value);
+                                  setTotal(e.target.value);
                                 }}
                               />
                             ) : (
-                              value?.price
+                              value?.total
                             )}
                           </td>
 
@@ -492,7 +575,7 @@ const AddItems = () => {
                       Unpaid: &#8377;{" "}
                     </p>
                     <input
-                      value={unPaid }
+                      value={unPaid}
                       onChange={(e) => {
                         setUnPaid(e.target.value);
                       }}

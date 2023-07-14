@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
+import { BsWhatsapp } from "react-icons/bs";
 function formatDate(dateString) {
   const options = { day: "numeric", month: "short", year: "numeric" };
   const date = new Date(dateString);
@@ -20,7 +21,7 @@ const CustomerCard = ({
   paid,
   unPaid,
   onClick,
-  billId
+  billId,
 }) => {
   const navigate = useNavigate();
   const { isDarkMode } = ThemeContextAuth();
@@ -60,8 +61,15 @@ const CustomerCard = ({
               <p className=" font-semibold  text-start">{mobileNumber}</p>
             </button>
           </div>
-          <div>
-            <button onClick={() => {onClick(billId)}}>Whatsapp</button>
+          <div className="w-1/12">
+            <button
+              className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[9px] rounded-full  flex gap-2 justify-center items-center"
+              onClick={() => {
+                onClick(billId);
+              }}
+            >
+              <BsWhatsapp className=" text-2xl text-center "></BsWhatsapp>
+            </button>
           </div>
           <div className="flex flex-col gap-y-3 justify-center items-end w-6/12">
             {showPaid ? (

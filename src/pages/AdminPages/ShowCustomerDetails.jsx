@@ -162,11 +162,13 @@ const ShowCustomerDetails = () => {
       setFilterResults(viewCustomerBills);
     }
   };
-
+  const handleBack = () => {
+    naviGate("/get-bill");
+  };
 
   useEffect(() => {
     if (selectedDate?.length !== 0) {
-      setFilter("all")
+      setFilter("all");
       let finalData = viewCustomerBills?.map((bills) => {
         let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
         return {
@@ -179,10 +181,9 @@ const ShowCustomerDetails = () => {
       });
       setFilterResults(filteredResults);
     } else {
-      setFilterResults(viewCustomerBills)
+      setFilterResults(viewCustomerBills);
     }
   }, [selectedDate]);
-
 
   const handleSingleBill = (_id) => {
     naviGate(`/invoice/${_id}`);
@@ -193,6 +194,12 @@ const ShowCustomerDetails = () => {
         <Sidebar />
         <Navigation />
         <div className="overflow-y-auto pb-20">
+          <button
+            onClick={handleBack}
+            className="flex items-center justify-center w-12 h-12 rounded-full border mt-3 ml-3"
+          >
+            <BiArrowBack className="text-3xl"></BiArrowBack>
+          </button>
           <div className="text-xl flex gap-y-2  justify-center items-center pt-4 flex-col overflow-y-auto">
             <div className="md:w-[30vw] w-full px-2">
               <label
