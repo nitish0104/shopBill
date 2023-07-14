@@ -16,6 +16,7 @@ import PageLoader from "../../components/PageLoader";
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import BillPreviewModal from "../../Modal/BillPreviewModal";
 const GetBills = () => {
   const { allCustomer } = ContextAuth();
   const message = "Maggie(8) -40Rs  "; // Replace with your desired message
@@ -67,6 +68,8 @@ const GetBills = () => {
   const [endDate, setEndDate] = useState(null);
   const [filteredDates, setFilteredDates] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [showBillPreview, setShowBillPreview] = useState(false);
+  const [customerID, setCustomerID] = useState("")
 
   const handleInputChange = () => {
     setIsOpen(true);
@@ -192,8 +195,16 @@ const GetBills = () => {
   useEffect(() => {
     AOS.init();
   }, []);
+
+  const handleClick = (_id) => {
+    console.log(_id);
+    setCustomerID(_id)
+    setShowBillPreview(true)
+  }
+
   return (
     <>
+    <BillPreviewModal showModal={showBillPreview} setShowModal={setShowBillPreview} billID={customerID}/>
       <LayoutMain>
         <Sidebar />
         <div className=" md:w-[70vw] w-[100vw]  flex justify-center items-center  my-9 mx-auto">
@@ -238,7 +249,7 @@ const GetBills = () => {
                   <option value="lastMonth">Last Month</option>
                   <option value="lastYear">Last Year</option>
                 </select>
-                <div className="flex justify-center">
+                {/* <div className="flex justify-center">
                   <input
                     type="text"
                     placeholder="Select Date Range"
@@ -263,26 +274,28 @@ const GetBills = () => {
                       />
                     </div>
                   )}
-                </div>
-                {/* <input
+                </div> */}
+                <input
                   type="date"
                   value={selectedDate}
                   onChange={(e) => {
                     setSelectedDate(e.target.value);
                   }}
                   className=" outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-1/2"
-                /> */}
+                />
               </div>
             </div>
 
             {!loading ? (
               <div ref={contentRef} data-aos="flip-right">
                 {filterResults?.length > 0 ? (
-                  <div className="  md:grid md:grid-cols-2 md:gap-2 md:w-[50vw] gap-y-3 px-7 md:px-0 w-[100vw] pb-5">
+                  <div className="md:grid md:grid-cols-2 md:gap-2 md:w-[50vw] gap-y-3 px-7 md:px-0 w-[100vw] pb-5">
                     {filterResults?.map((customer, index) => {
                       const dateObj = new Date(customer?.createdAt);
+                      console.log(customer);
                       return (
                         <CustomerCard
+                        onClick={handleClick}
                           data={customer}
                           key={customer?.customerId?._id + index}
                           name={customer?.customerId?.customerName}
@@ -290,6 +303,7 @@ const GetBills = () => {
                           amount={customer?.grandtotal}
                           discount={customer?.discount}
                           id={customer?.customerId?._id}
+                          billId={customer?._id}
                           mobileNumber={customer?.customerId?.customerNumber}
                           grandTotal={customer?.grandtotal}
                           time={moment(customer?.createdAt).format("h:mm a")}

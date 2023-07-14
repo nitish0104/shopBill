@@ -46,7 +46,9 @@ const Context = ({ children }) => {
             .then(() => {
               console.log(location);
               if (location.pathname === "/") {
-                navigate("/dashboard");
+                setTimeout(() => {
+                  navigate("/dashboard");
+                }, 300);
               }else{
                 return
               }

@@ -493,6 +493,9 @@ const AddItems = () => {
                     </p>
                     <input
                       value={unPaid }
+                      onChange={(e) => {
+                        setUnPaid(e.target.value);
+                      }}
                       readOnly
                       className={`  w-[30%]   flex items-center  border-none outline-none  ${
                         isDarkMode ? "bg-gray-800 " : "bg-white "

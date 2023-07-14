@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { ContextAuth } from "../../context/Context";
 
 import { useRef } from "react";
@@ -10,6 +10,7 @@ import { BiArrowBack } from "react-icons/bi";
 import Sidebar from "../../components/Sidebar";
 import moment from "moment";
 import { ThemeContextAuth } from "../../context/ThemeContext";
+import html2canvas from "html2canvas";
 
 const ShowSingleBill = () => {
   const [singleBill, setSingleBill] = useState();
@@ -18,26 +19,100 @@ const ShowSingleBill = () => {
   const { id } = useParams();
   const { business, formState } = ContextAuth();
   const { isDarkMode } = ThemeContextAuth();
+  const location = useLocation();
+  const [handleShare, setHandleShare] = useState(true);
+
+  const dataURLToBlob = (dataUrl) => {
+    const byteString = atob(dataUrl.split(",")[1]);
+    const mimeString = dataUrl.split(",")[0].split(":")[1].split(";")[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ab], { type: mimeString });
+  };
+
+  const uploadToCloudinary = (dataImageUrl) => {
+    const blob = dataURLToBlob(dataImageUrl);
+    const file = new File([blob], "image.png");
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "dva9i9vs");
+    formData.append("folder", "bills");
+
+    axios("https://api.cloudinary.com/v1_1/dtu9gszzu/image/upload", {
+      method: "POST",
+      data: formData,
+    })
+      .then((data) => {
+        console.log(data);
+        let body = {
+          messaging_product: "whatsapp",
+          recipient_type: "individual",
+          to: `91${singleBill?.customerId?.customerNumber}`,
+          type: "image",
+          image: {
+            link: data?.data?.secure_url,
+          },
+        };
+
+
+        axios("https://graph.facebook.com/v17.0/104365256062975/messages", {
+          data: body,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer EAAit8ZCjC7gcBAAMbkTOZBeORO0I8syTMO5xbkFAh13TGR3xbSDUFsrBnyK58HqVrbRavpACfwPWNzxtA4KlUP8lmzgpVotY4TqOeszh1tCrWZC1VciGcoX10AZAMlnZBq0xyHZBbDTZBeGI3hTCGLadwF4uadQY4Mexi9OY5KsCcPKNLBt6ZArlKNcP0vtRRS6iELent2k8ZBwZDZD",
+          },
+          method: "POST"
+        })
+
+        // Handle the Cloudinary response as needed
+      })
+      .catch((error) => {
+        console.error("Error uploading image to Cloudinary:", error);
+      });
+  };
+
+  const convertToImage = () => {
+    html2canvas(bill.current)
+      .then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+        uploadToCloudinary(imgData);
+        // You can use the imgData URL as needed, e.g., save it to state or send it to the server
+      })
+      .catch((error) => {
+        console.error("Error converting div to image:", error);
+      });
+  };
 
   const contentRef = useRef(null);
+  const bill = useRef(null);
   useEffect(() => {
-    setLoading(true);
-    try {
-      axios(`https://khatabook-one.vercel.app/getcustomerbill/${id}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-        .then((res) => {
-          setSingleBill(res?.data?.response);
-          console.log(res?.data?.response);
-          setLoading(false);
-          setitemsSingeBill(res?.data?.response?.items);
+    if (id) {
+      setLoading(true);
+      let params = new URLSearchParams(location.search);
+      setHandleShare(Boolean(params.get("show")));
+      try {
+        axios(`https://khatabook-one.vercel.app/getcustomerbill/${id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         })
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.log(error);
+          .then((res) => {
+            setSingleBill(res?.data?.response);
+            console.log(res?.data?.response);
+            setLoading(false);
+            setitemsSingeBill(res?.data?.response?.items);
+          })
+          .catch((err) => console.log(err));
+      } catch (error) {
+        console.log(error);
+      }
     }
   }, []);
   // console.log(business);
@@ -49,23 +124,25 @@ const ShowSingleBill = () => {
           isDarkMode ? "bg-gray-800 " : "bg-white "
         }`}
       >
-        <div  ref={contentRef}>
-          <Sidebar />
-          <Link
-            to={`/customer-details/${singleBill?.customerId?._id}`}
-            className={`flex items-center justify-center w-12 h-12 rounded-full border mt-3 ml-3  ${
-              isDarkMode ? "text-white" : "text-gray-800 "
-            } `}
-          >
-            <div className="  text-3xl ">
-              <BiArrowBack />
-            </div>
-          </Link>
-        </div>
+        {!handleShare && (
+          <div ref={contentRef}>
+            <Sidebar />
+            <Link
+              to={`/customer-details/${singleBill?.customerId?._id}`}
+              className={`flex items-center justify-center w-12 h-12 rounded-full border mt-3 ml-3  ${
+                isDarkMode ? "text-white" : "text-gray-800 "
+              } `}
+            >
+              <div className="  text-3xl ">
+                <BiArrowBack />
+              </div>
+            </Link>
+          </div>
+        )}
         <div
           id="myDiv"
+          ref={bill}
           className={`container mx-auto px-4 md:w-[70%] w-screen py-4  `}
-          
         >
           <div className="bg-white rounded-lg shadow-lg pb-4">
             <div className="flex justify-between bg-blue-500 text-white px-6 py-4 items-center">
@@ -79,7 +156,7 @@ const ShowSingleBill = () => {
               <div>
                 <span>
                   <h2 className="text-xl font-bold">
-                {singleBill?.businessId?.businessName}
+                    {singleBill?.businessId?.businessName}
                   </h2>
                 </span>
                 <h2 className="font-bold">{business?.businessType}</h2>
@@ -165,19 +242,34 @@ const ShowSingleBill = () => {
           </div>
 
           <div className="flex justify-center mt-4 mr-6 mb-3 ">
-            <button
-              onClick={(e) => {
-                document.title = `ShopConnect - ${singleBill?.customerId?.customerName}`;
-                e.target.style.opacity = 0;
-                contentRef.current.style.display = "none";
-                window.print();
-                e.target.style.opacity = 1;
-                contentRef.current.style.display = "";
-              }}
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
-            >
-              <AiOutlinePrinter /> Print
-            </button>
+            {!handleShare && (
+              <button
+                onClick={(e) => {
+                  document.title = `ShopConnect - ${singleBill?.customerId?.customerName}`;
+                  e.target.style.opacity = 0;
+                  contentRef.current.style.display = "none";
+                  window.print();
+                  e.target.style.opacity = 1;
+                  contentRef.current.style.display = "";
+                }}
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
+              >
+                <AiOutlinePrinter /> Print
+              </button>
+            )}
+            {handleShare && (
+              <button
+                onClick={(e) => {
+                  document.title = `ShopConnect - ${singleBill?.customerId?.customerName}`;
+                  e.target.style.opacity = 0;
+                  convertToImage();
+                  e.target.style.opacity = 1;
+                }}
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
+              >
+                <AiOutlinePrinter /> Share
+              </button>
+            )}
           </div>
         </div>
       </div>

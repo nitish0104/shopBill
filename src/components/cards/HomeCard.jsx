@@ -19,6 +19,8 @@ const CustomerCard = ({
   discount,
   paid,
   unPaid,
+  onClick,
+  billId
 }) => {
   const navigate = useNavigate();
   const { isDarkMode } = ThemeContextAuth();
@@ -58,31 +60,31 @@ const CustomerCard = ({
               <p className=" font-semibold  text-start">{mobileNumber}</p>
             </button>
           </div>
-
+          <div>
+            <button onClick={() => {onClick(billId)}}>Whatsapp</button>
+          </div>
           <div className="flex flex-col gap-y-3 justify-center items-end w-6/12">
-            {
-              showPaid ? <button
-              // className="text-3xl text-center mb-2 font-bold text-green-500"
-              className={`text-center  font-bold text-xl text-green-500  `}
-              onClick={()=>{ setShowPaid(false) }}
-              
-            >
-              &#8377;{paid >0 ? paid : amount}
-            </button> :
-            <button
+            {showPaid ? (
+              <button
+                // className="text-3xl text-center mb-2 font-bold text-green-500"
+                className={`text-center  font-bold text-xl text-green-500  `}
+                onClick={() => {
+                  setShowPaid(false);
+                }}
+              >
+                &#8377;{paid > 0 ? paid : amount}
+              </button>
+            ) : (
+              <button
                 // className="text-3xl text-center mb-2 font-bold text-green-500"
                 className={"text-center  font-bold text-xl text-red-500"}
-                onClick={()=>{ setShowPaid(true) }}
+                onClick={() => {
+                  setShowPaid(true);
+                }}
               >
                 &#8377;{unPaid}
               </button>
-            }
-
-
-              
-            
-              
-
+            )}
 
             <div>
               <div className="text-center font-semibold ">{formattedDate}</div>

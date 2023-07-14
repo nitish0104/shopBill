@@ -24,6 +24,7 @@ import DateTest from './Raw/DateTest';
 import InvoiceForm from './Raw/TotalTest';
 import InputForm from './Raw/TotalTest';
 import ItemForm from './Raw/TotalTest';
+import DivToImage from './Raw/WhatsappSendPdfTest';
 
 function App() {
   return (
@@ -31,9 +32,7 @@ function App() {
       <Router>
         <Context>
           <ThemeProvider>
-
-
-            <Routes>
+              <Routes>
               <Route path="/" element={<InitialPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/verify" element={<VerifyOTP />} />
@@ -48,6 +47,7 @@ function App() {
               <Route path='/date' element={<Mydate />} />
               <Route path='/date-test' element={<DateTest />} />
               <Route path='/totaltest' element={<ItemForm />} />
+              <Route path='/imgtest' element={<DivToImage/>} />
             </Routes>
           </ThemeProvider>
         </Context>
