@@ -65,27 +65,29 @@ const GetBills = () => {
   const [selectedDate, setSelectedDate] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  // const [filteredDates, setFilteredDates] = useState([]);
-  // const [isOpen, setIsOpen] = useState(false);
+  const [filteredDates, setFilteredDates] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
-  // const handleInputChange = () => {
-  //   setIsOpen(true);
-  // };
-  // const handleDateRangeChange = (dates) => {
-  //   const [start, end] = dates;
-  //   setStartDate(start);
-  //   setEndDate(end);
-  //   setIsOpen(false);
+  const handleInputChange = () => {
+    setIsOpen(true);
+  };
+  const handleDateRangeChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    setIsOpen(false);
 
-  //   // Filter the dates based on the selected range
-  //   const filtered = businessBills.filter((date) =>
-  //     moment(date).isBetween(start, end, null, "[]")
-  //   );
-  //   setFilteredDates(filtered);
-  // };
+    // Filter the dates based on the selected range
+    const filtered = businessBills.filter((date) =>
+      moment(date).isBetween(start, end, null, " ")
+    );
+    setFilteredDates(filtered);
+    console.log(filtered);
+  };
 
   const handleFilterChange = (event) => {
     setSelectedDate("");
+    setFilteredDates("");
     setFilter(event.target.value);
     const finalData = businessBills?.map((bill) => {
       const filterDate = moment(bill?.createdAt).format("YYYY-MM-DD");
@@ -168,24 +170,24 @@ const GetBills = () => {
     }
   }, [selectedDate]);
 
-  // useEffect(() => {
-  //   if (filteredDates?.length !== 0) {
-  //     setFilter("all");
-  //     let finalData = businessBills?.map((bills) => {
-  //       let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
-  //       return {
-  //         ...bills,
-  //         filterDate: finalDate,
-  //       };
-  //     });
-  //     const filteredResults = finalData?.filter((data) => {
-  //       return data?.filterDate === filteredDates;
-  //     });
-  //     setFilterResults(filteredResults);
-  //   } else {
-  //     setFilterResults(businessBills);
-  //   }
-  // }, [filteredDates]);
+  useEffect(() => {
+    if (filteredDates?.length !== 0) {
+      setFilter("all");
+      let finalData = businessBills?.map((bills) => {
+        let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
+        return {
+          ...bills,
+          filterDate: finalDate,
+        };
+      });
+      const filteredResults = finalData?.filter((data) => {
+        return data?.filterDate === filteredDates;
+      });
+      setFilterResults(filteredResults);
+    } else {
+      setFilterResults(businessBills);
+    }
+  }, [filteredDates]);
 
   useEffect(() => {
     AOS.init();
@@ -197,7 +199,7 @@ const GetBills = () => {
         <div className=" md:w-[70vw] w-[100vw]  flex justify-center items-center  my-9 mx-auto">
           <div>
             <div className="flex flex-col justify-center gap-y-2">
-              <div className="flex justify-center">
+              {/* <div className="flex justify-center">
                 <DatePicker
                   selected={startDate}
                   onChange={handleDateChange}
@@ -220,33 +222,8 @@ const GetBills = () => {
                     </div>
                   )}
                 />
-              </div>
-              {/* <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Select Date Range"
-                  className="py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-                  onClick={handleInputChange}
-                  value={
-                    startDate && endDate
-                      ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
-                      : ""
-                  }
-                  readOnly
-                />
-                {isOpen && (
-                  <div className="absolute z-10 top-12 left-0">
-                    <DatePicker
-                      selected={startDate}
-                      onChange={handleDateRangeChange}
-                      startDate={startDate}
-                      endDate={endDate}
-                      selectsRange
-                      inline
-                    />
-                  </div>
-                )}
               </div> */}
+
               <div className="flex justify-center items-center gap-x-4 mb-4 px-9">
                 <select
                   id="filter"
@@ -261,14 +238,40 @@ const GetBills = () => {
                   <option value="lastMonth">Last Month</option>
                   <option value="lastYear">Last Year</option>
                 </select>
-                <input
+                <div className="flex justify-center">
+                  <input
+                    type="text"
+                    placeholder="Select Date Range"
+                    className="py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                    onClick={handleInputChange}
+                    value={
+                      startDate && endDate
+                        ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
+                        : ""
+                    }
+                    readOnly
+                  />
+                  {isOpen && (
+                    <div className="absolute z-10 top-17 left-50">
+                      <DatePicker
+                        selected={startDate}
+                        onChange={handleDateRangeChange}
+                        startDate={startDate}
+                        endDate={endDate}
+                        selectsRange
+                        inline
+                      />
+                    </div>
+                  )}
+                </div>
+                {/* <input
                   type="date"
                   value={selectedDate}
                   onChange={(e) => {
                     setSelectedDate(e.target.value);
                   }}
                   className=" outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-1/2"
-                />
+                /> */}
               </div>
             </div>
 
@@ -290,8 +293,8 @@ const GetBills = () => {
                           mobileNumber={customer?.customerId?.customerNumber}
                           grandTotal={customer?.grandtotal}
                           time={moment(customer?.createdAt).format("h:mm a")}
-                          paid = {customer?.paid}
-                          unPaid = {customer?.unPaid}
+                          paid={customer?.paid}
+                          unPaid={customer?.unPaid}
                           div={
                             <button
                               className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[6px] rounded-full  flex gap-2 justify-center items-start "

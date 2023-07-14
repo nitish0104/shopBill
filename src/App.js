@@ -21,6 +21,9 @@ import ShowSingleBill from './pages/AdminPages/ShowSingleBill';
 import PDFSender from './Raw/WhatsappSendPdfTest';
 import Mydate from './Raw/DateTest';
 import DateTest from './Raw/DateTest';
+import InvoiceForm from './Raw/TotalTest';
+import InputForm from './Raw/TotalTest';
+import ItemForm from './Raw/TotalTest';
 
 function App() {
   return (
@@ -44,6 +47,7 @@ function App() {
               <Route path='/sendbill' element={<PDFSender />} />
               <Route path='/date' element={<Mydate />} />
               <Route path='/date-test' element={<DateTest />} />
+              <Route path='/totaltest' element={<ItemForm />} />
             </Routes>
           </ThemeProvider>
         </Context>
