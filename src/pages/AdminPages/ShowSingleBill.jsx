@@ -11,6 +11,7 @@ import Sidebar from "../../components/Sidebar";
 import moment from "moment";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 import html2canvas from "html2canvas";
+import { ToastContainer, toast } from "react-toastify";
 
 const ShowSingleBill = () => {
   const [singleBill, setSingleBill] = useState();
@@ -55,22 +56,44 @@ const ShowSingleBill = () => {
           to: `91${singleBill?.customerId?.customerNumber}`,
           type: "image",
           image: {
+            
             link: data?.data?.secure_url,
           },
         };
-
+        let Textdata = JSON.stringify({
+          "messaging_product": "whatsapp",
+          "to": `91${singleBill?.customerId?.customerNumber}`,
+          "type": "template",
+          "template": {
+            "name": "hello_world",
+            "language": {
+              "code": "en_US"
+            }
+          }
+        })
+        console.log(process.env.REACT_APP_BUSINESS_TOKEN);
 
         axios("https://graph.facebook.com/v17.0/104365256062975/messages", {
           data: body,
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer EAAit8ZCjC7gcBAAMbkTOZBeORO0I8syTMO5xbkFAh13TGR3xbSDUFsrBnyK58HqVrbRavpACfwPWNzxtA4KlUP8lmzgpVotY4TqOeszh1tCrWZC1VciGcoX10AZAMlnZBq0xyHZBbDTZBeGI3hTCGLadwF4uadQY4Mexi9OY5KsCcPKNLBt6ZArlKNcP0vtRRS6iELent2k8ZBwZDZD",
+            Authorization: `Bearer ${process.env.REACT_APP_BUSINESS_TOKEN}`,
           },
-          method: "POST"
-        })
+          method: "POST",
+        });
 
         // Handle the Cloudinary response as needed
+      }).then(()=>{
+        toast.success("Bill Sent Successfully", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: false,
+          draggable: false,
+          progress: false,
+          theme: "light",
+        });
       })
       .catch((error) => {
         console.error("Error uploading image to Cloudinary:", error);
@@ -159,14 +182,18 @@ const ShowSingleBill = () => {
                     {singleBill?.businessId?.businessName}
                   </h2>
                 </span>
-                <h2 className="font-bold">{business?.businessType}</h2>
+                <h2 className="font-bold">{singleBill?.businessId?.businessType}</h2>
                 <p className="text-sm">{singleBill?.businessId?.location}</p>
 
                 <p className="text-sm">{singleBill?.businessId?.phoneNo}</p>
               </div>
-              
-              <img src={singleBill?.businessId?.businessLogo} className="rounded-full w-16  h-16 text-center" alt="Shop Logo" />
-              
+
+              <img
+                src={singleBill?.businessId?.businessLogo}
+                className="rounded-full w-16  h-16 text-center"
+                alt="Shop Logo"
+              />
+
               <div>
                 <h2 className="text-xl ">
                   {singleBill?.customerId?.customerName}
@@ -234,28 +261,31 @@ const ShowSingleBill = () => {
                     </td>
                   </tr>
 
-                <div className="flex items-end gap-x-3 w-[100%] ">
-                <tr>
-                    <td colSpan="3" className="text-right py-2 px-4 font-bold ">
-                      Paid:
-                    </td>
-                    <td className="py-2  font-bold text-sm text-green-600">
-                      {singleBill?.paid} Rs
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colSpan="3" className="text-right py-2 px-4 font-bold ">
-                      UnPaid:
-                    </td>
-                    <td className="py-2  font-bold text-sm text-red-500">
-                      {singleBill?.unPaid} Rs
-                    </td>
-                  </tr>
                   
-                </div>
+                    <tr>
+                      <td
+                        colSpan="3"
+                        className="text-right py-2 px-4 font-bold "
+                      >
+                        Paid:
+                      </td>
+                      <td className="py-2  font-bold text-sm text-green-600">
+                        {singleBill?.paid} Rs
+                      </td>
+                    </tr>
+                    <tr >
+                      <td
+                        colSpan="3"
+                        className="text-right py-2 px-4 font-bold "
+                      >
+                        UnPaid:
+                      </td>
+                      <td className="py-2  font-bold text-sm text-red-500">
+                        {singleBill?.unPaid} Rs
+                      </td>
+                    
+                  </tr>
                 </tfoot>
-
-
               </table>
             </div>
 
@@ -298,6 +328,7 @@ const ShowSingleBill = () => {
           </div>
         </div>
       </div>
+      <ToastContainer/>
     </>
   );
 };

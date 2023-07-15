@@ -41,7 +41,7 @@ const GetBills = () => {
       })
         .then((res) => {
           setBusinessBills(res?.data?.response);
-          console.log(res?.data?.response);
+          // console.log(res?.data?.response);
           setLoading(false);
         })
         .catch((err) => console.log(err));
@@ -85,7 +85,7 @@ const GetBills = () => {
       moment(date).isBetween(start, end, null, " ")
     );
     setFilteredDates(filtered);
-    console.log(filtered);
+    // console.log(filtered);
   };
 
   const handleFilterChange = (event) => {
@@ -296,7 +296,7 @@ const GetBills = () => {
                   <div className="md:grid md:grid-cols-2 md:gap-2 md:w-[50vw] gap-y-3 px-7 md:px-0 w-[100vw] pb-5">
                     {filterResults?.map((customer, index) => {
                       const dateObj = new Date(customer?.createdAt);
-                      console.log(customer);
+                      // console.log(customer);
                       return (
                         <CustomerCard
                           onClick={handleClick}
