@@ -61,12 +61,12 @@ const CustomerCard = ({
               <p className=" font-semibold  text-start">{mobileNumber}</p>
             </button>
           </div>
-          <div className="w-1/12">
+          <div className="w-1/12" onClick={() => {
+                onClick(billId);
+              }}>
             <button
               className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[9px] rounded-full  flex gap-2 justify-center items-center"
-              onClick={() => {
-                onClick(billId);
-              }}
+              
             >
               <BsWhatsapp className=" text-2xl text-center "></BsWhatsapp>
             </button>

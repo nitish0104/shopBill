@@ -164,6 +164,9 @@ const ShowSingleBill = () => {
 
                 <p className="text-sm">{singleBill?.businessId?.phoneNo}</p>
               </div>
+              <div className="">
+              <img src={singleBill?.businessId?.businessLogo} className="rounded-full w-14  h-14" alt="" />
+              </div>
               <div>
                 <h2 className="text-xl ">
                   {singleBill?.customerId?.customerName}
@@ -230,7 +233,29 @@ const ShowSingleBill = () => {
                       {singleBill?.grandtotal - singleBill?.discount} Rs
                     </td>
                   </tr>
+
+                <div className="flex items-end gap-x-3 w-[100%] ">
+                <tr>
+                    <td colSpan="3" className="text-right py-2 px-4 font-bold ">
+                      Paid:
+                    </td>
+                    <td className="py-2  font-bold text-sm text-green-600">
+                      {singleBill?.paid} Rs
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan="3" className="text-right py-2 px-4 font-bold ">
+                      UnPaid:
+                    </td>
+                    <td className="py-2  font-bold text-sm text-red-500">
+                      {singleBill?.unPaid} Rs
+                    </td>
+                  </tr>
+                  
+                </div>
                 </tfoot>
+
+
               </table>
             </div>
 
