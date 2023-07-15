@@ -105,23 +105,17 @@ const Main = () => {
 
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    
       if (
-        formState.businessName == "" ||
-        formState.businessType == "" ||
-        formState.location == ""
+        formState?.businessName == "" ||
+        formState?.businessType == "" ||
+        formState?.location == ""
       ) {
         setisEditable(true);
       } else {
         setisEditable(false);
       }
-
-    }, 3000); // Delay in milliseconds (2 seconds)
-
-    return () => {
-      clearTimeout(timer); // Clean up the timer if the component unmounts before the timeout is reached
-    };
-  }, []);
+  }, [formState?.businessName]);
 
 
 
