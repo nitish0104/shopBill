@@ -8,7 +8,9 @@ const BillPreviewModal = ({showModal, setShowModal, billID}) => {
 	}
 	{showModal && <section className='h-[90vh] w-[90vw] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white z-[1000]'>
 		<div className='flex justify-end px-5 py-4'><button onClick={() => {setShowModal(false)}} className='ml-auto'>Close</button></div>
-		<iframe className='w-full h-full' src={`http://localhost:3000/invoice/${billID}?show=false`} frameborder="0"></iframe>
+		{/* <iframe className='w-full h-full' src={`http://localhost:3000/invoice/${billID}?show=false`} frameborder="0"></iframe>  for developement */}
+		<iframe className='w-full h-full' src={`http://shopconnect.vercel.app/invoice/${billID}?show=false`} frameborder="0"></iframe> 
+		
 	</section>}
 	</>
   )
