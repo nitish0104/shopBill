@@ -74,7 +74,7 @@ const ShowSingleBill = () => {
         console.log(process.env.REACT_APP_BUSINESS_TOKEN);
 
         axios("https://graph.facebook.com/v17.0/104365256062975/messages", {
-          data: body,
+          data: Textdata,
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${process.env.REACT_APP_BUSINESS_TOKEN}`,
