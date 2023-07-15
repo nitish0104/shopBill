@@ -334,7 +334,7 @@ const ShowCustomerDetails = () => {
                           onClick={() => {
                             handleSingleBill(value?._id);
                           }}
-                          className={`flex    duration-200 justify-between items-center py-3 px-2  hover:shadow-md  shadow-sm shadow-blue-200 outline-none  border border-gray-300 bg-transparent   hover:shadow-blue-200 rounded-md md:w-[30vw] w-full cursor-pointer   ${
+                          className={`flex    duration-200 justify-between items-center py-3 px-1  hover:shadow-md  shadow-sm shadow-blue-200 outline-none  border border-gray-300 bg-transparent   hover:shadow-blue-200 rounded-md md:w-[30vw] w-full cursor-pointer   ${
                             isDarkMode
                               ? "hover:border-white"
                               : "hover:border-black"
@@ -343,10 +343,10 @@ const ShowCustomerDetails = () => {
                           <p className="flex items-center gap-x-2">
                             <p>Date:{" "}
                             {format(new Date(value?.createdAt), "dd/MMM/yyyy")}</p>
-                            <p>{moment(value?.createdAt).format("h:mm a")}</p>
+                          
                           </p>
                           <p>
-                            GrandTotal: {value?.grandtotal - value?.discount} Rs
+                            GrandTotal: &#8377;{value?.grandtotal - value?.discount}
                           </p>
                         </div>
                       </div>
