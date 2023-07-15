@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { ContextAuth } from "../context/Context";
 import jwtDecode from "jwt-decode";
 import Spinner from "../components/Spinner";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddCustomerModal = ({ data, setModal }) => {
   const [showModal, setShowModal] = useState(false);
@@ -61,7 +62,20 @@ const AddCustomerModal = ({ data, setModal }) => {
             // console.log(res.data.token);
             setLoading(false);
           })
-          .catch((err) => console.log(err));
+          .catch((res) => {
+            console.log(res.data);
+            toast.error("Customer already exist", {
+              position: "top-center",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: false,
+              draggable: false,
+              progress: false,
+              theme: "light",
+            });
+            setLoading(false);
+          });
       }
     } catch (error) {
       console.log(error);
@@ -104,7 +118,6 @@ const AddCustomerModal = ({ data, setModal }) => {
                     setcustomerName(e.target.value);
                   }}
                   className={"w-[95%]"}
-                  
                 />
 
                 <Input
@@ -139,6 +152,7 @@ const AddCustomerModal = ({ data, setModal }) => {
           </div>
         </div>
       </CSSTransition>
+      <ToastContainer />
     </>
   );
 };

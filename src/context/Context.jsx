@@ -43,12 +43,14 @@ const Context = ({ children }) => {
                 Authorization: `Bearer ${token}`,
               },
             })
-            .then(() => {
+            .then((res) => {
               console.log(location);
-              if (location.pathname === "/") {
+              if (location.pathname === "/" || "/login" ) {
                 setTimeout(() => {
-                  navigate("/dashboard");
-                }, 300);
+        
+                navigate("/dashboard");
+              
+                }, 2000);
               }else{
                 return
               }

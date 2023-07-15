@@ -11,7 +11,6 @@ import Sidebar from "../../components/Sidebar";
 import moment from "moment";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 import html2canvas from "html2canvas";
-import { BsWhatsapp } from "react-icons/bs";
 
 const ShowSingleBill = () => {
   const [singleBill, setSingleBill] = useState();
@@ -60,6 +59,7 @@ const ShowSingleBill = () => {
           },
         };
 
+
         axios("https://graph.facebook.com/v17.0/104365256062975/messages", {
           data: body,
           headers: {
@@ -67,8 +67,8 @@ const ShowSingleBill = () => {
             Authorization:
               "Bearer EAAit8ZCjC7gcBAAMbkTOZBeORO0I8syTMO5xbkFAh13TGR3xbSDUFsrBnyK58HqVrbRavpACfwPWNzxtA4KlUP8lmzgpVotY4TqOeszh1tCrWZC1VciGcoX10AZAMlnZBq0xyHZBbDTZBeGI3hTCGLadwF4uadQY4Mexi9OY5KsCcPKNLBt6ZArlKNcP0vtRRS6iELent2k8ZBwZDZD",
           },
-          method: "POST",
-        });
+          method: "POST"
+        })
 
         // Handle the Cloudinary response as needed
       })
@@ -180,7 +180,6 @@ const ShowSingleBill = () => {
                       Items
                     </th>
                     <th className="  py-2 px-4 border-x">Quantity</th>
-                    <th className="  py-2 px-4 border-x">unit</th>
                     <th className="  py-2 px-4 border-x">Individual Price</th>
                     <th className="  py-2 px-4 border-x">Total </th>
                   </tr>
@@ -189,28 +188,25 @@ const ShowSingleBill = () => {
                   {itemsSingeBill?.map((items) => {
                     return (
                       <tr className="text-center border-2 border-black ">
-                        <td className="sticky left-0 w-2/6  bg-white px-2 border whitespace-nowrap ">
+                        <td className="sticky left-0 w-2/5  bg-white px-2 border whitespace-nowrap ">
                           {items?.item}
                         </td>
-                        <td className=" py-2  w-1/6 border-x whitespace-nowrap">
+                        <td className=" py-2  w-1/5 border-x whitespace-nowrap">
                           {items?.qty}
                         </td>
-                        <td className=" py-2  w-1/6 border-x whitespace-nowrap">
-                          {items?.selectedUnit}
+                        <td className=" py-2  w-1/5 border-x  whitespace-nowrap text-sm">
+                          {items?.price} Rs
                         </td>
-                        <td className=" py-2  w-1/6 border-x  whitespace-nowrap text-sm">
-                          {items?.individualPrice} Rs
-                        </td>
-                        <td className=" py-2 w-1/6 border-x whitespace-nowrap text-sm">
-                          {items?.total} Rs
+                        <td className=" py-2 w-1/5 border-x whitespace-nowrap text-sm">
+                          {items?.cost} Rs
                         </td>
                       </tr>
                     );
                   })}
                 </tbody>
-                <tfoot className="bg-gray-200 text-gray-800  w-screen">
-                  <tr className="">
-                    <td colSpan="4" className="text-right py-2 px-4 font-bold ">
+                <tfoot className="bg-gray-200 text-gray-800 ">
+                  <tr className="w-[50vw]">
+                    <td colSpan="3" className="text-right py-2 px-4 font-bold ">
                       Subtotal:
                     </td>
                     <td className="py-2 text-sm">
@@ -218,7 +214,7 @@ const ShowSingleBill = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td colSpan="4" className="text-right py-2 px-4 font-bold ">
+                    <td colSpan="3" className="text-right py-2 px-4 font-bold ">
                       Discount:
                     </td>
                     <td className="py-2  border-b border-black text-sm">
@@ -227,7 +223,7 @@ const ShowSingleBill = () => {
                   </tr>
 
                   <tr>
-                    <td colSpan="4" className="text-right py-2 px-4 font-bold ">
+                    <td colSpan="3" className="text-right py-2 px-4 font-bold ">
                       Total:
                     </td>
                     <td className="py-2  font-bold text-sm ">
@@ -256,9 +252,9 @@ const ShowSingleBill = () => {
                   e.target.style.opacity = 1;
                   contentRef.current.style.display = "";
                 }}
-                className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[9px] rounded-full  flex gap-2 justify-center items-center"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
               >
-                <BsWhatsapp className=" text-2xl text-center ">Send</BsWhatsapp>
+                <AiOutlinePrinter /> Print
               </button>
             )}
             {handleShare && (
@@ -269,9 +265,9 @@ const ShowSingleBill = () => {
                   convertToImage();
                   e.target.style.opacity = 1;
                 }}
-                className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[9px] rounded-full  flex gap-2 justify-center items-center"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
               >
-                <BsWhatsapp className=" text-2xl text-center "></BsWhatsapp>Send
+                <AiOutlinePrinter /> Share
               </button>
             )}
           </div>

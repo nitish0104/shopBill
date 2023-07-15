@@ -340,9 +340,10 @@ const ShowCustomerDetails = () => {
                               : "hover:border-black"
                           }`}
                         >
-                          <p className="flex items-center gap-x-1">
-                            Date:{" "}
-                            {format(new Date(value?.createdAt), "dd/MMM/yyyy")}
+                          <p className="flex items-center gap-x-2">
+                            <p>Date:{" "}
+                            {format(new Date(value?.createdAt), "dd/MMM/yyyy")}</p>
+                            <p>{moment(value?.createdAt).format("h:mm a")}</p>
                           </p>
                           <p>
                             GrandTotal: {value?.grandtotal - value?.discount} Rs

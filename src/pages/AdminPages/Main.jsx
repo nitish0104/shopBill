@@ -12,12 +12,13 @@ import "react-toastify/dist/ReactToastify.css";
 import ImageUploadComponent from "../../components/Input/ImageInput";
 import axios from "axios";
 import { ContextAuth } from "../../context/Context";
+import PageLoader from "../../components/PageLoader";
 
 const Main = () => {
   const { isDarkMode } = ThemeContextAuth();
   const [isEditable, setisEditable] = useState(false);
   const { setBusiness, formState, setformState, logoUrl } = ContextAuth();
-
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -79,6 +80,8 @@ const Main = () => {
   }, []);
 
   const fetchData = async () => {
+    setLoading(true);
+
     try {
       await axios("https://khatabook-one.vercel.app/getregisterbusiness", {
         method: "GET",
@@ -91,6 +94,9 @@ const Main = () => {
           const response = res.data.response[0];
           setformState(response);
           setBusiness(response);
+          
+          setLoading(false);
+          
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -98,10 +104,31 @@ const Main = () => {
     }
   };
 
+  useEffect(() => {
+    if (
+      !formState.businessName ||
+      !formState.businessType ||
+      !formState.location 
+    ) {
+      setisEditable(true); // Set isEditable to true if any required field is empty
+    } else {
+      setisEditable(false); // Set isEditable to false if all required fields are filled
+    }
+  }, [formState.businessName && formState.businessType && formState.location ]);
+
   return (
     <>
       <LayoutMain>
         <Sidebar />
+        {loading ? (
+          <PageLoader
+            className={
+              "fixed z-[500] w-full h-full  bg-black bg-opacity-20 text-center "
+            }
+          />
+        ) : (
+          <PageLoader className={"hidden"} />
+        )}
         <div
           className={` overflow-auto md:overflow-y-hidden w-screen min-h-screen h-auto  rounded-t-lg pt-4 ${
             isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
@@ -126,22 +153,18 @@ const Main = () => {
                   <div className="pl-2 flex items-center shadow appearance-none border rounded w-full  leading-tight focus:outline-none focus:shadow-outline">
                     <AiOutlineShop
                       className={`text-3xl text-transperent  mr-2  bg-transparent${
-                        isDarkMode
-                          ? " text-white"
-                          : " text-gray-800"
+                        isDarkMode ? " text-white" : " text-gray-800"
                       }`}
                     />
                     <input
                       className={`w-full py-2 px-2 font-semibold  leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 ${
-                        isDarkMode
-                          ? " text-white"
-                          : " text-gray-800"
+                        isDarkMode ? " text-white" : " text-gray-800"
                       } `}
                       id="businessName"
                       type="text"
                       name="name"
                       required
-                      value={formState.businessName}
+                      value={formState?.businessName}
                       onChange={handleChange}
                       disabled={!isEditable}
                     />
@@ -161,22 +184,18 @@ const Main = () => {
                   <div className=" pl-2 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
                     <IoBusinessOutline
                       className={`text-3xl text-transperent mr-2 ${
-                        isDarkMode
-                          ? " text-white"
-                          : " text-gray-800"
+                        isDarkMode ? " text-white" : " text-gray-800"
                       }`}
                     />
                     <input
-                    className={`w-full py-2 px-2  font-semibold leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 ${
-                      isDarkMode
-                        ? " text-white"
-                        : " text-gray-800"
-                    } `}
+                      className={`w-full py-2 px-2  font-semibold leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 ${
+                        isDarkMode ? " text-white" : " text-gray-800"
+                      } `}
                       id="businessType"
                       type="text"
                       name="name"
                       required
-                      value={formState.businessType}
+                      value={formState?.businessType}
                       onChange={handleChange}
                       disabled={!isEditable}
                     />
@@ -194,17 +213,13 @@ const Main = () => {
                   <div className=" pl-2 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
                     <HiOutlineReceiptTax
                       className={`text-3xl text-transperent mr-2 ${
-                        isDarkMode
-                          ? " text-white"
-                          : " text-gray-800"
+                        isDarkMode ? " text-white" : " text-gray-800"
                       }`}
                     />
                     <input
-                    className={`w-full py-2 px-2  leading-tight focus:outline-none focus:shadow-outline font-semibold placeholder:text-gray-800 ${
-                      isDarkMode
-                        ? " text-white"
-                        : " text-gray-800"
-                    } `}
+                      className={`w-full py-2 px-2  leading-tight focus:outline-none focus:shadow-outline font-semibold placeholder:text-gray-800 ${
+                        isDarkMode ? " text-white" : " text-gray-800"
+                      } `}
                       id="gstNo"
                       required
                       type="text"
@@ -227,16 +242,12 @@ const Main = () => {
                   <div className=" pl-2 flex items-center shadow appearance-none border rounded w-full  leading-tight focus:outline-none focus:shadow-outline">
                     <GoLocation
                       className={`text-3xl text-transperent mr-2  ${
-                        isDarkMode
-                          ? "  text-white"
-                          : " text-gray-800"
+                        isDarkMode ? "  text-white" : " text-gray-800"
                       }`}
                     />
                     <input
                       className={`w-full py-2 px-2 font-semibold leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 ${
-                        isDarkMode
-                          ? " text-white"
-                          : " text-gray-800"
+                        isDarkMode ? " text-white" : " text-gray-800"
                       } `}
                       id="location"
                       type="text"
@@ -252,7 +263,7 @@ const Main = () => {
             </div>
             <div className=" flex items-center pt-4 md:pt-16 gap-x-16 justify-center ">
               <div className="flex gap-x-10 md:w-[30%] w-[70vw]">
-                {isEditable ? (
+                {isEditable   ? (
                   <div className=" w-[100%] flex justify-center">
                     <button
                       type="button"
@@ -271,6 +282,7 @@ const Main = () => {
                     >
                       Edit
                     </button>
+                    
                   </div>
                 )}
               </div>
@@ -279,7 +291,9 @@ const Main = () => {
         </div>
         <ToastContainer />
 
-        <Navigation />
+        <Navigation
+          className={`${loading ? "cursor-not-allowed" : "cursor-pointer"}`}
+        />
       </LayoutMain>
     </>
   );

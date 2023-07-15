@@ -75,22 +75,22 @@ const CustomerCard = ({
             {showPaid ? (
               <button
                 // className="text-3xl text-center mb-2 font-bold text-green-500"
-                className={`text-center  font-bold text-xl text-green-500  `}
+                className={`text-center flex gap-x-1 items-center text-xl  `}
                 onClick={() => {
                   setShowPaid(false);
                 }}
               >
-                &#8377;{paid > 0 ? paid : amount}
+            <p className=" ">Paid:</p>   <p className="font-bold  text-green-500"> &#8377;{paid > 0 ? paid : amount}</p>
               </button>
             ) : (
               <button
                 // className="text-3xl text-center mb-2 font-bold text-green-500"
-                className={"text-center  font-bold text-xl text-red-500"}
+                className={"text-center flex gap-x-1 items-center text-xl "}
                 onClick={() => {
                   setShowPaid(true);
                 }}
               >
-                &#8377;{unPaid}
+                <p>UnPaid: </p> <p className="font-bold text-red-500">&#8377;{unPaid}</p>
               </button>
             )}
 

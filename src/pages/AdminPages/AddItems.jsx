@@ -173,8 +173,8 @@ const AddItems = () => {
   };
 
   useEffect(() => {
-    setUnPaid(grandtotal - discount - paid);
-  }, [paid, discount, grandtotal]);
+    setPaid(grandtotal - discount - unPaid);
+  }, [unPaid, discount, grandtotal]);
 
   return (
     <>
@@ -250,7 +250,9 @@ const AddItems = () => {
                       value={total}
                       onChange={(e) => setTotal(e.target.value)}
                       onKeyDown={handleTotalSave}
-                      className="px-2 py-1 border rounded"
+                      className={`w-full h-12  rounded-lg border duration-200 pl-2 bg-transparent ${
+                        isDarkMode ? " text-white" : " text-black"
+                      }`}
                     />
                   ) : (
                     <div className="flex items-center">
@@ -258,7 +260,9 @@ const AddItems = () => {
                         type="text"
                         value={total}
                         readOnly
-                        className="px-2 py-1 border rounded bg-gray-100 cursor-pointer"
+                        className={`w-full h-12  rounded-lg border duration-200 pl-2 bg-transparent cursor-pointer ${
+                          isDarkMode ? " text-white" : " text-black"
+                        }`}
                         onClick={handleTotalEdit}
                       />
                       <span className="ml-2 text-xs cursor-pointer">Edit</span>
@@ -579,7 +583,7 @@ const AddItems = () => {
                       onChange={(e) => {
                         setUnPaid(e.target.value);
                       }}
-                      readOnly
+                      
                       className={`  w-[30%]   flex items-center  border-none outline-none  ${
                         isDarkMode ? "bg-gray-800 " : "bg-white "
                       }`}
