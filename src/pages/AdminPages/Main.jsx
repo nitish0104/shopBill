@@ -94,9 +94,8 @@ const Main = () => {
           const response = res.data.response[0];
           setformState(response);
           setBusiness(response);
-          
+
           setLoading(false);
-          
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -104,17 +103,27 @@ const Main = () => {
     }
   };
 
+
   useEffect(() => {
-    if (
-      !formState.businessName ||
-      !formState.businessType ||
-      !formState.location 
-    ) {
-      setisEditable(true); // Set isEditable to true if any required field is empty
-    } else {
-      setisEditable(false); // Set isEditable to false if all required fields are filled
-    }
-  }, [formState.businessName && formState.businessType && formState.location ]);
+    const timer = setTimeout(() => {
+      if (
+        formState.businessName == "" ||
+        formState.businessType == "" ||
+        formState.location == ""
+      ) {
+        setisEditable(true);
+      } else {
+        setisEditable(false);
+      }
+
+    }, 3000); // Delay in milliseconds (2 seconds)
+
+    return () => {
+      clearTimeout(timer); // Clean up the timer if the component unmounts before the timeout is reached
+    };
+  }, []);
+
+
 
   return (
     <>
@@ -263,7 +272,7 @@ const Main = () => {
             </div>
             <div className=" flex items-center pt-4 md:pt-16 gap-x-16 justify-center ">
               <div className="flex gap-x-10 md:w-[30%] w-[70vw]">
-                {isEditable   ? (
+                {isEditable ? (
                   <div className=" w-[100%] flex justify-center">
                     <button
                       type="button"
@@ -282,7 +291,6 @@ const Main = () => {
                     >
                       Edit
                     </button>
-                    
                   </div>
                 )}
               </div>

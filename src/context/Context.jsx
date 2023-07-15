@@ -50,7 +50,7 @@ const Context = ({ children }) => {
         
                 navigate("/dashboard");
               
-                }, 2000);
+                }, 200);
               }else{
                 return
               }

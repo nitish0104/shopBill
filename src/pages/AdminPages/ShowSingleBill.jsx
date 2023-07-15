@@ -164,9 +164,9 @@ const ShowSingleBill = () => {
 
                 <p className="text-sm">{singleBill?.businessId?.phoneNo}</p>
               </div>
-              <div className="">
-              <img src={singleBill?.businessId?.businessLogo} className="rounded-full w-14  h-14" alt="" />
-              </div>
+              
+              <img src={singleBill?.businessId?.businessLogo} className="rounded-full w-16  h-16 text-center" alt="Shop Logo" />
+              
               <div>
                 <h2 className="text-xl ">
                   {singleBill?.customerId?.customerName}
@@ -198,10 +198,10 @@ const ShowSingleBill = () => {
                           {items?.qty}
                         </td>
                         <td className=" py-2  w-1/5 border-x  whitespace-nowrap text-sm">
-                          {items?.price} Rs
+                          {items?.individualPrice} Rs
                         </td>
                         <td className=" py-2 w-1/5 border-x whitespace-nowrap text-sm">
-                          {items?.cost} Rs
+                          {items?.total} Rs
                         </td>
                       </tr>
                     );
