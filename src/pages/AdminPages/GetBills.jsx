@@ -69,7 +69,7 @@ const GetBills = () => {
   const [filteredDates, setFilteredDates] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [showBillPreview, setShowBillPreview] = useState(false);
-  const [customerID, setCustomerID] = useState("")
+  const [customerID, setCustomerID] = useState("");
 
   const handleInputChange = () => {
     setIsOpen(true);
@@ -198,19 +198,23 @@ const GetBills = () => {
 
   const handleClick = (_id) => {
     console.log(_id);
-    setCustomerID(_id)
-    setShowBillPreview(true)
-  }
+    setCustomerID(_id);
+    setShowBillPreview(true);
+  };
 
   return (
     <>
-    <BillPreviewModal showModal={showBillPreview} setShowModal={setShowBillPreview} billID={customerID}/>
+      <BillPreviewModal
+        showModal={showBillPreview}
+        setShowModal={setShowBillPreview}
+        billID={customerID}
+      />
       <LayoutMain>
         <Sidebar />
         <div className=" md:w-[70vw] w-[100vw]  flex justify-center items-center  my-9 mx-auto">
           <div>
             <div className="flex flex-col justify-center gap-y-2">
-              {/* <div className="flex justify-center">
+              <div className="flex justify-center">
                 <DatePicker
                   selected={startDate}
                   onChange={handleDateChange}
@@ -233,7 +237,7 @@ const GetBills = () => {
                     </div>
                   )}
                 />
-              </div> */}
+              </div>
 
               <div className="flex justify-center items-center gap-x-4 mb-4 px-9">
                 <select
@@ -295,7 +299,7 @@ const GetBills = () => {
                       console.log(customer);
                       return (
                         <CustomerCard
-                        onClick={handleClick}
+                          onClick={handleClick}
                           data={customer}
                           key={customer?.customerId?._id + index}
                           name={customer?.customerId?.customerName}
