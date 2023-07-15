@@ -33,7 +33,6 @@ const Main = () => {
         .then((res) => {
           setisEditable(false);
           setformState(res.data);
-
           toast.success("Profile updated !", {
             position: "top-center",
             autoClose: 3000,
@@ -90,11 +89,19 @@ const Main = () => {
         },
       })
         .then((res) => {
-          console.log(res.data.response);
           const response = res.data.response[0];
           setformState(response);
           setBusiness(response);
-
+          if (
+            res.data.response[0]?.businessName ||
+            res.data.response[0]?.businessType ||
+            res.data.response[0]?.gstNo ||
+            res.data.response[0]?.location
+          ) {
+            setisEditable(false);
+          } else {
+            setisEditable(true);
+          }
           setLoading(false);
         })
         .catch((err) => console.log(err));
@@ -102,22 +109,6 @@ const Main = () => {
       console.log(error);
     }
   };
-
-
-  useEffect(() => {
-    
-      if (
-        formState?.businessName == "" ||
-        formState?.businessType == "" ||
-        formState?.location == ""
-      ) {
-        setisEditable(true);
-      } else {
-        setisEditable(false);
-      }
-  }, [formState?.businessName]);
-
-
 
   return (
     <>
@@ -143,8 +134,9 @@ const Main = () => {
               setformState={setformState}
               formState={formState}
               isEditable={isEditable}
+              setisEditable={setisEditable}
             />
-            <div className="md:grid md:grid-cols-2 md:px-36">
+            <div className="md:grid md:grid-cols-2 md:px-36 items-end">
               <div className="flex items-center gap-x-2 justify-center">
                 <div className="md:w-[30vw]">
                   <label

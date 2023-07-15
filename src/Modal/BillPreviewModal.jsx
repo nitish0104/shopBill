@@ -18,12 +18,12 @@ const BillPreviewModal = ({ showModal, setShowModal, billID }) => {
               <AiOutlineClose />
             </button>
           </div>
-          <iframe className='w-full h-full' src={`http://localhost:3000/invoice/${billID}?show=false`} frameborder="0"></iframe>  for developement
-          {/* <iframe
+          {/* <iframe className='w-full h-full' src={`http://localhost:3000/invoice/${billID}?show=false`} frameborder="0"></iframe>  for developement */}
+          <iframe
             className="w-full h-full"
             src={`https://shopconnect.vercel.app/invoice/${billID}`}
             frameborder="0"
-          ></iframe> */}
+          ></iframe>
         </section>
       )}
     </>

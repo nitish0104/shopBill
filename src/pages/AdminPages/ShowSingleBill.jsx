@@ -14,6 +14,7 @@ import html2canvas from "html2canvas";
 import { ToastContainer, toast } from "react-toastify";
 
 const ShowSingleBill = () => {
+  const REACT_APP_BUSINESS_TOKEN = process.env.REACT_APP_BUSINESS_TOKEN;
   const [singleBill, setSingleBill] = useState();
   const [itemsSingeBill, setitemsSingeBill] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -22,6 +23,7 @@ const ShowSingleBill = () => {
   const { isDarkMode } = ThemeContextAuth();
   const location = useLocation();
   const [handleShare, setHandleShare] = useState(true);
+  const [cloudinaryURL, setcloudinaryURL] = useState("");
 
   const dataURLToBlob = (dataUrl) => {
     const byteString = atob(dataUrl.split(",")[1]);
@@ -49,41 +51,49 @@ const ShowSingleBill = () => {
       data: formData,
     })
       .then((data) => {
-        console.log(data);
+        setcloudinaryURL(data?.data?.secure_url);
+        console.log(data?.data?.secure_url);
+        let Textdata = JSON.stringify({
+          messaging_product: "whatsapp",
+          to: `91${singleBill?.customerId?.customerNumber}`,
+          type: "template",
+          template: {
+            name: "hello_world",
+            language: {
+              code: "en_US",
+            },
+          },
+        });
+        axios("https://graph.facebook.com/v17.0/104365256062975/messages", {
+          data: Textdata,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${REACT_APP_BUSINESS_TOKEN}`,
+          },
+          method: "POST",
+        });
+      })
+      .then((data) => {
+        console.log(cloudinaryURL);
         let body = {
           messaging_product: "whatsapp",
           recipient_type: "individual",
           to: `91${singleBill?.customerId?.customerNumber}`,
           type: "image",
           image: {
-            
-            link: data?.data?.secure_url,
+            link: cloudinaryURL,
           },
         };
-        let Textdata = JSON.stringify({
-          "messaging_product": "whatsapp",
-          "to": `91${singleBill?.customerId?.customerNumber}`,
-          "type": "template",
-          "template": {
-            "name": "hello_world",
-            "language": {
-              "code": "en_US"
-            }
-          }
-        })
-        console.log(process.env.REACT_APP_BUSINESS_TOKEN);
-
         axios("https://graph.facebook.com/v17.0/104365256062975/messages", {
-          data: Textdata,
+          data: body,
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.REACT_APP_BUSINESS_TOKEN}`,
+            Authorization: `Bearer ${REACT_APP_BUSINESS_TOKEN}`,
           },
           method: "POST",
         });
-
-        // Handle the Cloudinary response as needed
-      }).then(()=>{
+      })
+      .then(() => {
         toast.success("Bill Sent Successfully", {
           position: "top-center",
           autoClose: 3000,
@@ -94,6 +104,7 @@ const ShowSingleBill = () => {
           progress: false,
           theme: "light",
         });
+        console.log(cloudinaryURL);
       })
       .catch((error) => {
         console.error("Error uploading image to Cloudinary:", error);
@@ -182,7 +193,9 @@ const ShowSingleBill = () => {
                     {singleBill?.businessId?.businessName}
                   </h2>
                 </span>
-                <h2 className="font-bold">{singleBill?.businessId?.businessType}</h2>
+                <h2 className="font-bold">
+                  {singleBill?.businessId?.businessType}
+                </h2>
                 <p className="text-sm">{singleBill?.businessId?.location}</p>
 
                 <p className="text-sm">{singleBill?.businessId?.phoneNo}</p>
@@ -261,29 +274,21 @@ const ShowSingleBill = () => {
                     </td>
                   </tr>
 
-                  
-                    <tr>
-                      <td
-                        colSpan="3"
-                        className="text-right py-2 px-4 font-bold "
-                      >
-                        Paid:
-                      </td>
-                      <td className="py-2  font-bold text-sm text-green-600">
-                        {singleBill?.paid} Rs
-                      </td>
-                    </tr>
-                    <tr >
-                      <td
-                        colSpan="3"
-                        className="text-right py-2 px-4 font-bold "
-                      >
-                        UnPaid:
-                      </td>
-                      <td className="py-2  font-bold text-sm text-red-500">
-                        {singleBill?.unPaid} Rs
-                      </td>
-                    
+                  <tr>
+                    <td colSpan="3" className="text-right py-2 px-4 font-bold ">
+                      Paid:
+                    </td>
+                    <td className="py-2  font-bold text-sm text-green-600">
+                      {singleBill?.paid} Rs
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan="3" className="text-right py-2 px-4 font-bold ">
+                      UnPaid:
+                    </td>
+                    <td className="py-2  font-bold text-sm text-red-500">
+                      {singleBill?.unPaid} Rs
+                    </td>
                   </tr>
                 </tfoot>
               </table>
@@ -328,7 +333,7 @@ const ShowSingleBill = () => {
           </div>
         </div>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </>
   );
 };

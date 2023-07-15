@@ -45,18 +45,16 @@ const Context = ({ children }) => {
             })
             .then((res) => {
               console.log(location);
-              if (location.pathname === "/login") {
+              if (location.pathname === "/login" || location.pathname === "/") {
                 setTimeout(() => {
-        
-                navigate("/dashboard");
-              
+                  navigate("/dashboard");
                 }, 200);
-              }else{
-                return
+              } else {
+                return;
               }
             });
         } catch (error) {
-          navigate("/");
+          navigate("/login");
         }
       } else {
         navigate("/login");

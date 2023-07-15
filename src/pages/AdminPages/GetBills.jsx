@@ -29,6 +29,27 @@ const GetBills = () => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
+    const finalData = businessBills?.map((bill) => {
+      const filterDate = moment(bill?.createdAt).format("YYYY-MM-DD");
+      console.log(bill?.createdAt);
+      return {
+        ...bill,
+        filterDate: filterDate,
+        filterDateMilliseconds: Number(moment(bill?.createdAt).format("x")),
+      };
+    });
+    if (start && end) {
+      let milisecondsStart = Number(moment(start).format("x"));
+      let milisecondsEnd = Number(moment(end).format("x")) + 86400000;
+      setFilterResults(
+        finalData?.filter((bill) => {
+          return (
+            milisecondsStart <= bill?.filterDateMilliseconds &&
+            bill?.filterDateMilliseconds < milisecondsEnd
+          );
+        })
+      );
+    }
   };
   useEffect(() => {
     setLoading(true);
@@ -70,23 +91,6 @@ const GetBills = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showBillPreview, setShowBillPreview] = useState(false);
   const [customerID, setCustomerID] = useState("");
-
-  const handleInputChange = () => {
-    setIsOpen(true);
-  };
-  const handleDateRangeChange = (dates) => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
-    setIsOpen(false);
-
-    // Filter the dates based on the selected range
-    const filtered = businessBills.filter((date) =>
-      moment(date).isBetween(start, end, null, " ")
-    );
-    setFilteredDates(filtered);
-    // console.log(filtered);
-  };
 
   const handleFilterChange = (event) => {
     setSelectedDate("");
@@ -253,32 +257,7 @@ const GetBills = () => {
                   <option value="lastMonth">Last Month</option>
                   <option value="lastYear">Last Year</option>
                 </select>
-                {/* <div className="flex justify-center">
-                  <input
-                    type="text"
-                    placeholder="Select Date Range"
-                    className="py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-                    onClick={handleInputChange}
-                    value={
-                      startDate && endDate
-                        ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
-                        : ""
-                    }
-                    readOnly
-                  />
-                  {isOpen && (
-                    <div className="absolute z-10 top-17 left-50">
-                      <DatePicker
-                        selected={startDate}
-                        onChange={handleDateRangeChange}
-                        startDate={startDate}
-                        endDate={endDate}
-                        selectsRange
-                        inline
-                      />
-                    </div>
-                  )}
-                </div> */}
+
                 <input
                   type="date"
                   value={selectedDate}

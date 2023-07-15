@@ -19,7 +19,7 @@ const LogoutModal = ({ setModel }) => {
       progress: false,
       theme: "light",
     });
-    naviGate("/login");
+    window.location.reload();
   };
   return (
     <>
@@ -29,10 +29,14 @@ const LogoutModal = ({ setModel }) => {
             "relative h-[25vh] w-[80vw] md:w-[50vw]  bg-white rounded-lg md:h-[50vh]"
           }
         >
-        
-
           <div className="flex justify-center items-center flex-col h-full gap-y-5">
-            <p className={`font-semibold text-base ${isDarkMode ? 'text-black' : 'text-black'}`}>Are you sure you want to logout.</p>
+            <p
+              className={`font-semibold text-base ${
+                isDarkMode ? "text-black" : "text-black"
+              }`}
+            >
+              Are you sure you want to logout.
+            </p>
             <div className="flex justify-center items-center gap-x-5">
               <button
                 onClick={() => {
@@ -42,7 +46,13 @@ const LogoutModal = ({ setModel }) => {
               >
                 Cancle
               </button>
-              <button className="font-bold text-xl bg-red-600 text-white py-1.5 px-2 rounded-md w-28" onClick={logout}> Yes</button>
+              <button
+                className="font-bold text-xl bg-red-600 text-white py-1.5 px-2 rounded-md w-28"
+                onClick={logout}
+              >
+                {" "}
+                Yes
+              </button>
             </div>
           </div>
         </div>
