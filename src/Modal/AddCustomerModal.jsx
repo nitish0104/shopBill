@@ -124,6 +124,7 @@ const AddCustomerModal = ({ data, setModal }) => {
                   type={"number"}
                   id={"number"}
                   Label={"Customer Number"}
+                  
                   placeholder={"Enter the Customer Number"}
                   value={customerNumber}
                   onChange={(e) => {

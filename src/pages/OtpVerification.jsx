@@ -199,7 +199,7 @@ const VerifyOTP = () => {
                       className={"pl-2 text-center"}
                       Label={"Enter the OTP"}
                       id={"otp"}
-                      maxLength={"6"}
+                      maxLength={6}
                       value={otp}
                       onChange={(e) => {
                         setOTP(e.target.value);
