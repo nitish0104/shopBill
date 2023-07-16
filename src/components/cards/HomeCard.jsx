@@ -28,7 +28,6 @@ const CustomerCard = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [colorChange, setcolorChange] = useState(false);
   const [showPaid, setShowPaid] = useState(true);
-  const [showUnPaid, setShowUnPaid] = useState(false);
 
   const handleColorChange = () => {
     setcolorChange(!colorChange);
@@ -82,7 +81,6 @@ const CustomerCard = ({
               >
                 <p className="text-sm ">Paid:</p>{" "}
                 <p className="font-bold  text-green-500">
-                  {" "}
                   &#8377;{paid > 0 ? paid : amount}
                 </p>
               </button>

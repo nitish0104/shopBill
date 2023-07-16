@@ -372,7 +372,10 @@ const ShowCustomerDetails = () => {
                           ) : (
                             <p
                               onClick={() => {
-                                setPaidModal({ show: true, data: value?.customerId?._id });
+                                setPaidModal({
+                                  show: true,
+                                  data: value?.customerId?._id,
+                                });
                               }}
                               className="text-red-500 hover:text-base hover:font-bold"
                             >

@@ -25,12 +25,12 @@ const AddItems = () => {
   const { isDarkMode } = ThemeContextAuth();
   const [discount, setDiscount] = useState(0);
   const [loading, setLoading] = useState(false);
-  const { customerData } = ContextAuth();
+  const { customerData, unPaid, setUnPaid } = ContextAuth();
   const [editIndex, setEditIndex] = useState(null);
   const business = jwtDecode(`${localStorage.getItem("token")}`);
   const businessId = business._id;
   const [paid, setPaid] = useState(0);
-  const [unPaid, setUnPaid] = useState(0);
+
   useEffect(() => {
     if (items) {
       let itemtotal = 0;
@@ -583,7 +583,6 @@ const AddItems = () => {
                       onChange={(e) => {
                         setUnPaid(e.target.value);
                       }}
-                      
                       className={`  w-[30%]   flex items-center  border-none outline-none  ${
                         isDarkMode ? "bg-gray-800 " : "bg-white "
                       }`}

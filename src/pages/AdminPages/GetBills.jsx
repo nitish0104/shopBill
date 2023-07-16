@@ -214,8 +214,8 @@ const GetBills = () => {
       />
       <LayoutMain>
         <Sidebar />
-        <div className=" md:w-[70vw] w-[100vw]  flex justify-center items-center  my-9 mx-auto">
-          <div>
+        <div className=" md:w-[90vw] w-[100vw]  flex justify-center items-center  my-9 mx-auto">
+          <div className="md:w-[100vw] flex-col justify-center items-center">
             <div className="flex flex-col justify-center gap-y-2">
               <div className="flex justify-center">
                 <DatePicker
@@ -272,7 +272,7 @@ const GetBills = () => {
             {!loading ? (
               <div ref={contentRef} data-aos="flip-right">
                 {filterResults?.length > 0 ? (
-                  <div className="md:grid md:grid-cols-2 md:gap-2 md:w-[50vw] gap-y-3  md:px-0 w-[100vw] pb-5">
+                  <div className="md:grid md:grid-cols-2 md:gap-2 md:w-[70vw] mx-auto gap-y-3  md:px-0 w-[100vw] pb-5">
                     {filterResults?.map((customer, index) => {
                       const dateObj = new Date(customer?.createdAt);
                       // console.log(customer);

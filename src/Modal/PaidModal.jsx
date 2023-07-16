@@ -6,12 +6,11 @@ import { ThemeContextAuth } from "../context/ThemeContext";
 import { ContextAuth } from "../context/Context";
 
 const PaidModal = ({ setPaidModal, data }) => {
-  const { customerID } = ContextAuth();
+  const { unPaid, setUnPaid } = ContextAuth();
   const { isDarkMode } = ThemeContextAuth();
   const naviGate = useNavigate();
   const PaidAmount = (data) => {
-    console.log(data);
-    toast.success("Updated Successfully", {
+    toast.success(" Price Updated Successfully", {
       position: "top-center",
       autoClose: 3000,
       hideProgressBar: false,
@@ -21,6 +20,7 @@ const PaidModal = ({ setPaidModal, data }) => {
       progress: false,
       theme: "light",
     });
+
     naviGate(`/customer-details/${data}`);
     setPaidModal(false);
   };
