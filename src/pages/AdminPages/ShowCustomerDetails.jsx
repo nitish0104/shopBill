@@ -192,6 +192,7 @@ const ShowCustomerDetails = () => {
   const handleSingleBill = (_id) => {
     naviGate(`/invoice/${_id}`);
   };
+  console.log(filterResults);
 
   return (
     <>
@@ -371,7 +372,7 @@ const ShowCustomerDetails = () => {
                           ) : (
                             <p
                               onClick={() => {
-                                setPaidModal({ show: true, data: value?._id });
+                                setPaidModal({ show: true, data: value?.customerId?._id });
                               }}
                               className="text-red-500 hover:text-base hover:font-bold"
                             >
