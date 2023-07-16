@@ -6,10 +6,18 @@ import { ThemeContextAuth } from "../context/ThemeContext";
 import { ContextAuth } from "../context/Context";
 
 const PaidModal = ({ setPaidModal, data }) => {
-  const { unPaid, setUnPaid } = ContextAuth();
+  const { paid, setPaid } = ContextAuth();
   const { isDarkMode } = ThemeContextAuth();
   const naviGate = useNavigate();
-  const PaidAmount = (data) => {
+  const handleChange = (e) => {
+    e.preventDefault();
+    setPaid((paid) => ({
+      ...paid,
+      [e.target.id]: e.target.value,
+    }));
+  };
+  const PaidAmount = (data, paid) => {
+    console.log(paid);
     toast.success(" Price Updated Successfully", {
       position: "top-center",
       autoClose: 3000,
@@ -32,28 +40,37 @@ const PaidModal = ({ setPaidModal, data }) => {
             "relative h-[25vh] w-[80vw] md:w-[30vw]   bg-white rounded-lg md:h-[35vh]"
           }
         >
+          <div className="text-end">
+            <button
+              onClick={() => {
+                setPaidModal({ show: false });
+              }}
+              className=" font-bold text-xl bg-red-600 text-white rounded-full px-2 py-0"
+            >
+              x
+            </button>
+          </div>
           <div className="flex justify-center items-center flex-col h-full gap-y-5">
             <p
               className={`font-semibold text-base ${
                 isDarkMode ? "text-black" : "text-black"
               }`}
             >
-              Customer Amount Is Paid?
+              <label htmlFor=""> Paid Amount:</label>
+              <input
+                type="number"
+                id="paid"
+                value={paid}
+                onChange={handleChange}
+                className="border-2 border-gray-400 rounded-md"
+              />
             </p>
             <div className="flex justify-center items-center gap-x-5">
               <button
-                onClick={() => {
-                  setPaidModal({ show: false });
-                }}
-                className=" font-bold text-xl bg-red-600 text-white py-1.5 px-2 rounded-md w-28"
-              >
-                No
-              </button>
-              <button
                 className="font-bold text-xl bg-green-600 text-white py-1.5 px-2 rounded-md w-28"
-                onClick={() => PaidAmount(data)}
+                onClick={() => PaidAmount(data, paid)}
               >
-                Yes
+                Paid
               </button>
             </div>
           </div>

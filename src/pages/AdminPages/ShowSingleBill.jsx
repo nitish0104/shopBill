@@ -289,7 +289,7 @@ const ShowSingleBill = () => {
                       UnPaid:
                     </td>
                     <td className="py-2  font-bold text-sm text-red-500">
-                      {singleBill?.unPaid} Rs
+                      {singleBill?.grandtotal - singleBill?.paid} Rs
                     </td>
                   </tr>
                 </tfoot>

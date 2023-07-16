@@ -363,7 +363,7 @@ const ShowCustomerDetails = () => {
                             </p>
                           </p>
 
-                          {value?.unPaid === 0 ? (
+                          {value?.grandtotal - value?.paid === 0 ? (
                             <div>
                               <p>
                                 <IoCheckmarkDoneCircle className="text-green-500 text-xl"></IoCheckmarkDoneCircle>{" "}
@@ -379,7 +379,7 @@ const ShowCustomerDetails = () => {
                               }}
                               className="text-red-500 hover:text-base hover:font-bold"
                             >
-                              &#8377; {value?.unPaid}
+                              &#8377; {value?.grandtotal - value?.paid}
                             </p>
                           )}
 

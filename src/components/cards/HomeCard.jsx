@@ -92,7 +92,7 @@ const CustomerCard = ({
                 }}
               >
                 <p className="text-sm ">UnPaid: </p>
-                <p className="font-bold text-red-500">&#8377;{unPaid}</p>
+                <p className="font-bold text-red-500">&#8377;{amount - paid}</p>
               </button>
             )}
 

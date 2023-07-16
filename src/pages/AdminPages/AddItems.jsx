@@ -25,11 +25,10 @@ const AddItems = () => {
   const { isDarkMode } = ThemeContextAuth();
   const [discount, setDiscount] = useState(0);
   const [loading, setLoading] = useState(false);
-  const { customerData, unPaid, setUnPaid } = ContextAuth();
+  const { customerData, paid, setPaid } = ContextAuth();
   const [editIndex, setEditIndex] = useState(null);
   const business = jwtDecode(`${localStorage.getItem("token")}`);
   const businessId = business._id;
-  const [paid, setPaid] = useState(0);
 
   useEffect(() => {
     if (items) {
@@ -155,7 +154,6 @@ const AddItems = () => {
           grandtotal: grandtotal,
           discount: Number(discount),
           paid: Number(paid),
-          unPaid: Number(unPaid),
         },
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -172,9 +170,9 @@ const AddItems = () => {
     }
   };
 
-  useEffect(() => {
-    setPaid(grandtotal - discount - unPaid);
-  }, [unPaid, discount, grandtotal]);
+  // useEffect(() => {
+  //   setPaid(grandtotal - discount - unPaid);
+  // }, [unPaid, discount, grandtotal]);
 
   return (
     <>
@@ -557,7 +555,7 @@ const AddItems = () => {
                     }`}
                   >
                     <p className="flex items-center  text-base">
-                      Paid: &#8377;{" "}
+                      Paid: &#8377;
                     </p>
                     <input
                       value={paid}
@@ -578,16 +576,7 @@ const AddItems = () => {
                     <p className="flex items-center  text-base">
                       Unpaid: &#8377;{" "}
                     </p>
-                    <input
-                      value={unPaid}
-                      onChange={(e) => {
-                        setUnPaid(e.target.value);
-                      }}
-                      className={`  w-[30%]   flex items-center  border-none outline-none  ${
-                        isDarkMode ? "bg-gray-800 " : "bg-white "
-                      }`}
-                      required="true"
-                    />
+                    {grandtotal - paid}
                   </div>
                 </div>
               </>

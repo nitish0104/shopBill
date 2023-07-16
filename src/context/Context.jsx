@@ -24,7 +24,7 @@ const Context = ({ children }) => {
   const [customerID, setCustomerID] = useState("");
   const [amount, setamount] = useState();
   const [logoUrl, setLogoUrl] = useState("");
-  const [unPaid, setUnPaid] = useState(0);
+  const [paid, setPaid] = useState(0);
   const [viewCustomerDetails, setViewCustomerDetails] = useState("");
 
   const navigate = useNavigate();
@@ -92,8 +92,8 @@ const Context = ({ children }) => {
         setViewCustomerDetails,
         customerID,
         setCustomerID,
-        unPaid,
-        setUnPaid,
+        paid,
+        setPaid,
       }}
     >
       {children}
