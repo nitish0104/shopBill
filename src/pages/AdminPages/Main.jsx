@@ -219,7 +219,7 @@ const Main = () => {
                       required
                       type="text"
                       name="name"
-                      value={formState.gstNo}
+                      value={formState?.gstNo}
                       onChange={handleChange}
                       disabled={!isEditable}
                     />
@@ -248,7 +248,7 @@ const Main = () => {
                       type="text"
                       required
                       name="location"
-                      value={formState.location}
+                      value={formState?.location}
                       onChange={handleChange}
                       disabled={!isEditable}
                     />
