@@ -18,7 +18,7 @@ import {
   AiOutlinePlus,
   AiOutlineShop,
 } from "react-icons/ai";
-import { BsShare, BsWhatsapp } from "react-icons/bs";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import "./ShowCustomerDetail.css";
 import axios from "axios";
 import { ContextAuth } from "../../context/Context";
@@ -28,6 +28,7 @@ import { BiArrowBack } from "react-icons/bi";
 import Navigation from "../../components/Navigation";
 import PageLoader from "../../components/PageLoader";
 import moment from "moment";
+import PaidModal from "../../Modal/PaidModal";
 const ShowCustomerDetails = () => {
   const { isDarkMode } = ThemeContextAuth();
   const { id } = useParams();
@@ -36,6 +37,8 @@ const ShowCustomerDetails = () => {
   const [selected, setSelected] = useState(null);
   const [viewCustomerBills, setViewCustomerBills] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [paidModal, setPaidModal] = useState({ show: false, data: {} });
+
   const { allCustomer, viewCustomerDetails, setViewCustomerDetails } =
     ContextAuth();
   const [modal, setModal] = useState({ show: false, data: {} });
@@ -75,6 +78,7 @@ const ShowCustomerDetails = () => {
         },
       })
         .then((res) => {
+          console.log(res?.data?.response?._id);
           setViewCustomerDetails(res?.data?.response);
         })
         .catch((err) => console.log(err));
@@ -188,6 +192,7 @@ const ShowCustomerDetails = () => {
   const handleSingleBill = (_id) => {
     naviGate(`/invoice/${_id}`);
   };
+
   return (
     <>
       <LayoutMain>
@@ -319,7 +324,12 @@ const ShowCustomerDetails = () => {
               className="outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[45vw]"
             />
           </div>
-
+          {paidModal.show && (
+            <PaidModal
+              data={paidModal.show && paidModal.data}
+              setPaidModal={setPaidModal}
+            />
+          )}
           {!loading ? (
             <div>
               {filterResults?.length > 0 ? (
@@ -331,22 +341,51 @@ const ShowCustomerDetails = () => {
                         className="pt-6 px-3 flex justify-center "
                       >
                         <div
-                          onClick={() => {
-                            handleSingleBill(value?._id);
-                          }}
                           className={`flex    duration-200 justify-between items-center py-3 px-2  hover:shadow-md  shadow-sm shadow-blue-200 outline-none  border border-gray-300 bg-transparent   hover:shadow-blue-200 rounded-md md:w-[30vw] w-full cursor-pointer   ${
                             isDarkMode
                               ? "hover:border-white"
                               : "hover:border-black"
                           }`}
                         >
-                          <p className="flex items-center gap-x-2">
-                            <p>Date:{" "}
-                            {format(new Date(value?.createdAt), "dd/MMM/yyyy")}</p>
-                            
+                          <p
+                            onClick={() => {
+                              handleSingleBill(value?._id);
+                            }}
+                            className="flex items-center gap-x-2"
+                          >
+                            <p>
+                              Date:
+                              {format(
+                                new Date(value?.createdAt),
+                                "dd/MMM/yyyy"
+                              )}
+                            </p>
                           </p>
-                          <p>
-                            GrandTotal: &#8377;{value?.grandtotal - value?.discount}
+
+                          {value?.unPaid === 0 ? (
+                            <div>
+                              <p>
+                                <IoCheckmarkDoneCircle className="text-green-500 text-xl"></IoCheckmarkDoneCircle>{" "}
+                              </p>
+                            </div>
+                          ) : (
+                            <p
+                              onClick={() => {
+                                setPaidModal({ show: true, data: value?._id });
+                              }}
+                              className="text-red-500 hover:text-base hover:font-bold"
+                            >
+                              &#8377; {value?.unPaid}
+                            </p>
+                          )}
+
+                          <p
+                            onClick={() => {
+                              handleSingleBill(value?._id);
+                            }}
+                          >
+                            GrandTotal: &#8377;
+                            {value?.grandtotal - value?.discount}
                           </p>
                         </div>
                       </div>

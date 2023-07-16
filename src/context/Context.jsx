@@ -21,9 +21,11 @@ const Context = ({ children }) => {
   const [business, setBusiness] = useState("");
   const [customerData, setCustomerdata] = useState("");
   const [allCustomer, setAllCustomer] = useState([]);
+  const [customerID, setCustomerID] = useState("");
   const [amount, setamount] = useState();
   const [logoUrl, setLogoUrl] = useState("");
   const [viewCustomerDetails, setViewCustomerDetails] = useState("");
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -87,6 +89,8 @@ const Context = ({ children }) => {
         setformState,
         viewCustomerDetails,
         setViewCustomerDetails,
+        customerID,
+        setCustomerID,
       }}
     >
       {children}

@@ -176,7 +176,7 @@ const ShowSingleBill = () => {
         <div
           id="myDiv"
           ref={bill}
-          className={`container mx-auto px-4 md:w-[70%] w-screen py-4  `}
+          className={`container mx-auto  md:w-[70%] w-screen py-4  `}
         >
           <div className="bg-white rounded-lg shadow-lg pb-4">
             <div className="flex justify-between bg-blue-500 text-white px-6 py-4 items-center">
@@ -186,8 +186,8 @@ const ShowSingleBill = () => {
                 {moment(singleBill?.createdAt).format("DD MMM, YYYY  h:mm a")}
               </p>
             </div>
-            <div className="flex justify-between px-6 py-4">
-              <div>
+            <div className="flex justify-between md:px-6 px-2 py-4">
+              <div className="w-5/12">
                 <span>
                   <h2 className="text-xl font-bold">
                     {singleBill?.businessId?.businessName}
@@ -200,15 +200,16 @@ const ShowSingleBill = () => {
 
                 <p className="text-sm">{singleBill?.businessId?.phoneNo}</p>
               </div>
+              <div className="w-2/12 text-center flex justify-center items-center">
+                <img
+                  src={singleBill?.businessId?.businessLogo}
+                  className="rounded-full w-16  h-16 text-center"
+                  alt="Shop Logo"
+                />
+              </div>
 
-              <img
-                src={singleBill?.businessId?.businessLogo}
-                className="rounded-full w-16  h-16 text-center"
-                alt="Shop Logo"
-              />
-
-              <div>
-                <h2 className="text-xl ">
+              <div className="w-5/12 text-end">
+                <h2 className="text-xl font-bold ">
                   {singleBill?.customerId?.customerName}
                 </h2>
                 <p>{singleBill?.customerId?.customerNumber}</p>
@@ -222,7 +223,7 @@ const ShowSingleBill = () => {
                     <th className="sticky left-0 w-20  py-2 px-4  bg-gray-200 ">
                       Items
                     </th>
-                    <th className="  py-2 px-4 border-x">Quantity</th>
+                    <th className="  py-2 px-4 border-x">Qty</th>
                     <th className="  py-2 px-4 border-x">Individual Price</th>
                     <th className="  py-2 px-4 border-x">Total </th>
                   </tr>
@@ -236,6 +237,7 @@ const ShowSingleBill = () => {
                         </td>
                         <td className=" py-2  w-1/5 border-x whitespace-nowrap">
                           {items?.qty}
+                          {items?.unit}
                         </td>
                         <td className=" py-2  w-1/5 border-x  whitespace-nowrap text-sm">
                           {items?.individualPrice} Rs

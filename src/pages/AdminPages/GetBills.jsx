@@ -18,7 +18,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import BillPreviewModal from "../../Modal/BillPreviewModal";
 const GetBills = () => {
-  const { allCustomer } = ContextAuth();
+  const { setCustomerID, customerID } = ContextAuth();
   const message = "Maggie(8) -40Rs  "; // Replace with your desired message
   const [businessBills, setBusinessBills] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -90,7 +90,6 @@ const GetBills = () => {
   const [filteredDates, setFilteredDates] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [showBillPreview, setShowBillPreview] = useState(false);
-  const [customerID, setCustomerID] = useState("");
 
   const handleFilterChange = (event) => {
     setSelectedDate("");
@@ -224,7 +223,7 @@ const GetBills = () => {
                   onChange={handleDateChange}
                   startDate={startDate}
                   endDate={endDate}
-                  placeholderText="Date"
+                  placeholderText="Date Range"
                   selectsRange
                   dateFormat="dd/MMM/yyyy"
                   popperPlacement="bottom-start"
@@ -261,6 +260,7 @@ const GetBills = () => {
                 <input
                   type="date"
                   value={selectedDate}
+                  placeholder="Select Date"
                   onChange={(e) => {
                     setSelectedDate(e.target.value);
                   }}
@@ -272,7 +272,7 @@ const GetBills = () => {
             {!loading ? (
               <div ref={contentRef} data-aos="flip-right">
                 {filterResults?.length > 0 ? (
-                  <div className="md:grid md:grid-cols-2 md:gap-2 md:w-[50vw] gap-y-3 px-7 md:px-0 w-[100vw] pb-5">
+                  <div className="md:grid md:grid-cols-2 md:gap-2 md:w-[50vw] gap-y-3  md:px-0 w-[100vw] pb-5">
                     {filterResults?.map((customer, index) => {
                       const dateObj = new Date(customer?.createdAt);
                       // console.log(customer);

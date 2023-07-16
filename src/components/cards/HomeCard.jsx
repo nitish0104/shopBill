@@ -61,13 +61,13 @@ const CustomerCard = ({
               <p className=" font-semibold  text-start">{mobileNumber}</p>
             </button>
           </div>
-          <div className="w-1/12" onClick={() => {
-                onClick(billId);
-              }}>
-            <button
-              className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[9px] rounded-full  flex gap-2 justify-center items-center"
-              
-            >
+          <div
+            className="w-1/12"
+            onClick={() => {
+              onClick(billId);
+            }}
+          >
+            <button className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[9px] rounded-full  flex gap-2 justify-center items-center">
               <BsWhatsapp className=" text-2xl text-center "></BsWhatsapp>
             </button>
           </div>
@@ -80,17 +80,21 @@ const CustomerCard = ({
                   setShowPaid(false);
                 }}
               >
-            <p className=" ">Paid:</p>   <p className="font-bold  text-green-500"> &#8377;{paid > 0 ? paid : amount}</p>
+                <p className="text-sm ">Paid:</p>{" "}
+                <p className="font-bold  text-green-500">
+                  {" "}
+                  &#8377;{paid > 0 ? paid : amount}
+                </p>
               </button>
             ) : (
               <button
-                // className="text-3xl text-center mb-2 font-bold text-green-500"
                 className={"text-center flex gap-x-1 items-center text-xl "}
                 onClick={() => {
                   setShowPaid(true);
                 }}
               >
-                <p>UnPaid: </p> <p className="font-bold text-red-500">&#8377;{unPaid}</p>
+                <p className="text-sm ">UnPaid: </p>
+                <p className="font-bold text-red-500">&#8377;{unPaid}</p>
               </button>
             )}
 
