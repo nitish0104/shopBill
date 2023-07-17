@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { ThemeContextAuth } from "../context/ThemeContext";
 import { ContextAuth } from "../context/Context";
+import axios from "axios";
 
 const PaidModal = ({ setPaidModal, data }) => {
   const { paid, setPaid } = ContextAuth();
@@ -16,21 +17,42 @@ const PaidModal = ({ setPaidModal, data }) => {
       [e.target.id]: e.target.value,
     }));
   };
-  const PaidAmount = (data, paid) => {
-    console.log(paid);
-    toast.success(" Price Updated Successfully", {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: false,
-      pauseOnHover: false,
-      draggable: false,
-      progress: false,
-      theme: "light",
-    });
 
-    naviGate(`/customer-details/${data}`);
-    setPaidModal(false);
+  // const PaidAmount = (data, paid) => {
+  //   console.log(paid);
+  //   toast.success(" Price Updated Successfully", {
+  //     position: "top-center",
+  //     autoClose: 3000,
+  //     hideProgressBar: false,
+  //     closeOnClick: false,
+  //     pauseOnHover: false,
+  //     draggable: false,
+  //     progress: false,
+  //     theme: "light",
+  //   });
+
+  //   naviGate(`/customer-details/${data}`);
+  //   setPaidModal(false);
+  // };
+
+  const PaidAmount = async (id) => {
+    try {
+      console.log(id);
+      await axios(`https://khatabook-one.vercel.app/updatebill/${id}`, {
+        method:"PATCH",
+        data:{
+          unPaid: paid
+        },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }).then((res)=>{
+        console.log(res);
+      })
+
+
+
+    } catch (error) {}
   };
   return (
     <>
@@ -68,7 +90,7 @@ const PaidModal = ({ setPaidModal, data }) => {
             <div className="flex justify-center items-center gap-x-5">
               <button
                 className="font-bold text-xl bg-green-600 text-white py-1.5 px-2 rounded-md w-28"
-                onClick={() => PaidAmount(data, paid)}
+                onClick={() => PaidAmount(data)}
               >
                 Paid
               </button>

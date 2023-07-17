@@ -342,7 +342,7 @@ const ShowCustomerDetails = () => {
                         className="pt-6 px-3 flex justify-center "
                       >
                         <div
-                          className={`flex    duration-200 justify-between items-center py-3 px-2  hover:shadow-md  shadow-sm shadow-blue-200 outline-none  border border-gray-300 bg-transparent   hover:shadow-blue-200 rounded-md md:w-[30vw] w-full cursor-pointer   ${
+                          className={`flex    duration-200 justify-center items-center py-3 px-2 gap-x-2  hover:shadow-md  shadow-sm shadow-blue-200 outline-none  border border-gray-300 bg-transparent   hover:shadow-blue-200 rounded-md md:w-[30vw] w-full cursor-pointer   ${
                             isDarkMode
                               ? "hover:border-white"
                               : "hover:border-black"
@@ -373,7 +373,8 @@ const ShowCustomerDetails = () => {
                                 onClick={() => {
                                   setPaidModal({
                                     show: true,
-                                    data: value?.customerId?._id,
+                                    // data: value?.customerId?._id,
+                                    data: value?._id,
                                   });
                                 }}
                                 className="text-red-500 hover:text-base hover:font-bold"
