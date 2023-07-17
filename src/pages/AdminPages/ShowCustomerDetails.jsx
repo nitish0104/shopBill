@@ -352,7 +352,7 @@ const ShowCustomerDetails = () => {
                             onClick={() => {
                               handleSingleBill(value?._id);
                             }}
-                            className="flex items-center gap-x-2"
+                            className="flex items-center gap-x-2 w-5/12"
                           >
                             <p>
                               {format(
@@ -361,31 +361,32 @@ const ShowCustomerDetails = () => {
                               )}
                             </p>
                           </p>
-
-                          {value?.grandtotal - value?.paid === 0 ? (
-                            <div>
-                              <p>
-                                <IoCheckmarkDoneCircle className="text-green-500 text-xl"></IoCheckmarkDoneCircle>{" "}
+                          <div className="w-2/12 flex justify-center items-center">
+                            {value?.grandtotal - value?.paid === 0 ? (
+                              <div>
+                                <p>
+                                  <IoCheckmarkDoneCircle className="text-green-500 text-xl"></IoCheckmarkDoneCircle>{" "}
+                                </p>
+                              </div>
+                            ) : (
+                              <p
+                                onClick={() => {
+                                  setPaidModal({
+                                    show: true,
+                                    data: value?.customerId?._id,
+                                  });
+                                }}
+                                className="text-red-500 hover:text-base hover:font-bold"
+                              >
+                                &#8377;{" "}
+                                {value?.grandtotal -
+                                  value?.paid -
+                                  value?.discount}
                               </p>
-                            </div>
-                          ) : (
-                            <p
-                              onClick={() => {
-                                setPaidModal({
-                                  show: true,
-                                  data: value?.customerId?._id,
-                                });
-                              }}
-                              className="text-red-500 hover:text-base hover:font-bold"
-                            >
-                              &#8377;{" "}
-                              {value?.grandtotal -
-                                value?.paid -
-                                value?.discount}
-                            </p>
-                          )}
-
+                            )}
+                          </div>
                           <p
+                            className="w-5/12 flex justify-end items-center"
                             onClick={() => {
                               handleSingleBill(value?._id);
                             }}

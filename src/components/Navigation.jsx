@@ -45,8 +45,8 @@ const Navigation = ({ className }) => {
                 key={index}
                 className={
                   obj.route === loaction.pathname
-                    ? "flex flex-col items-center pt-1 text-blue-800 text-sm font-semibold rounded-lg ${className}"
-                    : "flex flex-col items-center pt-1 text-sm "
+                    ? "flex flex-center md:items-center md:justify-center text-center md:w-4/12 pt-1 text-blue-800 text-sm font-semibold rounded-lg ${className}"
+                    : "flex flex-center md:items-center md:justify-center text-center md:w-4/12 pt-1 text-sm "
                 }
               >
                 {obj.icon}
