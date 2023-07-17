@@ -355,7 +355,6 @@ const ShowCustomerDetails = () => {
                             className="flex items-center gap-x-2"
                           >
                             <p>
-                              Date:
                               {format(
                                 new Date(value?.createdAt),
                                 "dd/MMM/yyyy"
@@ -379,7 +378,10 @@ const ShowCustomerDetails = () => {
                               }}
                               className="text-red-500 hover:text-base hover:font-bold"
                             >
-                              &#8377; {value?.grandtotal - value?.paid- value?.discount}
+                              &#8377;{" "}
+                              {value?.grandtotal -
+                                value?.paid -
+                                value?.discount}
                             </p>
                           )}
 
@@ -388,7 +390,7 @@ const ShowCustomerDetails = () => {
                               handleSingleBill(value?._id);
                             }}
                           >
-                            GrandTotal: &#8377;
+                            Total: &#8377;
                             {value?.grandtotal - value?.discount}
                           </p>
                         </div>
