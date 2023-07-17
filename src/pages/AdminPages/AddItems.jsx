@@ -562,7 +562,7 @@ const AddItems = () => {
                       value={paid}
                       onChange={(e) => {
                         if (e.target.value <= grandtotal - discount) {
-                          setsavePaid(e.target.value);
+                          setPaid(e.target.value);
                         }
                       }}
                       className={`  w-[30%]   flex items-center  border-none outline-none  ${
