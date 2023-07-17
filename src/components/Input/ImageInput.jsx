@@ -80,7 +80,7 @@ const ImageUploadComponent = ({
                     : formState?.businessLogo
                 }
                 alt="Uploaded Image"
-                className={`w-full h-full object-cover ${
+                className={`w-full h-full object-contain ${
                   isEditable ? "cursor-pointer" : "cursor-default"
                 }`}
               />

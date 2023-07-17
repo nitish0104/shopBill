@@ -79,10 +79,8 @@ const CustomerCard = ({
                   setShowPaid(false);
                 }}
               >
-                <p className="text-sm ">Paid:</p>{" "}
-                <p className="font-bold  text-green-500">
-                  &#8377;{paid}
-                </p>
+                {/* <p className="text-sm ">Paid:</p> */}
+                <p className="font-bold  text-green-500">&#8377;{paid}</p>
               </button>
             ) : (
               <button
@@ -91,8 +89,10 @@ const CustomerCard = ({
                   setShowPaid(true);
                 }}
               >
-                <p className="text-sm ">UnPaid: </p>
-                <p className="font-bold text-red-500">&#8377;{amount -discount- paid}</p>
+                {/* <p className="text-sm ">UnPaid: </p> */}
+                <p className="font-bold text-red-500">
+                  &#8377;{amount - discount - paid}
+                </p>
               </button>
             )}
 

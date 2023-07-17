@@ -41,9 +41,7 @@ const Sidebar = () => {
 
   return (
     <>
-      {modal.show && (
-        <LogoutModal data={modal.show} setModel={setModal} />
-      )}
+      {modal.show && <LogoutModal data={modal.show} setModel={setModal} />}
       <div className="relative z-50 backdrop-blur-sm transition duration-300 ease-in-out ">
         <div className="flex justify-between items-center shadow-lg h-16 bg-blue-400  px-4">
           <button
@@ -56,7 +54,7 @@ const Sidebar = () => {
           </button>
 
           <div
-            className={`   font-bold pr-10 text-2xl ${
+            className={`   font-bold  text-2xl ${
               isDarkMode ? " text-black" : " text-gray-800"
             } `}
           >

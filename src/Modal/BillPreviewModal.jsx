@@ -20,12 +20,12 @@ const BillPreviewModal = ({ showModal, setShowModal, billID }) => {
           </div>
           {/* for developement */}
           {/* <div className="lg:py-6 py-8">
-          <iframe
-            className="border w-full h-[90vh]"
-            src={`http://localhost:3000/invoice/${billID}?show=false`}
-            frameborder="0"
-            ></iframe>{" "}
-            </div> */}
+            <iframe
+              className="border w-full h-[90vh]"
+              src={`http://localhost:3000/invoice/${billID}?show=false`}
+              frameborder="0"
+            ></iframe>
+          </div> */}
           <div className="lg:py-6 py-8">
             <iframe
               className="border w-full h-[90vh]"
@@ -33,7 +33,6 @@ const BillPreviewModal = ({ showModal, setShowModal, billID }) => {
               frameborder="0"
             ></iframe>
           </div>
-
         </section>
       )}
     </>

@@ -37,7 +37,7 @@ const PaidModal = ({ setPaidModal, data }) => {
       <div className="h-screen w-screen bg-black bg-opacity-70 flex items-center justify-center fixed top-0 left-0 shadow-lg z-[100] ">
         <div
           className={
-            "relative h-[25vh] w-[80vw] md:w-[30vw]   bg-white rounded-lg md:h-[35vh]"
+            "relative h-[30vh] w-[80vw] md:w-[30vw]   bg-white rounded-lg md:h-[35vh]"
           }
         >
           <div className="text-end">
@@ -52,7 +52,7 @@ const PaidModal = ({ setPaidModal, data }) => {
           </div>
           <div className="flex justify-center items-center flex-col h-full gap-y-5">
             <p
-              className={`font-semibold text-base ${
+              className={`font-semibold text-base  ${
                 isDarkMode ? "text-black" : "text-black"
               }`}
             >
@@ -62,7 +62,7 @@ const PaidModal = ({ setPaidModal, data }) => {
                 id="paid"
                 value={paid}
                 onChange={handleChange}
-                className="border-2 border-gray-400 rounded-md"
+                className="border-2 border-gray-400 rounded-md w-20"
               />
             </p>
             <div className="flex justify-center items-center gap-x-5">
