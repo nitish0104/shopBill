@@ -25,8 +25,9 @@ const Context = ({ children }) => {
   const [amount, setamount] = useState();
   const [logoUrl, setLogoUrl] = useState("");
   const [paid, setPaid] = useState(0);
+  const [unPaid, setUnPaid] = useState(0);
   const [viewCustomerDetails, setViewCustomerDetails] = useState("");
-
+  const [userLoading, setUserLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -39,6 +40,7 @@ const Context = ({ children }) => {
       const token = localStorage.getItem("token");
 
       if (token) {
+        setUserLoading(true);
         try {
           await axios
             .get("https://khatabook-one.vercel.app/getregisterbusiness", {
@@ -48,16 +50,21 @@ const Context = ({ children }) => {
             })
             .then((res) => {
               console.log(location);
+
               if (location.pathname === "/login" || location.pathname === "/") {
                 setTimeout(() => {
                   navigate("/dashboard");
                 }, 200);
+
+                // setUserLoading(false)
               } else {
                 return;
               }
             });
         } catch (error) {
+          setUserLoading(false)
           navigate("/login");
+          
         }
       } else {
         navigate("/login");
@@ -94,6 +101,10 @@ const Context = ({ children }) => {
         setCustomerID,
         paid,
         setPaid,
+        userLoading,
+         setUserLoading,
+         unPaid,
+         setUnPaid,
       }}
     >
       {children}

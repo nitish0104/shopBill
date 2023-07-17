@@ -114,17 +114,15 @@ const Main = () => {
     <>
       <LayoutMain>
         <Sidebar />
-        {loading ? (
+        {loading &&
           <PageLoader
             className={
-              "fixed z-[500] w-full h-full  bg-black bg-opacity-20 text-center "
+              "fixed z-[500] w-full h-screen top-0  bg-black bg-opacity-20 text-center "
             }
           />
-        ) : (
-          <PageLoader className={"hidden"} />
-        )}
+          }
         <div
-          className={` overflow-auto md:overflow-y-hidden w-screen min-h-screen h-auto  rounded-t-lg pt-4 ${
+          className={` overflow-auto md:overflow-y-hidden w-screen min-h-screen h-auto rounded-t-lg pt-4 ${
             isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
           } `}
         >
@@ -236,7 +234,7 @@ const Main = () => {
                   </label>
                   <div className=" pl-2 flex items-center shadow appearance-none border rounded w-full  leading-tight focus:outline-none focus:shadow-outline">
                     <GoLocation
-                      className={`text-3xl text-transperent mr-2  ${
+                      className={`text-2xl text-transperent mr-2  ${
                         isDarkMode ? "  text-white" : " text-gray-800"
                       }`}
                     />

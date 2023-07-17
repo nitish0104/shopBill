@@ -25,7 +25,7 @@ const AddItems = () => {
   const { isDarkMode } = ThemeContextAuth();
   const [discount, setDiscount] = useState(0);
   const [loading, setLoading] = useState(false);
-  const { customerData, paid, setPaid } = ContextAuth();
+  const { customerData, paid, setPaid, unPaid, setUnPaid } = ContextAuth();
   const [editIndex, setEditIndex] = useState(null);
   const business = jwtDecode(`${localStorage.getItem("token")}`);
   const businessId = business._id;
@@ -170,9 +170,9 @@ const AddItems = () => {
     }
   };
 
-  // useEffect(() => {
-  //   setPaid(grandtotal - discount - unPaid);
-  // }, [unPaid, discount, grandtotal]);
+  useEffect(() => {
+    setUnPaid(grandtotal - discount - paid);
+  }, [paid, discount, grandtotal]);
 
   return (
     <>
@@ -180,7 +180,7 @@ const AddItems = () => {
         <Sidebar />
         <Navigation />
 
-        <div className="md:w-[80vw] w-screen m-auto md:px-12   overflow-y-hidden flex-col  justify-center items-center">
+        <div className="md:w-[80vw] w-screen m-auto md:px-12  h-fit pb-10  flex-col  justify-center items-center">
           <div className="flex justify-center items-center gap-x-5">
             <div className="px-2 pt-4 md:w-[100%] flex-col justify-center items-center md:flex md:justify-center md:items-center gap-x-4 ">
               <div className="grid grid-cols-2 gap-x-2 gap-y-2">
@@ -559,8 +559,13 @@ const AddItems = () => {
                     </p>
                     <input
                       value={paid}
+                      
                       onChange={(e) => {
-                        setPaid(e.target.value);
+                        if(e.target.value <=grandtotal-discount){
+
+                          setPaid(e.target.value);
+                        }
+                        
                       }}
                       className={`  w-[30%]   flex items-center  border-none outline-none  ${
                         isDarkMode ? "bg-gray-800 " : "bg-white "
@@ -568,7 +573,7 @@ const AddItems = () => {
                       required="true"
                     />
                   </div>
-                  <div
+                  {/* <div
                     className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
                       isDarkMode ? "border-white" : "border-black"
                     }`}
@@ -577,6 +582,25 @@ const AddItems = () => {
                       Unpaid: &#8377;{" "}
                     </p>
                     {grandtotal - paid}
+                  </div> */}
+
+                  <div
+                    className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
+                      isDarkMode ? "border-white" : "border-black"
+                    }`}
+                  >
+                    <p className="flex items-center  text-base">
+                      UnPaid: &#8377;
+                    </p>
+                    <input
+                      value={grandtotal-discount-paid}
+                      
+                      className={`  w-[30%]   flex items-center  border-none outline-none  ${
+                        isDarkMode ? "bg-gray-800 " : "bg-white "
+                      }`}
+                      required="true"
+                      readOnly
+                    />
                   </div>
                 </div>
               </>

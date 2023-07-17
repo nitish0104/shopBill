@@ -11,9 +11,10 @@ import axios from "axios";
 import Spinner from "../components/Spinner";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import PageLoader from "../components/PageLoader";
 
 const Login = () => {
-  const { mobileNo, setmobileNo } = ContextAuth();
+  const { mobileNo, setmobileNo, userLoading, setUserLoading } = ContextAuth();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -43,7 +44,7 @@ const Login = () => {
             navigate("/verify");
           })
           .catch((err) => {
-            toast.error("Check Your Internet Connection or Try again later", {
+            toast.error(err.message, {
               position: "top-center",
               autoClose: 3000,
               hideProgressBar: false,
@@ -79,6 +80,13 @@ const Login = () => {
   return (
     <>
       <LayoutMain>
+        {userLoading && (
+          <PageLoader
+            className={
+              "fixed z-[500] w-full h-full  bg-black bg-opacity-20 text-center "
+            }
+          />
+        )}
         <div className="w-screen h-screen   md:flex md:items-center md:justify-center ">
           <div
             data-aos="fade-right"

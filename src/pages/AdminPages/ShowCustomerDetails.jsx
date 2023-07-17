@@ -379,7 +379,7 @@ const ShowCustomerDetails = () => {
                               }}
                               className="text-red-500 hover:text-base hover:font-bold"
                             >
-                              &#8377; {value?.grandtotal - value?.paid}
+                              &#8377; {value?.grandtotal - value?.paid- value?.discount}
                             </p>
                           )}
 

@@ -3,7 +3,7 @@ import React from "react";
 const PageLoader = ({className}) => {
   return (
     <>
-      <span className={`flex justify-center items-center ${className}`}>
+      <span className={`flex justify-center items-center ${className} `}>
         <svg
           aria-hidden="true"
           className="w-20 h-20 text-white animate-spin fill-blue-600 "

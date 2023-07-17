@@ -12,6 +12,8 @@ import moment from "moment";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 import html2canvas from "html2canvas";
 import { ToastContainer, toast } from "react-toastify";
+import Spinner from "../../components/Spinner";
+import PageLoader from "../../components/PageLoader";
 
 const ShowSingleBill = () => {
   const REACT_APP_BUSINESS_TOKEN = process.env.REACT_APP_BUSINESS_TOKEN;
@@ -24,6 +26,7 @@ const ShowSingleBill = () => {
   const location = useLocation();
   const [handleShare, setHandleShare] = useState(true);
   const [cloudinaryURL, setcloudinaryURL] = useState("");
+  const [buttonoading, setButtonLoading] = useState(false);
 
   const dataURLToBlob = (dataUrl) => {
     const byteString = atob(dataUrl.split(",")[1]);
@@ -45,7 +48,7 @@ const ShowSingleBill = () => {
     formData.append("file", file);
     formData.append("upload_preset", "dva9i9vs");
     formData.append("folder", "bills");
-
+    setButtonLoading(true);
     axios("https://api.cloudinary.com/v1_1/dtu9gszzu/image/upload", {
       method: "POST",
       data: formData,
@@ -103,7 +106,9 @@ const ShowSingleBill = () => {
           draggable: false,
           progress: false,
           theme: "light",
+          
         });
+        setButtonLoading(false)
         console.log(cloudinaryURL);
       })
       .catch((error) => {
@@ -153,6 +158,13 @@ const ShowSingleBill = () => {
 
   return (
     <>
+    {loading &&
+          <PageLoader
+            className={
+              "fixed z-[500] w-full h-screen top-0  bg-black bg-opacity-20 text-center "
+            }
+          />
+          }
       <div
         className={`min-h-screen h-fit  ${
           isDarkMode ? "bg-gray-800 " : "bg-white "
@@ -289,7 +301,7 @@ const ShowSingleBill = () => {
                       UnPaid:
                     </td>
                     <td className="py-2  font-bold text-sm text-red-500">
-                      {singleBill?.grandtotal - singleBill?.paid} Rs
+                      {singleBill?.grandtotal - singleBill?.paid - singleBill?.discount}  Rs
                     </td>
                   </tr>
                 </tfoot>
@@ -329,7 +341,8 @@ const ShowSingleBill = () => {
                 }}
                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
               >
-                <AiOutlinePrinter /> Share
+                
+                {!buttonoading ? <p className="flex items-center gap-x-2"><AiOutlinePrinter />Share </p> : <Spinner/>}
               </button>
             )}
           </div>
