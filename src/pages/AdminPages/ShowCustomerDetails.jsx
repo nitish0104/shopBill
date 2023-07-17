@@ -192,7 +192,6 @@ const ShowCustomerDetails = () => {
   const handleSingleBill = (_id) => {
     naviGate(`/invoice/${_id}`);
   };
-  console.log(filterResults);
 
   return (
     <>
@@ -327,6 +326,7 @@ const ShowCustomerDetails = () => {
           </div>
           {paidModal.show && (
             <PaidModal
+              billData={paidModal?.billData}
               data={paidModal.show && paidModal.data}
               setPaidModal={setPaidModal}
             />
@@ -362,10 +362,11 @@ const ShowCustomerDetails = () => {
                             </p>
                           </p>
                           <div className="w-2/12 flex justify-center items-center">
-                            {value?.grandtotal - value?.paid === 0 ? (
+                            {value?.grandtotal - value?.discount ===
+                            value?.paid ? (
                               <div>
                                 <p>
-                                  <IoCheckmarkDoneCircle className="text-green-500 text-xl"></IoCheckmarkDoneCircle>{" "}
+                                  <IoCheckmarkDoneCircle className="text-green-500 text-xl"></IoCheckmarkDoneCircle>
                                 </p>
                               </div>
                             ) : (
@@ -375,6 +376,7 @@ const ShowCustomerDetails = () => {
                                     show: true,
                                     // data: value?.customerId?._id,
                                     data: value?._id,
+                                    billData: value,
                                   });
                                 }}
                                 className="text-red-500 hover:text-base hover:font-bold"

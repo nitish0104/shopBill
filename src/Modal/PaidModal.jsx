@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -6,14 +6,14 @@ import { ThemeContextAuth } from "../context/ThemeContext";
 import { ContextAuth } from "../context/Context";
 import axios from "axios";
 
-const PaidModal = ({ setPaidModal, data }) => {
-  const { paid, setPaid } = ContextAuth();
+const PaidModal = ({ setPaidModal, data, billData }) => {
+  const { paid, setPaid, savePaid } = ContextAuth();
+
   const { isDarkMode } = ThemeContextAuth();
   const naviGate = useNavigate();
   const handleChange = (e) => {
     e.preventDefault();
-    setPaid((paid) => ({
-      ...paid,
+    setPaid(() => ({
       [e.target.id]: e.target.value,
     }));
   };
@@ -37,21 +37,20 @@ const PaidModal = ({ setPaidModal, data }) => {
 
   const PaidAmount = async (id) => {
     try {
-      console.log(id);
       await axios(`https://khatabook-one.vercel.app/updatebill/${id}`, {
-        method:"PATCH",
-        data:{
-          unPaid: paid
+        method: "PATCH",
+        data: {
+          paid: billData?.paid + paid,
         },
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      }).then((res)=>{
+      }).then((res) => {
         console.log(res);
-      })
-
-
-
+        if (!res.data.error) {
+          window.location.reload();
+        }
+      });
     } catch (error) {}
   };
   return (
@@ -83,8 +82,14 @@ const PaidModal = ({ setPaidModal, data }) => {
                 type="number"
                 id="paid"
                 value={paid}
-                onChange={handleChange}
-                className="border-2 border-gray-400 rounded-md w-20"
+                onChange={(e) => {
+                  let finalAmount = billData?.grandtotal - billData?.discount;
+                  let paidValue = Number(e.target.value) + billData?.paid;
+                  if (finalAmount >= paidValue) {
+                    setPaid(Number(e.target.value));
+                  }
+                }}
+                className="border-2 border-gray-400 rounded-md w-20 text-black"
               />
             </p>
             <div className="flex justify-center items-center gap-x-5">

@@ -106,9 +106,8 @@ const ShowSingleBill = () => {
           draggable: false,
           progress: false,
           theme: "light",
-          
         });
-        setButtonLoading(false)
+        setButtonLoading(false);
         console.log(cloudinaryURL);
       })
       .catch((error) => {
@@ -159,13 +158,13 @@ const ShowSingleBill = () => {
 
   return (
     <>
-    {loading &&
-          <PageLoader
-            className={
-              "fixed z-[500] w-full h-screen top-0  bg-black bg-opacity-20 text-center "
-            }
-          />
+      {loading && (
+        <PageLoader
+          className={
+            "fixed z-[500] w-full h-screen top-0  bg-black bg-opacity-20 text-center "
           }
+        />
+      )}
       <div
         className={`min-h-screen h-fit  ${
           isDarkMode ? "bg-gray-800 " : "bg-white "
@@ -232,8 +231,8 @@ const ShowSingleBill = () => {
             <div className="overflow-x-auto">
               <table className="min-w-full">
                 <thead className="bg-gray-200 text-gray-800 text-center">
-                  <tr className="border-2 border-black">
-                    <th className="sticky left-0 w-20  py-2 px-4  bg-gray-200 ">
+                  <tr className=" border-black">
+                    <th className="sticky left-0 w-20  border py-2 px-4  bg-gray-200 ">
                       Items
                     </th>
                     <th className="  py-2 px-4 border-x">Qty</th>
@@ -244,7 +243,7 @@ const ShowSingleBill = () => {
                 <tbody>
                   {itemsSingeBill?.map((items) => {
                     return (
-                      <tr className="text-center border-2 border-black ">
+                      <tr className="text-center  border-black ">
                         <td className="sticky left-0 w-2/5  bg-white px-2 border whitespace-nowrap ">
                           {items?.item}
                         </td>
@@ -302,7 +301,10 @@ const ShowSingleBill = () => {
                       UnPaid:
                     </td>
                     <td className="py-2  font-bold text-sm text-red-500">
-                      {singleBill?.grandtotal - singleBill?.paid - singleBill?.discount}  Rs
+                      {singleBill?.grandtotal -
+                        singleBill?.paid -
+                        singleBill?.discount}{" "}
+                      Rs
                     </td>
                   </tr>
                 </tfoot>
@@ -342,8 +344,14 @@ const ShowSingleBill = () => {
                 }}
                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
               >
-                
-                {!buttonLoading ? <p className="flex items-center gap-x-2"><AiOutlinePrinter />Share </p> : <Spinner/>}
+                {!buttonLoading ? (
+                  <p className="flex items-center gap-x-2">
+                    <AiOutlinePrinter />
+                    Share{" "}
+                  </p>
+                ) : (
+                  <Spinner />
+                )}
               </button>
             )}
           </div>

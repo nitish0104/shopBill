@@ -25,8 +25,9 @@ const AddItems = () => {
   const { isDarkMode } = ThemeContextAuth();
   const [discount, setDiscount] = useState(0);
   const [loading, setLoading] = useState(false);
-  const { customerData, paid, setPaid, unPaid, setUnPaid } = ContextAuth();
+  const { customerData, paid, setPaid, setUnPaid, setsavePaid } = ContextAuth();
   const [editIndex, setEditIndex] = useState(null);
+
   const business = jwtDecode(`${localStorage.getItem("token")}`);
   const businessId = business._id;
 
@@ -559,13 +560,10 @@ const AddItems = () => {
                     </p>
                     <input
                       value={paid}
-                      
                       onChange={(e) => {
-                        if(e.target.value <=grandtotal-discount){
-
-                          setPaid(e.target.value);
+                        if (e.target.value <= grandtotal - discount) {
+                          setsavePaid(e.target.value);
                         }
-                        
                       }}
                       className={`  w-[30%]   flex items-center  border-none outline-none  ${
                         isDarkMode ? "bg-gray-800 " : "bg-white "
@@ -593,8 +591,7 @@ const AddItems = () => {
                       UnPaid: &#8377;
                     </p>
                     <input
-                      value={grandtotal-discount-paid}
-                      
+                      value={grandtotal - discount - paid}
                       className={`  w-[30%]   flex items-center  border-none outline-none  ${
                         isDarkMode ? "bg-gray-800 " : "bg-white "
                       }`}

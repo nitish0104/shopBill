@@ -25,6 +25,7 @@ const Context = ({ children }) => {
   const [amount, setamount] = useState();
   const [logoUrl, setLogoUrl] = useState("");
   const [paid, setPaid] = useState(0);
+  const [savePaid, setsavePaid] = useState(0);
   const [unPaid, setUnPaid] = useState(0);
   const [viewCustomerDetails, setViewCustomerDetails] = useState("");
   const [userLoading, setUserLoading] = useState(false);
@@ -62,9 +63,8 @@ const Context = ({ children }) => {
               }
             });
         } catch (error) {
-          setUserLoading(false)
+          setUserLoading(false);
           navigate("/login");
-          
         }
       } else {
         navigate("/login");
@@ -102,9 +102,11 @@ const Context = ({ children }) => {
         paid,
         setPaid,
         userLoading,
-         setUserLoading,
-         unPaid,
-         setUnPaid,
+        setUserLoading,
+        unPaid,
+        setUnPaid,
+        savePaid,
+        setsavePaid,
       }}
     >
       {children}
