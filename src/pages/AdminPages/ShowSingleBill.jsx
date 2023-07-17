@@ -135,6 +135,7 @@ const ShowSingleBill = () => {
       setLoading(true);
       let params = new URLSearchParams(location.search);
       setHandleShare(Boolean(params.get("show")));
+      setHandleShare(Boolean(params.get("show")));
       try {
         axios(`https://khatabook-one.vercel.app/getcustomerbill/${id}`, {
           method: "GET",
@@ -315,11 +316,11 @@ const ShowSingleBill = () => {
             </div>
           </div>
 
-          <div className="flex justify-center mt-4 mr-6 mb-3 ">
+          <div className="flex justify-center mt-4 mr-6 mb-3  gap-x-4 ">
             {!handleShare && (
               <button
                 onClick={(e) => {
-                  document.title = `ShopConnect - ${singleBill?.customerId?.customerName}`;
+                  document.title = `CONT-O | - ${singleBill?.customerId?.customerName}`;
                   e.target.style.opacity = 0;
                   contentRef.current.style.display = "none";
                   window.print();
@@ -334,7 +335,7 @@ const ShowSingleBill = () => {
             {handleShare && (
               <button
                 onClick={(e) => {
-                  document.title = `ShopConnect - ${singleBill?.customerId?.customerName}`;
+                  document.title = `CONT-O | ${singleBill?.customerId?.customerName}`;
                   e.target.style.opacity = 0;
                   convertToImage();
                   e.target.style.opacity = 1;

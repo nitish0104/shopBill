@@ -60,7 +60,7 @@ const Sidebar = () => {
               isDarkMode ? " text-black" : " text-gray-800"
             } `}
           >
-            ShopBill
+            CONTO-O
           </div>
 
           <button
