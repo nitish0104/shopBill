@@ -45,31 +45,25 @@ const CustomerCard = ({
   return (
     <>
       <div
-        className={`bg-${isDarkMode ? "blue-200" : "cyan-50"} text-${
+        className={`${
+          isDarkMode ? "bg-blue-200 text-gray-950" : "bg-gray-50"
+        } text-${
           isDarkMode ? "white" : "gray-800"
-        } p-4 rounded-lg  shadow-md shadow-blue-300 transform  perspective-100    overflow-hidden border m-2`}
+        } p-4 rounded-lg  shadow-md shadow-blue-200 transform  perspective-100  hover:shadow-lg hover:shadow-blue-300 overflow-hidden border m-2`}
       >
-        <div className=" py-4 flex justify-between items-start " ref={ref}>
+        <div
+          className=" py-4 flex justify-between items-start cursor-pointer "
+          onClick={handleCardClick}
+          ref={ref}
+        >
           <div className="text-start w-6/12">
-            <button
-              onClick={handleCardClick}
-              className="flex flex-col  items-start gap-y-3 md:flex-none"
-            >
+            <button className="flex flex-col  items-start gap-y-3 md:flex-none">
               <div className="font-bold text-xl ">{name}</div>
 
               <p className=" font-semibold  text-start">{mobileNumber}</p>
             </button>
           </div>
-          <div
-            className="w-1/12"
-            onClick={() => {
-              onClick(billId);
-            }}
-          >
-            <button className="bg-green-500 hover:bg-green-600 text-white font-bold  p-[9px] rounded-full  flex gap-2 justify-center items-center">
-              <BsWhatsapp className=" text-2xl text-center "></BsWhatsapp>
-            </button>
-          </div>
+
           <div className="flex flex-col gap-y-3 justify-center items-end w-6/12">
             {showPaid ? (
               <button
@@ -101,6 +95,17 @@ const CustomerCard = ({
               <p className="text-sm text-center">{time}</p>
             </div>
           </div>
+        </div>
+        <div
+          className="w-12/12 bg-green-500 flex justify-center items-center rounded-md hover:bg-green-600 gap-4 cursor-pointer"
+          onClick={() => {
+            onClick(billId);
+          }}
+        >
+          <p className="text-white font-semibold">Send Bill</p>
+          <button className=" text-white font-bold  p-[9px] rounded-full  flex gap-2 justify-center items-center">
+            <BsWhatsapp className=" text-2xl text-center "></BsWhatsapp>
+          </button>
         </div>
       </div>
     </>

@@ -562,7 +562,7 @@ const AddItems = () => {
                       value={paid}
                       onChange={(e) => {
                         if (e.target.value <= grandtotal - discount) {
-                          setPaid(e.target.value);
+                          setsavePaid(e.target.value);
                         }
                       }}
                       className={`  w-[30%]   flex items-center  border-none outline-none  ${
@@ -571,16 +571,6 @@ const AddItems = () => {
                       required="true"
                     />
                   </div>
-                  {/* <div
-                    className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
-                      isDarkMode ? "border-white" : "border-black"
-                    }`}
-                  >
-                    <p className="flex items-center  text-base">
-                      Unpaid: &#8377;{" "}
-                    </p>
-                    {grandtotal - paid}
-                  </div> */}
 
                   <div
                     className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
