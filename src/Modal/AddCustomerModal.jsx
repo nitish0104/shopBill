@@ -54,16 +54,16 @@ const AddCustomerModal = ({ data, setModal }) => {
           },
         })
           .then((res) => {
-            console.log(res);
+            
             const customerId = res.data.customer._id;
             setCustomerdata(customerId);
-            console.log(customerId);
+
             navigate("/add-items");
             // console.log(res.data.token);
             setLoading(false);
           })
           .catch((res) => {
-            console.log(res.data);
+            
             toast.error("Customer already exist", {
               position: "top-center",
               autoClose: 3000,

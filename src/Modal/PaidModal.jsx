@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { ThemeContextAuth } from "../context/ThemeContext";
 import { ContextAuth } from "../context/Context";
 import axios from "axios";
-
+import Spinner from '../components/Spinner'
 const PaidModal = ({ setPaidModal, data, billData }) => {
   const { paid, setPaid, savePaid } = ContextAuth();
-
+  const [loading, setLoading] = useState(false);
   const { isDarkMode } = ThemeContextAuth();
   const naviGate = useNavigate();
   const handleChange = (e) => {
@@ -18,25 +18,9 @@ const PaidModal = ({ setPaidModal, data, billData }) => {
     }));
   };
 
-  // const PaidAmount = (data, paid) => {
-  //   console.log(paid);
-  //   toast.success(" Price Updated Successfully", {
-  //     position: "top-center",
-  //     autoClose: 3000,
-  //     hideProgressBar: false,
-  //     closeOnClick: false,
-  //     pauseOnHover: false,
-  //     draggable: false,
-  //     progress: false,
-  //     theme: "light",
-  //   });
-
-  //   naviGate(`/customer-details/${data}`);
-  //   setPaidModal(false);
-  // };
-
   const PaidAmount = async (id) => {
     try {
+      setLoading(true)
       await axios(`https://khatabook-one.vercel.app/updatebill/${id}`, {
         method: "PATCH",
         data: {
@@ -46,12 +30,24 @@ const PaidModal = ({ setPaidModal, data, billData }) => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }).then((res) => {
-        console.log(res);
+        toast.success(res?.data?.messaage, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: false,
+          draggable: false,
+          progress: false,
+          theme: "light",
+        });
         if (!res.data.error) {
           window.location.reload();
         }
+        setLoading(false)
       });
-    } catch (error) {}
+    } catch (error) {
+      setLoading(false)
+    }
   };
   return (
     <>
@@ -94,10 +90,10 @@ const PaidModal = ({ setPaidModal, data, billData }) => {
             </p>
             <div className="flex justify-center items-center gap-x-5">
               <button
-                className="font-bold text-xl bg-green-600 text-white py-1.5 px-2 rounded-md w-28"
+                className="font-bold text-xl bg-green-600 text-white py-1.5 px-2 rounded-md w-28 flex justify-center items-center"
                 onClick={() => PaidAmount(data)}
               >
-                Paid
+                {!loading ? 'Paid' : <Spinner/>}
               </button>
             </div>
           </div>

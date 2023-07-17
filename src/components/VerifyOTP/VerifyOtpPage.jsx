@@ -34,7 +34,7 @@ const VerifyOtpPage = () => {
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(otp);
+
     if (otp.length >= 4) {
       return navigate("/main");
     }

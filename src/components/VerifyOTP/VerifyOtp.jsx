@@ -36,7 +36,7 @@ const OTPVerification = () => {
   // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(otp);
+    
     // Perform mobile number verification here
 
     // Start the timer

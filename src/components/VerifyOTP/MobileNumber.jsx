@@ -37,7 +37,7 @@ const MobileNumberForm = () => {
   const { setNumber } = ContextAuth();
   setNumber(mobileNumber);
   const handleSubmit = () => {
-    console.log(mobileNumber);
+
     navigate("/verify");
   };
   return (
