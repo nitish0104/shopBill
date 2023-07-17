@@ -26,7 +26,7 @@ const ShowSingleBill = () => {
   const location = useLocation();
   const [handleShare, setHandleShare] = useState(true);
   const [cloudinaryURL, setcloudinaryURL] = useState("");
-  const [buttonoading, setButtonLoading] = useState(false);
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   const dataURLToBlob = (dataUrl) => {
     const byteString = atob(dataUrl.split(",")[1]);
@@ -343,7 +343,7 @@ const ShowSingleBill = () => {
                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
               >
                 
-                {!buttonoading ? <p className="flex items-center gap-x-2"><AiOutlinePrinter />Share </p> : <Spinner/>}
+                {!buttonLoading ? <p className="flex items-center gap-x-2"><AiOutlinePrinter />Share </p> : <Spinner/>}
               </button>
             )}
           </div>

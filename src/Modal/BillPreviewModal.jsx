@@ -29,7 +29,7 @@ const BillPreviewModal = ({ showModal, setShowModal, billID }) => {
           <div className="lg:py-6 py-8">
             <iframe
               className="w-full h-full"
-              src={`https://shopconnect.vercel.app/invoice/${billID}?show=false`}
+              src={`https://cont-o.vercel.app/invoice/${billID}?show=false`}
               frameborder="0"
             ></iframe>
           </div>
