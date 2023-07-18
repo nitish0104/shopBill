@@ -4,14 +4,23 @@ const ThemeContext = createContext();
 const ThemeProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // useEffect(() => {
-  //   const prefersDarkMode =
-  //     window.matchMedia &&
-  //     window.matchMedia("(prefers-color-scheme: dark)").matches;
-  //   setIsDarkMode(prefersDarkMode);
-  // }, []);
+  
+useEffect(() => {
+  const themeData = localStorage.getItem('dark')
+  if(themeData  === "true") {
+    setIsDarkMode(true)
+  }else if(themeData === "false"){
+    setIsDarkMode(false)
+  }else{
+    setIsDarkMode(false)
+  }
+}, [])
+
+  
+
 
   const toggleMode = () => {
+    localStorage.setItem("dark", !isDarkMode)
     setIsDarkMode(!isDarkMode);
   };
 

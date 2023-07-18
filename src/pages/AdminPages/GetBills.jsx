@@ -227,7 +227,7 @@ const GetBills = () => {
                   selectsRange
                   dateFormat="dd/MMM/yyyy"
                   popperPlacement="bottom-start"
-                  className="outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-fit w-fit "
+                  className={`outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-fit w-fit ${isDarkMode ? 'placeholder-white placeholder:opacity-60' : 'placeholder-gray-500'}`}
                   renderCustomHeader={({
                     date,
                     decreaseMonth,

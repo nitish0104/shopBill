@@ -67,7 +67,7 @@ const Sidebar = () => {
             } `}
             onClick={toggleMode}
           >
-            {isDarkMode ? <BsSun className="" /> : <MdOutlineDarkMode />}
+            {isDarkMode ? <BsSun className="" />  : <MdOutlineDarkMode /> }
           </button>
         </div>
       </div>

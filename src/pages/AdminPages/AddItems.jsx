@@ -11,6 +11,7 @@ import jwtDecode from "jwt-decode";
 import { ContextAuth } from "../../context/Context";
 import Spinner from "../../components/Spinner";
 import Navigation from "../../components/Navigation";
+import { toast, ToastContainer } from "react-toastify";
 
 const AddItems = () => {
   const [items, setItems] = useState([]);
@@ -70,7 +71,7 @@ const AddItems = () => {
     calculateTotal(qty, individualPrice);
   };
   const addItem = () => {
-    if (item.length >= 1) {
+    if (item.length >= 1 && qty > 0 && individualPrice > 0) {
       let obj = {
         item: item,
         qty: qty,
@@ -142,32 +143,46 @@ const AddItems = () => {
   };
 
   const getBill = async () => {
-    setLoading(true);
+    if (items.length > 0) {
+      setLoading(true);
 
-    try {
-      await axios("https://khatabook-one.vercel.app/generatebill", {
-        method: "POST",
-        data: {
-          customerId: customerData,
-          businessId: businessId,
-          items: items,
+      try {
+        await axios("https://khatabook-one.vercel.app/generatebill", {
+          method: "POST",
+          data: {
+            customerId: customerData,
+            businessId: businessId,
+            items: items,
 
-          grandtotal: grandtotal,
-          discount: Number(discount),
-          paid: Number(paid),
-        },
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-        .then((res) => {
-          console.log(res);
-          navigate("/get-bill");
-          setLoading(false);
+            grandtotal: grandtotal,
+            discount: Number(discount),
+            paid: Number(paid),
+          },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         })
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.log(error);
+          .then((res) => {
+            console.log(res);
+            navigate("/get-bill");
+            setLoading(false);
+            window.location.reload();
+          })
+          .catch((err) => console.log(err));
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      toast.error("Please add some Data", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: false,
+        theme: "light",
+      });
     }
   };
 
@@ -210,31 +225,49 @@ const AddItems = () => {
                     onChange={handleQtyChange}
                     placeholder={"Enter Quantity"}
                     className={`w-full h-12  rounded-lg border duration-200 pl-2 bg-transparent ${
-                      isDarkMode ? " text-white" : " text-black"
+                      isDarkMode
+                        ? " text-white bg-gray-800"
+                        : " text-black bg-white"
                     }`}
                     required
                   />
                   <select
                     value={selectedUnit}
                     onChange={handleUnitChange}
-                    className="ml-2 px-2 py-1 border rounded"
+                    className={`ml-2 px-2 py-1 border rounded  ${
+                      isDarkMode
+                        ? "text-white bg-gray-800"
+                        : "text-gray-800 bg-white"
+                    }`}
                   >
                     <option
-                      className={` text-${isDarkMode ? "black" : "gray-800"}`}
+                      className={` ${
+                        isDarkMode
+                          ? "text-white bg-gray-800"
+                          : "text-gray-800 bg-white"
+                      }`}
                       value="piece"
                     >
                       {" "}
                       Piece
                     </option>
                     <option
-                      className={` text-${isDarkMode ? "black" : "gray-800"}`}
+                      className={`${
+                        isDarkMode
+                          ? "text-white bg-gray-800"
+                          : "bg-white text-gray-800"
+                      }`}
                       value="kg"
                     >
                       {" "}
                       Kg
                     </option>
                     <option
-                      className={` text-${isDarkMode ? "black" : "gray-800"}`}
+                      className={`${
+                        isDarkMode
+                          ? "text-white bg-gray-800"
+                          : "bg-white text-gray-800"
+                      }`}
                       value="gm"
                     >
                       {" "}
@@ -549,7 +582,9 @@ const AddItems = () => {
                     <input
                       value={discount}
                       onChange={(e) => {
-                        setDiscount(e.target.value);
+                        if (e.target.value <= grandtotal) {
+                          setDiscount(e.target.value);
+                        }
                       }}
                       className={`  w-[30%]   flex items-center  border-none outline-none  ${
                         isDarkMode ? "bg-gray-800 " : "bg-white "
@@ -621,8 +656,8 @@ const AddItems = () => {
                       isDarkMode ? "text-white" : "text-gray-800"
                     } p-4`}
                   >
-                    <span className="font-mono   md:text-5xl text-xl">
-                      Oop's! Data Not Found
+                    <span className="font-mono   md:text-3xl text-xl">
+                      Oop's! No Data Available
                     </span>
                   </div>
                 </div>
@@ -647,6 +682,7 @@ const AddItems = () => {
             </button>
           </div>
         </div>
+        <ToastContainer />
       </LayoutMain>
     </>
   );
