@@ -360,7 +360,7 @@ const ShowSingleBill = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center mt-4 mr-6 mb-3   ">
+      <div className=" flex justify-center mt-4 mr-6 mb-3   ">
         {!handleShare && (
           <button
             onClick={(e) => {

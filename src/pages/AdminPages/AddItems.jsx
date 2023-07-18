@@ -219,9 +219,27 @@ const AddItems = () => {
                     onChange={handleUnitChange}
                     className="ml-2 px-2 py-1 border rounded"
                   >
-                    <option value="piece"> Piece</option>
-                    <option value="kg"> Kg</option>
-                    <option value="gm"> Gm</option>
+                    <option
+                      className={` text-${isDarkMode ? "black" : "gray-800"}`}
+                      value="piece"
+                    >
+                      {" "}
+                      Piece
+                    </option>
+                    <option
+                      className={` text-${isDarkMode ? "black" : "gray-800"}`}
+                      value="kg"
+                    >
+                      {" "}
+                      Kg
+                    </option>
+                    <option
+                      className={` text-${isDarkMode ? "black" : "gray-800"}`}
+                      value="gm"
+                    >
+                      {" "}
+                      Gm
+                    </option>
                   </select>
                 </div>
                 <div className="flex-col ">
