@@ -132,7 +132,7 @@ const ShowSingleBill = () => {
         setcloudinaryURL(data?.data?.secure_url);
         console.log(data?.data?.secure_url);
         const phoneNumber = `+91${singleBill?.customerId?.customerNumber}`;
-        const message = `Your *Bill* is: \n ${data?.data?.secure_url}`;
+        const message = `*Shop Name*: ${singleBill?.businessId?.businessName } \n*Grandtotal* :${singleBill?.grandtotal - singleBill?.discount}    \n*Your Bill*: ${data?.data?.secure_url}`;
 
         const encodedMessage = encodeURIComponent(message);
         const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
