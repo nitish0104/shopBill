@@ -272,7 +272,7 @@ const GetBills = () => {
             {!loading ? (
               <div ref={contentRef} data-aos="flip-right">
                 {filterResults?.length > 0 ? (
-                  <div className="md:grid md:grid-cols-2 md:gap-2 md:w-[60vw] mx-auto gap-y-3  md:px-0 w-[100vw] pb-5">
+                  <div className="md:grid md:grid-cols-2 md:gap-2 md:w-[60vw] mx-auto grid gap-y-1  md:px-0 w-[100vw] pb-5">
                     {filterResults?.map((customer, index) => {
                       const dateObj = new Date(customer?.createdAt);
                       // console.log(customer);

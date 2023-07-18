@@ -46,16 +46,17 @@ const CustomerCard = ({
     <>
       <div
         className={`${
-          isDarkMode ? "bg-blue-200 text-gray-950" : "bg-gray-50"
+          isDarkMode ? "bg-blue-100 text-gray-950" : "bg-gray-50"
         } text-${
-          isDarkMode ? "white" : "gray-800"
+          isDarkMode ? "black" : "gray-800"
         } p-4 rounded-lg  shadow-md shadow-blue-200 transform  perspective-100  hover:shadow-lg hover:shadow-blue-300 overflow-hidden border m-2`}
       >
         <div className=" py-4 flex justify-between items-start cursor-pointer ">
           <div
             className="text-start w-6/12"
             onClick={handleCardClick}
-            ref={ref}>
+            ref={ref}
+          >
             <button className="flex flex-col  items-start gap-y-3 md:flex-none">
               <div className="font-bold text-xl ">{name}</div>
 

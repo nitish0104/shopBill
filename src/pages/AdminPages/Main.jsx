@@ -33,6 +33,7 @@ const Main = () => {
         .then((res) => {
           setisEditable(false);
           setformState(res.data);
+          window.location.reload();
           toast.success("Profile updated !", {
             position: "top-center",
             autoClose: 3000,
@@ -114,13 +115,13 @@ const Main = () => {
     <>
       <LayoutMain>
         <Sidebar />
-        {loading &&
+        {loading && (
           <PageLoader
             className={
               "fixed z-[500] w-full h-screen top-0  bg-black bg-opacity-20 text-center "
             }
           />
-          }
+        )}
         <div
           className={` overflow-auto md:overflow-y-hidden w-screen min-h-screen h-auto rounded-t-lg pt-4 ${
             isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"

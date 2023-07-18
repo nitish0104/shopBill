@@ -132,13 +132,16 @@ const ShowSingleBill = () => {
         setcloudinaryURL(data?.data?.secure_url);
         console.log(data?.data?.secure_url);
         const phoneNumber = `+91${singleBill?.customerId?.customerNumber}`;
-        const message = `*Shop Name*: ${singleBill?.businessId?.businessName } \n*Grandtotal* :${singleBill?.grandtotal - singleBill?.discount}    \n\n*Your Bill*: ${data?.data?.secure_url}`;
+        const message = `*Shop Name*: ${
+          singleBill?.businessId?.businessName
+        } \n*Grandtotal* :${
+          singleBill?.grandtotal - singleBill?.discount
+        }    \n\n*Your Bill*: ${data?.data?.secure_url}`;
 
         const encodedMessage = encodeURIComponent(message);
         const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
         window.open(url, "_blank");
 
-        
         // toast.success("Bill Sent Successfully", {
         //   position: "top-center",
         //   autoClose: 3000,
@@ -359,45 +362,44 @@ const ShowSingleBill = () => {
               </p>
             </div>
           </div>
-
-          <div className="flex justify-center mt-4 mr-6 mb-3  gap-x-4 ">
-            {!handleShare && (
-              <button
-                onClick={(e) => {
-                  document.title = `CONT-O | - ${singleBill?.customerId?.customerName}`;
-                  e.target.style.opacity = 0;
-                  contentRef.current.style.display = "none";
-                  window.print();
-                  e.target.style.opacity = 1;
-                  contentRef.current.style.display = "";
-                }}
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
-              >
-                <AiOutlinePrinter /> Print
-              </button>
-            )}
-            {handleShare && (
-              <button
-                onClick={(e) => {
-                  document.title = `CONT-O | ${singleBill?.customerId?.customerName}`;
-                  e.target.style.opacity = 0;
-                  convertToImage();
-                  e.target.style.opacity = 1;
-                }}
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
-              >
-                {!buttonLoading ? (
-                  <p className="flex items-center gap-x-2">
-                    <AiOutlinePrinter />
-                    Share{" "}
-                  </p>
-                ) : (
-                  <Spinner />
-                )}
-              </button>
-            )}
-          </div>
         </div>
+      </div>
+      <div className="flex justify-center mt-4 mr-6 mb-3  gap-x-4 ">
+        {!handleShare && (
+          <button
+            onClick={(e) => {
+              document.title = `CONT-O | - ${singleBill?.customerId?.customerName}`;
+              e.target.style.opacity = 0;
+              contentRef.current.style.display = "none";
+              window.print();
+              e.target.style.opacity = 1;
+              // contentRef.current.style.display = "";
+            }}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
+          >
+            <AiOutlinePrinter /> Print
+          </button>
+        )}
+        {handleShare && (
+          <button
+            onClick={(e) => {
+              document.title = `CONT-O | ${singleBill?.customerId?.customerName}`;
+              e.target.style.opacity = 0;
+              convertToImage();
+              e.target.style.opacity = 1;
+            }}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
+          >
+            {!buttonLoading ? (
+              <p className="flex items-center gap-x-2">
+                <AiOutlinePrinter />
+                Share
+              </p>
+            ) : (
+              <Spinner />
+            )}
+          </button>
+        )}
       </div>
       <ToastContainer />
     </>
