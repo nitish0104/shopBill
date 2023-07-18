@@ -19,20 +19,20 @@ const BillPreviewModal = ({ showModal, setShowModal, billID }) => {
             </button>
           </div>
           {/* for developement */}
-          {/* <div className="lg:py-6 py-8">
+          <div className="lg:py-6 py-8">
             <iframe
               className="border w-full h-[90vh]"
               src={`http://localhost:3000/invoice/${billID}?show=false`}
               frameborder="0"
             ></iframe>
-          </div> */}
-          <div className="lg:py-6 py-8">
+          </div>
+          {/* <div className="lg:py-6 py-8">
             <iframe
               className="border w-full h-[90vh]"
               src={`https://cont-o.vercel.app/invoice/${billID}?show=false`}
               frameborder="0"
             ></iframe>
-          </div>
+          </div> */}
         </section>
       )}
     </>

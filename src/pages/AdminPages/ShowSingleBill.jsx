@@ -41,6 +41,81 @@ const ShowSingleBill = () => {
     return new Blob([ab], { type: mimeString });
   };
 
+  // const uploadToCloudinary = (dataImageUrl) => {
+  //   const blob = dataURLToBlob(dataImageUrl);
+  //   const file = new File([blob], "image.png");
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   formData.append("upload_preset", "dva9i9vs");
+  //   formData.append("folder", "bills");
+  //   setButtonLoading(true);
+  //   axios("https://api.cloudinary.com/v1_1/dtu9gszzu/image/upload", {
+  //     method: "POST",
+  //     data: formData,
+  //   })
+  //     .then((data) => {
+  //       setcloudinaryURL(data?.data?.secure_url);
+  //       console.log(data?.data?.secure_url);
+  //       let Textdata = JSON.stringify({
+  //         messaging_product: "whatsapp",
+  //         to: `91${singleBill?.customerId?.customerNumber}`,
+  //         type: "template",
+  //         template: {
+  //           name: "hello_world",
+  //           language: {
+  //             code: "en_US",
+  //           },
+  //         },
+  //       });
+  //       axios("https://graph.facebook.com/v17.0/104365256062975/messages", {
+  //         data: Textdata,
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${REACT_APP_BUSINESS_TOKEN}`,
+  //         },
+  //         method: "POST",
+  //       });
+  //     })
+  //     .then((data) => {
+  //       console.log(cloudinaryURL);
+  //       let body = {
+  //         messaging_product: "whatsapp",
+  //         recipient_type: "individual",
+  //         to: `91${singleBill?.customerId?.customerNumber}`,
+  //         type: "image",
+  //         image: {
+  //           link: cloudinaryURL,
+  //         },
+  //       };
+  //       axios("https://graph.facebook.com/v17.0/104365256062975/messages", {
+  //         data: body,
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${REACT_APP_BUSINESS_TOKEN}`,
+  //         },
+  //         method: "POST",
+  //       });
+  //     })
+  //     .then(() => {
+  //       toast.success("Bill Sent Successfully", {
+  //         position: "top-center",
+  //         autoClose: 3000,
+  //         hideProgressBar: false,
+  //         closeOnClick: false,
+  //         pauseOnHover: false,
+  //         draggable: false,
+  //         progress: false,
+  //         theme: "light",
+  //       });
+  //       setButtonLoading(false);
+  //       console.log(cloudinaryURL);
+
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error uploading image to Cloudinary:", error);
+  //     });
+  // };
+
   const uploadToCloudinary = (dataImageUrl) => {
     const blob = dataURLToBlob(dataImageUrl);
     const file = new File([blob], "image.png");
@@ -53,65 +128,31 @@ const ShowSingleBill = () => {
       method: "POST",
       data: formData,
     })
-      .then((data) => {
+      .then(async (data) => {
         setcloudinaryURL(data?.data?.secure_url);
         console.log(data?.data?.secure_url);
-        let Textdata = JSON.stringify({
-          messaging_product: "whatsapp",
-          to: `91${singleBill?.customerId?.customerNumber}`,
-          type: "template",
-          template: {
-            name: "hello_world",
-            language: {
-              code: "en_US",
-            },
-          },
-        });
-        axios("https://graph.facebook.com/v17.0/104365256062975/messages", {
-          data: Textdata,
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${REACT_APP_BUSINESS_TOKEN}`,
-          },
-          method: "POST",
-        });
-      })
-      .then((data) => {
-        console.log(cloudinaryURL);
-        let body = {
-          messaging_product: "whatsapp",
-          recipient_type: "individual",
-          to: `91${singleBill?.customerId?.customerNumber}`,
-          type: "image",
-          image: {
-            link: cloudinaryURL,
-          },
-        };
-        axios("https://graph.facebook.com/v17.0/104365256062975/messages", {
-          data: body,
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${REACT_APP_BUSINESS_TOKEN}`,
-          },
-          method: "POST",
-        });
-      })
-      .then(() => {
-        toast.success("Bill Sent Successfully", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: false,
-          draggable: false,
-          progress: false,
-          theme: "light",
-        });
+        const phoneNumber = `+91${singleBill?.customerId?.customerNumber}`;
+        const message = `Your Bill is: \n ${data?.data?.secure_url}`;
+
+        const encodedMessage = encodeURIComponent(message);
+        const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+        window.open(url, "_blank");
+
+        // toast.success("Bill Sent Successfully", {
+        //   position: "top-center",
+        //   autoClose: 3000,
+        //   hideProgressBar: false,
+        //   closeOnClick: false,
+        //   pauseOnHover: false,
+        //   draggable: false,
+        //   progress: false,
+        //   theme: "light",
+        // });
         setButtonLoading(false);
         console.log(cloudinaryURL);
       })
       .catch((error) => {
-        console.error("Error uploading image to Cloudinary:", error);
+        console.error(error);
       });
   };
 
