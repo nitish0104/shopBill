@@ -44,7 +44,7 @@ const LogoutModal = ({ setModel }) => {
                 }}
                 className=" font-bold text-xl bg-blue-600 text-white py-1.5 px-2 rounded-md w-28"
               >
-                Cancle
+                Cancel
               </button>
               <button
                 className="font-bold text-xl bg-red-600 text-white py-1.5 px-2 rounded-md w-28"
