@@ -53,10 +53,10 @@ const CustomerCard = ({
       >
         <div
           className=" py-4 flex justify-between items-start cursor-pointer "
-          onClick={handleCardClick}
-          ref={ref}
+          
         >
-          <div className="text-start w-6/12">
+          <div className="text-start w-6/12" onClick={handleCardClick}
+          ref={ref}>
             <button className="flex flex-col  items-start gap-y-3 md:flex-none">
               <div className="font-bold text-xl ">{name}</div>
 
@@ -96,15 +96,17 @@ const CustomerCard = ({
             </div>
           </div>
         </div>
+
+        
         <div
           className="w-12/12 bg-green-500 flex justify-center items-center rounded-md hover:bg-green-600 gap-4 cursor-pointer"
           onClick={() => {
             onClick(billId);
           }}
         >
-          <p className="text-white font-semibold">Send Bill</p>
           <button className=" text-white font-bold  p-[9px] rounded-full  flex gap-2 justify-center items-center">
-            <BsWhatsapp className=" text-2xl text-center "></BsWhatsapp>
+            <BsWhatsapp className=" text-xl text-center "></BsWhatsapp>
+          <p className="text-white font-semibold">Send Bill</p>
           </button>
         </div>
       </div>

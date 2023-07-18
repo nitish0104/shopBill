@@ -219,9 +219,9 @@ const AddItems = () => {
                     onChange={handleUnitChange}
                     className="ml-2 px-2 py-1 border rounded"
                   >
-                    <option value="piece">Piece</option>
-                    <option value="kg">Kg</option>
-                    <option value="gm">Gm</option>
+                    <option value="piece"> Piece</option>
+                    <option value="kg"> Kg</option>
+                    <option value="gm"> Gm</option>
                   </select>
                 </div>
                 <div className="flex-col ">
@@ -562,7 +562,7 @@ const AddItems = () => {
                       value={paid}
                       onChange={(e) => {
                         if (e.target.value <= grandtotal - discount) {
-                          setsavePaid(e.target.value);
+                          setPaid(e.target.value);
                         }
                       }}
                       className={`  w-[30%]   flex items-center  border-none outline-none  ${
@@ -573,7 +573,7 @@ const AddItems = () => {
                   </div>
 
                   <div
-                    className={`flex items-center jc border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
+                    className={`flex items-center  border-2 text-base py-1 gap-x-1 w-fit pl-2 ${
                       isDarkMode ? "border-white" : "border-black"
                     }`}
                   >
