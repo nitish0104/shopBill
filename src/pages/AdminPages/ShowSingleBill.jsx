@@ -210,11 +210,7 @@ const ShowSingleBill = () => {
           }
         />
       )}
-      <div
-        className={`min-h-screen h-fit  ${
-          isDarkMode ? "bg-gray-800 " : "bg-white "
-        }`}
-      >
+      <div className={` h-fit  ${isDarkMode ? "bg-gray-800 " : "bg-white "}`}>
         {!handleShare && (
           <div ref={contentRef}>
             <Sidebar />
@@ -364,7 +360,7 @@ const ShowSingleBill = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center mt-4 mr-6 mb-3  gap-x-4 ">
+      <div className="flex justify-center mt-4 mr-6 mb-3   ">
         {!handleShare && (
           <button
             onClick={(e) => {
