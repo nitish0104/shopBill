@@ -132,12 +132,13 @@ const ShowSingleBill = () => {
         setcloudinaryURL(data?.data?.secure_url);
         console.log(data?.data?.secure_url);
         const phoneNumber = `+91${singleBill?.customerId?.customerNumber}`;
-        const message = `*Shop Name*: ${singleBill?.businessId?.businessName } \n*Grandtotal* :${singleBill?.grandtotal - singleBill?.discount}    \n*Your Bill*: ${data?.data?.secure_url}`;
+        const message = `*Shop Name*: ${singleBill?.businessId?.businessName } \n*Grandtotal* :${singleBill?.grandtotal - singleBill?.discount}    \n\n*Your Bill*: ${data?.data?.secure_url}`;
 
         const encodedMessage = encodeURIComponent(message);
         const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
         window.open(url, "_blank");
 
+        
         // toast.success("Bill Sent Successfully", {
         //   position: "top-center",
         //   autoClose: 3000,
