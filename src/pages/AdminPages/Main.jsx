@@ -147,12 +147,12 @@ const Main = () => {
                   <div className="pl-2 flex items-center shadow appearance-none border rounded w-full  leading-tight focus:outline-none focus:shadow-outline">
                     <AiOutlineShop
                       className={`text-3xl text-transperent  mr-2  bg-transparent${
-                        isDarkMode ? " text-white" : " text-gray-800"
+                        isDarkMode ? " text-black" : " text-gray-800"
                       }`}
                     />
                     <input
                       className={`w-full py-2 px-2 font-semibold  leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 ${
-                        isDarkMode ? " text-white" : " text-gray-800"
+                        isDarkMode ? " text-black" : " text-gray-800"
                       } `}
                       id="businessName"
                       type="text"
@@ -178,12 +178,12 @@ const Main = () => {
                   <div className=" pl-2 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
                     <IoBusinessOutline
                       className={`text-3xl text-transperent mr-2 ${
-                        isDarkMode ? " text-white" : " text-gray-800"
+                        isDarkMode ? " text-black" : " text-gray-800"
                       }`}
                     />
                     <input
                       className={`w-full py-2 px-2  font-semibold leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 ${
-                        isDarkMode ? " text-white" : " text-gray-800"
+                        isDarkMode ? " text-black" : " text-gray-800"
                       } `}
                       id="businessType"
                       type="text"
@@ -207,12 +207,12 @@ const Main = () => {
                   <div className=" pl-2 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
                     <HiOutlineReceiptTax
                       className={`text-3xl text-transperent mr-2 ${
-                        isDarkMode ? " text-white" : " text-gray-800"
+                        isDarkMode ? " text-black" : " text-gray-800"
                       }`}
                     />
                     <input
                       className={`w-full py-2 px-2  leading-tight focus:outline-none focus:shadow-outline font-semibold placeholder:text-gray-800 ${
-                        isDarkMode ? " text-white" : " text-gray-800"
+                        isDarkMode ? " text-black" : " text-gray-800"
                       } `}
                       id="gstNo"
                       required
@@ -236,12 +236,12 @@ const Main = () => {
                   <div className=" pl-2 flex items-center shadow appearance-none border rounded w-full  leading-tight focus:outline-none focus:shadow-outline">
                     <GoLocation
                       className={`text-2xl text-transperent mr-2  ${
-                        isDarkMode ? "  text-white" : " text-gray-800"
+                        isDarkMode ? "  text-black" : " text-gray-800"
                       }`}
                     />
                     <input
                       className={`w-full py-2 px-2 font-semibold leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 ${
-                        isDarkMode ? " text-white" : " text-gray-800"
+                        isDarkMode ? " text-black" : " text-gray-800"
                       } `}
                       id="location"
                       type="text"

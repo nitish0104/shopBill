@@ -39,7 +39,6 @@ const AddCustomers = () => {
   };
   useEffect(() => {
     handleRecentCustomerClick();
-    
   }, []);
 
   useEffect(() => {
@@ -52,7 +51,6 @@ const AddCustomers = () => {
       })
         .then((res) => {
           setAllCustomer(res.data.response);
-          
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -66,8 +64,6 @@ const AddCustomers = () => {
     setCustomerdata(_id);
     navigate("/add-items");
   };
-
-  
 
   return (
     <>
@@ -88,7 +84,10 @@ const AddCustomers = () => {
               onChange={handleSearch}
               value={searchCustomer}
               placeholder="Search"
-              className="h-12 w-[90vw] flex justify-center items-center  rounded-lg border-2 border-black pl-2 focus:border-blue-500"
+              // className=""
+              className={` text-${
+                isDarkMode ? "black" : "gray-800"
+              } h-12 w-[90vw] flex justify-center items-center  rounded-lg border-2 border-black pl-2 focus:border-blue-500`}
             />
           </div>
         </div>

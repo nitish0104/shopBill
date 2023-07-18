@@ -249,12 +249,42 @@ const GetBills = () => {
                   onChange={handleFilterChange}
                   className=" outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-1/2"
                 >
-                  <option value="all">All</option>
-                  <option value="today">Today</option>
-                  <option value="yesterday">Yesterday</option>
-                  <option value="lastWeek">Last Week</option>
-                  <option value="lastMonth">Last Month</option>
-                  <option value="lastYear">Last Year</option>
+                  <option
+                    className={` text-${isDarkMode ? "black" : "gray-800"}`}
+                    value="all"
+                  >
+                    All
+                  </option>
+                  <option
+                    className={` text-${isDarkMode ? "black" : "gray-800"}`}
+                    value="today"
+                  >
+                    Today
+                  </option>
+                  <option
+                    className={` text-${isDarkMode ? "black" : "gray-800"}`}
+                    value="yesterday"
+                  >
+                    Yesterday
+                  </option>
+                  <option
+                    className={` text-${isDarkMode ? "black" : "gray-800"}`}
+                    value="lastWeek"
+                  >
+                    Last Week
+                  </option>
+                  <option
+                    className={` text-${isDarkMode ? "black" : "gray-800"}`}
+                    value="lastMonth"
+                  >
+                    Last Month
+                  </option>
+                  <option
+                    className={` text-${isDarkMode ? "black" : "gray-800"}`}
+                    value="lastYear"
+                  >
+                    Last Year
+                  </option>
                 </select>
 
                 <input
