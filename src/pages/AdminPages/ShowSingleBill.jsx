@@ -41,81 +41,6 @@ const ShowSingleBill = () => {
     return new Blob([ab], { type: mimeString });
   };
 
-  // const uploadToCloudinary = (dataImageUrl) => {
-  //   const blob = dataURLToBlob(dataImageUrl);
-  //   const file = new File([blob], "image.png");
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-  //   formData.append("upload_preset", "dva9i9vs");
-  //   formData.append("folder", "bills");
-  //   setButtonLoading(true);
-  //   axios("https://api.cloudinary.com/v1_1/dtu9gszzu/image/upload", {
-  //     method: "POST",
-  //     data: formData,
-  //   })
-  //     .then((data) => {
-  //       setcloudinaryURL(data?.data?.secure_url);
-  //       console.log(data?.data?.secure_url);
-  //       let Textdata = JSON.stringify({
-  //         messaging_product: "whatsapp",
-  //         to: `91${singleBill?.customerId?.customerNumber}`,
-  //         type: "template",
-  //         template: {
-  //           name: "hello_world",
-  //           language: {
-  //             code: "en_US",
-  //           },
-  //         },
-  //       });
-  //       axios("https://graph.facebook.com/v17.0/104365256062975/messages", {
-  //         data: Textdata,
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${REACT_APP_BUSINESS_TOKEN}`,
-  //         },
-  //         method: "POST",
-  //       });
-  //     })
-  //     .then((data) => {
-  //       console.log(cloudinaryURL);
-  //       let body = {
-  //         messaging_product: "whatsapp",
-  //         recipient_type: "individual",
-  //         to: `91${singleBill?.customerId?.customerNumber}`,
-  //         type: "image",
-  //         image: {
-  //           link: cloudinaryURL,
-  //         },
-  //       };
-  //       axios("https://graph.facebook.com/v17.0/104365256062975/messages", {
-  //         data: body,
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${REACT_APP_BUSINESS_TOKEN}`,
-  //         },
-  //         method: "POST",
-  //       });
-  //     })
-  //     .then(() => {
-  //       toast.success("Bill Sent Successfully", {
-  //         position: "top-center",
-  //         autoClose: 3000,
-  //         hideProgressBar: false,
-  //         closeOnClick: false,
-  //         pauseOnHover: false,
-  //         draggable: false,
-  //         progress: false,
-  //         theme: "light",
-  //       });
-  //       setButtonLoading(false);
-  //       console.log(cloudinaryURL);
-
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error uploading image to Cloudinary:", error);
-  //     });
-  // };
-
   const uploadToCloudinary = (dataImageUrl) => {
     const blob = dataURLToBlob(dataImageUrl);
     const file = new File([blob], "image.png");
@@ -210,13 +135,15 @@ const ShowSingleBill = () => {
           }
         />
       )}
-      <div className={` h-fit  ${isDarkMode ? "bg-gray-800 " : "bg-white "}`}>
+      <div
+        className={` h-fit pt-3 ${isDarkMode ? "bg-[#111827] " : "bg-white "}`}
+      >
         {!handleShare && (
           <div ref={contentRef}>
-            <Sidebar />
+            {/* <Sidebar /> */}
             <Link
               to={`/customer-details/${singleBill?.customerId?._id}`}
-              className={`flex items-center justify-center w-12 h-12 rounded-full border mt-3 ml-3  ${
+              className={`flex items-center justify-center w-12 h-12 rounded-full border  ${
                 isDarkMode ? "text-white" : "text-gray-800 "
               } `}
             >
@@ -360,7 +287,7 @@ const ShowSingleBill = () => {
           </div>
         </div>
       </div>
-      <div className=" flex justify-center mt-4 mr-6 mb-3   ">
+      <div className=" flex justify-center items-center pb-16  bg-[#111827] ">
         {!handleShare && (
           <button
             onClick={(e) => {
