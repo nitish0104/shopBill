@@ -45,7 +45,7 @@ const CustomerCard = ({
   return (
     <>
       <div
-        className={`relative z-10  w-full ${
+        className={` ${
           isDarkMode
             ? "bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-blue-950 via-blue-950 to-gray-900 text-white"
             : "bg-gray-50"
