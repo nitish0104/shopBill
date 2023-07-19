@@ -143,7 +143,7 @@ const ShowSingleBill = () => {
             {/* <Sidebar /> */}
             <Link
               to={`/customer-details/${singleBill?.customerId?._id}`}
-              className={`flex items-center justify-center w-12 h-12 rounded-full border  ${
+              className={`flex items-center justify-center w-12 h-12 rounded-full border ml-3 ${
                 isDarkMode ? "text-white" : "text-gray-800 "
               } `}
             >
@@ -287,7 +287,7 @@ const ShowSingleBill = () => {
           </div>
         </div>
       </div>
-      <div className=" flex justify-center items-center pb-16   ">
+      <div className={`flex justify-center items-center pb-16   ${isDarkMode ? "bg-gray-800" : "bg-white "}`}>
         {!handleShare && (
           <button
             onClick={(e) => {

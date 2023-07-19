@@ -214,7 +214,7 @@ const GetBills = () => {
       />
       <LayoutMain>
         <Sidebar />
-        <div className=" md:w-[90vw] w-[100vw]  flex justify-center items-center  my-9 mx-auto">
+        <div className=" md:w-[90vw] w-[100vw]  flex justify-center items-center  my-5 mx-auto">
           <div className="md:w-[100vw] flex-col justify-center items-center">
             <div className="flex flex-col justify-center gap-y-2">
               <div className="flex justify-center">

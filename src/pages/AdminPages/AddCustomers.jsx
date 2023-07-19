@@ -96,6 +96,7 @@ const AddCustomers = () => {
           <div className="md:w-8/12  w-[80vw]   md:grid md:grid-cols-3 md:gap-x-2 m-auto  gap-y-4">
             {filterCustomer.map((customer, index) => (
               <div
+              key={index}
                 className={`bg-${isDarkMode ? "blue-200" : "cyan-50"} text-${
                   isDarkMode ? "white" : "gray-800"
                 } p-4 rounded-lg  shadow-md shadow-blue-300 transform  perspective-100    overflow-hidden border m-2`}
