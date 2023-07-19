@@ -123,7 +123,7 @@ const Main = () => {
           />
         )}
         <div
-          className={` overflow-auto md:overflow-y-hidden w-screen min-h-screen h-auto rounded-t-lg pt-4 ${
+          className={` overflow-auto md:overflow-y-hidden w-screen h-[80vh] rounded-t-lg pt-4 ${
             isDarkMode ? "bg-[#111827] text-white" : "bg-white text-gray-800"
           } `}
         >
@@ -272,7 +272,14 @@ const Main = () => {
                     <button
                       type="button"
                       onClick={handleEditClick}
-                      className="px-4 py-1.5 text-xl bg-blue-500 text-white rounded-md hover:bg-blue-600 w-[40%]"
+                      // className=""
+                      className={`px-4 py-1.5 text-xl text-white rounded-md hover:bg-blue-600 w-[40%] ${
+                        isDarkMode
+                          ? "bg-gradient-to-t from-blue-700 via-blue-800 to-blue-900 text-white hover:shadow-blue-950"
+                          : "bg-blue-500 "
+                      } text-${
+                        isDarkMode ? "white" : "gray-800"
+                      } p-4 rounded-lg  shadow-md  transform  perspective-100  hover:shadow-lg  overflow-hidden border m-2`}
                     >
                       Edit
                     </button>
