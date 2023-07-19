@@ -130,20 +130,22 @@ const AddCustomers = () => {
             ))}
           </div>
         )}
-        <div className="text-center flex justify-center items-center h-[60vh]">
-          <div className=" fixed  w-screen ">
-            <button
-              onClick={() => {
-                setModal({ show: true });
-              }}
-              className={`   text-6xl p-2   rounded-full   ${
-                isDarkMode ? "text-white" : "text-black"
-              }`}
-            >
-              <AiOutlineUserAdd />
-            </button>
+        {!searchCustomer && (
+          <div className="text-center flex justify-center items-center h-[60vh]">
+            <div className=" fixed  w-screen ">
+              <button
+                onClick={() => {
+                  setModal({ show: true });
+                }}
+                className={`   text-6xl p-2   rounded-full   ${
+                  isDarkMode ? "text-white" : "text-black"
+                }`}
+              >
+                <AiOutlineUserAdd />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </LayoutMain>
     </>
   );
