@@ -124,7 +124,7 @@ const Main = () => {
         )}
         <div
           className={` overflow-auto md:overflow-y-hidden w-screen min-h-screen h-auto rounded-t-lg pt-4 ${
-            isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+            isDarkMode ? "bg-[#111827] text-white" : "bg-white text-gray-800"
           } `}
         >
           <div className="overflow-y-auto  md:overflow-hidden flex-col justify-center items-center pt-2">

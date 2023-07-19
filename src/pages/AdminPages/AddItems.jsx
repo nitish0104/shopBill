@@ -666,8 +666,8 @@ const AddItems = () => {
           </div>
 
           <div
-            className={`w-full  flex justify-around items-center  bg-${
-              isDarkMode ? "gray-800" : "white"
+            className={`w-full  flex justify-around items-center  ${
+              isDarkMode ? "bg-[#111827]" : "bg-white"
             } text-${isDarkMode ? "white" : "gray-800"} p-4`}
           >
             <button

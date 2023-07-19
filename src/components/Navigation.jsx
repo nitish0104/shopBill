@@ -30,7 +30,9 @@ const Navigation = ({ className }) => {
         className={`fixed bottom-0 z-30 w-screen  h-[8vh] flex justify-center rounded-t-xl  drop-shadow-2xl 
         
         ${
-          isDarkMode ? "bg-blue-400 text-white" : "bg-slate-200 text-gray-800"
+          isDarkMode
+            ? "bg-gradient-to-t from-blue-700 via-blue-800 to-blue-900 text-black"
+            : "bg-slate-200 text-gray-800"
         } `}
       >
         <div
@@ -45,7 +47,7 @@ const Navigation = ({ className }) => {
                 key={index}
                 className={
                   obj.route === loaction.pathname
-                    ? "flex flex-center md:items-center md:justify-center text-center md:w-4/12 pt-1 text-blue-800 text-sm font-semibold rounded-lg ${className}"
+                    ? "flex flex-center md:items-center md:justify-center text-center md:w-4/12 pt-1 text-black text-sm font-semibold rounded-lg ${className}"
                     : "flex flex-center md:items-center md:justify-center text-center md:w-4/12 pt-1 text-sm "
                 }
               >

@@ -43,7 +43,14 @@ const Sidebar = () => {
     <>
       {modal.show && <LogoutModal data={modal.show} setModel={setModal} />}
       <div className="relative z-50 backdrop-blur-sm transition duration-300 ease-in-out ">
-        <div className="flex justify-between items-center shadow-lg h-16 bg-blue-400  px-4">
+        {/* <div className=""> */}
+        <div
+          className={`  ${
+            isDarkMode
+              ? "bg-gradient-to-t from-blue-700 via-blue-800 to-blue-900  text-black"
+              : "bg-blue-400  text-gray-800"
+          } flex justify-between items-center shadow-lg h-16   px-4`}
+        >
           <button
             onClick={() => {
               setModal({ show: true });
@@ -67,7 +74,7 @@ const Sidebar = () => {
             } `}
             onClick={toggleMode}
           >
-            {isDarkMode ? <BsSun className="" />  : <MdOutlineDarkMode /> }
+            {isDarkMode ? <BsSun className="" /> : <MdOutlineDarkMode />}
           </button>
         </div>
       </div>

@@ -45,11 +45,13 @@ const CustomerCard = ({
   return (
     <>
       <div
-        className={`${
-          isDarkMode ? "bg-blue-100 text-gray-950" : "bg-gray-50"
+        className={`relative z-10  w-full ${
+          isDarkMode
+            ? "bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-blue-950 via-blue-950 to-gray-900 text-white"
+            : "bg-gray-50"
         } text-${
-          isDarkMode ? "black" : "gray-800"
-        } p-4 rounded-lg  shadow-md shadow-blue-200 transform  perspective-100  hover:shadow-lg hover:shadow-blue-300 overflow-hidden border m-2`}
+          isDarkMode ? "white" : "gray-800"
+        } p-4 rounded-lg  shadow-md  transform  perspective-100  hover:shadow-lg hover:shadow-blue-950 overflow-hidden border m-2`}
       >
         <div className=" py-4 flex justify-between items-start cursor-pointer ">
           <div

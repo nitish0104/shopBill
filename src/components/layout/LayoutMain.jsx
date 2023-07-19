@@ -7,8 +7,8 @@ const LayoutMain = ({ children, className }) => {
   return (
     <div
       // className={`absolute bg-gray-800 w-screen min-h-screen h-fit ${className}`}
-      className={`w-screen min-h-screen h-fit ${className} bg-${
-        isDarkMode ? "gray-800" : "cyan-100"
+      className={`w-screen min-h-screen h-fit ${className} ${
+        isDarkMode ? "bg-[#111827]" : "bg-cyan-100"
       } text-${isDarkMode ? "white" : "gray-800"} `}
     >
       {children}
