@@ -54,7 +54,6 @@ const AddCustomerModal = ({ data, setModal }) => {
           },
         })
           .then((res) => {
-            
             const customerId = res.data.customer._id;
             setCustomerdata(customerId);
 
@@ -63,7 +62,6 @@ const AddCustomerModal = ({ data, setModal }) => {
             setLoading(false);
           })
           .catch((res) => {
-            
             toast.error("Customer already exist", {
               position: "top-center",
               autoClose: 3000,
@@ -76,6 +74,18 @@ const AddCustomerModal = ({ data, setModal }) => {
             });
             setLoading(false);
           });
+      }
+      else{
+        toast.error("Enter the number in 10 digits", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: false,
+          draggable: false,
+          progress: false,
+          theme: "light",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -124,14 +134,13 @@ const AddCustomerModal = ({ data, setModal }) => {
                   type={"number"}
                   id={"number"}
                   Label={"Customer Number"}
-                  
                   placeholder={"Enter the Customer Number"}
                   value={customerNumber}
                   onChange={(e) => {
                     setcustomerNumber(e.target.value);
                   }}
                   className={"w-[95%]"}
-                  maxLength={10}
+                  maxLength="10"
                 />
                 <div className="pt-5  flex justify-center items-center">
                   <button

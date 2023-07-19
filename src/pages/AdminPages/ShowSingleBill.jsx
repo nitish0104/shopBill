@@ -136,7 +136,7 @@ const ShowSingleBill = () => {
         />
       )}
       <div
-        className={` h-fit pt-3 ${isDarkMode ? "bg-[#111827] " : "bg-white "}`}
+        className={` h-fit pt-3 ${isDarkMode ? "bg-gray-800" : "bg-white "}`}
       >
         {!handleShare && (
           <div ref={contentRef}>
@@ -287,7 +287,7 @@ const ShowSingleBill = () => {
           </div>
         </div>
       </div>
-      <div className=" flex justify-center items-center pb-16  bg-[#111827] ">
+      <div className=" flex justify-center items-center pb-16   ">
         {!handleShare && (
           <button
             onClick={(e) => {
