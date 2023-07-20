@@ -89,6 +89,7 @@ const GetBills = () => {
   const [endDate, setEndDate] = useState(null);
   const [filteredDates, setFilteredDates] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  
   const [showBillPreview, setShowBillPreview] = useState(false);
   const [selectedTimePeriod, setSelectedTimePeriod] = useState("all");
   const [totalTurnover, setTotalTurnover] = useState(0);
@@ -106,7 +107,7 @@ const GetBills = () => {
         filterDateMilliseconds: moment(bill?.createdAt).format("X"),
       };
     });
-    if (event.target.value === "all") {
+    if (event.target.value == "all") {
       setFilterResults(businessBills);
     } else if (event.target.value === "today") {
       const today = moment().format("YYYY-MM-DD");
@@ -162,11 +163,12 @@ const GetBills = () => {
 
   // setSelectedDate(filter);
   const handleTotalTurnover = (selectedPeriod) => {
-    // Function to calculate total turnover based on selected time period
+    
     const filteredBills = businessBills.filter((bill) => {
+      // console.log(selectedPeriod);
       const billDate = moment(bill.createdAt);
-      if (selectedPeriod === "all") {
-        return true; // No filtering needed, include all bills
+      if (selectedPeriod === "all") { 
+        return businessBills.reduce((total, bill) => total + (bill.grandtotal - bill.discount),0); // No filtering needed, include all bills
       } else if (selectedPeriod === "today") {
         const todayStart = moment().startOf("day");
         const todayEnd = moment().endOf("day");
@@ -356,7 +358,7 @@ const GetBills = () => {
                     </div>
 
                 <div className="flex items-center justify-center gap-x-2 border border-gray-300 shadow-sm rounded-md   shadow-blue-200 px-2 py-2 w-1/2 md:w-40">
-                  <select
+                  {/* <select
                     id="filter"
                     value={selectedTimePeriod}
                     // onChange={(e) => setSelectedTimePeriod(e.target.value)}
@@ -410,9 +412,9 @@ const GetBills = () => {
                     >
                       Last Year TO:
                     </option>
-                  </select>
+                  </select> */}
 
-                  <p className="md:w-40 w-1/2"> {totalTurnover} Rs</p>
+                  <p className="md:w-40 w-1/2">TO: {totalTurnover} Rs</p>
                 </div>
 
                 {/* <select
