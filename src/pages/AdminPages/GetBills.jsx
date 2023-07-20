@@ -264,6 +264,8 @@ const GetBills = () => {
           <div className="md:w-[100vw] flex-col justify-center items-center">
             <div className="flex flex-col justify-center gap-y-2 w-full">
               <div className="flex justify-center gap-x-2 px-2">
+                <div className="w-1/2 md:w-fit">
+
                 <DatePicker
                   selected={startDate}
                   onChange={handleDateChange}
@@ -277,7 +279,7 @@ const GetBills = () => {
                     isDarkMode
                       ? "placeholder-white placeholder:opacity-60"
                       : "placeholder-gray-500"
-                  }`}
+                    }`}
                   renderCustomHeader={({
                     date,
                     decreaseMonth,
@@ -289,7 +291,8 @@ const GetBills = () => {
                       <button onClick={increaseMonth}>{">"}</button>
                     </div>
                   )}
-                />
+                  />
+                  </div>
 
                 <div className="w-1/2 md:w-fit">
                   <input
@@ -305,11 +308,13 @@ const GetBills = () => {
               </div>
 
               <div className="flex justify-center items-center gap-x-2  mb-4 px-2">
+                <div className="w-1/2 md:w-fit">
+
                 <select
                   id="filter"
                   value={filter}
                   onChange={handleFilterChange}
-                  className=" outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-1/2"
+                  className=" outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[100%]"
                 >
                   <option
                     className={` text-${isDarkMode ? "black" : "gray-800"}`}
@@ -344,10 +349,11 @@ const GetBills = () => {
                   <option
                     className={` text-${isDarkMode ? "black" : "gray-800"}`}
                     value="lastYear"
-                  >
+                    >
                     Last Year
                   </option>
                 </select>
+                    </div>
 
                 <div className="flex items-center justify-center gap-x-2 border border-gray-300 shadow-sm rounded-md   shadow-blue-200 px-2 py-2 w-1/2 md:w-40">
                   <select
