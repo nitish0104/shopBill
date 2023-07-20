@@ -90,11 +90,14 @@ const GetBills = () => {
   const [filteredDates, setFilteredDates] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [showBillPreview, setShowBillPreview] = useState(false);
+  const [selectedTimePeriod, setSelectedTimePeriod] = useState("all");
+  const [totalTurnover, setTotalTurnover] = useState(0);
 
   const handleFilterChange = (event) => {
     setSelectedDate("");
     setFilteredDates("");
     setFilter(event.target.value);
+    setSelectedTimePeriod(event.target.value)
     const finalData = businessBills?.map((bill) => {
       const filterDate = moment(bill?.createdAt).format("YYYY-MM-DD");
       return {
@@ -157,6 +160,49 @@ const GetBills = () => {
     }
   };
 
+  // setSelectedDate(filter);
+  const handleTotalTurnover = (selectedPeriod) => {
+    // Function to calculate total turnover based on selected time period
+    const filteredBills = businessBills.filter((bill) => {
+      const billDate = moment(bill.createdAt);
+      if (selectedPeriod === "all") {
+        return true; // No filtering needed, include all bills
+      } else if (selectedPeriod === "today") {
+        const todayStart = moment().startOf("day");
+        const todayEnd = moment().endOf("day");
+        return billDate.isBetween(todayStart, todayEnd, null, "[]");
+      } else if (selectedPeriod === "yesterday") {
+        const yesterdayStart = moment().subtract(1, "days").startOf("day");
+        const yesterdayEnd = moment().subtract(1, "days").endOf("day");
+        return billDate.isBetween(yesterdayStart, yesterdayEnd, null, "[]");
+      } else if (selectedPeriod === "lastWeek") {
+        const lastWeekStart = moment().subtract(1, "weeks").startOf("day");
+        const lastWeekEnd = moment().endOf("day");
+        return billDate.isBetween(lastWeekStart, lastWeekEnd, null, "[]");
+      } else if (selectedPeriod === "lastMonth") {
+        const lastMonthStart = moment().subtract(1, "months").startOf("day");
+        const lastMonthEnd = moment().endOf("day");
+        return billDate.isBetween(lastMonthStart, lastMonthEnd, null, "[]");
+      } else if (selectedPeriod === "lastYear") {
+        const lastYearStart = moment().subtract(1, "years").startOf("day");
+        const lastYearEnd = moment().endOf("day");
+        return billDate.isBetween(lastYearStart, lastYearEnd, null, "[]");
+      }
+    });
+
+    // Calculate the total turnover based on the filtered bills
+    const totalTurnover = filteredBills.reduce((total, bill) => {
+      return total + (bill.grandtotal - bill.discount);
+    }, 0);
+
+    return totalTurnover;
+  };
+
+  useEffect(() => {
+    const totalTurnoverResult = handleTotalTurnover(selectedTimePeriod);
+    setTotalTurnover(totalTurnoverResult);
+  }, [selectedTimePeriod]);
+
   useEffect(() => {
     if (selectedDate?.length !== 0) {
       setFilter("all");
@@ -216,8 +262,8 @@ const GetBills = () => {
         <Sidebar />
         <div className=" md:w-[90vw] w-[100vw]  flex justify-center items-center  my-5 mx-auto">
           <div className="md:w-[100vw] flex-col justify-center items-center">
-            <div className="flex flex-col justify-center gap-y-2">
-              <div className="flex justify-center">
+            <div className="flex flex-col justify-center gap-y-2 w-full">
+              <div className="flex justify-center gap-x-2 px-2">
                 <DatePicker
                   selected={startDate}
                   onChange={handleDateChange}
@@ -227,7 +273,11 @@ const GetBills = () => {
                   selectsRange
                   dateFormat="dd/MMM/yyyy"
                   popperPlacement="bottom-start"
-                  className={`outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-fit w-fit ${isDarkMode ? 'placeholder-white placeholder:opacity-60' : 'placeholder-gray-500'}`}
+                  className={`outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[100%] ${
+                    isDarkMode
+                      ? "placeholder-white placeholder:opacity-60"
+                      : "placeholder-gray-500"
+                  }`}
                   renderCustomHeader={({
                     date,
                     decreaseMonth,
@@ -240,9 +290,21 @@ const GetBills = () => {
                     </div>
                   )}
                 />
+
+                <div className="w-1/2 md:w-fit">
+                  <input
+                    type="date"
+                    value={selectedDate}
+                    placeholder="Select Date"
+                    onChange={(e) => {
+                      setSelectedDate(e.target.value);
+                    }}
+                    className=" outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[100%]"
+                  />
+                </div>
               </div>
 
-              <div className="flex justify-center items-center gap-x-4 mb-4 px-9">
+              <div className="flex justify-center items-center gap-x-2  mb-4 px-2">
                 <select
                   id="filter"
                   value={filter}
@@ -287,15 +349,82 @@ const GetBills = () => {
                   </option>
                 </select>
 
-                <input
-                  type="date"
-                  value={selectedDate}
-                  placeholder="Select Date"
-                  onChange={(e) => {
-                    setSelectedDate(e.target.value);
-                  }}
-                  className=" outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-1/2"
-                />
+                <div className="flex items-center justify-center gap-x-2 border border-gray-300 shadow-sm rounded-md   shadow-blue-200 px-2 py-2 w-1/2 md:w-40">
+                  <select
+                    id="filter"
+                    value={selectedTimePeriod}
+                    // onChange={(e) => setSelectedTimePeriod(e.target.value)}
+                    className=" outline-none    text-sm  w-1/2"
+                  >
+                    <option
+                      className={`text-sm text-${
+                        isDarkMode ? "black" : "gray-800"
+                      }`}
+                      value="all"
+                    >
+                      Total TO:
+                    </option>
+                    <option
+                      className={`text-sm text-${
+                        isDarkMode ? "black" : "gray-800"
+                      }`}
+                      value="today"
+                    >
+                      Today TO:
+                    </option>
+                    <option
+                      className={`text-sm text-${
+                        isDarkMode ? "black" : "gray-800"
+                      }`}
+                      value="yesterday"
+                    >
+                      Yesterday TO:
+                    </option>
+                    <option
+                      className={`text-sm text-${
+                        isDarkMode ? "black" : "gray-800"
+                      }`}
+                      value="lastWeek"
+                    >
+                      Last Week TO:
+                    </option>
+                    <option
+                      className={`text-sm text-${
+                        isDarkMode ? "black" : "gray-800"
+                      }`}
+                      value="lastMonth"
+                    >
+                      Last Month TO:
+                    </option>
+                    <option
+                      className={`text-sm text-${
+                        isDarkMode ? "black" : "gray-800"
+                      }`}
+                      value="lastYear"
+                    >
+                      Last Year TO:
+                    </option>
+                  </select>
+
+                  <p className="md:w-40 w-1/2"> {totalTurnover} Rs</p>
+                </div>
+
+                {/* <select
+                  id="filter"
+                  value={selectedTimePeriod}
+                  onChange={(e) => setSelectedTimePeriod(e.target.value)}
+                  className="outline-none px-2 py-2 border border-gray-300 bg-transparent shadow-sm shadow-blue-200 rounded-md md:w-40 w-1/2"
+                >
+                  <option value="all">All</option>
+                  <option value="today">Today</option>
+                  <option value="yesterday">Yesterday</option>
+                  <option value="lastWeek">Last Week</option>
+                  <option value="lastMonth">Last Month</option>
+                  <option value="lastYear">Last Year</option>
+                </select>
+
+                {/* Display the total turnover */}
+                {/* <p>Total Turnover: {totalTurnover}</p> */}
               </div>
             </div>
 

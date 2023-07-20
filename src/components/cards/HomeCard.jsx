@@ -53,7 +53,8 @@ const CustomerCard = ({
           isDarkMode ? "white" : "gray-800"
         } p-4 rounded-lg  shadow-md  transform  perspective-100  hover:shadow-lg  overflow-hidden border m-2`}
       >
-        <div className=" py-4 flex justify-between items-start cursor-pointer ">
+        <div className="flex justify-center items-center gap-x-2"><p className="text-xl font-semibold">Total: </p> <p className=" text-xl">Rs {amount- discount}</p></div>
+        <div className=" py-2 flex justify-between items-start cursor-pointer ">
           <div
             className="text-start w-6/12"
             onClick={handleCardClick}
