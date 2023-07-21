@@ -55,9 +55,9 @@ const Sidebar = () => {
             onClick={() => {
               setModal({ show: true });
             }}
-            className={`flex justify-center items-center rounded-full p-2  bg-red-500 text-sm hover:bg-red-600`}
+            className={`flex justify-center items-center rounded-full p-2  bg-red-500 text-sm hover:bg-red-600 text-white`}
           >
-            <GrPowerShutdown></GrPowerShutdown>
+            <GrPowerShutdown />
           </button>
 
           <div

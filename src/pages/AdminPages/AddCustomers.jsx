@@ -50,7 +50,7 @@ const AddCustomers = () => {
         },
       })
         .then((res) => {
-          setAllCustomer(res.data.response);
+          setAllCustomer(res?.data?.response);
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -104,23 +104,23 @@ const AddCustomers = () => {
                 <div className=" py-2 gap-y-4 flex flex-col justify-center items-center w-[100%] ">
                   <div className="flex justify-between items-center gap-x-6 w-[100%]">
                     <div className="font-semibold  ">
-                      {customer.customerName}
+                      {customer?.customerName}
                     </div>
 
-                    <p className=" font-semibold ">{customer.customerNumber}</p>
+                    <p className=" font-semibold ">{customer?.customerNumber}</p>
                   </div>
 
                   <div className="flex justify-between w-[100%]">
                     <button
                       onClick={() => {
-                        handleCardClick(customer._id);
+                        handleCardClick(customer?._id);
                       }}
                       className=" py-1.5 px-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 w-fit"
                     >
                       Generate Bill
                     </button>
                     <Link
-                      to={`/customer-details/${customer._id}`}
+                      to={`/customer-details/${customer?._id}`}
                       className=" py-1.5 px-2  bg-blue-500 text-white rounded-md hover:bg-blue-600 "
                     >
                       View Bills
