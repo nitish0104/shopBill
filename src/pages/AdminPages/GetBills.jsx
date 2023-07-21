@@ -364,8 +364,8 @@ const GetBills = () => {
                   </select>
                 </div>
 
-                <div className="flex  justify-center  border border-gray-300 shadow-sm rounded-md   shadow-blue-200 px-2 py-2 w-1/2 md:w-40">
-                  <p className="md:w-40 w-1/2">TO: {totalTurnover} Rs</p>
+                <div className="border border-gray-300 shadow-sm rounded-md   shadow-blue-200 px-2 py-2 w-1/2 md:w-40">
+                  <p className="">TO: {totalTurnover} Rs</p>
                 </div>
               </div>
             </div>
