@@ -279,6 +279,7 @@ const GetBills = () => {
                     endDate={endDate}
                     placeholderText="Date Range"
                     selectsRange
+                    isClearable
                     dateFormat="dd/MMM/yyyy"
                     popperPlacement="bottom-start"
                     className={`outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[100%] ${
@@ -364,8 +365,8 @@ const GetBills = () => {
                   </select>
                 </div>
 
-                <div className="border border-gray-300 shadow-sm rounded-md   shadow-blue-200 px-2 py-2 w-1/2 md:w-40">
-                  <p className="">TO: {totalTurnover} Rs</p>
+                <div className="border border-gray-300 shadow-sm rounded-md   shadow-blue-200 px-2  w-1/2 md:w-40">
+                  <p className="py-2">TO: {totalTurnover} Rs</p>
                 </div>
               </div>
             </div>
@@ -420,7 +421,7 @@ const GetBills = () => {
                           isDarkMode ? "text-white" : "text-gray-800"
                         } p-4`}
                       >
-                        <span className="font-mono    text-xl">
+                        <span className="font-mono  text-center  text-xl">
                           Oop's! No Data Available.
                         </span>
                       </div>

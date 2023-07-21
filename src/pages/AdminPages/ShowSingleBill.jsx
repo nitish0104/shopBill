@@ -137,7 +137,7 @@ const ShowSingleBill = () => {
         />
       )}
       <div
-        className={` h-fit pt-3 ${isDarkMode ? "bg-gray-800" : "bg-white "}`}
+        className={` min-h-screen h-fit pt-3 ${isDarkMode ? "bg-gray-800" : "bg-white "}`}
       >
         {!handleShare && (
           <div ref={contentRef}>
@@ -287,11 +287,10 @@ const ShowSingleBill = () => {
             </div>
           </div>
         </div>
-      </div>
       <div className={`flex justify-center items-center pb-16   ${isDarkMode ? "bg-gray-800" : "bg-white "}`}>
         {!handleShare && (
           <button
-            // onClick={(e) => {
+          // onClick={(e) => {
             //   document.title = `CONT-O | - ${singleBill?.customerId?.customerName}`;
             //   e.target.style.opacity = 0;
             //   contentRef.current.style.display = "none";
@@ -314,7 +313,7 @@ const ShowSingleBill = () => {
               </p>
             ) : (
               <Spinner />
-            )}
+              )}
           </button>
         )}
         {handleShare && (
@@ -334,10 +333,11 @@ const ShowSingleBill = () => {
               </p>
             ) : (
               <Spinner />
-            )}
+              )}
           </button>
         )}
       </div>
+        </div>
       <ToastContainer />
     </>
   );
