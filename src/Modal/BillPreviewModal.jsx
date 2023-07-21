@@ -10,7 +10,7 @@ const BillPreviewModal = ({ showModal, setShowModal, billID }) => {
       )}
       {showModal && (
         <section className={`h-[90vh] overflow-y-auto w-[100vw] md:w-[90vw] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  z-[1000] ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
-          <div className="fixed -top-1  right-3 flex justify-end md:px-5 py-3 text-red-500">
+          <div className="fixed top-1  right-3 flex justify-end md:px-5 py-3 text-red-500">
             <button
               onClick={() => {
                 setShowModal(false);
