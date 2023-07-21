@@ -30,9 +30,7 @@ const Navigation = ({ className }) => {
         className={`fixed bottom-0 z-30 w-screen  h-[8vh] flex justify-center rounded-t-xl  drop-shadow-2xl 
         
         ${
-          isDarkMode
-            ? "bg-gradient-to-t from-blue-700 via-blue-800 to-blue-900 text-black"
-            : "bg-slate-200 text-gray-800"
+          isDarkMode ? "bg-blue-700 text-black" : "bg-slate-300 text-gray-800"
         } `}
       >
         <div

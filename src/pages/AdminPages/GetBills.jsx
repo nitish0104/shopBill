@@ -89,7 +89,7 @@ const GetBills = () => {
   const [endDate, setEndDate] = useState(null);
   const [filteredDates, setFilteredDates] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  
+
   const [showBillPreview, setShowBillPreview] = useState(false);
   const [selectedTimePeriod, setSelectedTimePeriod] = useState("all");
   const [totalTurnover, setTotalTurnover] = useState(0);
@@ -98,7 +98,7 @@ const GetBills = () => {
     setSelectedDate("");
     setFilteredDates("");
     setFilter(event.target.value);
-    setSelectedTimePeriod(event.target.value)
+    setSelectedTimePeriod(event.target.value);
     const finalData = businessBills?.map((bill) => {
       const filterDate = moment(bill?.createdAt).format("YYYY-MM-DD");
       return {
@@ -163,12 +163,16 @@ const GetBills = () => {
 
   // setSelectedDate(filter);
   const handleTotalTurnover = (selectedPeriod) => {
-    
+    setSelectedDate("");
+    setFilteredDates("");
     const filteredBills = businessBills.filter((bill) => {
       // console.log(selectedPeriod);
       const billDate = moment(bill.createdAt);
-      if (selectedPeriod === "all") { 
-        return businessBills.reduce((total, bill) => total + (bill.grandtotal - bill.discount),0); // No filtering needed, include all bills
+      if (selectedPeriod === "all") {
+        return businessBills.reduce(
+          (total, bill) => total + (bill.grandtotal - bill.discount),
+          0
+        ); // No filtering needed, include all bills
       } else if (selectedPeriod === "today") {
         const todayStart = moment().startOf("day");
         const todayEnd = moment().endOf("day");
@@ -207,6 +211,7 @@ const GetBills = () => {
 
   useEffect(() => {
     if (selectedDate?.length !== 0) {
+      setFilteredDates("");
       setFilter("all");
       let finalData = businessBills?.map((bills) => {
         let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
@@ -267,34 +272,33 @@ const GetBills = () => {
             <div className="flex flex-col justify-center gap-y-2 w-full">
               <div className="flex justify-center gap-x-2 px-2">
                 <div className="w-1/2 md:w-fit">
-
-                <DatePicker
-                  selected={startDate}
-                  onChange={handleDateChange}
-                  startDate={startDate}
-                  endDate={endDate}
-                  placeholderText="Date Range"
-                  selectsRange
-                  dateFormat="dd/MMM/yyyy"
-                  popperPlacement="bottom-start"
-                  className={`outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[100%] ${
-                    isDarkMode
-                      ? "placeholder-white placeholder:opacity-60"
-                      : "placeholder-gray-500"
+                  <DatePicker
+                    selected={startDate}
+                    onChange={handleDateChange}
+                    startDate={startDate}
+                    endDate={endDate}
+                    placeholderText="Date Range"
+                    selectsRange
+                    dateFormat="dd/MMM/yyyy"
+                    popperPlacement="bottom-start"
+                    className={`outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[100%] ${
+                      isDarkMode
+                        ? "placeholder-white placeholder:opacity-60"
+                        : "placeholder-gray-500"
                     }`}
-                  renderCustomHeader={({
-                    date,
-                    decreaseMonth,
-                    increaseMonth,
-                  }) => (
-                    <div>
-                      <button onClick={decreaseMonth}>{"<"}</button>
-                      <span>{moment(date).format("MMM yyyy")}</span>
-                      <button onClick={increaseMonth}>{">"}</button>
-                    </div>
-                  )}
+                    renderCustomHeader={({
+                      date,
+                      decreaseMonth,
+                      increaseMonth,
+                    }) => (
+                      <div>
+                        <button onClick={decreaseMonth}>{"<"}</button>
+                        <span>{moment(date).format("MMM yyyy")}</span>
+                        <button onClick={increaseMonth}>{">"}</button>
+                      </div>
+                    )}
                   />
-                  </div>
+                </div>
 
                 <div className="w-1/2 md:w-fit">
                   <input
@@ -311,128 +315,54 @@ const GetBills = () => {
 
               <div className="flex justify-center items-center gap-x-2  mb-4 px-2">
                 <div className="w-1/2 md:w-fit">
-
-                <select
-                  id="filter"
-                  value={filter}
-                  onChange={handleFilterChange}
-                  className=" outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[100%]"
-                >
-                  <option
-                    className={` text-${isDarkMode ? "black" : "gray-800"}`}
-                    value="all"
-                  >
-                    All
-                  </option>
-                  <option
-                    className={` text-${isDarkMode ? "black" : "gray-800"}`}
-                    value="today"
-                  >
-                    Today
-                  </option>
-                  <option
-                    className={` text-${isDarkMode ? "black" : "gray-800"}`}
-                    value="yesterday"
-                  >
-                    Yesterday
-                  </option>
-                  <option
-                    className={` text-${isDarkMode ? "black" : "gray-800"}`}
-                    value="lastWeek"
-                  >
-                    Last Week
-                  </option>
-                  <option
-                    className={` text-${isDarkMode ? "black" : "gray-800"}`}
-                    value="lastMonth"
-                  >
-                    Last Month
-                  </option>
-                  <option
-                    className={` text-${isDarkMode ? "black" : "gray-800"}`}
-                    value="lastYear"
-                    >
-                    Last Year
-                  </option>
-                </select>
-                    </div>
-
-                <div className="flex items-center justify-center gap-x-2 border border-gray-300 shadow-sm rounded-md   shadow-blue-200 px-2 py-2 w-1/2 md:w-40">
-                  {/* <select
+                  <select
                     id="filter"
-                    value={selectedTimePeriod}
-                    // onChange={(e) => setSelectedTimePeriod(e.target.value)}
-                    className=" outline-none    text-sm  w-1/2"
+                    value={filter}
+                    onChange={handleFilterChange}
+                    className=" outline-none px-2 py-2 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[100%]"
                   >
                     <option
-                      className={`text-sm text-${
-                        isDarkMode ? "black" : "gray-800"
-                      }`}
+                      className={` text-${isDarkMode ? "black" : "gray-800"}`}
                       value="all"
                     >
-                      Total TO:
+                      All
                     </option>
                     <option
-                      className={`text-sm text-${
-                        isDarkMode ? "black" : "gray-800"
-                      }`}
+                      className={` text-${isDarkMode ? "black" : "gray-800"}`}
                       value="today"
                     >
-                      Today TO:
+                      Today
                     </option>
                     <option
-                      className={`text-sm text-${
-                        isDarkMode ? "black" : "gray-800"
-                      }`}
+                      className={` text-${isDarkMode ? "black" : "gray-800"}`}
                       value="yesterday"
                     >
-                      Yesterday TO:
+                      Yesterday
                     </option>
                     <option
-                      className={`text-sm text-${
-                        isDarkMode ? "black" : "gray-800"
-                      }`}
+                      className={` text-${isDarkMode ? "black" : "gray-800"}`}
                       value="lastWeek"
                     >
-                      Last Week TO:
+                      Last Week
                     </option>
                     <option
-                      className={`text-sm text-${
-                        isDarkMode ? "black" : "gray-800"
-                      }`}
+                      className={` text-${isDarkMode ? "black" : "gray-800"}`}
                       value="lastMonth"
                     >
-                      Last Month TO:
+                      Last Month
                     </option>
                     <option
-                      className={`text-sm text-${
-                        isDarkMode ? "black" : "gray-800"
-                      }`}
+                      className={` text-${isDarkMode ? "black" : "gray-800"}`}
                       value="lastYear"
                     >
-                      Last Year TO:
+                      Last Year
                     </option>
-                  </select> */}
-
-                  <p className="md:w-40 w-1/2">TO: {totalTurnover} Rs</p>
+                  </select>
                 </div>
 
-                {/* <select
-                  id="filter"
-                  value={selectedTimePeriod}
-                  onChange={(e) => setSelectedTimePeriod(e.target.value)}
-                  className="outline-none px-2 py-2 border border-gray-300 bg-transparent shadow-sm shadow-blue-200 rounded-md md:w-40 w-1/2"
-                >
-                  <option value="all">All</option>
-                  <option value="today">Today</option>
-                  <option value="yesterday">Yesterday</option>
-                  <option value="lastWeek">Last Week</option>
-                  <option value="lastMonth">Last Month</option>
-                  <option value="lastYear">Last Year</option>
-                </select>
-
-                {/* Display the total turnover */}
-                {/* <p>Total Turnover: {totalTurnover}</p> */}
+                <div className="flex items-center justify-center gap-x-2 border border-gray-300 shadow-sm rounded-md   shadow-blue-200 px-2 py-2 w-1/2 md:w-40">
+                  <p className="md:w-40 w-1/2">TO: {totalTurnover} Rs</p>
+                </div>
               </div>
             </div>
 
