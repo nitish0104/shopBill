@@ -12,12 +12,13 @@ import Spinner from "../components/Spinner";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import PageLoader from "../components/PageLoader";
+import { ThemeContextAuth } from "../context/ThemeContext";
 
 const Login = () => {
   const { mobileNo, setmobileNo, userLoading, setUserLoading } = ContextAuth();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+  const { isDarkMode } = ThemeContextAuth();
   const handleSubmitnumber = async (e) => {
     if (mobileNo.length >= 10) {
       setLoading(true);
@@ -107,10 +108,14 @@ const Login = () => {
             </div>
             <div className="flex flex-col items-center justify-center md:w-full">
               <div className="flex flex-col justify-center items-center md:gap-3  gap-1 mt-4 md:w-[50%]">
-                <div className="text-center mb-4 w-[100%]">
+                <div className={`text-center mb-4 w-[100%] ${
+                      isDarkMode ? " text-white" : " text-gray-800"
+                    } `}>
                   <Input
-                    type={"text"}
-                    className={"pl-2 text-center"}
+                    type={"number"}
+                    className={`pl-2  text-center ${
+                      isDarkMode ? " text-white" : " text-gray-800"
+                    } `}
                     Label={"Mobile Number"}
                     id={"mobileNo"}
                     maxLength={"10"}

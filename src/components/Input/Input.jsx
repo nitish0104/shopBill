@@ -1,5 +1,6 @@
 import React from "react";
 import "./Input.css";
+import { ThemeContextAuth } from "../../context/ThemeContext";
 
 const Input = ({
   Label,
@@ -13,6 +14,7 @@ const Input = ({
   accept,
   disabled,
 }) => {
+  const { isDarkMode } = ThemeContextAuth();
   return (
     <div>
       <div className={`form__group field ${className}`}>
@@ -23,7 +25,7 @@ const Input = ({
           value={value}
           maxLength={maxLength}
           type={type}
-          className={`form__field ${className}`}
+          className={`form__field `}
           placeholder={placeholder}
           required={true}
           disabled={disabled}

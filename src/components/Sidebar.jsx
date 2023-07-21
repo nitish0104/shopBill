@@ -61,8 +61,8 @@ const Sidebar = () => {
           </button>
 
           <div
-            className={`   font-black  text-3xl ${
-              isDarkMode ? " text-black" : " text-gray-800"
+            className={`   font-semibold  text-3xl ${
+              isDarkMode ? " text-white" : " text-gray-800"
             } `}
           >
             CONT-O

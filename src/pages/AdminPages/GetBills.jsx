@@ -305,10 +305,14 @@ const GetBills = () => {
                     type="date"
                     value={selectedDate}
                     placeholder="Select Date"
+                    
                     onChange={(e) => {
                       setSelectedDate(e.target.value);
                     }}
-                    className=" outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[100%]"
+                    className={`outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[100%]                       isDarkMode
+                    ? "placeholder-white placeholder:opacity-60"
+                    : "placeholder-gray-500"
+                }`}
                   />
                 </div>
               </div>
@@ -360,7 +364,7 @@ const GetBills = () => {
                   </select>
                 </div>
 
-                <div className="flex items-center justify-center gap-x-2 border border-gray-300 shadow-sm rounded-md   shadow-blue-200 px-2 py-2 w-1/2 md:w-40">
+                <div className="flex  justify-center  border border-gray-300 shadow-sm rounded-md   shadow-blue-200 px-2 py-2 w-1/2 md:w-40">
                   <p className="md:w-40 w-1/2">TO: {totalTurnover} Rs</p>
                 </div>
               </div>
@@ -412,8 +416,8 @@ const GetBills = () => {
                       </div>
 
                       <div
-                        className={`flex flex-col justify-center items-center   text-${
-                          isDarkMode ? "black" : "gray-800"
+                        className={`flex flex-col justify-center items-center   ${
+                          isDarkMode ? "text-white" : "text-gray-800"
                         } p-4`}
                       >
                         <span className="font-mono    text-xl">

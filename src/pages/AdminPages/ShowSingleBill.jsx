@@ -6,7 +6,7 @@ import { ContextAuth } from "../../context/Context";
 import { useRef } from "react";
 
 import { AiOutlinePrinter } from "react-icons/ai";
-import { BiArrowBack } from "react-icons/bi";
+import { BiArrowBack, BiShareAlt } from "react-icons/bi";
 import Sidebar from "../../components/Sidebar";
 import moment from "moment";
 import { ThemeContextAuth } from "../../context/ThemeContext";
@@ -14,6 +14,7 @@ import html2canvas from "html2canvas";
 import { ToastContainer, toast } from "react-toastify";
 import Spinner from "../../components/Spinner";
 import PageLoader from "../../components/PageLoader";
+import { BsShare } from "react-icons/bs";
 
 const ShowSingleBill = () => {
   const REACT_APP_BUSINESS_TOKEN = process.env.REACT_APP_BUSINESS_TOKEN;
@@ -290,17 +291,30 @@ const ShowSingleBill = () => {
       <div className={`flex justify-center items-center pb-16   ${isDarkMode ? "bg-gray-800" : "bg-white "}`}>
         {!handleShare && (
           <button
+            // onClick={(e) => {
+            //   document.title = `CONT-O | - ${singleBill?.customerId?.customerName}`;
+            //   e.target.style.opacity = 0;
+            //   contentRef.current.style.display = "none";
+            //   window.print();
+            //   e.target.style.opacity = 1;
+              
+            // }}
             onClick={(e) => {
-              document.title = `CONT-O | - ${singleBill?.customerId?.customerName}`;
+              document.title = `CONT-O | ${singleBill?.customerId?.customerName}`;
               e.target.style.opacity = 0;
-              contentRef.current.style.display = "none";
-              window.print();
+              convertToImage();
               e.target.style.opacity = 1;
-              // contentRef.current.style.display = "";
             }}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
           >
-            <AiOutlinePrinter /> Print
+             {!buttonLoading ? (
+              <p className="flex items-center gap-x-1">
+                <BiShareAlt className="text-xl"/>
+                Share
+              </p>
+            ) : (
+              <Spinner />
+            )}
           </button>
         )}
         {handleShare && (
@@ -314,8 +328,8 @@ const ShowSingleBill = () => {
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
           >
             {!buttonLoading ? (
-              <p className="flex items-center gap-x-2">
-                <AiOutlinePrinter />
+              <p className="flex items-center gap-x-1 ">
+                <BiShareAlt className="text-xl" />
                 Share
               </p>
             ) : (
