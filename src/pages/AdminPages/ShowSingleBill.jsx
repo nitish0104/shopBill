@@ -173,7 +173,7 @@ const ShowSingleBill = () => {
             <div className="flex justify-between md:px-6 px-2 py-4">
               <div className="w-5/12">
                 <span>
-                  <h2 className="text-xl font-bold">
+                  <h2 className="text-base font-bold">
                     {singleBill?.businessId?.businessName}
                   </h2>
                 </span>
@@ -193,7 +193,7 @@ const ShowSingleBill = () => {
               </div>
 
               <div className="w-5/12 text-end">
-                <h2 className="text-xl font-bold ">
+                <h2 className=" font-bold ">
                   {singleBill?.customerId?.customerName}
                 </h2>
                 <p>{singleBill?.customerId?.customerNumber}</p>
