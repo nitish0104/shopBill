@@ -87,7 +87,10 @@ const ShowSingleBill = () => {
   };
 
   const convertToImage = () => {
-    html2canvas(bill.current)
+    html2canvas(bill.current,
+      {
+        useCORS:true,
+      })
       .then((canvas) => {
         const imgData = canvas.toDataURL("image/png");
         uploadToCloudinary(imgData);
@@ -181,10 +184,10 @@ const ShowSingleBill = () => {
 
                 <p className="text-sm">{singleBill?.businessId?.phoneNo}</p>
               </div>
-              <div className="w-2/12 text-center flex justify-center items-center">
+              <div className=" text-center flex justify-center items-center object-contain">
                 <img
                   src={singleBill?.businessId?.businessLogo}
-                  className="rounded-full w-16  h-16 text-center"
+                  className="rounded-full w-16  h-16 text-center object-cover"
                   alt="Shop Logo"
                 />
               </div>
