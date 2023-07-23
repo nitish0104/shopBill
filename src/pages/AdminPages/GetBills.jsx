@@ -23,7 +23,92 @@ const GetBills = () => {
   const [businessBills, setBusinessBills] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filterResults, setFilterResults] = useState([]);
+  const [filter, setFilter] = useState("all");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [filteredDates, setFilteredDates] = useState("");
+
+  const [showBillPreview, setShowBillPreview] = useState(false);
+  const [selectedTimePeriod, setSelectedTimePeriod] = useState("all");
+  const [totalTurnover, setTotalTurnover] = useState();
   const { isDarkMode } = ThemeContextAuth();
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    setLoading(true);
+    try {
+      axios("https://khatabook-one.vercel.app/getbusinessbill", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((res) => {
+          setBusinessBills(res?.data?.response);
+          // console.log(res?.data?.response);
+          setLoading(false);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    setFilterResults(businessBills);
+  }, [businessBills]);
+
+  useEffect(() => {
+    if (selectedDate?.length !== 0) {
+      setFilteredDates("");
+      // setFilter("all");
+      let finalData = businessBills?.map((bills) => {
+        let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
+        return {
+          ...bills,
+          filterDate: finalDate,
+        };
+      });
+      const filteredResults = finalData?.filter((data) => {
+        return data?.filterDate === selectedDate;
+      });
+      setFilterResults(filteredResults);
+    } else {
+      setFilterResults(businessBills);
+    }
+  }, [selectedDate]);
+
+  useEffect(() => {
+    if (filteredDates?.length !== 0) {
+      setFilter("all");
+      let finalData = businessBills?.map((bills) => {
+        let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
+        return {
+          ...bills,
+          filterDate: finalDate,
+        };
+      });
+      const filteredResults = finalData?.filter((data) => {
+        return data?.filterDate === filteredDates;
+      });
+      setFilterResults(filteredResults);
+    } else {
+      setFilterResults(businessBills);
+    }
+  }, [filteredDates]);
+  useEffect(() => {
+    const totalTurnoverResult = handleTotalTurnover(
+      selectedTimePeriod,
+      filter,
+      businessBills
+    );
+    setTotalTurnover(totalTurnoverResult);
+  }, [selectedTimePeriod, filter, businessBills]);
+
+  useEffect(() => {
+    AOS.init();
+  }, []);
 
   const handleDateChange = (dates) => {
     const [start, end] = dates;
@@ -51,48 +136,12 @@ const GetBills = () => {
       );
     }
   };
-  useEffect(() => {
-    setLoading(true);
-    try {
-      axios("https://khatabook-one.vercel.app/getbusinessbill", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-        .then((res) => {
-          setBusinessBills(res?.data?.response);
-          // console.log(res?.data?.response);
-          setLoading(false);
-        })
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-
-  useEffect(() => {
-    setFilterResults(businessBills);
-  }, [businessBills]);
 
   const handleButtonClick = (phoneNumber) => {
     const encodedMessage = encodeURIComponent(message);
     const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
     window.open(url, "_blank");
   };
-
-  const contentRef = useRef(null);
-
-  const [filter, setFilter] = useState("all");
-  const [selectedDate, setSelectedDate] = useState("");
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [filteredDates, setFilteredDates] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-
-  const [showBillPreview, setShowBillPreview] = useState(false);
-  const [selectedTimePeriod, setSelectedTimePeriod] = useState("all");
-  const [totalTurnover, setTotalTurnover] = useState(0);
 
   const handleFilterChange = (event) => {
     setSelectedDate("");
@@ -204,53 +253,10 @@ const GetBills = () => {
     return totalTurnover;
   };
 
-  useEffect(() => {
-    const totalTurnoverResult = handleTotalTurnover(selectedTimePeriod);
-    setTotalTurnover(totalTurnoverResult);
-  }, [selectedTimePeriod]);
-
-  useEffect(() => {
-    if (selectedDate?.length !== 0) {
-      setFilteredDates("");
-      setFilter("all");
-      let finalData = businessBills?.map((bills) => {
-        let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
-        return {
-          ...bills,
-          filterDate: finalDate,
-        };
-      });
-      const filteredResults = finalData?.filter((data) => {
-        return data?.filterDate === selectedDate;
-      });
-      setFilterResults(filteredResults);
-    } else {
-      setFilterResults(businessBills);
-    }
-  }, [selectedDate]);
-
-  useEffect(() => {
-    if (filteredDates?.length !== 0) {
-      setFilter("all");
-      let finalData = businessBills?.map((bills) => {
-        let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
-        return {
-          ...bills,
-          filterDate: finalDate,
-        };
-      });
-      const filteredResults = finalData?.filter((data) => {
-        return data?.filterDate === filteredDates;
-      });
-      setFilterResults(filteredResults);
-    } else {
-      setFilterResults(businessBills);
-    }
-  }, [filteredDates]);
-
-  useEffect(() => {
-    AOS.init();
-  }, []);
+  // useEffect(() => {
+  //   const totalTurnoverResult = handleTotalTurnover(selectedTimePeriod);
+  //   setTotalTurnover(totalTurnoverResult);
+  // }, []);
 
   const handleClick = (_id) => {
     console.log(_id);
@@ -306,7 +312,6 @@ const GetBills = () => {
                     type="date"
                     value={selectedDate}
                     placeholder="Select Date"
-                    
                     onChange={(e) => {
                       setSelectedDate(e.target.value);
                     }}
