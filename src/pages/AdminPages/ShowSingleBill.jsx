@@ -58,14 +58,17 @@ const ShowSingleBill = () => {
         setcloudinaryURL(data?.data?.secure_url);
         console.log(data?.data?.secure_url);
         const phoneNumber = `+91${singleBill?.customerId?.customerNumber}`;
-        const message = `*Shop Name*: ${
-          singleBill?.businessId?.businessName
-        } \n*Grandtotal*: Rs. ${
-          singleBill?.grandtotal - singleBill?.discount
-        }    \n\n*Your Bill*: ${data?.data?.secure_url} ${window.navigator.userAgent}`;
+        const message = `*Shop Name*: ${singleBill?.businessId?.businessName
+          } \n*Grandtotal*: Rs. ${singleBill?.grandtotal - singleBill?.discount
+          }    \n\n*Your Bill*: ${data?.data?.secure_url} ${window.navigator.userAgent}`;
 
         const encodedMessage = encodeURIComponent(message);
-        const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+        let url = "";
+        if (window.navigator.userAgent.toString().includes("Mobile")) {
+          url = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+        } else {
+          url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+        }
         window.open(url, "_blank");
 
         // toast.success("Bill Sent Successfully", {
@@ -89,7 +92,7 @@ const ShowSingleBill = () => {
   const convertToImage = () => {
     html2canvas(bill.current,
       {
-        useCORS:true,
+        useCORS: true,
       })
       .then((canvas) => {
         const imgData = canvas.toDataURL("image/png");
@@ -147,9 +150,8 @@ const ShowSingleBill = () => {
             {/* <Sidebar /> */}
             <Link
               to={`/customer-details/${singleBill?.customerId?._id}`}
-              className={`flex items-center justify-center w-12 h-12 rounded-full border ml-3 ${
-                isDarkMode ? "text-white" : "text-gray-800 "
-              } `}
+              className={`flex items-center justify-center w-12 h-12 rounded-full border ml-3 ${isDarkMode ? "text-white" : "text-gray-800 "
+                } `}
             >
               <div className="  text-3xl ">
                 <BiArrowBack />
@@ -290,57 +292,57 @@ const ShowSingleBill = () => {
             </div>
           </div>
         </div>
-      <div className={`flex justify-center items-center pb-16   ${isDarkMode ? "bg-gray-800" : "bg-white "}`}>
-        {!handleShare && (
-          <button
-          // onClick={(e) => {
-            //   document.title = `CONT-O | - ${singleBill?.customerId?.customerName}`;
-            //   e.target.style.opacity = 0;
-            //   contentRef.current.style.display = "none";
-            //   window.print();
-            //   e.target.style.opacity = 1;
-              
-            // }}
-            onClick={(e) => {
-              document.title = `CONT-O | ${singleBill?.customerId?.customerName}`;
-              e.target.style.opacity = 0;
-              convertToImage();
-              e.target.style.opacity = 1;
-            }}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
-          >
-             {!buttonLoading ? (
-              <p className="flex items-center gap-x-1">
-                <BiShareAlt className="text-xl"/>
-                Share
-              </p>
-            ) : (
-              <Spinner />
+        <div className={`flex justify-center items-center pb-16   ${isDarkMode ? "bg-gray-800" : "bg-white "}`}>
+          {!handleShare && (
+            <button
+              // onClick={(e) => {
+              //   document.title = `CONT-O | - ${singleBill?.customerId?.customerName}`;
+              //   e.target.style.opacity = 0;
+              //   contentRef.current.style.display = "none";
+              //   window.print();
+              //   e.target.style.opacity = 1;
+
+              // }}
+              onClick={(e) => {
+                document.title = `CONT-O | ${singleBill?.customerId?.customerName}`;
+                e.target.style.opacity = 0;
+                convertToImage();
+                e.target.style.opacity = 1;
+              }}
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
+            >
+              {!buttonLoading ? (
+                <p className="flex items-center gap-x-1">
+                  <BiShareAlt className="text-xl" />
+                  Share
+                </p>
+              ) : (
+                <Spinner />
               )}
-          </button>
-        )}
-        {handleShare && (
-          <button
-            onClick={(e) => {
-              document.title = `CONT-O | ${singleBill?.customerId?.customerName}`;
-              e.target.style.opacity = 0;
-              convertToImage();
-              e.target.style.opacity = 1;
-            }}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
-          >
-            {!buttonLoading ? (
-              <p className="flex items-center gap-x-1 ">
-                <BiShareAlt className="text-xl" />
-                Share
-              </p>
-            ) : (
-              <Spinner />
+            </button>
+          )}
+          {handleShare && (
+            <button
+              onClick={(e) => {
+                document.title = `CONT-O | ${singleBill?.customerId?.customerName}`;
+                e.target.style.opacity = 0;
+                convertToImage();
+                e.target.style.opacity = 1;
+              }}
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-28 flex gap-4 justify-center items-center"
+            >
+              {!buttonLoading ? (
+                <p className="flex items-center gap-x-1 ">
+                  <BiShareAlt className="text-xl" />
+                  Share
+                </p>
+              ) : (
+                <Spinner />
               )}
-          </button>
-        )}
-      </div>
+            </button>
+          )}
         </div>
+      </div>
       <ToastContainer />
     </>
   );
