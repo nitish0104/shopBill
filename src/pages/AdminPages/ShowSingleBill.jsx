@@ -66,6 +66,9 @@ const ShowSingleBill = () => {
         let url = "";
         if (window.navigator.userAgent.toString().includes("Mobile")) {
           url = `whatsapp://send?phone=${phoneNumber}&text=${encodedMessage}`;
+          let a = document.createElement("a");
+          a.href = url;
+          a.click()
         } else {
           url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
         }
