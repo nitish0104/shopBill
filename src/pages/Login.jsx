@@ -80,8 +80,7 @@ const Login = () => {
   }, []);
   return (
     <>
-      <LayoutMain className={isDarkMode ? " text-white " : " text-gray-800"
-                    } >
+      <LayoutMain>
         {userLoading && (
           <PageLoader
             className={
@@ -102,20 +101,24 @@ const Login = () => {
               className=" px-4 h-[60%] md:h-[40%]"
             />
           </div>
-          <div className={`flex  flex-col  justify-center items-center md:w-[50%] md:h-screen  w-[100%] h-[50%] mt-2 md:mt-0 ${
-                      isDarkMode ? " text-white" : " text-gray-800"
-                    } `}>
+          <div
+            className={`flex  flex-col  justify-center items-center md:w-[50%] md:h-screen  w-[100%] h-[50%] mt-2 md:mt-0 ${
+              isDarkMode ? " text-white" : " text-gray-800"
+            } `}
+          >
             <div className="flex flex-col items-center justify-center">
               <h1 className="text-4xl font-bold text-center">Welcome</h1>
               <h1 className="font-semibold">Please login to your Shop</h1>
             </div>
             <div className="flex flex-col items-center justify-center md:w-full">
               <div className="flex flex-col justify-center items-center md:gap-3  gap-1 mt-4 md:w-[50%]">
-                <div className={`text-center mb-4 w-[100%] ${
-                      isDarkMode ? " text-white" : " text-gray-800"
-                    } `}>
+                <div
+                  className={`text-center mb-4 w-[100%] ${
+                    isDarkMode ? " text-white" : " text-gray-800"
+                  } `}
+                >
                   <Input
-                    type={"number"}
+                    type={"text"}
                     className={`pl-2  text-center ${
                       isDarkMode ? " text-white" : " text-gray-800"
                     } `}

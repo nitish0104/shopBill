@@ -315,10 +315,7 @@ const GetBills = () => {
                     onChange={(e) => {
                       setSelectedDate(e.target.value);
                     }}
-                    className={`outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[100%]                       isDarkMode
-                    ? "placeholder-white placeholder:opacity-60 text-white "
-                    : "placeholder-gray-500  text-black"
-                }`}
+                    className={`outline-none px-2 py-1.5 border border-gray-300 bg-transparent  shadow-sm shadow-blue-200 rounded-md md:w-40 w-[100%] `}
                   />
                 </div>
               </div>

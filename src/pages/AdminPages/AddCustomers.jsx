@@ -57,14 +57,15 @@ const AddCustomers = () => {
       console.log(error);
     }
   }, []);
-  const handleSearch = (e) => {
-    setsearchCustomer(e.target.value);
-  };
+
   const handleCardClick = (_id) => {
     setCustomerdata(_id);
     navigate("/add-items");
   };
 
+  const handleSearch = (e) => {
+    setsearchCustomer(e.target.value);
+  };
   return (
     <>
       <LayoutMain>
