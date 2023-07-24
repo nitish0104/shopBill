@@ -60,9 +60,9 @@ const ShowSingleBill = () => {
         const phoneNumber = `+91${singleBill?.customerId?.customerNumber}`;
         const message = `*Shop Name*: ${
           singleBill?.businessId?.businessName
-        } \n*Grandtotal* :${
+        } \n*Grandtotal*: Rs. ${
           singleBill?.grandtotal - singleBill?.discount
-        }    \n\n*Your Bill*: ${data?.data?.secure_url}`;
+        }    \n\n*Your Bill*: ${data?.data?.secure_url} ${window.navigator.userAgent}`;
 
         const encodedMessage = encodeURIComponent(message);
         const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
