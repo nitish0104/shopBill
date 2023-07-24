@@ -77,20 +77,19 @@ const AddCustomers = () => {
         )}
         <Sidebar />
         <Navigation />
-        <div className="md:w-[70vw] w-[90vw] m-auto pb-10 ">
-          <div className=" md:w-[70vw] flex justify-center items-center pt-6">
-            <input
-              type="text"
-              id="searchBar"
-              onChange={handleSearch}
-              value={searchCustomer}
-              placeholder="Search"
-              // className=""
-              className={` text-${
-                isDarkMode ? "black" : "gray-800"
-              } h-12 w-[90vw] flex justify-center items-center  rounded-lg border-2 border-black pl-2 focus:border-blue-500`}
-            />
-          </div>
+
+        <div className=" md:w-[70vw]  m-auto  flex  justify-center items-center pt-6">
+          <input
+            type="text"
+            id="searchBar"
+            onChange={handleSearch}
+            value={searchCustomer}
+            placeholder="Search"
+            // className=""
+            className={` text-${
+              isDarkMode ? "black" : "gray-800"
+            } h-12 w-[90vw] flex justify-center items-center  rounded-lg border-2 border-black pl-2 focus:border-blue-500`}
+          />
         </div>
 
         {searchCustomer.length > 0 ? (
@@ -134,35 +133,17 @@ const AddCustomers = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center flex justify-center items-center h-[60vh]">
-            <div className=" fixed  overflow-hidden ">
-              <button
-                onClick={() => {
-                  setModal({ show: true });
-                }}
-                className={`   text-6xl p-2   rounded-full   ${
-                  isDarkMode ? "text-white" : "text-black"
-                }`}
-              >
-                <AiOutlineUserAdd />
-              </button>
-            </div>
-          </div>
-        )}
-        {!searchCustomer && (
-          <div className="text-center flex justify-center items-center h-[60vh]">
-            <div className=" fixed  w-screen ">
-              <button
-                onClick={() => {
-                  setModal({ show: true });
-                }}
-                className={`   text-6xl p-2   rounded-full   ${
-                  isDarkMode ? "text-white" : "text-black"
-                }`}
-              >
-                <AiOutlineUserAdd />
-              </button>
-            </div>
+          <div className=" flex justify-center items-center h-[70vh] overflow-hidden ">
+            <button
+              onClick={() => {
+                setModal({ show: true });
+              }}
+              className={`   text-6xl p-2   rounded-full   ${
+                isDarkMode ? "text-white" : "text-black"
+              }`}
+            >
+              <AiOutlineUserAdd />
+            </button>
           </div>
         )}
       </LayoutMain>
