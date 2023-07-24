@@ -101,10 +101,12 @@ const GetBills = () => {
     const totalTurnoverResult = handleTotalTurnover(
       selectedTimePeriod,
       filter,
+      selectedDate,
+      filteredDates,
       businessBills
     );
     setTotalTurnover(totalTurnoverResult);
-  }, [selectedTimePeriod, filter, businessBills]);
+  }, [selectedTimePeriod, filter, businessBills, filteredDates, selectedDate]);
 
   useEffect(() => {
     AOS.init();
@@ -252,11 +254,6 @@ const GetBills = () => {
 
     return totalTurnover;
   };
-
-  // useEffect(() => {
-  //   const totalTurnoverResult = handleTotalTurnover(selectedTimePeriod);
-  //   setTotalTurnover(totalTurnoverResult);
-  // }, []);
 
   const handleClick = (_id) => {
     console.log(_id);

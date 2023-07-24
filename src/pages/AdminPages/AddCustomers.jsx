@@ -135,7 +135,7 @@ const AddCustomers = () => {
           </div>
         ) : (
           <div className="text-center flex justify-center items-center h-[60vh]">
-            <div className=" fixed  w-screen ">
+            <div className=" fixed  overflow-hidden ">
               <button
                 onClick={() => {
                   setModal({ show: true });
