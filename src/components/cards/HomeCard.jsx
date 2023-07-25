@@ -47,26 +47,22 @@ const CustomerCard = ({
       <div
         className={` ${
           isDarkMode
-            ? "bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-blue-950 via-blue-950 to-gray-900 text-white hover:shadow-blue-950"
-            : "bg-gray-50 hover:bg-gray-100"
+            ? "bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-blue-950 via-blue-950 to-gray-900 text-white "
+            : "bg-gray-50 "
         } text-${
           isDarkMode ? "white" : "gray-800"
         } p-4 rounded-lg  shadow-md  transform  perspective-100  hover:shadow-lg  overflow-hidden border m-2`}
       >
-        <div className="flex justify-center items-center gap-x-2 ">
-          <p className="text-xl font-semibold ">Total: </p>{" "}
-          <p className=" text-xl font-semibold ">Rs {amount - discount}</p>
+        <div className="flex justify-between items-center gap-x-2 ">
+          <p className=" font-semibold">Total: Rs {amount - discount}</p>{" "}
+          <p className=" font-semibold">Bill Id: {billId.slice(0,6)}</p>
         </div>
         <div className=" py-2 flex justify-between items-start cursor-pointer ">
-          <div
-            className="text-start w-6/12"
-            onClick={handleCardClick}
-            ref={ref}
-          >
-            <button className="flex flex-col  items-start gap-y-3 md:flex-none">
-              <div className="font-bold text-xl ">{name}</div>
+          <div className="w-6/12" onClick={handleCardClick} ref={ref}>
+            <button className="flex flex-col   gap-y-3 md:flex-none justify-start">
+              <div className="font-semibold text-left ">{name}</div>
 
-              <p className=" font-semibold  text-start">{mobileNumber}</p>
+              <p className=" font-semibold  ">{mobileNumber}</p>
             </button>
           </div>
 

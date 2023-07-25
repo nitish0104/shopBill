@@ -163,12 +163,16 @@ const ShowSingleBill = () => {
           className={`container mx-auto  md:w-[70%] w-screen py-4  `}
         >
           <div className="bg-white rounded-lg shadow-lg pb-4">
-            <div className="flex justify-between bg-blue-500 text-white px-6 py-4 items-center">
-              <h1 className="text-2xl font-bold">Bill</h1>
-              <p className="">
-                Date:{" "}
-                {moment(singleBill?.createdAt).format("DD MMM, YYYY  h:mm a")}
-              </p>
+            <div className="flex justify-between bg-blue-500 text-white px-4 py-2 ">
+              <div className=""><p className="text-xl font-semibold text-center" >Bill</p>
+              
+              <p className="text-sm opacity-70 text-center">{singleBill?._id.slice(0,6)}</p>
+              </div>
+              <div className="flex flex-col justify-center">
+                
+                <p className="text-right ">{moment(singleBill?.createdAt).format("DD MMM, YYYY  ")}</p>
+                <p className="text-sm text-center">{moment(singleBill?.createdAt).format("h:mm a")}</p>
+              </div>
             </div>
             <div className="flex justify-between md:px-6 px-2 py-4">
               <div className="w-5/12">
