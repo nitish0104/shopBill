@@ -151,7 +151,7 @@ const Main = () => {
                       }`}
                     />
                     <input
-                      className={`w-full py-2 px-2 font-semibold  leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 ${
+                      className={`w-full py-2 px-2 font-semibold  leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 bg-transparent ${
                         isDarkMode ? " text-white" : " text-gray-800"
                       } `}
                       id="businessName"
@@ -182,7 +182,7 @@ const Main = () => {
                       }`}
                     />
                     <input
-                      className={`w-full py-2 px-2  font-semibold leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 ${
+                      className={`w-full py-2 px-2  font-semibold leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 bg-transparent ${
                         isDarkMode ? " text-white" : " text-gray-800"
                       } `}
                       id="businessType"
@@ -211,7 +211,7 @@ const Main = () => {
                       }`}
                     />
                     <input
-                      className={`w-full py-2 px-2  leading-tight focus:outline-none focus:shadow-outline font-semibold placeholder:text-gray-800 ${
+                      className={`w-full py-2 px-2  leading-tight focus:outline-none focus:shadow-outline font-semibold placeholder:text-gray-800 bg-transparent ${
                         isDarkMode ? " text-white" : " text-gray-800"
                       } `}
                       id="gstNo"
@@ -240,7 +240,7 @@ const Main = () => {
                       }`}
                     />
                     <input
-                      className={`w-full py-2 px-2 font-semibold leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 ${
+                      className={`w-full py-2 px-2 font-semibold leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 bg-transparent ${
                         isDarkMode ? " text-white" : " text-gray-800"
                       } `}
                       id="location"

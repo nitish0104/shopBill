@@ -11,11 +11,13 @@ import { ContextAuth } from "../context/Context";
 import jwtDecode from "jwt-decode";
 import Spinner from "../components/Spinner";
 import { ToastContainer, toast } from "react-toastify";
+import { ThemeContextAuth } from "../context/ThemeContext";
+import LayoutMain from "../components/layout/LayoutMain";
 
 const AddCustomerModal = ({ data, setModal }) => {
   const [showModal, setShowModal] = useState(false);
   const { setCustomerdata } = ContextAuth();
-
+  const { isDarkMode } = ThemeContextAuth();
   // const { business } = ContextAuth();
   const [loading, setLoading] = useState(false);
 
@@ -94,6 +96,8 @@ const AddCustomerModal = ({ data, setModal }) => {
 
   return (
     <>
+    <LayoutMain>
+
       <CSSTransition
         in={showModal}
         classNames="modal"
@@ -105,11 +109,11 @@ const AddCustomerModal = ({ data, setModal }) => {
             className={
               "relative h-[50vh] w-[90vw] md:w-[50vw]  bg-white rounded-lg "
             }
-          >
+            >
             <div>
               <form
                 action=""
-                className=" pt-8 px-5 flex flex-col gap-y-6 justify-center h-full "
+                className={`text-black pt-8 px-5 flex flex-col gap-y-6 justify-center h-full `}
               >
                 <button
                   onClick={closeModal}
@@ -127,8 +131,9 @@ const AddCustomerModal = ({ data, setModal }) => {
                   onChange={(e) => {
                     setcustomerName(e.target.value);
                   }}
-                  className={"w-[95%]"}
-                />
+                  className={`w-[95%]  
+                  text-black `}
+                  />
 
                 <Input
                   type={"number"}
@@ -139,14 +144,14 @@ const AddCustomerModal = ({ data, setModal }) => {
                   onChange={(e) => {
                     setcustomerNumber(e.target.value);
                   }}
-                  className={"w-[95%]"}
+                  className={`w-[95%]  text-black `}
                   maxLength="10"
-                />
+                  />
                 <div className="pt-5  flex justify-center items-center">
                   <button
                     onClick={createCustomer}
                     className="flex justify-center items-center gap-x-2 bg-blue-600 px-3 py-1.5 rounded-md font-semibold hover:bg-blue-700 shadow hover:shadow-lg duration-150"
-                  >
+                    >
                     {!loading ? (
                       <p className="flex items-center gap-x-1">
                         {" "}
@@ -154,7 +159,7 @@ const AddCustomerModal = ({ data, setModal }) => {
                       </p>
                     ) : (
                       <Spinner />
-                    )}
+                      )}
                   </button>
                 </div>
               </form>
@@ -163,6 +168,7 @@ const AddCustomerModal = ({ data, setModal }) => {
         </div>
       </CSSTransition>
       <ToastContainer />
+                      </LayoutMain>
     </>
   );
 };
