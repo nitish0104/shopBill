@@ -57,7 +57,7 @@ const CustomerCard = ({
           <p className=" font-semibold">Total: Rs {amount - discount}</p>{" "}
           <p className=" font-semibold">Bill Id: {billId.slice(0,6)}</p>
         </div>
-        <div className=" py-2 flex justify-between items-start cursor-pointer ">
+        <div className=" py-2 flex justify-between items-start  ">
           <div className="w-6/12" onClick={handleCardClick} ref={ref}>
             <button className="flex flex-col   gap-y-3 md:flex-none justify-start">
               <div className="font-semibold text-left ">{name}</div>
