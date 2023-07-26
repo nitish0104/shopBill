@@ -106,7 +106,7 @@ const Main = () => {
           setLoading(false);
         })
         .catch((err) => {
-          toast.error(err?.message, {
+          toast.error("Something went Wrong", {
             position: "top-center",
             autoClose: 3000,
             hideProgressBar: false,
