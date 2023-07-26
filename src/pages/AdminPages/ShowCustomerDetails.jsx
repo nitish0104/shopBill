@@ -19,6 +19,7 @@ import Navigation from "../../components/Navigation";
 import PageLoader from "../../components/PageLoader";
 import moment from "moment";
 import PaidModal from "../../Modal/PaidModal";
+import { ToastContainer, toast } from "react-toastify";
 const ShowCustomerDetails = () => {
   const { isDarkMode } = ThemeContextAuth();
   const { id } = useParams();
@@ -53,9 +54,30 @@ const ShowCustomerDetails = () => {
           setViewCustomerBills(res?.data?.response);
           setLoading(false);
         })
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.log(error);
+        .catch((err) => {
+          toast.error(err?.message, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false,
+            progress: false,
+            theme: "light",
+          });
+
+        });
+    } catch (err) {
+      toast.error(err?.message, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: false,
+        theme: "light",
+      });
     }
   }, []);
 
@@ -68,12 +90,32 @@ const ShowCustomerDetails = () => {
         },
       })
         .then((res) => {
-          console.log(res?.data?.response?._id);
+
           setViewCustomerDetails(res?.data?.response);
         })
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.log(error);
+        .catch((err) => {
+          toast.error(err?.message, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false,
+            progress: false,
+            theme: "light",
+          });
+        });
+    } catch (err) {
+      toast.error(err?.message, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: false,
+        theme: "light",
+      });
     }
   }, []);
 
@@ -416,6 +458,7 @@ const ShowCustomerDetails = () => {
             <PageLoader className={"h-[40vh]"} />
           )}
         </div>
+        <ToastContainer/>
       </LayoutMain>
     </>
   );

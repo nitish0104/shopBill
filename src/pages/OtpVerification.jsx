@@ -114,7 +114,17 @@ const VerifyOTP = () => {
               setLoading(false);
             }
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {toast.error(err?.message, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false,
+            progress: false,
+            theme: "light",
+          });
+});
       } catch (error) {
         console.log(error);
       }

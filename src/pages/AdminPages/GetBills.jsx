@@ -17,6 +17,7 @@ import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import BillPreviewModal from "../../Modal/BillPreviewModal";
+import { ToastContainer, toast } from "react-toastify";
 const GetBills = () => {
   const { setCustomerID, customerID } = ContextAuth();
   const message = "Maggie(8) -40Rs  "; // Replace with your desired message
@@ -46,12 +47,32 @@ const GetBills = () => {
       })
         .then((res) => {
           setBusinessBills(res?.data?.response);
-          // console.log(res?.data?.response);
+          
           setLoading(false);
         })
-        .catch((err) => console.log(err));
-    } catch (error) {
-      console.log(error);
+        .catch((err) => {
+          toast.error(err?.message, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false,
+            progress: false,
+            theme: "light",
+          });
+        });
+    } catch (err) {
+      toast.error(err?.message, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: false,
+        theme: "light",
+      });
     }
   }, []);
 
@@ -434,6 +455,7 @@ const GetBills = () => {
             )}
           </div>
         </div>
+        <ToastContainer/>
         <Navigation />
       </LayoutMain>
     </>

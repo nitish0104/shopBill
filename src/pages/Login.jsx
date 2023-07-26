@@ -20,7 +20,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { isDarkMode } = ThemeContextAuth();
   const handleSubmitnumber = async (e) => {
-    if (mobileNo.length >= 10) {
+    if (mobileNo.length === 10) {
       setLoading(true);
 
       e.preventDefault();
@@ -45,7 +45,7 @@ const Login = () => {
             navigate("/verify");
           })
           .catch((err) => {
-            toast.error(err.message, {
+            toast.error(err?.message, {
               position: "top-center",
               autoClose: 3000,
               hideProgressBar: false,
@@ -57,8 +57,17 @@ const Login = () => {
             });
             setLoading(false);
           });
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        toast.error(err?.message, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: false,
+          draggable: false,
+          progress: false,
+          theme: "light",
+        });
       }
 
 

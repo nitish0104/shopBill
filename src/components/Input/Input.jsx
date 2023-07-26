@@ -12,6 +12,7 @@ const Input = ({
   className,
   type,
   accept,
+  required,
   disabled,
 }) => {
   const { isDarkMode } = ThemeContextAuth();
@@ -27,7 +28,7 @@ const Input = ({
           type={type}
           className={`form__field `}
           placeholder={placeholder}
-          required={true}
+          required={required}
           disabled={disabled}
         />
         <label htmlFor="name" className="form__label font-semibold text-sm">

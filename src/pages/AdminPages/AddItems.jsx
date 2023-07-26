@@ -586,7 +586,7 @@ const AddItems = () => {
                           setDiscount(e.target.value);
                         }
                       }}
-                      className={`  w-[30%]   flex items-center  border-none outline-none  ${
+                      className={`  w-[30%]   flex items-center  border-none outline-none bg-transparent ${
                         isDarkMode ? "bg-gray-800 " : "bg-white "
                       }`}
                       required="true"
@@ -618,7 +618,7 @@ const AddItems = () => {
                           setPaid(e.target.value);
                         }
                       }}
-                      className={`  w-[30%]   flex items-center  border-none outline-none  ${
+                      className={`  w-[30%]   flex items-center  border-none outline-none bg-transparent ${
                         isDarkMode ? "bg-gray-800 " : "bg-white "
                       }`}
                       required="true"
@@ -635,7 +635,7 @@ const AddItems = () => {
                     </p>
                     <input
                       value={grandtotal - discount - paid}
-                      className={`  w-[30%]   flex items-center  border-none outline-none  ${
+                      className={`  w-[30%]   flex items-center  border-none outline-none bg-transparent  ${
                         isDarkMode ? "bg-gray-800 " : "bg-white "
                       }`}
                       required="true"

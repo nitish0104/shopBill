@@ -53,10 +53,10 @@ const AddCustomers = () => {
           setAllCustomer(res?.data?.response);
         })
         .catch((err) =>{
-          alert(err.message);
+          alert(err?.message);
         });
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      alert(err?.message);
     }
   }, []);
 

@@ -72,8 +72,17 @@ const ShowSingleBill = () => {
         setButtonLoading(false);
 
       })
-      .catch((error) => {
-        console.error(error);
+      .catch((err) => {
+        toast.error(err?.message, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: false,
+          draggable: false,
+          progress: false,
+          theme: "light",
+        });
       });
   };
 
@@ -87,8 +96,17 @@ const ShowSingleBill = () => {
         uploadToCloudinary(imgData);
         // You can use the imgData URL as needed, e.g., save it to state or send it to the server
       })
-      .catch((error) => {
-alert("Error converting div to image:");
+      .catch((err) => {
+        toast.error(err?.message, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: false,
+          draggable: false,
+          progress: false,
+          theme: "light",
+        });
       });
   };
 
