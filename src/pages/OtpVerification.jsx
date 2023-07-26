@@ -223,7 +223,7 @@ const VerifyOTP = () => {
                     <button
                       onClick={startTimer}
                       disabled={timer > 0}
-                      className={`text-blue-500  ${
+                      className={`text-blue-500 text-center ${
                         timer === 0
                           ? "text-opacity-100 cursor-pointer hover:underline"
                           : "text-opacity-50 cursor-wait"
