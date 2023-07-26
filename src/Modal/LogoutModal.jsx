@@ -35,7 +35,7 @@ const LogoutModal = ({ setModel }) => {
                 isDarkMode ? "text-black" : "text-black"
               }`}
             >
-              Are you sure you want to logout.
+              Are you sure you want to logout ?
             </p>
             <div className="flex justify-center items-center gap-x-5">
               <button

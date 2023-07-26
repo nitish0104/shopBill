@@ -192,7 +192,7 @@ const VerifyOTP = () => {
             <div className="flex flex-col items-center  md:w-full">
               <div className="flex flex-col md:gap-3  gap-1  md:w-[50%]">
                 <div className="flex justify-center space-x-2">
-                  <div className="mt-3">
+                  <div className="mt-3 text-center">
                     <Input
                       type={"number"}
                       className={"pl-2 text-center"}
@@ -232,7 +232,7 @@ const VerifyOTP = () => {
 
                 <button
                   type="submit"
-                  className={`bg-blue-500 hover:bg-blue-600 text-white font-semibold flex items-center justify-center py-2 px-4 rounded-full   mt-4 ${
+                  className={`bg-blue-500 hover:bg-blue-600 text-white font-semibold flex items-center justify-center py-2 px-4 rounded-full  text-center mt-4 ${
                     !loading ? "cursor-pointer" : "cursor-default"
                   }`}
                   onClick={handleSubmitotp}
