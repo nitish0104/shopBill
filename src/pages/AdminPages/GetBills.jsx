@@ -5,7 +5,7 @@ import Navigation from "../../components/Navigation";
 import CustomerCard from "../../components/cards/HomeCard";
 
 import { BsWhatsapp } from "react-icons/bs";
-import Modal from "react-modal";
+
 import axios from "axios";
 import { ContextAuth } from "../../context/Context";
 import AOS from "aos";
@@ -62,7 +62,7 @@ const GetBills = () => {
   useEffect(() => {
     if (selectedDate?.length !== 0) {
       setFilteredDates("");
-      // setFilter("all");
+      
       let finalData = businessBills?.map((bills) => {
         let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
         return {

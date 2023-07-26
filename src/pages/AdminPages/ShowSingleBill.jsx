@@ -5,16 +5,16 @@ import { ContextAuth } from "../../context/Context";
 
 import { useRef } from "react";
 
-import { AiOutlinePrinter } from "react-icons/ai";
+
 import { BiArrowBack, BiShareAlt } from "react-icons/bi";
-import Sidebar from "../../components/Sidebar";
+
 import moment from "moment";
 import { ThemeContextAuth } from "../../context/ThemeContext";
 import html2canvas from "html2canvas";
 import { ToastContainer, toast } from "react-toastify";
 import Spinner from "../../components/Spinner";
 import PageLoader from "../../components/PageLoader";
-import { BsShare } from "react-icons/bs";
+
 
 const ShowSingleBill = () => {
   const REACT_APP_BUSINESS_TOKEN = process.env.REACT_APP_BUSINESS_TOKEN;
@@ -68,18 +68,9 @@ const ShowSingleBill = () => {
         const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
         window.open(url, "_blank");
 
-        // toast.success("Bill Sent Successfully", {
-        //   position: "top-center",
-        //   autoClose: 3000,
-        //   hideProgressBar: false,
-        //   closeOnClick: false,
-        //   pauseOnHover: false,
-        //   draggable: false,
-        //   progress: false,
-        //   theme: "light",
-        // });
+
         setButtonLoading(false);
-        console.log(cloudinaryURL);
+
       })
       .catch((error) => {
         console.error(error);
@@ -97,7 +88,7 @@ const ShowSingleBill = () => {
         // You can use the imgData URL as needed, e.g., save it to state or send it to the server
       })
       .catch((error) => {
-        console.error("Error converting div to image:", error);
+alert("Error converting div to image:");
       });
   };
 
@@ -118,7 +109,7 @@ const ShowSingleBill = () => {
         })
           .then((res) => {
             setSingleBill(res?.data?.response);
-            console.log(res?.data?.response);
+
             setLoading(false);
             setitemsSingeBill(res?.data?.response?.items);
           })
@@ -166,7 +157,7 @@ const ShowSingleBill = () => {
             <div className="flex justify-between bg-blue-500 text-white px-4 py-2 ">
               <div className=""><p className="text-xl font-semibold text-center" >Bill</p>
               
-              <p className="text-sm opacity-70 text-center">{singleBill?._id.slice(0,6)}</p>
+              <p className="text-sm opacity-70 text-center">{singleBill?._id.slice(0,10)}</p>
               </div>
               <div className="flex flex-col justify-center">
                 

@@ -55,7 +55,7 @@ const VerifyOTP = () => {
         console.log(error);
       }
 
-      console.log(mobileNo);
+
     } else {
       toast.error("Enter The Correct Number", {
         position: "top-center",
@@ -95,9 +95,8 @@ const VerifyOTP = () => {
         )
           .then((res) => {
             console.log(res);
-            if (res?.data?.error == false) {
-              console.log(res.data);
-              console.log(res.data.response);
+            if (!res?.data?.error ) {
+              
               localStorage.setItem("token", res.data.response);
               setLoading(false);
               navigate("/dashboard");

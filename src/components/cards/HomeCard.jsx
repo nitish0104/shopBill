@@ -54,8 +54,8 @@ const CustomerCard = ({
         } p-4 rounded-lg  shadow-md  transform  perspective-100  hover:shadow-lg  overflow-hidden border m-2`}
       >
         <div className="flex justify-between items-center gap-x-2 ">
-          <p className=" font-semibold">Total: Rs {amount - discount}</p>{" "}
-          <p className=" font-semibold">Bill Id: {billId.slice(0,6)}</p>
+          <p className="font-medium ">Total: Rs {amount - discount}</p>{" "}
+          <p className="font-medium ">Bill Id: {billId.slice(0,10)}</p>
         </div>
         <div className=" py-2 flex justify-between items-start  ">
           <div className="w-6/12" onClick={handleCardClick} ref={ref}>

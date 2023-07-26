@@ -52,7 +52,9 @@ const AddCustomers = () => {
         .then((res) => {
           setAllCustomer(res?.data?.response);
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>{
+          alert(err.message);
+        });
     } catch (error) {
       console.log(error);
     }

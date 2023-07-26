@@ -1,23 +1,13 @@
 import React, { useEffect, useState } from "react";
 import LayoutMain from "../../components/layout/LayoutMain";
 import Sidebar from "../../components/Sidebar";
-import Input from "../../components/Input/Input";
 import {
   format,
-  parse,
-  subDays,
-  subMonths,
-  subWeeks,
-  subYears,
+  
 } from "date-fns";
 import noItems from "../../images/noItems.svg";
 import { ThemeContextAuth } from "../../context/ThemeContext";
-import {
-  AiFillFilter,
-  AiOutlineMinus,
-  AiOutlinePlus,
-  AiOutlineShop,
-} from "react-icons/ai";
+
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import "./ShowCustomerDetail.css";
 import axios from "axios";

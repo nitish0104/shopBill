@@ -18,13 +18,7 @@ import VerifyOTP from './pages/OtpVerification';
 import ShowCustomerDetails from './pages/AdminPages/ShowCustomerDetails';
 
 import ShowSingleBill from './pages/AdminPages/ShowSingleBill';
-import PDFSender from './Raw/WhatsappSendPdfTest';
-import Mydate from './Raw/DateTest';
-import DateTest from './Raw/DateTest';
-import InvoiceForm from './Raw/TotalTest';
-import InputForm from './Raw/TotalTest';
-import ItemForm from './Raw/TotalTest';
-import DivToImage from './Raw/WhatsappSendPdfTest';
+
 
 function App() {
   return (
@@ -43,11 +37,7 @@ function App() {
               <Route path="/add-items" element={<AddItems />} />
               <Route path="/invoice/:id" element={<ShowSingleBill />} />
               <Route path="/customer-details/:id" element={<ShowCustomerDetails />} />
-              <Route path='/sendbill' element={<PDFSender />} />
-              <Route path='/date' element={<Mydate />} />
-              <Route path='/datetest' element={<DateTest />} />
-              <Route path='/totaltest' element={<ItemForm />} />
-              <Route path='/imgtest' element={<DivToImage />} />
+              
             </Routes>
           </ThemeProvider>
         </Context>

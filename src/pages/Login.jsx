@@ -39,7 +39,7 @@ const Login = () => {
           }
         )
           .then((res) => {
-            console.log(res.data);
+
             localStorage.setItem("token", `${res?.data}`);
             setLoading(false);
             navigate("/verify");
@@ -61,7 +61,7 @@ const Login = () => {
         console.log(error);
       }
 
-      console.log(mobileNo);
+
     } else {
       toast.error("Enter The Correct Number", {
         position: "top-center",

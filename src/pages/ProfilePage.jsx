@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Input from "../components/Input";
-import { CgProfile } from "react-icons/cg";
 import { MdOutlineBusiness } from "react-icons/md";
 import { TbReceiptTax } from "react-icons/tb";
 import { GoLocation } from "react-icons/go";
