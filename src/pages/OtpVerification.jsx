@@ -114,7 +114,7 @@ const VerifyOTP = () => {
               setLoading(false);
             }
           })
-          .catch((err) => {toast.error(err?.message, {
+          .catch((err) => {toast.error("Something went wrong", {
             position: "top-center",
             autoClose: 3000,
             hideProgressBar: false,
@@ -208,7 +208,7 @@ const VerifyOTP = () => {
                       className={"pl-2 text-center"}
                       Label={"Enter the OTP"}
                       id={"otp"}
-                      maxLength={6}
+                      maxLength={"6"}
                       value={otp}
                       onChange={(e) => {
                         setOTP(e.target.value);

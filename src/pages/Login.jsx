@@ -45,7 +45,7 @@ const Login = () => {
             navigate("/verify");
           })
           .catch((err) => {
-            toast.error(err?.message, {
+            toast.error("Something went wrong", {
               position: "top-center",
               autoClose: 3000,
               hideProgressBar: false,

@@ -46,7 +46,7 @@ const Main = () => {
           });
         })
         .catch((err) => {
-          toast.error("Something Went Wrong !", {
+          toast.error("Something went wrong !", {
             position: "top-center",
             autoClose: 3000,
             hideProgressBar: false,
@@ -106,7 +106,7 @@ const Main = () => {
           setLoading(false);
         })
         .catch((err) => {
-          toast.error("Something went Wrong", {
+          toast.error("Something went wrong", {
             position: "top-center",
             autoClose: 3000,
             hideProgressBar: false,
