@@ -19,7 +19,8 @@ const LogoutModal = ({ setModel }) => {
       progress: false,
       theme: "light",
     });
-    window.location.reload();
+    // window.location.reload();
+    naviGate('/login')
   };
   return (
     <>
