@@ -47,7 +47,7 @@ const GetBills = () => {
       })
         .then((res) => {
           setBusinessBills(res?.data?.response);
-          
+
           setLoading(false);
         })
         .catch((err) => {
@@ -83,7 +83,7 @@ const GetBills = () => {
   useEffect(() => {
     if (selectedDate?.length !== 0) {
       setFilteredDates("");
-      
+
       let finalData = businessBills?.map((bills) => {
         let finalDate = moment(bills?.createdAt).format("YYYY-MM-DD");
         return {
@@ -229,6 +229,12 @@ const GetBills = () => {
           );
         })
       );
+    } else if (event.target.value === "unpaid") {
+      setFilterResults(
+        businessBills?.filter((bill) => {
+          return bill?.grandtotal - bill?.discount - bill?.paid !== 0;
+        })
+      );
     } else {
       setFilterResults(businessBills);
     }
@@ -238,47 +244,60 @@ const GetBills = () => {
   const handleTotalTurnover = (selectedPeriod) => {
     setSelectedDate("");
     setFilteredDates("");
-    const filteredBills = businessBills.filter((bill) => {
-      // console.log(selectedPeriod);
-      const billDate = moment(bill.createdAt);
-      if (selectedPeriod === "all") {
-        return businessBills.reduce(
-          (total, bill) => total + (bill.grandtotal - bill.discount),
-          0
-        ); // No filtering needed, include all bills
-      } else if (selectedPeriod === "today") {
-        const todayStart = moment().startOf("day");
-        const todayEnd = moment().endOf("day");
-        return billDate.isBetween(todayStart, todayEnd, null, "[]");
-      } else if (selectedPeriod === "yesterday") {
-        const yesterdayStart = moment().subtract(1, "days").startOf("day");
-        const yesterdayEnd = moment().subtract(1, "days").endOf("day");
-        return billDate.isBetween(yesterdayStart, yesterdayEnd, null, "[]");
-      } else if (selectedPeriod === "lastWeek") {
-        const lastWeekStart = moment().subtract(1, "weeks").startOf("day");
-        const lastWeekEnd = moment().endOf("day");
-        return billDate.isBetween(lastWeekStart, lastWeekEnd, null, "[]");
-      } else if (selectedPeriod === "lastMonth") {
-        const lastMonthStart = moment().subtract(1, "months").startOf("day");
-        const lastMonthEnd = moment().endOf("day");
-        return billDate.isBetween(lastMonthStart, lastMonthEnd, null, "[]");
-      } else if (selectedPeriod === "lastYear") {
-        const lastYearStart = moment().subtract(1, "years").startOf("day");
-        const lastYearEnd = moment().endOf("day");
-        return billDate.isBetween(lastYearStart, lastYearEnd, null, "[]");
+
+    if (selectedPeriod !== "unpaid") {
+      const filteredBills = businessBills.filter((bill) => {
+        // console.log(selectedPeriod);
+        const billDate = moment(bill.createdAt);
+        if (selectedPeriod === "all") {
+          return businessBills.reduce(
+            (total, bill) => total + (bill.grandtotal - bill.discount),
+            0
+          ); // No filtering needed, include all bills
+        } else if (selectedPeriod === "today") {
+          const todayStart = moment().startOf("day");
+          const todayEnd = moment().endOf("day");
+          return billDate.isBetween(todayStart, todayEnd, null, "[]");
+        } else if (selectedPeriod === "yesterday") {
+          const yesterdayStart = moment().subtract(1, "days").startOf("day");
+          const yesterdayEnd = moment().subtract(1, "days").endOf("day");
+          return billDate.isBetween(yesterdayStart, yesterdayEnd, null, "[]");
+        } else if (selectedPeriod === "lastWeek") {
+          const lastWeekStart = moment().subtract(1, "weeks").startOf("day");
+          const lastWeekEnd = moment().endOf("day");
+          return billDate.isBetween(lastWeekStart, lastWeekEnd, null, "[]");
+        } else if (selectedPeriod === "lastMonth") {
+          const lastMonthStart = moment().subtract(1, "months").startOf("day");
+          const lastMonthEnd = moment().endOf("day");
+          return billDate.isBetween(lastMonthStart, lastMonthEnd, null, "[]");
+        } else if (selectedPeriod === "lastYear") {
+          const lastYearStart = moment().subtract(1, "years").startOf("day");
+          const lastYearEnd = moment().endOf("day");
+          return billDate.isBetween(lastYearStart, lastYearEnd, null, "[]");
+        }
+      });
+      if (selectedPeriod !== "unpaid") {
+        const totalTurnover = filteredBills.reduce((total, bill) => {
+          return total + (bill.grandtotal - bill.discount);
+        }, 0);
+        return totalTurnover;
       }
-    });
+    }
+    if (selectedPeriod === "unpaid") {
+      let totalUnpaid = 0;
+      businessBills?.map((bill) => {
+        if (bill?.grandtotal - bill?.discount - bill?.paid !== 0) {
+          totalUnpaid += bill?.grandtotal - bill?.discount - bill?.paid;
+        }
+      });
+      return 0 - totalUnpaid;
+    }
 
     // Calculate the total turnover based on the filtered bills
-    const totalTurnover = filteredBills.reduce((total, bill) => {
-      return total + (bill.grandtotal - bill.discount);
-    }, 0);
-
-    return totalTurnover;
+    
   };
 
   const handleClick = (_id) => {
-    console.log(_id);
     setCustomerID(_id);
     setShowBillPreview(true);
   };
@@ -383,11 +402,21 @@ const GetBills = () => {
                     >
                       Last Year
                     </option>
+                    <option
+                      className={` text-${isDarkMode ? "black" : "gray-800"}`}
+                      value="unpaid"
+                    >
+                      Unpaid
+                    </option>
                   </select>
                 </div>
 
                 <div className="border border-gray-300 shadow-sm rounded-md   shadow-blue-200 px-2  w-1/2 md:w-40">
-                  <p className="py-2">TO: {totalTurnover} Rs</p>
+                  <p className="py-2">
+                    {totalTurnover < 0
+                      ? `TUP: ${Math.abs(totalTurnover)}`
+                      : `TO: ${totalTurnover}`}
+                  </p>
                 </div>
               </div>
             </div>
@@ -455,7 +484,7 @@ const GetBills = () => {
             )}
           </div>
         </div>
-        <ToastContainer/>
+        <ToastContainer />
         <Navigation />
       </LayoutMain>
     </>
