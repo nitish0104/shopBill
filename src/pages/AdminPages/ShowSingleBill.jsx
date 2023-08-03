@@ -315,7 +315,7 @@ const ShowSingleBill = () => {
               
             // }}
             onClick={(e) => {
-              document.title = `CONT-O | ${singleBill?.customerId?.customerName}`;
+              document.title = `ShopBill | ${singleBill?.customerId?.customerName}`;
               e.target.style.opacity = 0;
               convertToImage();
               e.target.style.opacity = 1;
@@ -335,7 +335,7 @@ const ShowSingleBill = () => {
         {handleShare && (
           <button
             onClick={(e) => {
-              document.title = `CONT-O | ${singleBill?.customerId?.customerName}`;
+              document.title = `ShopBill | ${singleBill?.customerId?.customerName}`;
               e.target.style.opacity = 0;
               convertToImage();
               e.target.style.opacity = 1;

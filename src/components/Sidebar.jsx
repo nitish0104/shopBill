@@ -65,7 +65,7 @@ const Sidebar = () => {
               isDarkMode ? " text-white" : " text-gray-800"
             } `}
           >
-            CONT-O
+            ShopBill
           </div>
 
           <button
