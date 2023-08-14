@@ -143,9 +143,8 @@ const Main = () => {
           />
         )}
         <div
-          className={` overflow-auto md:overflow-y-hidden w-screen h-[80vh] rounded-t-lg pt-4 ${
-            isDarkMode ? "bg-[#111827] text-white" : "bg-white text-gray-800"
-          } `}
+          className={` overflow-auto md:overflow-y-hidden w-screen h-[80vh] rounded-t-lg pt-4 ${isDarkMode ? "bg-[#111827] text-white" : "bg-white text-gray-800"
+            } `}
         >
           <div className="overflow-y-auto  md:overflow-hidden flex-col justify-center items-center pt-2">
             <ImageUploadComponent
@@ -155,6 +154,14 @@ const Main = () => {
               isEditable={isEditable}
               setisEditable={setisEditable}
             />
+            <div className="flex justify-center">
+              <input
+                id="uploadImage"
+                type="file"
+                accept="image/*"
+                className=""
+              />
+            </div>
             <div className="md:grid md:grid-cols-2 md:px-36 items-end">
               <div className="flex items-center gap-x-2 justify-center">
                 <div className="md:w-[30vw]">
@@ -166,14 +173,12 @@ const Main = () => {
                   </label>
                   <div className="pl-2 flex items-center shadow appearance-none border rounded w-full  leading-tight focus:outline-none focus:shadow-outline">
                     <AiOutlineShop
-                      className={`text-3xl text-transperent  mr-2  bg-transparent${
-                        isDarkMode ? " text-white" : " text-gray-800"
-                      }`}
+                      className={`text-3xl text-transperent  mr-2  bg-transparent${isDarkMode ? " text-white" : " text-gray-800"
+                        }`}
                     />
                     <input
-                      className={`w-full py-2 px-2 font-semibold  leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 bg-transparent ${
-                        isDarkMode ? " text-white" : " text-gray-800"
-                      } `}
+                      className={`w-full py-2 px-2 font-semibold  leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 bg-transparent ${isDarkMode ? " text-white" : " text-gray-800"
+                        } `}
                       id="businessName"
                       type="text"
                       name="name"
@@ -197,14 +202,12 @@ const Main = () => {
 
                   <div className=" pl-2 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
                     <IoBusinessOutline
-                      className={`text-3xl text-transperent mr-2 ${
-                        isDarkMode ? " text-white" : " text-gray-800"
-                      }`}
+                      className={`text-3xl text-transperent mr-2 ${isDarkMode ? " text-white" : " text-gray-800"
+                        }`}
                     />
                     <input
-                      className={`w-full py-2 px-2  font-semibold leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 bg-transparent ${
-                        isDarkMode ? " text-white" : " text-gray-800"
-                      } `}
+                      className={`w-full py-2 px-2  font-semibold leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 bg-transparent ${isDarkMode ? " text-white" : " text-gray-800"
+                        } `}
                       id="businessType"
                       type="text"
                       name="name"
@@ -226,14 +229,12 @@ const Main = () => {
                   </label>
                   <div className=" pl-2 flex items-center shadow appearance-none border rounded w-full text-black leading-tight focus:outline-none focus:shadow-outline">
                     <HiOutlineReceiptTax
-                      className={`text-3xl text-transperent mr-2 ${
-                        isDarkMode ? " text-white" : " text-gray-800"
-                      }`}
+                      className={`text-3xl text-transperent mr-2 ${isDarkMode ? " text-white" : " text-gray-800"
+                        }`}
                     />
                     <input
-                      className={`w-full py-2 px-2  leading-tight focus:outline-none focus:shadow-outline font-semibold placeholder:text-gray-800 bg-transparent ${
-                        isDarkMode ? " text-white" : " text-gray-800"
-                      } `}
+                      className={`w-full py-2 px-2  leading-tight focus:outline-none focus:shadow-outline font-semibold placeholder:text-gray-800 bg-transparent ${isDarkMode ? " text-white" : " text-gray-800"
+                        } `}
                       id="gstNo"
                       required
                       type="text"
@@ -255,14 +256,12 @@ const Main = () => {
                   </label>
                   <div className=" pl-2 flex items-center shadow appearance-none border rounded w-full  leading-tight focus:outline-none focus:shadow-outline">
                     <GoLocation
-                      className={`text-2xl text-transperent mr-2  ${
-                        isDarkMode ? "  text-white" : " text-gray-800"
-                      }`}
+                      className={`text-2xl text-transperent mr-2  ${isDarkMode ? "  text-white" : " text-gray-800"
+                        }`}
                     />
                     <input
-                      className={`w-full py-2 px-2 font-semibold leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 bg-transparent ${
-                        isDarkMode ? " text-white" : " text-gray-800"
-                      } `}
+                      className={`w-full py-2 px-2 font-semibold leading-tight focus:outline-none focus:shadow-outline placeholder:text-gray-800 bg-transparent ${isDarkMode ? " text-white" : " text-gray-800"
+                        } `}
                       id="location"
                       type="text"
                       required
@@ -293,13 +292,11 @@ const Main = () => {
                       type="button"
                       onClick={handleEditClick}
                       // className=""
-                      className={`px-4 py-1.5 text-xl text-white rounded-md hover:bg-blue-600 w-[40%] ${
-                        isDarkMode
+                      className={`px-4 py-1.5 text-xl text-white rounded-md hover:bg-blue-600 w-[40%] ${isDarkMode
                           ? "bg-gradient-to-t from-blue-700 via-blue-800 to-blue-900 text-white hover:shadow-blue-950"
                           : "bg-blue-500 "
-                      } text-${
-                        isDarkMode ? "white" : "gray-800"
-                      } p-4 rounded-lg  shadow-md  transform  perspective-100  hover:shadow-lg  overflow-hidden border m-2`}
+                        } text-${isDarkMode ? "white" : "gray-800"
+                        } p-4 rounded-lg  shadow-md  transform  perspective-100  hover:shadow-lg  overflow-hidden border m-2`}
                     >
                       Edit
                     </button>
