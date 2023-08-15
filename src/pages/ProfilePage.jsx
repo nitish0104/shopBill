@@ -16,7 +16,7 @@ const ProfilePage = () => {
   const [location, setLocation] = useState("");
   return (
     <>
-      <div className="min-h-screen h-auto">
+      <div className="min-h-screen ">
         <LayoutMain
           className={
             "flex justify-center min-h-screen h-fit items-center flex-col bg-gray-900"
