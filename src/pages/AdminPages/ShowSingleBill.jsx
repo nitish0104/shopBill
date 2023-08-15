@@ -306,14 +306,7 @@ const ShowSingleBill = () => {
       <div className={`flex justify-center items-center pb-16   ${isDarkMode ? "bg-gray-800" : "bg-white "}`}>
         {!handleShare && (
           <button
-          // onClick={(e) => {
-            //   document.title = `CONT-O | - ${singleBill?.customerId?.customerName}`;
-            //   e.target.style.opacity = 0;
-            //   contentRef.current.style.display = "none";
-            //   window.print();
-            //   e.target.style.opacity = 1;
-              
-            // }}
+
             onClick={(e) => {
               document.title = `ShopBill | ${singleBill?.customerId?.customerName}`;
               e.target.style.opacity = 0;

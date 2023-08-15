@@ -67,6 +67,7 @@ const Context = ({ children }) => {
           navigate("/login");
         }
       } else {
+        setUserLoading(false);
         navigate("/login");
       }
     };

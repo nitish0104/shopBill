@@ -94,7 +94,7 @@ const VerifyOTP = () => {
           }
         )
           .then((res) => {
-            console.log(res);
+            
             if (!res?.data?.error ) {
               
               localStorage.setItem("token", res.data.response);
@@ -124,6 +124,7 @@ const VerifyOTP = () => {
             progress: false,
             theme: "light",
           });
+          localStorage.removeItem('token')
 });
       } catch (error) {
         console.log(error);

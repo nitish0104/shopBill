@@ -13,12 +13,14 @@ import ImageUploadComponent from "../../components/Input/ImageInput";
 import axios from "axios";
 import { ContextAuth } from "../../context/Context";
 import PageLoader from "../../components/PageLoader";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
   const { isDarkMode } = ThemeContextAuth();
   const [isEditable, setisEditable] = useState(false);
-  const { setBusiness, formState, setformState, logoUrl } = ContextAuth();
+  const { setBusiness, formState, setformState, logoUrl,setUserLoading } = ContextAuth();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -106,7 +108,7 @@ const Main = () => {
           setLoading(false);
         })
         .catch((err) => {
-          toast.error("Something went wrong", {
+          toast.error("Something went wrong! Please Login Again.", {
             position: "top-center",
             autoClose: 3000,
             hideProgressBar: false,
@@ -116,6 +118,10 @@ const Main = () => {
             progress: false,
             theme: "light",
           });
+          localStorage.removeItem("token")
+          setUserLoading(false)
+          navigate('/login')
+
         });
     } catch (err) {
       toast.error(err?.message, {
@@ -154,14 +160,14 @@ const Main = () => {
               isEditable={isEditable}
               setisEditable={setisEditable}
             />
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
               <input
                 id="uploadImage"
                 type="file"
                 accept="image/*"
                 className=""
               />
-            </div>
+            </div> */}
             <div className="md:grid md:grid-cols-2 md:px-36 items-end">
               <div className="flex items-center gap-x-2 justify-center">
                 <div className="md:w-[30vw]">
@@ -293,8 +299,8 @@ const Main = () => {
                       onClick={handleEditClick}
                       // className=""
                       className={`px-4 py-1.5 text-xl text-white rounded-md hover:bg-blue-600 w-[40%] ${isDarkMode
-                          ? "bg-gradient-to-t from-blue-700 via-blue-800 to-blue-900 text-white hover:shadow-blue-950"
-                          : "bg-blue-500 "
+                        ? "bg-gradient-to-t from-blue-700 via-blue-800 to-blue-900 text-white hover:shadow-blue-950"
+                        : "bg-blue-500 "
                         } text-${isDarkMode ? "white" : "gray-800"
                         } p-4 rounded-lg  shadow-md  transform  perspective-100  hover:shadow-lg  overflow-hidden border m-2`}
                     >
