@@ -165,7 +165,7 @@ const ImageUploadComponent = ({
 }
 {
 window.self !== window.top && isEditable && <p className="text-center text-sm p-2 ">
-Use Website to update logo
+Use Website to Update Logo
 </p>  
 }
       {isImageSelected && (
