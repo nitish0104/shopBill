@@ -56,6 +56,7 @@ const Login = () => {
               theme: "light",
             });
             setLoading(false);
+            setUserLoading(false)
           });
       } catch (err) {
         toast.error(err?.message, {
