@@ -144,7 +144,7 @@ const Main = () => {
         {loading && (
           <PageLoader
             className={
-              "fixed z-[500] w-full h-screen top-0  bg-black bg-opacity-20 text-center "
+              "fixed z-[500] w-full h-screen top-0  bg-black bg-opacity-20 text-center"
             }
           />
         )}

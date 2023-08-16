@@ -129,7 +129,7 @@ const Login = () => {
                 >
                   <Input
                     type={"text"}
-                    className={`pl-2  text-center ${
+                    className={`pl-2  text-center  ${
                       isDarkMode ? " text-white" : " text-gray-800"
                     } `}
                     Label={"Mobile Number"}

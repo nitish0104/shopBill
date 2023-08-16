@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ContextAuth } from "../../context/Context";
 import axios from "axios";
 import Spinner from "../Spinner";
+import { useRef } from "react";
 
 const ImageUploadComponent = ({
   businessLogo,
@@ -12,6 +13,7 @@ const ImageUploadComponent = ({
 }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isImageSelected, setIsImageSelected] = useState(false);
+  
   const [loading, setLoading] = useState(false);
   const [upload, setUpload] = useState(true);
   const [publicId, setPublicId] = useState(null);
@@ -70,6 +72,7 @@ const ImageUploadComponent = ({
         <div className="flex items-center justify-center mb-2">
           <div className="w-32 h-32 rounded-full overflow-hidden">
             <label
+            
               htmlFor="uploadImage"
               className="w-32 h-32 rounded-full border-2 border-dashed border-gray-400 flex items-center justify-center cursor-pointer"
             >
@@ -91,6 +94,7 @@ const ImageUploadComponent = ({
         <div className="flex items-center justify-center mb-2">
           <label
             htmlFor="uploadImage"
+
             className="w-32 h-32 rounded-full border-2 border-dashed border-gray-400 flex items-center justify-center cursor-pointer"
           >
             <svg
@@ -144,16 +148,26 @@ const ImageUploadComponent = ({
         </div>
       )}
 
-      <input
+
+    { window.self === window.top &&   
+    <input
         id="uploadImage"
         type="file"
+        
         readOnly={!isEditable}
-        disabled={!isEditable}
+        disabled={ !isEditable}
         accept="image/*"
         onChange={handleImageChange}
         className="hidden"
       />
 
+      
+}
+{
+window.self !== window.top && isEditable && <p className="text-center text-sm p-2 ">
+Use Website to update logo
+</p>  
+}
       {isImageSelected && (
         <div className="flex justify-center items-center">
           <button

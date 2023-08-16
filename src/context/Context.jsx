@@ -57,7 +57,7 @@ const Context = ({ children }) => {
                   navigate("/dashboard");
                 }, 200);
 
-                // setUserLoading(false)
+                setUserLoading(false)
               } else {
                 return;
               }
